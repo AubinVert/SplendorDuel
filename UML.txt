@@ -96,12 +96,12 @@ class Jeu{
   Jeu *-- "67"Cartes 
   Jeu *-- Privileges
   Jeu *-- Jetons
-  Cartes_joaillerie ^-- Cartes
-  Cartes_royales ^-- Cartes
+  Cartes_joaillerie --^ Cartes
+  Cartes_royales --^ Cartes
   
-  Jetons_or ^-- Jetons
-  Jetons_gemmes ^-- Jetons
-  Jetons_perles ^-- Jetons
+  Jetons_or --^ Jetons
+  Jetons_gemmes --^ Jetons
+  Jetons_perles --^ Jetons
 
   
 
