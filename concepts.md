@@ -35,7 +35,7 @@ A chaque tour, le joueur peut posséder **au plus 10 jetons**. S’il dépasse c
 
 •	Si le joueur prend 3 jetons de la même couleur ou 2 perles, son adversaire gagne 1 privilège.
 
-#Cartes Joaillerie
+# Cartes Joaillerie
 
 Il y a **3 types de cartes** séparées par niveau, qui devront être mélangées à part, avant chaque jeu. Au total il y a 67 cartes.
 
