@@ -62,7 +62,7 @@ Il y a **4 cartes royales**. Elles peuvent être prises à l’obtention de la 3
 •	Point(s) de prestige.
 •	Capacité (la carte peut ne pas en posséder).
 
-#Privilèges
+# Privilèges
 
 Il y a **3 Privilèges** au total dans le jeu. Les Privilèges permettent l’action Privilège. Celle-ci permet au joueur de prendre sur le plateau 1 jeton Gemme ou Perle de son choix par Privilège dépensé. Il est interdit de prendre un jeton Or dans ce cas.
 
