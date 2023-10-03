@@ -16,14 +16,15 @@ Afin de gagner le jeu, un joueur doit remplir l’une des conditions suivantes :
 
 ## Différents objets du jeu
 
-#Jetons
+# Jetons
 
 Il y a **25 jetons**. Il y en a 
-•	4 de chacune de cinq couleurs des **gemmes** (bleu, blanc, vert, noir et rouge). 
+•	4 de chacune des cinq couleurs des **gemmes** (bleu, blanc, vert, noir et rouge). 
 •	2 **perles**
 •	3 **or**. 
 
-A chaque tour, le joueur peut posséder **au plus 10 jetons**. S’il dépasse cette limite, il doit remettre dans le sac les jetons de son choix afin d’en avoir 10. Ils sont placés aléatoirement en suivant la spirale dessinée.
+A la fin de chaque tour, le joueur peut posséder **au plus 10 jetons**. S’il dépasse cette limite, il doit remettre dans le sac les jetons de son choix afin d’en avoir 10.
+Au début du jeu, les 25 jetons nécessaires pour remplir le plateau sont placés aléatoirement en suivant la spirale dessinée.
 
 **Les jetons Or sont des jokers** et peuvent être utilisés à la place de n'importe quel jeton Gemme ou Perle. Ils sont pris au moment de la réservation d’une carte. Une carte ne peut pas être réservée si le joueur en a déjà réservé 3 ou s’il n’y a plus de jetons Or sur le plateau.
 
@@ -33,7 +34,7 @@ A chaque tour, le joueur peut posséder **au plus 10 jetons**. S’il dépasse c
 
 **Remarques** :
 
-•	Si le joueur prend 3 jetons de la même couleur ou 2 perles, son adversaire gagne 1 privilège.
+•	Si le joueur prend 3 jetons de la même couleur ou 2 jetons perles lors d'un tour, son adversaire gagne 1 privilège.
 
 # Cartes Joaillerie
 
@@ -47,7 +48,7 @@ Il y a **3 types de cartes** séparées par niveau, qui devront être mélangée
 •	**Capacité** (il y a 5 types de capacité, la carte peut ne pas en posséder).
 •	**Bonus** qui diminue le coût des futurs achats de cartes.
 •	**Réservation** (est réservée ou pas).
-•	**Couronnes** (possible qu’il n’y a pas).
+•	**Couronnes** (possible qu’il n’y en ait pas).
 
 **Remarques** :
 
@@ -66,7 +67,7 @@ Il y a **4 cartes royales**. Elles peuvent être prises à l’obtention de la 3
 
 Il y a **3 Privilèges** au total dans le jeu. Les Privilèges permettent l’action Privilège. Celle-ci permet au joueur de prendre sur le plateau 1 jeton Gemme ou Perle de son choix par Privilège dépensé. Il est interdit de prendre un jeton Or dans ce cas.
 
-Ils peuvent être obtenus dans le cas suivant :
+Ils peuvent être obtenus dans les cas suivant :
 •	Si l’adversaire du joueur remplit le plateau.
 •	Si 3 jetons de la même couleur ou 2 jetons Perle sont pris par son adversaire.
 •	Capacité privilège qui permet au joueur d’en prendre 1.
@@ -75,7 +76,7 @@ Ils peuvent être obtenus dans le cas suivant :
 
 # Plateau
 
-Le plateau permettra de savoir son état, c’est-à-dire les jetons et leur emplacement
+Le plateau permettra de connaître son état, c’est-à-dire les jetons et leur emplacement
 •	**Matrice_jetons**.
 •	**Nb_jetons**.
 •	**Nb_privilèges** (qui n’ont pas été pris par quelqu’un).
