@@ -208,6 +208,7 @@ Le joueur doit effectuer **une et une seule** des trois actions suivantes :
 
 # UML
 ![UML.png](UML.png)
+Il faut noter que les héritages représentés dans cet UML sont implicitement considérés comme exclusifs. 
 
 # Affinité dans le groupe
 Tous le monde s'entend bien. Nous travaillons généralement tous ensemble afin de nous mettre d'accord sur nos façons de procéder.
