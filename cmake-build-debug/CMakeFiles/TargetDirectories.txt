@@ -1,0 +1,3 @@
+/home/leo/Documents/Cours-A23/lo21/lo21-splendor-duel/cmake-build-debug/CMakeFiles/lo21_splendor_duel.dir
+/home/leo/Documents/Cours-A23/lo21/lo21-splendor-duel/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/leo/Documents/Cours-A23/lo21/lo21-splendor-duel/cmake-build-debug/CMakeFiles/rebuild_cache.dir

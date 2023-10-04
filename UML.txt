@@ -1,8 +1,7 @@
 @startuml
-
 class Sac{
 
-  
+
 }
 
 class Plateau{
@@ -16,21 +15,21 @@ class Emplacement{
 class Jetons{
 
   str id
-  bool is_dispo 
+  bool is_dispo
 
 }
 
 class Jetons_gemmes{
-  enum type <bleu,rouge,vert,blanc> 
+  enum type <bleu,rouge,vert,blanc>
 }
 
 class Jetons_or{
-  
-  
+
+
 }
 
 class Jetons_perles{
-  
+
 }
 
 
@@ -55,22 +54,30 @@ class Cartes_joaillerie{
   bonus_nombre: int [0,2]
 }
 
-class Cartes_royales{
-  
 
-  
+class Pioche1{
+}
+class Pioche2{
+}
+class Pioche3{
+}
+
+class Cartes_royales{
+
+
+
 }
 
 
 
 class Joueur{
   str nom
-  int nb_points 
+  int nb_points
   int nb_courones
   Cartes Cartes
 }
-  
-  
+
+
 
 class Jeu{
   bool termine
@@ -78,30 +85,31 @@ class Jeu{
   bool ended
   Joueur tour
 }
-  
-  
+
+
   Sac  o-- "0..*"Jetons : sont présents dans
   Plateau o-- "0..*" Jetons : sont sur
-  
+
   Joueur "0..1" -- "0..3" Privileges
   Joueur "0..1" -- "0..3" Cartes_joaillerie : réserver
   Joueur "0..1" -- "0..*" Cartes_joaillerie : posséder
   Joueur "0..1" -- "0..10" Jetons : posséder
-  Joueur "0..1" -- "0..2" Cartes_royales : posséder 
-  
+  Joueur "0..1" -- "0..2" Cartes_royales : posséder
 
-  Joueur "2"-- "1..*" Jeu 
-  Jeu *-- "1" Plateau 
+
+  Joueur "2"-- "1..*" Jeu
+  Jeu *-- "1" Plateau
   Jeu *-- "1"Sac
   Jeu *-- "67" Cartes : contenir
-  Jeu *-- "0..3" Privileges 
+  Jeu *-- "0..3" Privileges
   Jeu *-- "1..*" Jetons : contenir
   Cartes_joaillerie --^ Cartes
+  Cartes_joaillerie ^-- Pioche1
+  Cartes_joaillerie ^-- Pioche2
+  Cartes_joaillerie ^-- Pioche3
   Cartes_royales --^ Cartes
-  
+
   Jetons_or --^ Jetons
   Jetons_gemmes --^ Jetons
   Jetons_perles --^ Jetons
-
 @enduml
-
