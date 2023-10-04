@@ -92,7 +92,7 @@ class Jeu{
 
   Joueur "2"-- "1..*" Jeu 
   Jeu *-- "1" Plateau 
-  Jeu *-- Sac
+  Jeu *-- "1"Sac
   Jeu *-- "67" Cartes : contenir
   Jeu *-- "0..3" Privileges 
   Jeu *-- "1..*" Jetons : contenir
