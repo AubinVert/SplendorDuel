@@ -81,7 +81,7 @@ class Jeu{
   
   
   Sac  o-- "0..*"Jetons : sont présents dans
-  Plateau "0..1" -- "0..*" Jetons : sont sur
+  Plateau o-- "0..*" Jetons : sont sur
   
   Joueur "0..1" -- "0..3" Privileges
   Joueur "0..1" -- "0..3" Cartes_joaillerie : réserver
