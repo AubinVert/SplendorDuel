@@ -68,7 +68,7 @@ class Joueur{
   int nb_points 
   int nb_courones
   Cartes Cartes
-  }
+}
   
   
 
@@ -77,10 +77,10 @@ class Jeu{
   bool contre_AI
   bool ended
   Joueur tour
-  }
+}
   
   
-  Sac  o-- "0..*" Jetons : sont presents dans
+  Sac  o-- "0..*"Jetons : sont présents dans
   Plateau "0..1" -- "0..*" Jetons : sont sur
   
   Joueur "0..1" -- "0..3" Privileges
@@ -93,9 +93,9 @@ class Jeu{
   Joueur "2"-- "1..*" Jeu 
   Jeu *-- "1" Plateau 
   Jeu *-- Sac
-  Jeu *-- "67"Cartes 
-  Jeu *-- Privileges
-  Jeu *-- Jetons
+  Jeu *-- "67" Cartes : contenir
+  Jeu *-- "0..3" Privileges 
+  Jeu *-- "1..*" Jetons : contenir
   Cartes_joaillerie --^ Cartes
   Cartes_royales --^ Cartes
   
@@ -103,7 +103,5 @@ class Jeu{
   Jetons_gemmes --^ Jetons
   Jetons_perles --^ Jetons
 
-  
-
-
 @enduml
+
