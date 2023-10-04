@@ -157,5 +157,9 @@ Le joueur prend jusqu’à 3 jetons Gemme et/ou Perle sur le plateau. Ceux-ci do
 - Acheter **1 carte Joaillerie**.
 
 
-
-
+### Concepts de cours
+- Notion de classe (Jetons, Tour, ...)
+- Encapsulation (ex : on ne veut pas qu'un joueur puisse modifier son nombre de jetons ou de privilèges)
+- Instanciation et mort des objets (optimisation mémoire) -> surchage constructeur et destructeur
+- Surcharge d'opérateur (ex : pour afficher correctement un jeton dans la console)
+- Liens entre objets, associations entre classes (voir UML)
