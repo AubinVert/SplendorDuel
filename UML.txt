@@ -18,18 +18,18 @@ class Plateau{
 }
 
 class Emplacement{
-  numero : int
+  -numero : int
 }
 
 class Jetons{
 
-  str id
-  bool is_dispo 
+  -str id
+  -bool is_dispo 
 
 }
 
 class Jetons_gemmes{
-  enum type <bleu,rouge,vert,blanc> 
+  -enum type <bleu,rouge,vert,blanc> 
 }
 
 class Jetons_or{
@@ -43,24 +43,24 @@ class Jetons_perles{
 
 
 class Privileges{
-  bool dis_dispo
+  +bool dis_dispo
 }
 
 class Cartes{
-  capacite: capacite {nullable}
-  point_prestige: int {nullable}
+  -capacite: capacite {nullable}
+  -point_prestige: int {nullable}
 }
 
 class Cartes_joaillerie{
-  cout_blanc: int
-  cout_bleu: int
-  cout_vert: int
-  cout_rouge: int
-  cout_noir: int
-  cout_perle: int
-  nb_couronnes: int [0,3]
-  bonus_couleur: enum <bleu, blanc, rouge, vert, noir>
-  bonus_nombre: int [0,2]
+  -cout_blanc: int
+  -cout_bleu: int
+  -cout_vert: int
+  -cout_rouge: int
+  -cout_noir: int
+  -cout_perle: int
+  -nb_couronnes: int [0,3]
+  -bonus_couleur: enum <bleu, blanc, rouge, vert, noir>
+  -bonus_nombre: int [0,2]
 }
 
 
@@ -82,20 +82,20 @@ class Cartes_royales{
 
 
 class Joueur{
-  str nom
-  int nb_points 
-  int nb_courones
-  Cartes Cartes
-  Cartes* main
+  -str nom
+  -int nb_points 
+  -int nb_courones
+  -Cartes Cartes
+  -Cartes* main
 }
   
   
 
 class Jeu{
-  bool termine
-  bool contre_AI
-  bool ended
-  Joueur tour
+  +bool termine
+  -bool contre_AI
+  +bool ended
+  -Joueur tour
 
 }
   
@@ -120,7 +120,7 @@ class Jeu{
   Tirage3 "3"--o Niveau3
 
 
-  Joueur "2"-- "1..*" Jeu 
+  Joueur --* Jeu 
   Jeu *-- "1" Plateau 
   Jeu *-- "1"Sac
   Jeu *-- "67" Cartes : contenir
