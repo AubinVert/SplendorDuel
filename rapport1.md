@@ -206,6 +206,8 @@ Le joueur doit effectuer **une et une seule** des trois actions suivantes :
 - Prendre **1 jeton Or pour réserver 1 carte Joaillerie**.
 - Acheter **1 carte Joaillerie**.
 
+# UML
+![UML.png](UML.png)
 
 # Affinité dans le groupe
 Tous le monde s'entend bien. Nous travaillons généralement tous ensemble afin de nous mettre d'accord sur nos façons de procéder.
