@@ -29,7 +29,7 @@ class Jetons{
 }
 
 class Jetons_gemmes{
-  -enum type <bleu,rouge,vert,blanc> 
+  -enum type <bleu,rouge,vert,blanc,noir> 
 }
 
 class Jetons_or{
@@ -135,4 +135,36 @@ class Jeu{
   Jetons_or --^ Jetons
   Jetons_gemmes --^ Jetons
   Jetons_perles --^ Jetons
+
+  +Jetons : str getId()
+  +Jetons : bool getDispo()
+  +Joueur : int getPoints()
+  +Joueur : int getCouronnes()
+  +Joueur : Cartes getCartes()
+  +Joueur : Cartes* getMain()
+  +Joueur : printMain()
+  +Joueur : printCartes()
+  Joueur : setPoints()
+  Joueur : setCouronnes()
+  +Cartes : Capacite getCapacite()
+  +Cartes : int getPrestige()
+  +Cartes_joaillerie : int getCoutBlanc()
+  +Cartes_joaillerie : int getCoutBleu()
+  +Cartes_joaillerie : int getCoutVert()
+  +Cartes_joaillerie : int getCoutRouge()
+  +Cartes_joaillerie : int getCoutNoir()
+  +Cartes_joaillerie : int getCoutPerle()
+  +Cartes_joaillerie : int[0,3] getCouronnes()
+  +Cartes_joaillerie : enum getBonusCouleur()
+  +Cartes_joaillerie : int[0,2] getBonusNombre()
+  +Cartes_joaillerie : void print()
+  +Cartes_royales : void print()
+  +Emplacement : int getNum()
+  +Jeu : Joueur& getTour()
+  Jeu : tourSuivant()
+  +Jetons_gemmes : enum getCouleur()
+  +Sac : const Jeton& piocher()
+  
+
+
 @enduml
