@@ -24,7 +24,7 @@ ainsi que la liste des futures tâches que nous avons identifiées.
 
 # Liste des tâches à venir avec répartition
 Cette liste est vouée à être modifiée et remplie au fur et à mesure de l'avancement de notre réalisation. 
-En effet, de nombreux problèmes et tâches viendront probablement remplir cette liste d'avantage.
+En effet, de nombreux problèmes et tâches viendront probablement remplir cette liste davantage.
 Également, en fonction de notre avancée, certaines tâches pourront changer de nature de priorité. 
 
 ### Tâches de grandes priorités
@@ -48,6 +48,7 @@ En effet, de nombreux problèmes et tâches viendront probablement remplir cette
 
 # Analyse des concepts
 
+Dans l'analyste des concepts, les **propriétés** de chaque objet sont assimilées aux attributs.
 
 ## But du jeu 
 
@@ -130,6 +131,10 @@ Le plateau permettra de connaître son état, c’est-à-dire les jetons et leur
 - **Matrice_jetons**.
 - **Nb_jetons**.
 - **Nb_privilèges** (qui n’ont pas été pris par quelqu’un).
+- **Cartes_royales**.
+- **Tirage_1**
+- **Tirage_2**
+- **Tirage_3**
 
 ## Sac de jetons 
 
@@ -142,7 +147,8 @@ Cette classe nous permet de connaître les jetons qui y sont (bien qu'ils sont p
 - **Nb_jetons_noirs**.
 - **Nb_or**.
 - **Nb_perles**.
-- **Jetons** (tableau).
+
+Remarque: remplacer les nb_jetons par une struture 'Jetons' avec le nb explicité dedans pour une meilleure organisation.
 
 ## Tour
 
@@ -181,10 +187,16 @@ Il sera un attribut pour d'un objet de la classe jeu qui définie une partie.
 
 ## Joueur
 
-- Nom
-- Nb_points
-- Nb_couronnes
-- Cartes
+- **Nom**.
+- **Nb_points**.
+- **Nb_couronnes**.
+- **Nb_privilèges**.
+- **Cartes**.
+- **Cartes_royales**.
+- **Jetons**
+
+Remarque: faire une structure 'Jetons' où on va expliciter le nombre de chaque type pour rendre une meilleure organisation.
+
 
 
 ## Actions
