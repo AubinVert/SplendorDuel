@@ -24,7 +24,7 @@ ainsi que la liste des futures tâches que nous avons identifiées.
 
 # Liste des tâches à venir avec répartition
 Cette liste est vouée à être modifiée et remplie au fur et à mesure de l'avancement de notre réalisation. 
-En effet, de nombreux problèmes et tâches viendront probablement remplir cette liste d'avantage.
+En effet, de nombreux problèmes et tâches viendront probablement remplir cette liste davantage.
 Également, en fonction de notre avancée, certaines tâches pourront changer de nature de priorité. 
 
 ### Tâches de grandes priorités
