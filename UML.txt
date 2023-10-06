@@ -163,7 +163,8 @@ class Jeu{
   Jeu : Joueur& getTour()
   Jeu : tourSuivant()
   Jetons_gemmes : enum getCouleur()
-  Sac : const Jeton& piocher()
+  Plateau : const Jeton& piocher()
+  Plateau : remplir()
   
 
 
