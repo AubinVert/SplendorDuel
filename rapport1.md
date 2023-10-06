@@ -48,6 +48,7 @@ En effet, de nombreux problèmes et tâches viendront probablement remplir cette
 
 # Analyse des concepts
 
+Dans l'analyste des concepts, les **propriétés** de chaque objet sont assimilées aux attributs.
 
 ## But du jeu 
 
