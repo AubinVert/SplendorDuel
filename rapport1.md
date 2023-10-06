@@ -1,8 +1,7 @@
 # LO21: Projet Splendor duel
 
 # Rapport 1: 
-Petri Gaspard, Leopold Chappuis, Fouinat Quentin, Ghitu Alexandru, Vert Aubin 
-Responsable: Vert Aubin
+Petri Gaspard, Leopold Chappuis, Fouinat Quentin, Ghitu Alexandru, Vert Aubin (responsable)
 
 ## Introduction du projet
 Dans le cadre de notre cours de LO21, nous sommes missionnés pour créer une version numérique 
