@@ -275,7 +275,7 @@ Nous allons faire 3 classes de tirage, chacun contiendra la pioche dans lequel l
 
 **Méthodes** :
 
-- void picher()
+- void piocher()
 - Tirage& getTirage() const
 
 
