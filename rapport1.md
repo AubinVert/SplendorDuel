@@ -222,6 +222,8 @@ Cette classe nous permet de connaître les jetons qui y sont (bien qu'ils sont p
 - **nb_couronnes**.
 - **nb_cartes_j**.
 - **nb_cartes_r**.
+- **nb_privileges**.
+- **max_nb_privileges**.
 - **max_nb_jetons**.
 - **max_nb_cartes_r**.
 - **cartes_j** (tableau de cartes joaillerie).
