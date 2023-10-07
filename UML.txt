@@ -1,38 +1,52 @@
 @startuml
 class Sac{
+  int nb
+  int max
+  Jeton[] jetons
 }
 
+class Tirages{
+}
 
 class Tirage1{
+  - Niveau1[5] cartes
+  - int nb
+  - int max
 }
-class Pioche1{}
 
 class Tirage2{
+  - Niveau2[4] cartes
+  - int nb
+  - int max
 }
 class Tirage3{
+  - Niveau3[3] cartes
+  - int nb
+  - int max
 }
 
 
 class Plateau{
-
+  - int nb
+  - int max
+  - Jetons[] jetons
 }
 
-class Emplacement{
-  -numero : int
-}
 
 class Jetons{
 
-  -str id
-  -bool is_dispo 
+  -int id
+
 
 }
 
 class Jetons_gemmes{
+  
   -enum type <bleu,rouge,vert,blanc,noir> 
 }
 
 class Jetons_or{
+  
   
   
 }
@@ -43,7 +57,7 @@ class Jetons_perles{
 
 
 class Privileges{
-  +bool dis_dispo
+  -int id
 }
 
 class Cartes{
@@ -67,7 +81,6 @@ class Cartes_joaillerie{
 class Niveau1{
 }
 
-
 class Niveau2{
 }
 class Niveau3{
@@ -85,8 +98,14 @@ class Joueur{
   -str nom
   -int nb_points 
   -int nb_courones
-  -Cartes Cartes
-  -Cartes* main
+  -int nb_cartes_j
+  -int max_nb_cartes
+  -int nb_cartes_r
+  -int max_nb_cartes_r
+  -Cartes_joaillerie[] main
+  -Cartes_royales[] cartes
+  -Jetons[] jetons
+  -Privilege[] privilegs[]
 }
   
   
@@ -96,24 +115,45 @@ class Jeu{
   -bool contre_AI
   +bool ended
   -Joueur tour
-
 }
+
+class Pioche{
   
+}
+class Pioche1{
+  - int nb
+  - int max
+  - Niveau1[] cartes
+}
+class Pioche2{
+  - int nb
+  - int max
+  - Niveau2[] cartes
+}
+class Pioche3{
+  - int nb
+  - int max
+  
+  - Niveau3[] cartes
+}
   
   Sac  o-- "0..*"Jetons : sont présents dans
   Plateau o-- "0..*" Jetons : sont sur
   
-  Joueur "0..1" -- "0..3" Privileges
-  Joueur "0..1" -- "0..3" Cartes_joaillerie : réserver
-  Joueur "0..1" -- "0..*" Cartes_joaillerie : posséder
-  Joueur "0..1" -- "0..10" Jetons : posséder
-  Joueur "0..1" -- "0..2" Cartes_royales : posséder 
+  Joueur o-- "0..3" Privileges : détient
+  Joueur o-- "0..3" Cartes_joaillerie : réserver
+  Joueur o-- "0..*" Cartes_joaillerie : posséder
+  Joueur o-- "0..10" Jetons : posséder
+  Joueur o-- "0..2" Cartes_royales : posséder 
   
-  Pioche1 "1" -- "*" Niveau1
-  Pioche2 "1" -- "*" Niveau2
-  Pioche3 "1" -- "*" Niveau3
+  Pioche1 "1" -- "*" Niveau1 : contient
+  Pioche2 "1" -- "*" Niveau2 : contient
+  Pioche3 "1" -- "*" Niveau3 : contient
+  
 
-  
+  Tirages ^-- Tirage1
+  Tirages ^-- Tirage2
+  Tirages ^-- Tirage3
 
   Tirage1 "5" --o  Niveau1
   Tirage2 "4" --o  Niveau2
@@ -131,40 +171,50 @@ class Jeu{
   Cartes_joaillerie ^-- Niveau2
   Cartes_joaillerie ^-- Niveau3
   Cartes_royales --^ Cartes
+  Pioche ^-- Pioche1
+  Pioche ^-- Pioche2
+  Pioche ^-- Pioche3
+  
   
   Jetons_or --^ Jetons
   Jetons_gemmes --^ Jetons
   Jetons_perles --^ Jetons
 
-  Jetons : str getId()
-  Jetons : bool getDispo()
-  Joueur : int getPoints()
-  Joueur : int getCouronnes()
-  Joueur : Cartes getCartes()
-  Joueur : Cartes* getMain()
-  Joueur : printMain()
-  Joueur : printCartes()
-  Joueur : setPoints()
-  Joueur : setCouronnes()
-  Cartes : Capacite getCapacite()
-  Cartes : int getPrestige()
-  Cartes_joaillerie : int getCoutBlanc()
-  Cartes_joaillerie : int getCoutBleu()
-  Cartes_joaillerie : int getCoutVert()
-  Cartes_joaillerie : int getCoutRouge()
-  Cartes_joaillerie : int getCoutNoir()
-  Cartes_joaillerie : int getCoutPerle()
-  Cartes_joaillerie : int[0,3] getCouronnes()
-  Cartes_joaillerie : enum getBonusCouleur()
-  Cartes_joaillerie : int[0,2] getBonusNombre()
-  Cartes_joaillerie : void print()
-  Cartes_royales : void print()
-  Emplacement : int getNum()
-  Jeu : Joueur& getTour()
+  Jetons : str getId()const
+  Jetons : bool getDispo()const
+  Joueur : int getPoints()const
+  Joueur : int setPoints()
+  Joueur : int getCouronnes()const
+  Joueur : int setCouronnes()
+  Joueur : Cartes* getMain()const
+  Joueur : acheterCarte()const
+  Joueur : mettreJetonsDansSac()
+  Joueur : printMain()const
+  Joueur : printCartes()const
+  Joueur : piocherJetons()const
+  Joueur : void prendrePrivilege()
+  Joueur : int getPrivileges()
+  Joueur : obtenirCarteRoyale()const
+  
+  Cartes : Capacite getCapacite()const
+  Cartes : int getPrestige()const
+  Cartes_joaillerie : int getCouts()const
+  Cartes_joaillerie : void setCouts()
+  Cartes_joaillerie : int[0,3] getCouronnes()const
+  Cartes_joaillerie : enum getBonusCouleur()const
+  Cartes_joaillerie : int[0,2] getBonusNombre()const
+  Cartes_joaillerie : void print()const
+  Cartes_royales : void print()const
+  Jeu : Joueur& getTour()const
   Jeu : tourSuivant()
-  Jetons_gemmes : enum getCouleur()
-  Plateau : const Jeton& piocher()
-  Plateau : remplir()
+  Jetons_gemmes : enum getCouleur()const
+  Plateau : remplir(Sac &sac)
+  Tirage1 : void piocher(Pioche1 &p1)
+  Tirage1 : Tirage1& getTirage()const
+  Tirage2 : void piocher(Pioche2 &p2)
+  Tirage2 : Tirage2& getTirage()const
+  Tirage3 : void piocher(Pioche3 &p3)
+  Tirage3 : Tirage3& getTirage()const
   
 
 
