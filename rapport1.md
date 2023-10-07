@@ -19,7 +19,7 @@ Dans ce premier rapport, vous trouverez une analyse des concepts, la liste des p
 ainsi que la liste des futures tâches que nous avons identifiées.
 
 # Liste des tâches déjà réalisées et leur répartition
- - Diagrame UML: Gaspard, Leopold, Gaspard
+ - Diagrame UML: Gaspard, Leopold, Aubin
  - Analyse des concepts: Quentin, Alexandru
 
 # Liste des tâches à venir avec répartition
@@ -47,8 +47,6 @@ En effet, de nombreux problèmes et tâches viendront probablement remplir cette
 - ajuster le nombre d'emplacements/jetons pour règle supplémentaire
 
 # Analyse des concepts
-
-Dans l'analyste des concepts, les **propriétés** de chaque objet sont assimilées aux attributs.
 
 ## But du jeu 
 
@@ -78,28 +76,66 @@ Au début du jeu, les 25 jetons nécessaires pour remplir le plateau sont placé
 
 **Les jetons Or sont des jokers** et peuvent être utilisés à la place de n'importe quel jeton Gemme ou Perle. Ils sont pris au moment de la réservation d’une carte. Une carte ne peut pas être réservée si le joueur en a déjà réservé 3 ou s’il n’y a plus de jetons Or sur le plateau.
 
-**Propriétés** :
+**Attributs** :
 
-- **Couleur** (les jetons or sont des jokers qui permettent de remplacer n’importe quelle couleur).
+- **id**.
+- **couleur** (pour les gemmes).
+
+**Méthodes** : 
+
+- str getId() const
+- bool getDispo() const (indique si le jeton est disponible sur le plateau ou pas).
 
 **Remarques** :
 
+- Les jetons seront implémentés sous forme d'héritage pour les gemmes, or et perle (voir UML).
 - Si le joueur prend 3 jetons de la même couleur ou 2 jetons perles lors d'un tour, son adversaire gagne 1 privilège.
 
 ## Cartes 
+
+Les 2 classes (Carte_joaillerie et Carte_royale) vont partager des attributs et méthodes de la classe Carte. (voir UML).
+On parle d'héritage (pas encore vu en cours).
+
+**Attributs** : 
+- **capacite**.
+- **points_prestige**.
+
+**Méthodes** : 
+
+- Carte getCarte()
+- Capacite getCapacite() const
+- int getPrestige() const
+
+
 ### Cartes joaillerie 
 
 Il y a **3 types de cartes** séparées par niveau, qui devront être mélangées à part, avant chaque jeu. Au total il y a 67 cartes.
 
-**Propriétés** :
+**Attributs** :
 
-- **Niveau**.
-- **Coût**.
-- **Point(s) de prestige**.
-- **Capacité** (il y a 5 types de capacité, la carte peut ne pas en posséder).
-- **Bonus** qui diminue le coût des futurs achats de cartes.
-- **Réservation** (est réservée ou pas).
-- **Couronnes** (possible qu’il n’y en ait pas).
+- **cout_blanc**.
+- **cout_bleu**.
+- **cout_vert**.
+- **cout_rouge**.
+- **cout_noir**.
+- **cout_perle**.
+- **niveau**.
+- **nb_couronnes**.
+- **bonus_couleur** qui diminue le coût des futurs achats de cartes.
+- **bonus_nombre**.
+- **est_reservee** (est réservée ou pas).
+
+**Méthodes** : 
+
+- int getCoutBlanc() const
+- int getCoutVert() const
+- int getCoutRouge() const
+- int getCoutNoir() const
+- int getCoutPerle() const
+- void setCouts()
+- int getCouronnes() const
+- bonus_couleur getBonusCouleur() const
+- int getBonusNombre() const
 
 **Remarques** :
 
@@ -109,10 +145,13 @@ Il y a **3 types de cartes** séparées par niveau, qui devront être mélangée
 
 Il y a **4 cartes royales**. Elles peuvent être prises à l’obtention de la 3e couronne ou de la 6e. Prendre une carte Royale n’est pas une action. Les joueurs placent leurs cartes Royales à côté de leurs cartes Joaillerie.
 
-**Propriétés**
+**Attributs**
 
-- Point(s) de prestige.
-- Capacité (la carte peut ne pas en posséder).
+- Pas d'attributs propres, elles sont partagées avec la classe Carte.
+
+**Méthodes**
+
+- Pas de méthodes propres, elles sont partagées avec la classe Carte.
 
 ## Privilèges 
 
@@ -125,77 +164,126 @@ Ils peuvent être obtenus dans les cas suivant :
 
 **Important** : pendant la partie, lorsqu’un joueur est censé prendre un Privilège et que plus aucun n’est disponible au-dessus du plateau, il le prend à son adversaire. S’il possède déjà les trois, rien ne se passe.
 
+**Attributs** :
+
+- **id**.
+
+**Méthodes** :
+
+- Pas de méthodes.
+
 ## Plateau 
 
 Le plateau permettra de connaître son état, c’est-à-dire les jetons et leur emplacement
-- **Matrice_jetons**.
-- **Nb_jetons**.
-- **Nb_privilèges** (qui n’ont pas été pris par quelqu’un).
-- **Cartes_royales**.
-- **Tirage_1**
-- **Tirage_2**
-- **Tirage_3**
+
+**Attributs** :
+
+- **nb** (nombre de jetons sur le plateau).
+- **max** (nombre maximal qu'il peut y avoir sur le plateau: utile si on le modifiera pour une future mise à jour d'extension du jeu par exemple).
+- **Jetons** (matrice avec les positions des jetons).
+- **sac** (pour pointer vers le sac).
+
+**Méthodes** :
+
+- void remplir_sac().
 
 ## Sac de jetons 
 
-Ce sac contient les jetons utilisés par laes joueurs lors de l'achat de cartes joaillerie
+Ce sac contient les jetons utilisés par les joueurs lors de l'achat de cartes joaillerie.
 Cette classe nous permet de connaître les jetons qui y sont (bien qu'ils sont privé pour l'utilisateur, cf: encapsulation).
-- **Nb_jetons_bleus**.
-- **Nb_jetons_rouges**.
-- **Nb_jetons_blancs**.
-- **Nb_jetons_verts**.
-- **Nb_jetons_noirs**.
-- **Nb_or**.
-- **Nb_perles**.
 
-Remarque: remplacer les nb_jetons par une struture 'Jetons' avec le nb explicité dedans pour une meilleure organisation.
+- **nb** (nombre de jetons dans le sac).
+- **max** (nombre maximal qu'il peut y avoir dans le sac: utile si on le modifiera pour une future mise à jour d'extension du jeu par exemple).
+- **Jetons** (tableau avec les jetons qui y sont).
 
-## Tour
+**Méthodes** :
 
-L’objet Tour servira à définir les propriétés et possibilités de chaque tour. Sa durée de vie sera égale à celle d’un tour dans le jeu. (Actions null signifie qu’aucune n’a été faite pour l’instant).
-Il sera un attribut pour d'un objet de la classe jeu qui définie une partie.
-
-**Propriétés** :
-
-- **Joueur actif**
-- **Joueur passif** (son adversaire)
-- **Actions facultatives** {null, privilege, reconstituer_tableau}
-- **Actions obligatoires** {null, prendre_jetons, reserver, acheter_joaillerie}
-
-**Actions** :
-
-- Donner naissance au tour suivant
-- Marquer la victoire
+- Pas de méthodes.
 
 ## Jeu
 
-**Propriétés** :
+**Attributs** :
 
-- Joueur 1
-- Joueur 2
-- Quel tour est en train d’être joué
-- Plateau
-- Sac jetons
-- Cartes_niv1
-- Cartes_niv2
-- Cartes_niv3
-- Cartes_royales
-- Privilèges
-- Terminé ou pas
+- **est_termine**
+- **est_contre_AI**
+- **qui_joue** (va pointer sur le joueur qui joue cette partie)
+- **opponent** (va pointer sur le joueur qui ne joue pas cette partie)
 
+**Méthodes** :
 
+- Joueur& getTour() const (savoir à qui est le tour)
+- void tourSuivant() (donne naissance au tour suivant)
 
 ## Joueur
 
-- **Nom**.
-- **Nb_points**.
-- **Nb_couronnes**.
-- **Nb_privilèges**.
-- **Cartes**.
-- **Cartes_royales**.
-- **Jetons**
+**Attributs** :
 
-Remarque: faire une structure 'Jetons' où on va expliciter le nombre de chaque type pour rendre une meilleure organisation.
+- **nom**.
+- **nb_points**.
+- **nb_couronnes**.
+- **nb_cartes_j**.
+- **nb_cartes_r**.
+- **nb_privileges**.
+- **max_nb_privileges**.
+- **max_nb_jetons**.
+- **max_nb_cartes_r**.
+- **cartes_j** (tableau de cartes joaillerie).
+- **cartes_r** (tableau de cartes royales).
+- **jetons**.
+- **privileges**.
+
+**Méthodes** :
+
+- int getPoints() const
+- int setPoints()
+- int getCouronnes() const
+- int setCouronnes()
+- Carte* getCartesJ() const
+- Carte* getCartesR() const
+- void acheterCarte()
+- void mettreJetonDansSac()
+- void printCartesJ() const
+- void printCartesR() const
+- void piocherJeton()
+- void prendrePrivilege()
+- int getPrivilege()
+- void obtenirCarteRoyale()
+
+Remarque: voir au moment de l'implémentation d'héritage le type retourné par getCartesJ() et getCartesR
+
+
+## Pioche
+
+**Attributs** (partagés par les 3 pioches):
+
+- **niveau**.
+- **nb**. (nb de cartes dans la pioche)
+- **max**. (nb max de cartes dans la pioche)
+- **cartes**. (tableau de cartes dans la pioche)
+
+
+**Méthodes** :
+
+- Pas de méthodes.
+
+## Tirage
+
+**Attributs** (partagés par les 3 tirages):
+
+- **niveau**.
+- **nb**. (nb de cartes dans le tirage)
+- **max**. (nb max de cartes dans le tirage)
+- **cartes**. (tableau de cartes dans le tirage)
+
+Nous allons faire 3 classes de tirage, chacun contiendra la pioche dans lequel le tirage prend les cartes (qui correspondra à son niveau donc). L'attribut spécifique de chaque classe sera : 
+
+- **pioche**
+
+
+**Méthodes** :
+
+- void piocher()
+- Tirage& getTirage() const
 
 
 
