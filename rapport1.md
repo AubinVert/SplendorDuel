@@ -79,7 +79,7 @@ Au début du jeu, les 25 jetons nécessaires pour remplir le plateau sont placé
 **Attributs** :
 
 - **id**.
-- **couleur** (pour les jetons).
+- **couleur** (pour les gemmes).
 
 **Méthodes** : 
 
