@@ -207,7 +207,7 @@ Cette classe nous permet de connaître les jetons qui y sont (bien qu'ils sont p
 **Méthodes** :
 
 - Joueur& getTour() const (savoir à qui est le tour)
-- tourSuivant() (donne naissance au tour suivant)
+- void tourSuivant() (donne naissance au tour suivant)
 
 ## Joueur
 
