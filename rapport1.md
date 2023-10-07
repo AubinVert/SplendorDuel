@@ -195,6 +195,10 @@ Cette classe nous permet de connaître les jetons qui y sont (bien qu'ils sont p
 - **max** (nombre maximal qu'il peut y avoir dans le sac: utile si on le modifiera pour une future mise à jour d'extension du jeu par exemple).
 - **Jetons** (tableau avec les jetons qui y sont).
 
+**Méthodes** :
+
+- Pas de méthodes.
+
 ## Jeu
 
 **Attributs** :
