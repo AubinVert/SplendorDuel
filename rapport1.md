@@ -181,10 +181,11 @@ Le plateau permettra de connaître son état, c’est-à-dire les jetons et leur
 - **nb** (nombre de jetons sur le plateau).
 - **max** (nombre maximal qu'il peut y avoir sur le plateau: utile si on le modifiera pour une future mise à jour d'extension du jeu par exemple).
 - **Jetons** (matrice avec les positions des jetons).
+- **sac** (pour pointer vers le sac).
 
 **Méthodes** :
 
-- Pas de méthodes.
+- void remplir_sac().
 
 ## Sac de jetons 
 
