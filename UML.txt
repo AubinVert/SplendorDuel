@@ -181,50 +181,48 @@ class Pioche3{
   Jeton_gemme--^ Jeton
   Jeton_perle--^ Jeton
 
-  Jeton : str getId()const
-  Jeton : bool getDispo()const
-  Joueur : int getPoints()const
+  Jeton : str getId() const
+  Jeton : bool getDispo() const
+  Joueur : int getPoints() const
   Joueur : int setPoints()
-  Joueur : int getCouronnes()const
+  Joueur : int getCouronnes() const
   Joueur : int setCouronnes()
-  Joueur : Carte* getMain()const
-  Joueur : acheterCarte()const
+  Joueur : Carte* getMain() const
+  Joueur : acheterCarte() const
   Joueur : mettreJetonDansSac()
-  Joueur : printMain()const
-  Joueur : printCarte()const
-  Joueur : piocherJeton()const
+  Joueur : printMain() const
+  Joueur : printCarte() const
+  Joueur : piocherJeton() const
   Joueur : void prendrePrivilege()
   Joueur : int getPrivilege()
-  Joueur : obtenirCarteRoyale()const
+  Joueur : obtenirCarteRoyale() const
   
-  Carte : Capacite getCapacite()const
-  Carte : int getPrestige()const
+  Carte : Capacite getCapacite() const
+  Carte : int getPrestige() const
+  Carte : void getCarte() const
   
-  Carte_joaillerie : int getCouts()const
+  Carte_joaillerie : int getCouts() const
   Carte_joaillerie : void setCouts()
-  Carte_joaillerie : int[0,3] getCouronnes()const
-  Carte_joaillerie : enum getBonusCouleur()const
-  Carte_joaillerie : int[0,2] getBonusNombre()const
-  Carte_joaillerie : void getCarteJoaillerie()const
+  Carte_joaillerie : int[0,3] getCouronnes() const
+  Carte_joaillerie : enum getBonusCouleur() const
+  Carte_joaillerie : int[0,2] getBonusNombre() const
   
   
-  Carte_royale : void getCarteRoyale()const
-  
-  Jeu : Joueur& getTour()const
+  Jeu : Joueur& getTour() const
   Jeu : tourSuivant()
   
-  Jeton_gemme : enum getCouleur()const
-  Jeton_gemme : void SetCouleur()const
+  Jeton_gemme : enum getCouleur() const
+  Jeton_gemme : void SetCouleur() const
   
   
   Plateau : remplir(Sac &sac)
   
   Tirage1 : void piocher(Pioche1 &p1)
-  Tirage1 : Tirage1& getTirage()const
+  Tirage1 : Tirage1& getTirage() const
   Tirage2 : void piocher(Pioche2 &p2)
-  Tirage2 : Tirage2& getTirage()const
+  Tirage2 : Tirage2& getTirage() const
   Tirage3 : void piocher(Pioche3 &p3)
-  Tirage3 : Tirage3& getTirage()const
+  Tirage3 : Tirage3& getTirage() const
   
 
 
