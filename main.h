@@ -1,7 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_MAIN_H
 #define LO21_SPLENDOR_DUEL_MAIN_H
 
-
+// classe par énumération à créer: capacité, bonus_couleur, couleur (pour les jetons)
 class Carte{
     Capacite capacite;
     int points_prestige;
@@ -39,6 +39,22 @@ class Tirage{
     int max;
     Carte_joaillerie ** cartes;
     Pioche * pioche;
+};
+
+class Jeton{
+    int id;
+};
+
+class Jeton_perle:public Jeton{
+
+};
+
+class Jeton_or:public Jeton{
+
+};
+
+class Jeton_gemme:public Jeton{
+    Couleur couleur;
 };
 
 
