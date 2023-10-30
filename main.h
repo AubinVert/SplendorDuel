@@ -57,5 +57,21 @@ class Jeton_gemme:public Jeton{
     Couleur couleur;
 };
 
+class Privilege{
+    int id;
+};
+
+class Sac{
+    int nb;
+    int max;
+    Jeton** jetons;//vérifier
+};
+
+class Plateau{
+    int nb;
+    int max;
+    Jeton * jetons[][]; // vérifier
+};
+
 
 #endif //LO21_SPLENDOR_DUEL_MAIN_H
