@@ -2,6 +2,7 @@
 #define LO21_SPLENDOR_DUEL_MAIN_H
 
 // classe par énumération à créer: capacité, bonus_couleur, couleur (pour les jetons)
+
 class Carte{
     Capacite capacite;
     int points_prestige;
