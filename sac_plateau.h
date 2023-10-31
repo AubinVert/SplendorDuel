@@ -11,11 +11,15 @@ class Sac{
     int nb;
     int max;
     Jeton** jetons;//vérifier
+
 };
 
 class Plateau{
     int nb;
     int max;
     Jeton * jetons[][]; // vérifier
+public:
+    void remplir_plateau();
+
 };
 #endif //LO21_SPLENDOR_DUEL_SAC_PLATEAU_H
