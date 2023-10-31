@@ -4,6 +4,9 @@
 
 class Privilege{
     int id;
+public:
+    const int get_id()const{return id;}
+
 };
 
 #endif //LO21_SPLENDOR_DUEL_PRIVILEGE_H
