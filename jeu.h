@@ -1,6 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_JEU_H
 #define LO21_SPLENDOR_DUEL_JEU_H
 #include <iostream>
+#include "joueur.h"
 
 using namespace std;
 
@@ -16,7 +17,9 @@ class Jeu{
     Carte* cartes[67]; // contient toutes les cartes du jeu
     Jeton* jetons[15]; // contient tous les jetons
     Privilege* privileges[3];
-
+public:
+    Joueur& get_tour() const;
+    void tour_suivant();
 
 };
 
