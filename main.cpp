@@ -11,3 +11,12 @@ int main(){
 }
 
 
+void test_unitaires(){
+    // permet de tester la validité de notre code
+
+
+
+
+}
+
+
