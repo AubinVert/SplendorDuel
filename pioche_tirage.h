@@ -12,6 +12,7 @@ class Pioche{
 };
 
 class Tirage{
+    Pioche* pioche; // ajout de la pioche pour la méthode piocher?
     int niveau;
     int nb;
     int max;
