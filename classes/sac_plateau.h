@@ -92,7 +92,7 @@ public:
             return nullptr;
         }
     }
-
+    void print_tab() const;
 
 };
 
