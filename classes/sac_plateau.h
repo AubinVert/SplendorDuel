@@ -1,6 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_SAC_PLATEAU_H
 #define LO21_SPLENDOR_DUEL_SAC_PLATEAU_H
 #include <iostream>
+#include "Exception.h"
 #include "jetons.h"
 
 
@@ -13,6 +14,9 @@ class Sac{
     Jeton** jetons;
 public:
     Sac(int max):nb(0),max(max){
+        if (max<0){
+            throw SplendorException("Nombre max de jetons dans le sac négatif!");
+        }
         jetons = new Jeton*[max];
         for(size_t i = 0; i<max; i++){
             jetons[i] = nullptr;
@@ -29,6 +33,9 @@ class Plateau{
     Jeton ** jetons; // vérifier
 public:
     Plateau(int max):nb(0),max(max){
+        if (max<0){
+            throw SplendorException("Nombre max de jetons sur le plateau négatif!");
+        }
         jetons = new Jeton*[max];
         for(size_t i = 0; i<max; i++){
             jetons[i] = nullptr;
