@@ -51,6 +51,12 @@ public:
     void set_couleur(const Couleur& coul){couleur = coul;}
 };
 
+ostream& operator<<(ostream& f, const Jeton_gemme& jet);
+
+ostream& operator<<(std::ostream& f, const Jeton_perle& jet);
+
+ostream& operator<<(ostream& f, const Jeton_or& jet);
+
 
 
 
