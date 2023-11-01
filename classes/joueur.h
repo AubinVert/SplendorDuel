@@ -80,6 +80,7 @@ public:
 
     void acheter_carte();
     void reserver_carte();
+    void remplir_plateau();
     void mettre_jetons_dans_sac();
     void piocher_jetons();
     void obtenir_carte_royale();
