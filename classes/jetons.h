@@ -9,6 +9,8 @@ class Jeton{
     // il faut garantir l'unicité de chaque jeton
     int id;
 public:
+    Jeton()=delete;
+    ~Jeton()=default;
     const int get_id()const{return id;}
     bool get_dispo()const;
 };
@@ -40,6 +42,7 @@ public:
             throw "id non-autorisé";
         }
     }
+
     const Couleur& get_couleur() const{return couleur;}
     void set_couleur(const Couleur& coul){couleur = coul;}
 };
