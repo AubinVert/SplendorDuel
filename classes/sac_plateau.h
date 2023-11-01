@@ -23,7 +23,7 @@ public:
         }
     }
     ~Sac()=default; // car agrégation !
-    operator=(const Sac& s)=delete;
+    Sac& operator=(const Sac& s)=delete;
     Sac(const Sac& s)=delete;
 };
 
@@ -42,8 +42,10 @@ public:
         }
     }
     ~Plateau()=default; // car agrégation !
-    operator=(const Plateau& p)=delete;
+    Plateau& operator=(const Plateau& p)=delete;
     Plateau(const Plateau& p)=delete;
+    Jeton* get_plateau_i(int i){return jetons[i];}
+    
 
 };
 
