@@ -16,7 +16,6 @@ public:
     Jeton(const Jeton& jet){}=delete;
 
     const int get_id()const{return id;}
-    bool get_dispo()const;
 };
 
 class Jeton_perle:public Jeton{
