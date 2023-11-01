@@ -7,6 +7,10 @@
 
 using namespace std;
 
+
+
+
+
 class Jeu{
     bool est_termine;
     bool contre_IA;

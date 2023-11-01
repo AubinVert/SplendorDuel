@@ -1,22 +1,16 @@
-cmake_minimum_required(VERSION 3.26)
-project(lo21_splendor_duel)
+cmake_minimum_required(VERSION 3.13)  # CMake version check
 
-set(CMAKE_CXX_STANDARD 14)
+project(lo21-splendor-duel)               # Create project "simple_example"
 
-include_directories(.)
+set(CMAKE_CXX_STANDARD 14)            # Enable c++14 standard
 
-add_executable(lo21_splendor_duel
+# Add main.cpp file of the project root directory as a source file
+set(SOURCE_FILES
         main.cpp
-        main.h
-        classes/*
-        classes/carte.h
-        classes/jetons.cpp
         classes/carte.cpp
-        classes/jeu.cpp
-        classes/joueur.cpp
-        classes/sac_plateau.h
-        classes/sac_plateau.cpp
-        classes/privilege.h
-        classes/privilege.cpp
-        classes/pioche_tirage.h
-        classes/pioche_tirage.cpp)
+        classes/Exception.h
+
+)
+
+# Add executable target with source files listed in SOURCE_FILES variable
+add_executable(lo21-splendor-duel ${SOURCE_FILES})
