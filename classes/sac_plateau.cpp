@@ -1,5 +1,5 @@
-//
-// Created by Aubin VERT on 31/10/2023.
-//
-
 #include "sac_plateau.h"
+
+using namespace std;
+
+

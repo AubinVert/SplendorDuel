@@ -19,7 +19,7 @@ class Joueur{
     int max_nb_cartes_j;
 
     Carte_joaillerie** cartes_joaillerie;
-    Carte_royale* cartes_royale[3]; // ok pour agrégation?
+    Carte_royale* cartes_royale[4]; // ok pour agrégation?
     Jeton ** jetons;
     Privilege* privileges[3]; // ok pour agrégation?
 
@@ -79,6 +79,7 @@ public:
 
 
     void acheter_carte();
+    void reserver_carte();
     void mettre_jetons_dans_sac();
     void piocher_jetons();
     void obtenir_carte_royale();
