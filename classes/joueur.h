@@ -60,10 +60,10 @@ public:
 
     class IteratorJetons {
         Jeton* start;
-        Jeton* end;
         size_t nb;
         IteratorJetons(Jeton* start, size_t nb) : start(start), nb(nb){}
         friend class Joueur;
+        friend class Sac;
     public:
         void operator++(){if(nb==0) throw "Le nombre de cartes doit être strictement supérieur à 0";start++;nb--;}
         Jeton& operator*(){if(nb==0) throw "Attention, le nombre de cartes est égal à 0"; return *start;}
