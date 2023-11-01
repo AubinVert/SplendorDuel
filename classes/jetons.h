@@ -8,9 +8,13 @@ using namespace std;
 class Jeton{
     // il faut garantir l'unicité de chaque jeton
     int id;
+
 public:
     Jeton()=delete;
     ~Jeton()=default;
+    operator=(const Jeton& jet){}=delete;
+    Jeton(const Jeton& jet){}=delete;
+
     const int get_id()const{return id;}
     bool get_dispo()const;
 };
@@ -18,7 +22,7 @@ public:
 class Jeton_perle:public Jeton{
 public:
     Jeton_perle(int id):id(id){
-        if(id<1)||(id>15){
+        if(id<1)||(id>25){
             throw "id non-autorisé";
         }
     };
@@ -27,7 +31,7 @@ public:
 class Jeton_or:public Jeton{
 public:
     Jeton_or(int id):id(id){
-        if(id<1)||(id>15){
+        if(id<1)||(id>25){
             throw "id non-autorisé";
         }
     };
@@ -38,7 +42,7 @@ class Jeton_gemme:public Jeton{
 
 public:
     Jeton_gemme(int id, Couleur coul):id(id),couleur(coul){
-        if(id<1)||(id>15){
+        if(id<1)||(id>25){
             throw "id non-autorisé";
         }
     }
