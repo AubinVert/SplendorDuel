@@ -1,8 +1,34 @@
 #include "sac_plateau.h"
+#include "jetons.h"
+#include <iostream>
 
 
 using namespace std;
 
+void Sac::init_sac() {
+    int j = 1;
+    for (int i = 0; i<4; i++){
+        jetons[j++] = new Jeton_gemme(j,Couleur::bleu);
+    }
+    for (int i = 0; i<4; i++){
+        jetons[j++] = new Jeton_gemme(j,Couleur::rouge);
+    }
+    for (int i = 0; i<4; i++){
+        jetons[j++] = new Jeton_gemme(j,Couleur::noir);
+    }
+    for (int i = 0; i<4; i++){
+        jetons[j++] = new Jeton_gemme(j,Couleur::blanc);
+    }
+    for (int i = 0; i<4; i++){
+        jetons[j++] = new Jeton_gemme(j,Couleur::vert);
+    }
+    for (int i = 0; i<2; i++){
+        jetons[j++] = new Jeton_perle(j);
+    }
+    for (int i = 0; i<4; i++){
+        jetons[j++] = new Jeton_or(j);
+    }
+}
 
 
 

@@ -5,7 +5,7 @@
 #include "jetons.h"
 #include "joueur.h"
 
-const int ordre[25] = {13,18,17,12,7,8,9,14,19,24,23,22,21,14,11,6,1,2,3,4,5,10,15,20,25};
+const int ordre[25] = {13,7,8,14,19,18,17,12,7,2,3,4,5,10,15,20,25,25,23,22,21,16,11,6,1};
 
 using namespace std;
 
@@ -24,10 +24,13 @@ public:
         }
     }
     ~Sac()=default; // car agrégation !
+
     Sac& operator=(const Sac& s)=delete;
     Sac(const Sac& s)=delete;
+
     Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
     Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}
+    void init_sac();
 
 };
 
