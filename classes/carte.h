@@ -6,7 +6,7 @@ using namespace std;
 
 
 enum class Capacite {rejouer, voler_pion_adverse, prendre_privilege, prendre_sur_plateau, joker};// joker dans capacité et bonus?
-enum class Couleur {bleu, rouge, vert, blanc, noir};
+enum Couleur {bleu, rouge, vert, blanc, noir};
 enum class Bonus_couleur {bleu, rouge, vert, blanc, noir, joker};
 
 class Carte{
