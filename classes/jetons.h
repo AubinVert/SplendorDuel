@@ -13,6 +13,8 @@ string toString(Couleur c){
         case Couleur::vert: return "Vert";
         case Couleur::blanc: return "Blanc";
         case Couleur::noir: return "Noir";
+        case Couleur::gold: return "Or";
+        case Couleur::perle: return "Perle";
         default: throw SplendorException("Couleur inconnue");
     }
 }
@@ -20,18 +22,92 @@ string toString(Couleur c){
 class Jeton{
     // il faut garantir l'unicité de chaque jeton
     int id;
+    Couleur couleur;
+    static int nb_perle;
+    static const int max_perle;
+    static int nb_or;
+    static const int max_or;
+    static int nb_vert;
+    static const int max_vert;
+    static int nb_rouge;
+    static const int max_rouge;
+    static int nb_bleu;
+    static const int max_bleu;
+    static int nb_blanc;
+    static const int max_blanc;
+    static int nb_noir;
+    static const int max_noir;
+
 
 public:
 
 
-    Jeton(int id):id(id){}
+
+    Jeton(int id, Couleur& coul):id(id),couleur(coul){
+        if((id<1)||(id>25)){
+            throw SplendorException("Id de jeton négatif!");
+        }
+        switch (coul){
+            case Couleur::rouge:{
+                if(nb_rouge<max_rouge){
+                    nb_rouge++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons rouge!");
+                }
+            }
+            case Couleur::bleu: {
+                if(nb_bleu<max_bleu){
+                    nb_bleu++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons bleu!");
+                }
+            }
+            case Couleur::vert: {
+                if(nb_vert<max_vert){
+                    nb_vert++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons vert!");
+                }
+            }
+            case Couleur::blanc:{
+                if(nb_blanc<max_blanc){
+                    nb_blanc++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons blanc!");
+                }
+            }
+            case Couleur::noir:{
+                if(nb_noir<max_noir){
+                    nb_noir++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons noir!");
+                }
+            }
+            case Couleur::perle:{
+                if(nb_perle<max_perle){
+                    nb_perle++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons perle!");
+                }
+            }
+            case Couleur::gold:{
+                if(nb_or<max_or){
+                    nb_or++;
+                }else{
+                    throw SplendorException("Impossible de créer plus de jetons or!");
+                }
+            }
+            default: throw SplendorException("Couleur inconnue");
+        }
+    }
     ~Jeton()=default;
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
     const int get_id()const{return id;}
+    static int get_nb_max_jetons(){return max_bleu+max_blanc+max_or+max_noir+max_perle+max_rouge+max_vert}
 };
-
+/*
 class Jeton_perle:public Jeton{
 
 public:
@@ -128,26 +204,31 @@ public:
 
     const Couleur& get_couleur() const{return couleur;}
     void set_couleur(const Couleur& coul){couleur = coul;}
-};
+};*/
 
 
-int Jeton_gemme::Jeton_gemme::nb_blanc = 0;
-int Jeton_gemme::Jeton_gemme::nb_bleu = 0;
-int Jeton_gemme::Jeton_gemme::nb_rouge = 0;
-int Jeton_gemme::Jeton_gemme::nb_vert = 0;
-int Jeton_gemme::Jeton_gemme::nb_noir = 0;
+int Jeton::nb_blanc = 0;
+int Jeton::nb_bleu = 0;
+int Jeton::nb_rouge = 0;
+int Jeton::nb_vert = 0;
+int Jeton::nb_noir = 0;
+int Jeton::nb_or = 0;
+int Jeton::nb_perle = 0;
 
-int Jeton_gemme::Jeton_gemme::max_blanc = 4;
-int Jeton_gemme::Jeton_gemme::max_bleu = 4;
-int Jeton_gemme::Jeton_gemme::max_rouge = 4;
-int Jeton_gemme::Jeton_gemme::max_vert = 4;
-int Jeton_gemme::Jeton_gemme::max_noir = 4;
 
-int Jeton_or::Jeton_or::nb_or = 0;
-int Jeton_or::Jeton_or::max_or = 3;
 
-int Jeton_perle::Jeton_perle::nb_perle = 0;
-int Jeton_perle::Jeton_perle::max_perle = 2;
+int Jeton::max_blanc = 4;
+int Jeton::max_bleu = 4;
+int Jeton::max_rouge = 4;
+int Jeton::max_vert = 4;
+int Jeton::max_noir = 4;
+int Jeton::max_perle = 2;
+int Jeton::max_or = 3;
+
+
+
+
+
 
 
 
