@@ -37,7 +37,7 @@ public:
     Sac(const Sac& s)=delete;
 
 
-    static Sac& getSac();
+    static Sac& get_sac();
     static void libere_sac();
 
     Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
@@ -64,6 +64,14 @@ class Plateau{
     int nb;
     int max; // permet une future évolution de la taille du plateau
     Jeton ** jetons;
+    struct Handler_Plateau{
+        Plateau * instance = nullptr;
+        ~Handler_Plateau(){
+            delete instance;
+            instance = nullptr;
+        }
+    };
+    static Handler_Plateau handler_plateau;
 public:
     Plateau(int max):nb(0),max(max){
         if (max<0){
@@ -77,6 +85,11 @@ public:
     ~Plateau()=default; // car agrégation !
     Plateau& operator=(const Plateau& p)=delete;
     Plateau(const Plateau& p)=delete;
+
+    static Plateau& get_plateau();
+    static void libere_plateau();
+
+
     const Jeton* get_plateau_i(int i) const{return jetons[i];}
     void set_plateau_i(int i, Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
@@ -107,6 +120,10 @@ public:
             return nullptr;
         }
     }
+
+
+
+
     void print_tab() const;
 
 };

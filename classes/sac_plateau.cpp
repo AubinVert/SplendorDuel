@@ -53,7 +53,7 @@ void Plateau::print_tab() const{
     }
 }
 
-Sac &Sac::getSac() {
+Sac &Sac::get_sac() {
     if(handler_sac.instance==nullptr){
         handler_sac.instance = new Sac(Jeton::get_nb_max_jetons());
     }
@@ -63,4 +63,20 @@ Sac &Sac::getSac() {
 void Sac::libere_sac() {
     delete handler_sac.instance;
     handler_sac.instance = nullptr;
+}
+
+
+
+// Plateau
+
+Plateau &Plateau::get_plateau() {
+    if(handler_plateau.instance==nullptr){
+        handler_plateau.instance = new Plateau(Jeton::get_nb_max_jetons());
+    }
+    return *handler_plateau.instance;
+}
+
+void Plateau::libere_plateau() {
+    delete handler_plateau.instance;
+    handler_plateau.instance = nullptr;
 }
