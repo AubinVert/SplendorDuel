@@ -13,6 +13,14 @@ class Sac{
     int nb;
     int max;
     Jeton** jetons;
+    struct Handler_Sac{
+        Sac * instance = nullptr;
+        ~Handler_Sac(){
+            delete instance;
+            instance = nullptr;
+        }
+    };
+    static Handler_Sac handler_sac;
 public:
     Sac(int max):nb(0),max(max){
         if (max<0){
@@ -27,6 +35,10 @@ public:
 
     Sac& operator=(const Sac& s)=delete;
     Sac(const Sac& s)=delete;
+
+
+    static Sac& getSac();
+    static void libere_sac();
 
     Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
     Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}

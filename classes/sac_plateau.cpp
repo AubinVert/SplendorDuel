@@ -4,6 +4,9 @@
 
 
 using namespace std;
+
+//Sac
+
 /*
 void Sac::init_sac() {
     int j = 1;
@@ -48,4 +51,16 @@ void Plateau::print_tab() const{
             }
         }
     }
+}
+
+Sac &Sac::getSac() {
+    if(handler_sac.instance==nullptr){
+        handler_sac.instance = new Sac(Jeton::get_nb_max_jetons());
+    }
+    return *handler_sac.instance;
+}
+
+void Sac::libere_sac() {
+    delete handler_sac.instance;
+    handler_sac.instance = nullptr;
 }
