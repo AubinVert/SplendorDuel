@@ -12,7 +12,7 @@ using namespace std;
 class Sac{
     int nb;
     int max;
-    Jeton** jetons;
+    const Jeton* jetons[];
     struct Handler_Sac{
         Sac * instance = nullptr;
         ~Handler_Sac(){
@@ -40,8 +40,11 @@ public:
     static Sac& get_sac();
     static void libere_sac();
 
-    Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
-    Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}
+    //Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
+    //Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}
+    int get_nb_sac(){return nb;}
+    const Jeton* get_jeton_i(int i) const{return jetons[i];}
+    void set_sac_i(int i, const Jeton* jet){jetons[i] = jet;}
     void init_sac();
 
 };
@@ -63,7 +66,7 @@ class Plateau{
 
     int nb;
     int max; // permet une future évolution de la taille du plateau
-    Jeton ** jetons;
+    const Jeton* jetons[];
     struct Handler_Plateau{
         Plateau * instance = nullptr;
         ~Handler_Plateau(){
@@ -91,7 +94,7 @@ public:
 
 
     const Jeton* get_plateau_i(int i) const{return jetons[i];}
-    void set_plateau_i(int i, Jeton* jet){jetons[i] = jet;}
+    void set_plateau_i(int i, const Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
         if(i%5 != 0){
             return jetons[++i];
@@ -123,7 +126,7 @@ public:
 
 
 
-
+    void remplir_plateau(Sac& sac);
     void print_tab() const;
 
 };

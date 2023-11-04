@@ -104,8 +104,14 @@ public:
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
+    const Couleur& get_couleur(){return couleur;}
     const int get_id()const{return id;}
+
+
+
     static int get_nb_max_jetons(){return max_bleu+max_blanc+max_or+max_noir+max_perle+max_rouge+max_vert}
+
+
 };
 /*
 class Jeton_perle:public Jeton{
@@ -233,20 +239,11 @@ int Jeton::max_or = 3;
 
 
 
-ostream& operator<<(ostream& f, Jeton_gemme& jet){
+ostream& operator<<(ostream& f, Jeton& jet){
     f<<"id: "<<jet.get_id()<<"; couleur: "<<toString(jet.get_couleur());
     return f;
 }
 
-ostream& operator<<(std::ostream& f, Jeton_perle& jet){
-    f << "id: " << jet.get_id() << "; couleur: perle";
-    return f;
-}
-
-ostream& operator<<(ostream& f, Jeton_or& jet){
-    f<<"id: "<<jet.get_id()<<"; couleur: or";
-    return f;
-}
 
 
 
