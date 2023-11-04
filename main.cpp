@@ -3,18 +3,15 @@
 //
 
 #include "main.h"
-#include "classes/jetons.h"
-
 
 int main() {
-    Jeton_perle jetonPerle(1);
-    Jeton_or jetonOr(2);
-    Jeton_gemme jetonGemme(3, Couleur::rouge);
-
-    cout << jetonPerle << endl;
-    cout << jetonOr << endl;
-    cout << jetonGemme << endl;
-
+    try{
+        Jeton_perle j1(1);
+        Jeton_perle j2(2);
+        Jeton_perle j3(3);
+    }catch(const SplendorException& e){
+        cout<<e.getInfos()<<endl;
+    }
     return 0;
 }
 
