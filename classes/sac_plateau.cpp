@@ -4,7 +4,7 @@
 
 
 using namespace std;
-
+/*
 void Sac::init_sac() {
     int j = 1;
     for (int i = 0; i<4; i++){
@@ -29,7 +29,7 @@ void Sac::init_sac() {
         jetons[j++] = new Jeton_or(j);
     }
 }
-
+*/
 
 
 void Plateau::print_tab() const{
