@@ -127,7 +127,7 @@ void Plateau::print_tab() const{
 
 
 void Plateau::remplir_plateau(Sac &sac) {
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    srand(static_cast<unsigned>(std::time(nullptr)));
     for(int i = 0;i<Jeton::get_nb_max_jetons();i++){
         if(jetons[ordre[i]]==nullptr){
             int nb_sac = sac.get_nb_sac();
