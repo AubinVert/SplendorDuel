@@ -5,7 +5,7 @@
 #include "jetons.h"
 #include "joueur.h"
 
-const int ordre[25] = {13,7,8,14,19,18,17,12,7,2,3,4,5,10,15,20,25,25,23,22,21,16,11,6,1};
+const int ordre[25] = {12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0};
 
 using namespace std;
 
@@ -52,15 +52,15 @@ public:
 class Plateau{
     /*
      * On prend la disposition de plateau suivante, selon l'ordre des jetons dans le tableau:
-     *     1   |  2   |   3  |   4  |  5
+     *     0   |  1   |   2  |   3  |  4
      *   --------------------------------
      *     5   |  6   |  7   |   8  |  9
      *   --------------------------------
-     *     11  |  12  |  13  |  14  |  15
+     *     10  |  11  |  12  |  13  |  14
      *   --------------------------------
      *     15  |  16  |  17  |  18  |  19
      *   --------------------------------
-     *     21  |  22  |  23  |  24  |  25
+     *     20  |  21  |  22  |  23  |  24
      */
 
 
@@ -96,28 +96,28 @@ public:
     const Jeton* get_plateau_i(int i) const{return jetons[i];}
     void set_plateau_i(int i, const Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
-        if(i%5 != 0){
+        if((i+1)%5 != 0){
             return jetons[++i];
         }else{
             return nullptr;
         }
     }
     const Jeton* get_gauche_i(int i) const{
-        if(i%5 != 1){
+        if(i%5 != 0){
             return jetons[--i];
         }else{
             return nullptr;
         }
     }
     const Jeton* get_dessus_i(int i) const{
-        if(i>5){
+        if(i>4){
             return jetons[i-5];
         }else{
             return nullptr;
         }
     }
     const Jeton* get_dessous_i(int i) const{
-        if(i<21){
+        if(i<20){
             return jetons[i+5];
         }else{
             return nullptr;

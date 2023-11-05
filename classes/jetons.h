@@ -25,19 +25,19 @@ class Jeton{
     const Couleur couleur;
 
     static int nb_perle;
-    static const int max_perle;
+    static const int max_perle = 2;
     static int nb_or;
-    static const int max_or;
+    static const int max_or = 3;
     static int nb_vert;
-    static const int max_vert;
+    static const int max_vert = 4;
     static int nb_rouge;
-    static const int max_rouge;
+    static const int max_rouge = 4;
     static int nb_bleu;
-    static const int max_bleu;
+    static const int max_bleu = 4;
     static int nb_blanc;
-    static const int max_blanc;
+    static const int max_blanc = 4;
     static int nb_noir;
-    static const int max_noir;
+    static const int max_noir = 4;
 
 
 public:
@@ -223,14 +223,6 @@ int Jeton::nb_or = 0;
 int Jeton::nb_perle = 0;
 
 
-
-int Jeton::max_blanc = 4;
-int Jeton::max_bleu = 4;
-int Jeton::max_rouge = 4;
-int Jeton::max_vert = 4;
-int Jeton::max_noir = 4;
-int Jeton::max_perle = 2;
-int Jeton::max_or = 3;
 
 
 
