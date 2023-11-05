@@ -344,7 +344,7 @@
                         "cout_noir": 2,
                         "cout_perle": 0
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":1,
                         "niveau": 1,
                         "bonus_couleur": "joker",
@@ -357,7 +357,7 @@
                         "cout_noir": 1,
                         "cout_perle": 1
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":1,
                         "niveau": 1,
                         "bonus_couleur": "joker",
@@ -370,7 +370,7 @@
                         "cout_noir": 1,
                         "cout_perle": 1
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":0,
                         "niveau": 1,
                         "bonus_couleur": "joker",
@@ -383,7 +383,7 @@
                         "cout_noir": 0,
                         "cout_perle": 1
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":1,
                         "niveau": 1,
                         "bonus_couleur": "joker",
@@ -682,7 +682,7 @@
                         "cout_noir": 0,
                         "cout_perle": 0
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":0,
                         "niveau": 2,
                         "bonus_couleur": "joker",
@@ -695,7 +695,7 @@
                         "cout_noir": 0,
                         "cout_perle": 1
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":2,
                         "niveau": 2,
                         "bonus_couleur": "joker",
@@ -708,7 +708,7 @@
                         "cout_noir": 0,
                         "cout_perle": 1
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":0,
                         "niveau": 2,
                         "bonus_couleur": "joker",
@@ -864,7 +864,7 @@
                         "cout_noir": 6,
                         "cout_perle": 0
                 },{
-                        "capacite":"joker",
+                        "capacite":null,
                         "points_prestige":0,
                         "niveau": 3,
                         "bonus_couleur": "joker",
