@@ -1,53 +1,15 @@
-#ifndef LO21_SPLENDOR_DUEL_SAC_PLATEAU_H
-#define LO21_SPLENDOR_DUEL_SAC_PLATEAU_H
+#ifndef LO21_SPLENDOR_DUEL_PLATEAU_H
+#define LO21_SPLENDOR_DUEL_PLATEAU_H
 #include <iostream>
 #include "Exception.h"
 #include "jetons.h"
 #include "joueur.h"
+#include "sac.h"
 
 const int ordre[25] = {12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0};
 
 using namespace std;
 
-class Sac{
-    int nb;
-    int max;
-    Jeton** jetons;
-    struct Handler_Sac{
-        Sac * instance = nullptr;
-        ~Handler_Sac(){
-            delete instance;
-            instance = nullptr;
-        }
-    };
-    static Handler_Sac handler_sac;
-public:
-    Sac(int max):nb(0),max(max){
-        if (max<0){
-            throw SplendorException("Nombre max de jetons dans le sac négatif!");
-        }
-        jetons = new Jeton*[max];
-        for(size_t i = 0; i<max; i++){
-            jetons[i] = nullptr;
-        }
-    }
-    ~Sac()=default; // car agrégation !
-
-    Sac& operator=(const Sac& s)=delete;
-    Sac(const Sac& s)=delete;
-
-
-    static Sac& get_sac();
-    static void libere_sac();
-
-    //Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
-    //Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}
-    int get_nb_sac(){return nb;}
-    const Jeton* get_jeton_i(int i) const{return jetons[i];}
-    void set_sac_i(int i, const Jeton* jet){jetons[i] = jet;}
-    void init_sac();
-
-};
 
 class Plateau{
     /*
@@ -75,7 +37,6 @@ class Plateau{
         }
     };
     static Handler_Plateau handler_plateau;
-public:
     Plateau(int max):nb(0),max(max){
         if (max<0){
             throw SplendorException("Nombre max de jetons sur le plateau négatif!");
@@ -88,13 +49,14 @@ public:
     ~Plateau()=default; // car agrégation !
     Plateau& operator=(const Plateau& p)=delete;
     Plateau(const Plateau& p)=delete;
+public:
 
     static Plateau& get_plateau();
     static void libere_plateau();
 
 
     const Jeton* get_plateau_i(int i) const{return jetons[i];}
-    void set_plateau_i(int i, const Jeton* jet){jetons[i] = jet;}
+    void set_plateau_i(int i,Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
         if((i+1)%5 != 0){
             return jetons[++i];
@@ -131,5 +93,51 @@ public:
 
 };
 
+Plateau::Handler_Plateau Plateau::handler_plateau;
+Plateau &Plateau::get_plateau() {
+    if(handler_plateau.instance==nullptr){
+        handler_plateau.instance = new Plateau(Jeton::get_nb_max_jetons());
+    }
+    return *handler_plateau.instance;
+}
 
-#endif //LO21_SPLENDOR_DUEL_SAC_PLATEAU_H
+void Plateau::libere_plateau() {
+    delete handler_plateau.instance;
+    handler_plateau.instance = nullptr;
+}
+
+void Plateau::print_tab() const{
+    for (size_t i = 0; i<max;i++){
+        if(jetons[i]!=nullptr){
+            if((i+1)%5 == 0){
+                cout<<*jetons[i]<<"\n";
+            }else{
+                cout<<*jetons[i]<<" | ";
+            }
+        }else{
+            if((i+1)%5 == 0){
+                cout<<"id: null; couleur: null\n";
+            }else{
+                cout<<"id: null; couleur: null | ";
+            }
+        }
+    }
+}
+
+
+
+void Plateau::remplir_plateau(Sac &sac) {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    for(int i = 0;i<Jeton::get_nb_max_jetons();i++){
+        if(jetons[ordre[i]]==nullptr){
+            int nb_sac = sac.get_nb_sac();
+            int rdm = rand()%nb_sac;
+            cout<<"ordre[i] : "<<ordre[i]<<"; jeton : "<<rdm<<"\n";
+            set_plateau_i(ordre[i],sac.get_jeton_i(rdm));
+            sac.retirer_jeton_i(rdm);
+        }
+    }
+}
+
+
+#endif //LO21_SPLENDOR_DUEL_PLATEAU_H
