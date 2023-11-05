@@ -86,7 +86,7 @@ void Plateau::libere_plateau() {
 void Plateau::remplir_plateau(Sac &sac) {
     for(int i = 0;i<Jeton::get_nb_max_jetons();i++){
         if(jetons[ordre[i]]==nullptr){
-            int rdm = rand()%nb;
+            int rdm = rand()%sac.get_nb_sac();
             set_plateau_i(ordre[i],sac.get_jeton_i(rdm));
             sac.set_sac_i(rdm,nullptr);
         }

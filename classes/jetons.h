@@ -21,8 +21,9 @@ string toString(Couleur c){
 
 class Jeton{
     // il faut garantir l'unicité de chaque jeton
-    int id;
-    Couleur couleur;
+    const int id;
+    const Couleur couleur;
+
     static int nb_perle;
     static const int max_perle;
     static int nb_or;

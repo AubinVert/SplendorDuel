@@ -12,7 +12,7 @@ using namespace std;
 class Sac{
     int nb;
     int max;
-    const Jeton* jetons[];
+    Jeton** jetons;
     struct Handler_Sac{
         Sac * instance = nullptr;
         ~Handler_Sac(){
@@ -66,7 +66,7 @@ class Plateau{
 
     int nb;
     int max; // permet une future évolution de la taille du plateau
-    const Jeton* jetons[];
+    Jeton** jetons;
     struct Handler_Plateau{
         Plateau * instance = nullptr;
         ~Handler_Plateau(){
