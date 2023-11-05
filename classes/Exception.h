@@ -14,4 +14,5 @@ public:
 };
 
 
+
 #endif //LO21_SPLENDOR_DUEL_EXCEPTION_H

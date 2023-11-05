@@ -60,12 +60,13 @@ public:
 
     class IteratorJetons {
         Jeton* start;
-        Jeton* end;
         size_t nb;
         IteratorJetons(Jeton* start, size_t nb) : start(start), nb(nb){}
         friend class Joueur;
+        friend class Sac;
     public:
-        void operator++(){if(nb==0) throw "Le nombre de cartes doit être strictement supérieur à 0";start++;nb--;}
+        void operator++(int){if(nb==0) throw "Le nombre de cartes doit être strictement supérieur à 0";start++;nb--;}
+        // int car utilisation en postfixe!
         Jeton& operator*(){if(nb==0) throw "Attention, le nombre de cartes est égal à 0"; return *start;}
         bool operator!=(IteratorJetons i){return start!=i.start;}
     };
@@ -80,6 +81,7 @@ public:
 
     void acheter_carte();
     void reserver_carte();
+    void remplir_plateau();
     void mettre_jetons_dans_sac();
     void piocher_jetons();
     void obtenir_carte_royale();
