@@ -3,39 +3,22 @@
 #include "classes/jetons.h"
 #include "classes/sac.h"
 
-
-int main() {
-    try{
-        Sac& sac = Sac::get_sac();
-        sac.init_sac();
-        Plateau& p = Plateau::get_plateau();
-        p.remplir_plateau(sac);
-        p.print_tab();
-
-
-
-
-
-
-
-
-
-    }catch(const SplendorException& e){
-        cout<<e.getInfos()<<endl;
-    }
+int main(){
+    test_unitaires();
     return 0;
 }
 
 
 void test_unitaires(){
-    // permet de tester la validité de notre code
-
-
-
-
-
-
-
+    try {
+        Privilege* instance1 = Privilege::GetInstance();
+        Privilege* instance2 = Privilege::GetInstance();
+        Privilege* instance3 = Privilege::GetInstance();
+        Privilege* instance4 = Privilege::GetInstance(); //Lève une exception car la limite est atteinte
+        std::cout<<"id de la premiere instance : "<<instance1->get_id()<<"\n";
+        std::cout<<"id de la seconde instance : "<<instance2->get_id()<<"\n";
+        std::cout<<"id de la troisieme instance : "<<instance3->get_id()<<"\n";
+    } catch (const SplendorException& e) {
+        std::cerr << "Exception: " <<e.getInfos()<< std::endl;
+    }
 }
-
-

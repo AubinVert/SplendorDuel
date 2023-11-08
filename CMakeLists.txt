@@ -17,6 +17,4 @@ add_executable(lo21_splendor_duel
         classes/plateau.h
         classes/plateau.cpp
         classes/privilege.h
-        classes/privilege.cpp
-        classes/pioche_tirage.h
-        classes/pioche_tirage.cpp)
+        classes/privilege.cpp)
