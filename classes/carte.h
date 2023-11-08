@@ -10,6 +10,7 @@
 #include <vector>
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <optional>
 
 using json = nlohmann::json;
 
@@ -25,15 +26,17 @@ enum class Bonus_couleur {bleu, rouge, vert, blanc, noir, joker};
 
 
 
-Capacite getCapaciteFromString(const std::string& str) ;
+optional<Capacite> getCapaciteFromString(const std::string& str);
+optional<Bonus_couleur> getBonusFromString(const std::string& str);
+
 
 std::string toString(Couleur c);
 std::string toString(Capacite c);
-std::string toString(Bonus_couleur bonus);
+std ::string toString(optional<enum Bonus_couleur> bonus);
 
 std::ostream& operator<<(std::ostream& f, Couleur c);
-std::ostream& operator<<(std::ostream& f, Capacite c);
-std::ostream& operator<<(ostream& f, Bonus_couleur b);
+std::ostream& operator<<(std::ostream& f, optional<Capacite> c);
+std::ostream& operator<<(ostream& f, optional<Bonus_couleur> b);
 
 extern 	std::initializer_list<Couleur> Couleurs;
 extern 	std::initializer_list<Capacite> Capacites;
@@ -51,7 +54,7 @@ private:
 
     Carte& operator=(Carte& c) =delete;
 
-    const Capacite capacite;
+    const optional<Capacite> capacite;
     const int points_prestige;
 
 
@@ -66,7 +69,7 @@ public:
         nb_cartes--;
     }
 
-    Carte(Capacite capacite = Capacite::rejouer, int points_prestige=0) : capacite(capacite), points_prestige(points_prestige){
+    explicit Carte(int points_prestige=0, std::optional<Capacite> capacite = std::nullopt) : capacite(capacite), points_prestige(points_prestige){
         if(nb_cartes == MAX){
             throw SplendorException("Maximum de cartes atteint");
         }
@@ -76,7 +79,11 @@ public:
         }
         ++nb_cartes;
     }
-    const Capacite& getCapacite() const{return capacite;}
+
+    const optional<Capacite>& getCapacite() const{return capacite;}
+
+
+
     const int getPrestige() const {return points_prestige;}
 
     // pas besoin de setters
@@ -105,8 +112,8 @@ public:
         nb_cartes--;
     }
 
-    Carte_royale(Capacite capacite = Capacite::rejouer, int points_prestige=0)
-    : Carte(capacite, points_prestige){
+    Carte_royale(int points_prestige=0,std::optional<Capacite> capacite = nullopt)
+    : Carte(points_prestige, capacite){
         if(points_prestige<0 || points_prestige>10){
             throw SplendorException("Valeur non autorisée");
         }
@@ -127,7 +134,7 @@ class Carte_joaillerie:public Carte{
     const int cout_perle;
     const int niveau;
     const int nb_couronnes;
-    const enum Bonus_couleur bonus;
+    const optional<enum Bonus_couleur> bonus;
     const int bonus_nombre;
 
     // bool est_reservee;
@@ -186,8 +193,8 @@ public:
         nb_cartes--;
     }
 
-    Carte_joaillerie(Capacite capacite = Capacite::joker,int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0, enum Bonus_couleur bonus = Bonus_couleur::bleu, int bonus_nombre = 0)
-            : Carte(capacite, points_prestiges), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
+    Carte_joaillerie(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0,int bonus_nombre = 0, optional<enum Bonus_couleur> bonus = nullopt,optional<Capacite> capacite = nullopt)
+            : Carte(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
     {
         if(nb_cartes == MAX){
             throw SplendorException("Maximum de cartes atteint");
@@ -197,8 +204,6 @@ public:
         {
             throw SplendorException("Valeur non autorisée");
         }
-
-
         ++nb_cartes;
 
     }
@@ -224,22 +229,22 @@ public:
 
     const int getNiveau()const{return niveau;}
     const int get_nb_couronnes()const {return nb_couronnes;}
-    const enum Bonus_couleur& get_bonus()const{return bonus;}
+    const optional<enum Bonus_couleur>& get_bonus()const{return bonus;}
     const int get_nb_bonus() const {return bonus_nombre;}
 
 
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Carte& c){
-    os<<"Capacite : "<<c.getCapacite()<<" points prestiges : "<<c.getPrestige()<<endl;
+    os<<"Capacite : "<< c.getCapacite() <<" points prestiges : "<<c.getPrestige()<<endl;
     return os;
 }
 inline std::ostream& operator<<(std::ostream& os, const Carte_royale& c){
-    os<<"Capacite : "<<c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<endl;
+    os<<"Capacite : "<< c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<endl;
     return os;
 }
 inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
-    os<<"Capacite : "<<c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<", Cout Perle :"<<
+    os<<"Capacite : "<< c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<", Cout Perle :"<<
     c.getCoutPerle()<<", Cout Bleu :"<<c.getCoutBleu()<<", Cout Blanc :"<<c.getCoutBlanc()<<", Cout Rouge :"<<c.getCoutRouge()
     <<", Cout Vert :"<<c.getCoutVert()<<", Cout Noir :"<<c.getCoutNoir()<<", Bonus : "<<c.get_bonus()<<", nombre de bonus : "<<c.get_nb_bonus()
     <<", Niveau : "<<c.getNiveau()<<endl;
