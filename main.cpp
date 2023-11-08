@@ -16,8 +16,8 @@ int main(){
 
 
 void test_unitaires(){
-    tests_cartes();
-
+    //tests_cartes();
+    testInitCartes();
 
 }
 

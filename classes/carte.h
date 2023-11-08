@@ -2,34 +2,42 @@
 #define LO21_SPLENDOR_DUEL_CARTE_H
 #include <iostream>
 #include <string>
+#include <cstring>
 #include "Exception.h"
 #include <initializer_list>
 #include <array>
 #include <cstdlib>
+#include <vector>
+#include <nlohmann/json.hpp>
+#include <fstream>
+
+using json = nlohmann::json;
 
 using namespace std;
 
 
 
-enum  class  Capacite {rejouer, voler_pion_adverse, prendre_privilege, prendre_sur_plateau, joker};  // joker dans capacité et bonus?
+enum  class  Capacite {rejouer, voler_pion_adverse, prendre_privilege, prendre_sur_plateau, joker};
 enum  class Couleur {bleu, rouge, vert, blanc, noir};
 enum class Bonus_couleur {bleu, rouge, vert, blanc, noir, joker};
+
+
+
+
+
+Capacite getCapaciteFromString(const std::string& str) ;
 
 std::string toString(Couleur c);
 std::string toString(Capacite c);
 std::string toString(Bonus_couleur bonus);
 
-
 std::ostream& operator<<(std::ostream& f, Couleur c);
 std::ostream& operator<<(std::ostream& f, Capacite c);
 std::ostream& operator<<(ostream& f, Bonus_couleur b);
 
-
 extern 	std::initializer_list<Couleur> Couleurs;
 extern 	std::initializer_list<Capacite> Capacites;
 extern std::initializer_list<Bonus_couleur> Bonus_couleur;
-
-
 
 class Carte{
 
@@ -89,9 +97,6 @@ public:
 
 
 };
-
-
-
 class Carte_royale:public Carte{
 
 public:
@@ -113,8 +118,6 @@ public:
     }
 
 };
-
-
 class Carte_joaillerie:public Carte{
     const int cout_blanc;
     const int cout_bleu;
@@ -227,17 +230,14 @@ public:
 
 };
 
-
 inline std::ostream& operator<<(std::ostream& os, const Carte& c){
     os<<"Capacite : "<<c.getCapacite()<<" points prestiges : "<<c.getPrestige()<<endl;
     return os;
 }
-
 inline std::ostream& operator<<(std::ostream& os, const Carte_royale& c){
     os<<"Capacite : "<<c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<endl;
     return os;
 }
-
 inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
     os<<"Capacite : "<<c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<", Cout Perle :"<<
     c.getCoutPerle()<<", Cout Bleu :"<<c.getCoutBleu()<<", Cout Blanc :"<<c.getCoutBlanc()<<", Cout Rouge :"<<c.getCoutRouge()
@@ -247,6 +247,16 @@ inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
 }
 
 
-void tests_cartes();
+void readJson();
 
+vector<const Carte_joaillerie> initCartesJoallerie();
+vector<const Carte_royale> initCartesRoyale();
+
+
+
+
+
+
+void tests_cartes();
+void testInitCartes();
 #endif //LO21_SPLENDOR_DUEL_CARTE_H
