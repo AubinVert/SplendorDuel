@@ -7,6 +7,6 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 
 ## Liste des tâches déjà réalisées et leur répartition
 - Modification du diagramme UML : Quentin
-- Définition des classes : Jeton, plateau, sac, Carte, Exception -> Aubin, leopold // Privilege, Jeu, Joueur -> Gaspard, Alexandru, Quentin
-- Définition des méthodes : 
+- Définition des classes : Jeton, plateau, sac, -> Aubin, Carte, Exception -> leopold // Privilege, Jeu, Joueur -> Gaspard, Alexandru, Quentin
+- Définition des méthodes  
 
