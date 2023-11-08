@@ -46,7 +46,7 @@ class Carte{
 
 protected:
 
-    static const int MAX=64;
+    static const int MAX=71;
     static int nb_cartes;
 
 private:
@@ -197,10 +197,11 @@ public:
             : Carte(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
     {
         if(nb_cartes == MAX){
+
             throw SplendorException("Maximum de cartes atteint");
 
         }
-        if (cout_blanc < 0 || cout_blanc > 10 || cout_bleu < 0 || cout_bleu > 10 || cout_rouge < 0 || cout_rouge > 10 || cout_vert < 0 || cout_vert > 10 || cout_noir < 0 || cout_noir > 10 || cout_perle < 0 || cout_perle > 10 || niveau < 1 || niveau > 3 || nb_couronnes < 0 || nb_couronnes > 3 || bonus_nombre < 0 || bonus_nombre > 2)
+        if (cout_blanc < 0 || cout_blanc > 10 || cout_bleu < 0 || cout_bleu > 10 || cout_rouge < 0 || cout_rouge > 10 || cout_vert < 0 || cout_vert > 10 || cout_noir < 0 || cout_noir > 10 || cout_perle < 0 || cout_perle > 10 || niveau < 1 || niveau > 3 || nb_couronnes < 0 || nb_couronnes > 5 || bonus_nombre < 0 || bonus_nombre > 5)
         {
             throw SplendorException("Valeur non autorisée");
         }

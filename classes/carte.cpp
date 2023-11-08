@@ -67,6 +67,24 @@ extern 	std::initializer_list<Couleur> Couleurs = { Couleur::rouge, Couleur::ble
 extern 	std::initializer_list<Capacite> Capacites = { Capacite::rejouer, Capacite::voler_pion_adverse, Capacite::prendre_privilege, Capacite::prendre_sur_plateau, Capacite::joker };
 extern std::initializer_list< enum Bonus_couleur> Bonus_couleurs ={ Bonus_couleur::bleu, Bonus_couleur::rouge, Bonus_couleur::vert, Bonus_couleur::blanc, Bonus_couleur::noir, Bonus_couleur::joker};
 
+std::map<std::string,enum Bonus_couleur> bonusMap = {
+        {"bleu", Bonus_couleur::bleu},
+        {"rouge", Bonus_couleur::rouge},
+        {"vert", Bonus_couleur::vert},
+        {"blanc", Bonus_couleur::blanc},
+        {"noir", Bonus_couleur::noir},
+        {"joker", Bonus_couleur::joker}
+};
+
+optional<enum Bonus_couleur> getBonusFromString(const std::string& str) {
+    auto it = bonusMap.find(str);
+    if (it != bonusMap.end()) {
+        return it->second;
+    } else {
+        return nullopt;
+    }
+}
+
 std::map<std::string, Capacite> capaciteMap = {
         {"rejouer", Capacite::rejouer},
         {"voler_pion_adverse", Capacite::voler_pion_adverse},
@@ -120,161 +138,40 @@ void readJson(){
     }
 
     for (const auto& carte_joaillerie_data : data["cartes_joailleries"]) {
+
         if(carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null() ){
-            cout<<carte_joaillerie_data["points_prestige"]<<" "<< carte_joaillerie_data["cout_blanc"]<<" "<<carte_joaillerie_data["cout_bleu"]<<" "<<carte_joaillerie_data["cout_rouge"]<<" "<<carte_joaillerie_data["cout_vert"]<<" "<<carte_joaillerie_data["cout_noir"]<<" "<< carte_joaillerie_data["cout_perle"]<<" "<< carte_joaillerie_data["niveau"]<<" "<< carte_joaillerie_data["nb_couronnes"]<< " "<< carte_joaillerie_data["bonus_nombre"]<<" "<< carte_joaillerie_data["bonus_nombre"]<<" "<<carte_joaillerie_data["capacite"];
 
-            //Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronnes"], carte_joaillerie_data["bonus_nombre"], nullopt,nullopt);
-            //cartes_joailleries_instances.push_back(instance);
-        }else if (carte_joaillerie_data["capacite"].is_null() && !carte_joaillerie_data["bonus_couleur"].is_null())
+            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt,nullopt);
+            cartes_joailleries_instances.push_back(instance);
+        }else if (!carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null())
         {
-            cout<<carte_joaillerie_data["points_prestige"]<<" "<< carte_joaillerie_data["cout_blanc"]<<" "<<carte_joaillerie_data["cout_bleu"]<<" "<<carte_joaillerie_data["cout_rouge"]<<" "<<carte_joaillerie_data["cout_vert"]<<" "<<carte_joaillerie_data["cout_noir"]<<" "<< carte_joaillerie_data["cout_perle"]<<" "<< carte_joaillerie_data["niveau"]<<" "<< carte_joaillerie_data["nb_couronnes"]<< " "<< carte_joaillerie_data["bonus_nombre"]<<" "<< carte_joaillerie_data["bonus_nombre"]<<" "<<carte_joaillerie_data["capacite"];
 
-            //Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronnes"], carte_joaillerie_data["bonus_nombre"], nullopt,carte_joaillerie_data["capacite"]);
-            //cartes_joailleries_instances.push_back(instance);
+            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt,getCapaciteFromString(carte_joaillerie_data["capacite"]));
+            cartes_joailleries_instances.push_back(instance);
 
-        }else if(!carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null()){
-            cout<<carte_joaillerie_data["points_prestige"]<<" "<< carte_joaillerie_data["cout_blanc"]<<" "<<carte_joaillerie_data["cout_bleu"]<<" "<<carte_joaillerie_data["cout_rouge"]<<" "<<carte_joaillerie_data["cout_vert"]<<" "<<carte_joaillerie_data["cout_noir"]<<" "<< carte_joaillerie_data["cout_perle"]<<" "<< carte_joaillerie_data["niveau"]<<" "<< carte_joaillerie_data["nb_couronnes"]<< " "<< carte_joaillerie_data["bonus_nombre"]<<" "<< carte_joaillerie_data["bonus_nombre"]<<" "<<carte_joaillerie_data["capacite"];
+        }else if(carte_joaillerie_data["capacite"].is_null() && !carte_joaillerie_data["bonus_couleur"].is_null()){
 
-            //Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronnes"], carte_joaillerie_data["bonus_nombre"], carte_joaillerie_data["bonus_couleur"],nullopt);
-            //cartes_joailleries_instances.push_back(instance);
+            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]),nullopt);
+            cartes_joailleries_instances.push_back(instance);
         }else{
-            cout<<carte_joaillerie_data["points_prestige"]<<" "<< carte_joaillerie_data["cout_blanc"]<<" "<<carte_joaillerie_data["cout_bleu"]<<" "<<carte_joaillerie_data["cout_rouge"]<<" "<<carte_joaillerie_data["cout_vert"]<<" "<<carte_joaillerie_data["cout_noir"]<<" "<< carte_joaillerie_data["cout_perle"]<<" "<< carte_joaillerie_data["niveau"]<<" "<< carte_joaillerie_data["nb_couronnes"]<< " "<< carte_joaillerie_data["bonus_nombre"]<<" "<< carte_joaillerie_data["bonus_nombre"]<<" "<<carte_joaillerie_data["capacite"];
 
-            //Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronnes"], carte_joaillerie_data["bonus_nombre"], carte_joaillerie_data["bonus_couleur"],carte_joaillerie_data["capacite"]);
-            //cartes_joailleries_instances.push_back(instance);
+            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]),getCapaciteFromString(carte_joaillerie_data["capacite"]));
+            cartes_joailleries_instances.push_back(instance);
         }
     }
 
+    for (int k = 0; k < cartes_joailleries_instances.size(); k++) {
+        cout << *cartes_joailleries_instances[k]<<endl;
+    }
 
 
-
-
+    cout <<"\n "<<cartes_joailleries_instances.size()+cartes_royales_instances.size()<<endl;
 }
 
 
 
 // Tests unitaires de la classe Carte :
 
-void tests_cartes(){
-
-
-
-    // Test création d'une carte ;
-
-    try {
-        Carte carte(2,Capacite::joker);
-        Carte c;
-        cout << "Test 1 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 1 failed!";
-        cerr << e;
-    }
-
-
-    // Test des getters
-    try {
-        Carte carte( 2,Capacite::joker);
-        optional<Capacite> a = carte.getCapacite();
-        int b = carte.getPrestige();
-        cout << "Test 2 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 2 failed!";
-        cerr << e;
-    }
-
-    // Test création cartes joallerie.
-    try {
-        Carte_joaillerie carte; // création sans arguments
-        Carte_joaillerie c(2,1,2,3,1,2,3,2,2,2,Bonus_couleur::rouge,Capacite::joker);
-        cout << "Test 3 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 3 failed!";
-        cerr << e;
-    }
-
-
-
-    // Test des getters
-    try {
-        Carte_joaillerie c(2,1,2,3,1,2,3,2,2,2,Bonus_couleur::rouge,Capacite::joker);
-        int n = c.getCoutBlanc();
-        int n2 = c.getCoutBleu();
-        int n3 = c.getCoutNoir();
-        int n4 = c.getCoutPerle();
-
-        optional<enum Bonus_couleur> a =  c.get_bonus();
-        optional<Capacite> g =  c.getCapacite();
-
-
-
-        cout << "Test 4 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 4 failed!";
-        cerr << e;
-    }
-
-
-    // Test carte royale :
-    try {
-        Carte_royale carte(1, Capacite::joker);
-        optional<Capacite> a = carte.getCapacite();
-        int b = carte.getPrestige();
-        cout << "Test 5 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 5 failed!";
-        cerr << e;
-    }
-
-    //
-    try {
-        Carte carte(2,Capacite::joker);
-        cout<<carte;
-        cout << "Test 6 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 6 failed!";
-        cerr << e;
-    }
-
-    try {
-        Carte_joaillerie carte(2,1,2,3,1,2,3,2,2,2,Bonus_couleur::rouge,Capacite::joker);
-        cout<<carte;
-        cout << "Test 7 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 7 failed!";
-        cerr << e;
-    }
-
-    try {
-        Carte_royale carte( 2, Capacite::prendre_privilege);
-        cout<<carte;
-        cout << "Test 8 passed!" << endl;
-    } catch (const string& e) {
-        cout << "Test 8 failed!";
-        cerr << e;
-    }
-
-
-    try {
-
-
-        Carte carte( 2, Capacite::prendre_privilege);
-        Carte c1( 2, Capacite::prendre_privilege);
-
-
-
-        if(Carte::getNbCartes() == 2){
-            cout << "\nTest 9 passed!" << endl;
-
-        }else{
-            throw SplendorException("Test 9 failed ! ");
-        }
-    } catch (const string& e) {
-        cout << "Test 9 failed!";
-        cerr << e;
-    }
-
-
-}
 
 void testInitCartes(){
 

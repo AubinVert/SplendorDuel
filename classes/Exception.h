@@ -6,7 +6,7 @@
 #define LO21_SPLENDOR_DUEL_EXCEPTION_H
 #include <iostream>
 
-class SplendorException{
+class SplendorException  {
     std::string info;
 public:
     SplendorException(const std::string &str) : info(str){}
