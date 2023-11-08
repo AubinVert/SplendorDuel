@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include "Exception.h"
 
+
 class Privilege{
 private:
     const int id;

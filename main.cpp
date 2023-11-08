@@ -1,4 +1,7 @@
 #include "main.h"
+#include "classes/plateau.h"
+#include "classes/jetons.h"
+#include "classes/sac.h"
 
 int main(){
     test_unitaires();

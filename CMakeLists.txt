@@ -8,5 +8,13 @@ include_directories(.)
 add_executable(lo21_splendor_duel
         main.cpp
         main.h
+        classes/*
+        classes/carte.h
+        classes/jetons.cpp
+        classes/carte.cpp
+        classes/jeu.cpp
+        classes/joueur.cpp
+        classes/plateau.h
+        classes/plateau.cpp
         classes/privilege.h
         classes/privilege.cpp)
