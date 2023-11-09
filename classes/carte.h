@@ -248,16 +248,15 @@ inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
 }
 
 
-void readJson();
 
-vector<const Carte_joaillerie> initCartesJoallerie();
-vector<const Carte_royale> initCartesRoyale();
-
+vector<const Carte_royale*> initCartesRoyales();
+vector<const Carte_joaillerie*> initCartesJoaillerie();
 
 
 
 
 
-void tests_cartes();
+
+
 void testInitCartes();
 #endif //LO21_SPLENDOR_DUEL_CARTE_H

@@ -104,21 +104,22 @@ optional<Capacite> getCapaciteFromString(const std::string& str) {
 
 
 
-void readJson(){
 
+
+
+vector<const Carte_royale*> initCartesRoyales(){
     std::ifstream file("../src/cartes.json");
 
     if (!file.is_open()) {
         std::cerr << "Failed to open the JSON file." << std::endl;
-        return;
+        throw SplendorException("Fichier non ouvert");
     }
 
     json data;
     file >> data;
     file.close();
 
-    std::vector<Carte_royale*> cartes_royales_instances;
-    std::vector<Carte_joaillerie*> cartes_joailleries_instances;
+    std::vector<const Carte_royale*> cartes_royales_instances;
 
     for (const auto& carte_royale_data : data["cartes_royales"]) {
 
@@ -132,11 +133,21 @@ void readJson(){
         }
 
     }
+    return cartes_royales_instances;
+}
 
-    for (int k = 0; k < cartes_royales_instances.size(); k++) {
-        cout << *cartes_royales_instances[k]<<endl;
+vector<const Carte_joaillerie*> initCartesJoaillerie(){
+    std::ifstream file("../src/cartes.json");
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open the JSON file." << std::endl;
+        throw SplendorException("Fichier non ouvert");
     }
 
+    json data;
+    file >> data;
+    file.close();
+    std::vector<const Carte_joaillerie*> cartes_joailleries_instances;
     for (const auto& carte_joaillerie_data : data["cartes_joailleries"]) {
 
         if(carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null() ){
@@ -159,21 +170,28 @@ void readJson(){
             cartes_joailleries_instances.push_back(instance);
         }
     }
-
-    for (int k = 0; k < cartes_joailleries_instances.size(); k++) {
-        cout << *cartes_joailleries_instances[k]<<endl;
-    }
-
-
+    return cartes_joailleries_instances;
 }
-
-
 
 // Tests unitaires de la classe Carte :
 
 
+
+
+
 void testInitCartes(){
 
-    readJson();
+    vector<const Carte_royale*> test = initCartesRoyales();
+    vector<const Carte_joaillerie*> test2 = initCartesJoaillerie();
+
+    for (int k = 0; k < test2.size(); k++) {
+        cout << *test2[k]<<endl;
+    }
+    for (int k = 0; k < test.size(); k++) {
+        cout << *test[k]<<endl;
+    }
+
+    cout<<"\n"<<Carte::getNbCartes()<<endl;
+
 }
 
