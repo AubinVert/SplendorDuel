@@ -165,7 +165,6 @@ void readJson(){
     }
 
 
-    cout <<"\n "<<cartes_joailleries_instances.size()+cartes_royales_instances.size()<<endl;
 }
 
 

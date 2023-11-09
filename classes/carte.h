@@ -70,7 +70,7 @@ public:
     }
 
     explicit Carte(int points_prestige=0, std::optional<Capacite> capacite = std::nullopt) : capacite(capacite), points_prestige(points_prestige){
-        if(nb_cartes == MAX){
+        if(nb_cartes > MAX){
             throw SplendorException("Maximum de cartes atteint");
         }
 
@@ -108,20 +108,17 @@ class Carte_royale:public Carte{
 
 public:
 
-    ~Carte_royale(){
-        nb_cartes--;
-    }
 
     Carte_royale(int points_prestige=0,std::optional<Capacite> capacite = nullopt)
     : Carte(points_prestige, capacite){
         if(points_prestige<0 || points_prestige>10){
             throw SplendorException("Valeur non autorisée");
         }
-        if(nb_cartes == MAX){
+        if(nb_cartes > MAX){
             throw SplendorException("Maximum de cartes atteint");
 
         }
-        ++nb_cartes;
+
     }
 
 };
@@ -189,14 +186,12 @@ public:
     const int getCoutPerle()const{return cout_perle;}
 
 
-    ~Carte_joaillerie(){
-        nb_cartes--;
-    }
+
 
     Carte_joaillerie(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0,int bonus_nombre = 0, optional<enum Bonus_couleur> bonus = nullopt,optional<Capacite> capacite = nullopt)
             : Carte(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
     {
-        if(nb_cartes == MAX){
+        if(nb_cartes > MAX){
 
             throw SplendorException("Maximum de cartes atteint");
 
@@ -205,7 +200,7 @@ public:
         {
             throw SplendorException("Valeur non autorisée");
         }
-        ++nb_cartes;
+
 
     }
 
