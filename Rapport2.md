@@ -19,6 +19,7 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 
 - Modification du diagramme UML : Quentin (2 heures de travail)
     - avancement 98%
+- Création du JSON contenant toutes les cartes : Aubin (2h30 de travail)
 
   
 ## Nouvelles tâches & tâches mises à jour : 
@@ -88,6 +89,11 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 
 
  
+## Remarques :
+
+Nous avons utilisé la librairie nlohmann JSON for Modern C++
+pour pouvoir lire simplement les cartes depuis le JSON crée. https://github.com/nlohmann/json 
+
 
 ## Bilan sur la cohesion du groupe :
 Tout le monde s'entend toujours bien, nous travaillons ensembles. Le fait d'utiliser git est vraiment pertinent car on peut tous travailler sur nos branches respectives les tâches que l'on s'est réparties. Nous utilisons aussi un serveur discord avec plusieurs channels pour pouvoir travailler ensemble même à distance et éclaircir rapidement les zones d'ombres. 
