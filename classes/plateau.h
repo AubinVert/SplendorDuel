@@ -1,6 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_PLATEAU_H
 #define LO21_SPLENDOR_DUEL_PLATEAU_H
 #include <iostream>
+#include <vector>
 #include "Exception.h"
 #include "jetons.h"
 #include "joueur.h"
@@ -26,9 +27,8 @@ class Plateau{
      */
 
 
-    int nb;
-    int max; // permet une future évolution de la taille du plateau
-    Jeton** jetons;
+    int nb = 0;
+    vector<const Jeton*> jetons;
     struct Handler_Plateau{
         Plateau * instance = nullptr;
         ~Handler_Plateau(){
@@ -37,15 +37,11 @@ class Plateau{
         }
     };
     static Handler_Plateau handler_plateau;
-    Plateau(int max):nb(0),max(max){
-        if (max<0){
-            throw SplendorException("Nombre max de jetons sur le plateau négatif!");
+    Plateau():nb(0),jetons(){
+        for (size_t i = 0; i<Jeton::get_nb_max_jetons();i++){
+            jetons.push_back(nullptr);
         }
-        jetons = new Jeton*[max];
-        for(size_t i = 0; i<max; i++){
-            jetons[i] = nullptr;
-        }
-    }
+    };
     ~Plateau()=default; // car agrégation !
     Plateau& operator=(const Plateau& p)=delete;
     Plateau(const Plateau& p)=delete;
@@ -56,7 +52,7 @@ public:
 
 
     const Jeton* get_plateau_i(int i) const{return jetons[i];}
-    void set_plateau_i(int i,Jeton* jet){jetons[i] = jet;}
+    void set_plateau_i(int i,const Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
         if((i+1)%5 != 0){
             return jetons[++i];
@@ -96,7 +92,7 @@ public:
 Plateau::Handler_Plateau Plateau::handler_plateau;
 Plateau &Plateau::get_plateau() {
     if(handler_plateau.instance==nullptr){
-        handler_plateau.instance = new Plateau(Jeton::get_nb_max_jetons());
+        handler_plateau.instance = new Plateau();
     }
     return *handler_plateau.instance;
 }
@@ -107,7 +103,7 @@ void Plateau::libere_plateau() {
 }
 
 void Plateau::print_tab() const{
-    for (size_t i = 0; i<max;i++){
+    for (size_t i = 0; i<Jeton::get_nb_max_jetons();i++){
         if(jetons[i]!=nullptr){
             if((i+1)%5 == 0){
                 cout<<*jetons[i]<<"\n";
@@ -132,7 +128,7 @@ void Plateau::remplir_plateau(Sac &sac) {
         if(jetons[ordre[i]]==nullptr){
             int nb_sac = sac.get_nb_sac();
             int rdm = rand()%nb_sac;
-            cout<<"ordre[i] : "<<ordre[i]<<"; jeton : "<<rdm<<"\n";
+            //cout<<"ordre[i] : "<<ordre[i]<<"; jeton : "<<rdm<<"\n";
             set_plateau_i(ordre[i],sac.get_jeton_i(rdm));
             sac.retirer_jeton_i(rdm);
         }

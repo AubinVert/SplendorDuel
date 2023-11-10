@@ -1,6 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_JETONS_H
 #define LO21_SPLENDOR_DUEL_JETONS_H
 #include <iostream>
+#include <vector>
 #include "Exception.h"
 #include "carte.h"
 
@@ -41,9 +42,6 @@ class Jeton{
 
 
 public:
-
-
-
     Jeton(int id,const Couleur& coul):id(id),couleur(coul){
         if((id<1)||(id>Jeton::get_nb_max_jetons())){
             throw SplendorException("Mauvais id de jetons!");
@@ -111,11 +109,74 @@ public:
             }
         }
     }
-    ~Jeton()=default;
+    ~Jeton(){
+        switch (couleur) {
+            case Couleur::rouge: {
+                if (nb_rouge > 0) {
+                    nb_rouge--;
+                } else {
+                    throw SplendorException("Nombre de jetons rouge <= 0!");
+                }
+                break;
+            }
+            case Couleur::bleu: {
+                if (nb_bleu > 0) {
+                    nb_bleu--;
+                } else {
+                    throw SplendorException("Nombre de jetons bleu <= 0!");
+                }
+                break;
+            }
+            case Couleur::vert: {
+                if (nb_vert > 0) {
+                    nb_vert--;
+                } else {
+                    throw SplendorException("Nombre de jetons vert <= 0!");
+                }
+                break;
+            }
+            case Couleur::blanc: {
+                if (nb_blanc > 0) {
+                    nb_blanc--;
+                } else {
+                    throw SplendorException("Nombre de jetons blanc <= 0!");
+                }
+                break;
+            }
+            case Couleur::noir: {
+                if (nb_noir > 0) {
+                    nb_noir--;
+                } else {
+                    throw SplendorException("Nombre de jetons noir <= 0!");
+                }
+                break;
+            }
+            case Couleur::perle: {
+                if (nb_perle > 0) {
+                    nb_perle--;
+                } else {
+                    throw SplendorException("Nombre de jetons  <= 0!");
+                }
+                break;
+            }
+            case Couleur::gold: {
+                if (nb_or > 0) {
+                    nb_or--;
+                } else {
+                    throw SplendorException("Nombre de jetons vert <= 0!");
+                }
+                break;
+            }
+            default: {
+                throw SplendorException("Couleur de jetons inconnue");
+                break;
+            }
+        }
+    }
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
-    const Couleur& get_couleur(){return couleur;}
+    const Couleur& get_couleur() const {return couleur;}
     const int get_id()const{return id;}
 
 
@@ -133,6 +194,13 @@ int Jeton::nb_vert = 0;
 int Jeton::nb_noir = 0;
 int Jeton::nb_or = 0;
 int Jeton::nb_perle = 0;
+
+ostream& operator<<(ostream& f, const Jeton& jet){
+    f<<"id: "<<jet.get_id()<<"; couleur: "<<toString(jet.get_couleur());
+    return f;
+}
+
+
 /*
 class Jeton_perle:public Jeton{
 
@@ -232,22 +300,6 @@ public:
     void set_couleur(const Couleur& coul){couleur = coul;}
 };*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-ostream& operator<<(ostream& f, Jeton& jet){
-    f<<"id: "<<jet.get_id()<<"; couleur: "<<toString(jet.get_couleur());
-    return f;
-}
 
 
 
