@@ -21,7 +21,7 @@ public:
 
     ~Pioche(){nb_pioches --;}
 
-    explicit Pioche(int niv) : niveau(niv){
+    Pioche(int niv) : niveau(niv){
         if (nb_pioches > max_pioches){
             throw SplendorException("Maximum de pioches atteint");
         }

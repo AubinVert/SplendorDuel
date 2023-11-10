@@ -8,7 +8,7 @@
 #include <array>
 #include <cstdlib>
 #include <vector>
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 #include <fstream>
 #include <optional>
 

@@ -14,3 +14,4 @@ set(SOURCE_FILES
 
 # Add executable target with source files listed in SOURCE_FILES variable
 add_executable(lo21-splendor-duel ${SOURCE_FILES})
+

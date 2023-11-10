@@ -19,13 +19,12 @@ int main(){
 
 void test_unitaires(){
     try {
-        Privilege* instance1 = Privilege::GetInstance();
-        Privilege* instance2 = Privilege::GetInstance();
-        Privilege* instance3 = Privilege::GetInstance();
-        Privilege* instance4 = Privilege::GetInstance(); //Lève une exception car la limite est atteinte
-        std::cout<<"id de la premiere instance : "<<instance1->get_id()<<"\n";
-        std::cout<<"id de la seconde instance : "<<instance2->get_id()<<"\n";
-        std::cout<<"id de la troisieme instance : "<<instance3->get_id()<<"\n";
+        //vector<const Carte_joaillerie*> test = initCartesJoaillerie();
+        Pioche* p1 = new Pioche(1);
+        Pioche* p2 = new Pioche(2);
+        Pioche* p3 = new Pioche(3);
+        //Pioche* p4 = new Pioche(3); //lève une exception
+        //Pioche::remplirPioche(p1, p2, p3, test);
     } catch (const SplendorException& e) {
         std::cerr << "Exception: " <<e.getInfos()<< std::endl;
     }
