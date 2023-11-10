@@ -8,12 +8,12 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 ## Avancement des tâches à grande prioritées :
 
 - Définition des classes, méthodes et fonctions à implémenter (5 membres) 
-    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter :  Joueur, Jeu, Pioche et tirage. (temps consacré : )
+    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter :  Joueur, Jeu et tirage. (temps consacré : )
 - répartition du développement des classes : 
   - Cartes, Exception : Léopold (10 heures de travail) 
   - Jetons, Plateau, Sac : Aubin (15 heures de travail)
   - Jeu, Joueur : Alexandru (15 heures de travail)
-  - Privilège, Pioche : Gaspard (X heures de travail)
+  - Privilège, Pioche : Gaspard (10 heures de travail)
   - Tirage : Quentin (X heures de travail)
 - interactions entre les classes : il faut qu'on finisse complètement toutes les classes pour avoir des interactions satisfaisantes. 
 
