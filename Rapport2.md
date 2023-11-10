@@ -2,7 +2,7 @@
 
 ## LO21: Projet Splendor duel
 
-## **Rapport 1:**
+## **Rapport 2:**
 Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable), Ghitu Alexandru, Vert Aubin
 
 ## Avancement des tâches à grande prioritées :
@@ -50,11 +50,51 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
     - Durée estimée : 10 heures
 
 
-## Architecture implémentée jusqu'ici :
+## Architecture implémentée (associations et hierarchie entre les classes ) :
+
+### Récapitualitf des classes :
+    - Jeu
+    - Joueur
+    - Cartes
+        - Cartes Joaillerie 
+        - Cartes Royales 
+    - Plateau
+    - Jeton
+    - Sac
+    - Pioche 
+    - Tirage
+    - Privilège
+    - Exception
+
+### Hierarchie entre les classes :
+    - Jeu
+        - Joueur
+            - Cartes
+            - Privilège
+            - Jeton
+        - Plateau
+            - Privilège
+            - Pioche
+                - Cartes
+            - Tirage 
+                - Cartes
+            - Jeton
+        - Sac 
+            - Jeton
+
+### associations entre les classes : 
+
+![UML.png](UML_v2.png)
 
 
+ 
 
 ## Bilan sur la cohesion du groupe :
 Tout le monde s'entend toujours bien, nous travaillons ensembles. Le fait d'utiliser git est vraiment pertinent car on peut tous travailler sur nos branches respectives les tâches que l'on s'est réparties. Nous utilisons aussi un serveur discord avec plusieurs channels pour pouvoir travailler ensemble même à distance et éclaircir rapidement les zones d'ombres. 
-
+- investissement : 
+    - Aubin  ~ 8h semaine
+    - Alexandru ~ 8h semaine
+    - Gaspard ~ 6h semaine
+    - Léopold ~ 6h semaine
+    - Quentin ~ 6h semaine
 
