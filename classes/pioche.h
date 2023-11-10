@@ -1,3 +1,4 @@
+#ifndef LO21_SPLENDOR_DUEL_PIOCHE_H
 #define LO21_SPLENDOR_DUEL_PIOCHE_H
 #include <iostream>
 #include "carte.h"
@@ -17,7 +18,8 @@ public:
         return pioche.empty();
     }
 
-    static int getNbPioches(){return nb_pioches;}
+    static int getNbPioches() {return nb_pioches;}
+
 
     ~Pioche(){nb_pioches --;}
 
@@ -28,22 +30,5 @@ public:
         nb_pioches++;
     }
 
-    static void remplirPioche(Pioche* p1, Pioche* p2, Pioche* p3, vector<Carte_joaillerie*>& cartes){
-        if (nb_pioches != max_pioches){throw SplendorException("les pioches ne sont pas toutes créées");}
-
-        for (const Carte_joaillerie* carte : cartes) { //pour chaque carte (ptr constant vers une carte) du vecteur cartes
-            switch(carte->getNiveau()){
-                case 1:
-                    (p1->pioche).push_back(carte);
-                    break;
-                case 2:
-                    (p2->pioche).push_back(carte);
-                    break;
-                case 3:
-                    (p3->pioche).push_back(carte);
-                    break;
-            }
-        }
-    }
-
+    static void remplirPioche(Pioche* p1, Pioche* p2, Pioche* p3, vector<const Carte_joaillerie*>& cartes);
 };
