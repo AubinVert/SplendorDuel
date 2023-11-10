@@ -2,7 +2,7 @@
 #define LO21_SPLENDOR_DUEL_JEU_H
 #include <iostream>
 #include "joueur.h"
-#include "sac_plateau.h"
+#include "plateau.h"
 #include "privilege.h"
 
 using namespace std;
