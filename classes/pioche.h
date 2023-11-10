@@ -14,13 +14,6 @@ private:
 
 
 public:
-    bool est_vide(){
-        return pioche.empty();
-    }
-
-    static int getNbPioches() {return nb_pioches;}
-
-
     ~Pioche(){nb_pioches --;}
 
     Pioche(int niv) : niveau(niv){
@@ -29,6 +22,14 @@ public:
         }
         nb_pioches++;
     }
+
+    bool est_vide(){
+        return pioche.empty();
+    }
+
+    vector<const Carte_joaillerie*> getPioche() const {return pioche;}
+
+    static int getNbPioches() {return nb_pioches;}
 
     static void remplirPioche(Pioche* p1, Pioche* p2, Pioche* p3, vector<const Carte_joaillerie*>& cartes);
 };

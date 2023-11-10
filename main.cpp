@@ -25,7 +25,15 @@ void test_unitaires(){
         Pioche* p2 = new Pioche(2);
         Pioche* p3 = new Pioche(3);
         //Pioche* p4 = new Pioche(3); //lève une exception
+
         Pioche::remplirPioche(p1, p2, p3, ref);
+
+        p1->est_vide();
+
+        //affichage des cartes de la pioche 1
+        for (int k = 0; k < (p1->getPioche()).size(); k++){
+            cout << (p1->getPioche())[k]<<endl;
+        }
     } catch (const SplendorException& e) {
         std::cerr << "Exception: " <<e.getInfos()<< std::endl;
     }
