@@ -19,7 +19,7 @@ using namespace std;
 
 
 enum  class  Capacite {rejouer, voler_pion_adverse, prendre_privilege, prendre_sur_plateau, joker};
-enum  class Couleur {bleu, rouge, vert, blanc, noir};
+enum  class Couleur {bleu, rouge, vert, blanc, noir, perle, gold};
 enum class Bonus_couleur {bleu, rouge, vert, blanc, noir, joker};
 
 
