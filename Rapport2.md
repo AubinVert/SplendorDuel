@@ -14,7 +14,7 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
   - Jetons, Plateau, Sac : Aubin (15 heures de travail)
   - Jeu, Joueur : Alexandru (15 heures de travail)
   - Privilège, Pioche : Gaspard (10 heures de travail)
-  - Tirage : Quentin (X heures de travail)
+  - Tirage : Quentin (6 heures de travail)
 - interactions entre les classes : il faut qu'on finisse complètement toutes les classes pour avoir des interactions satisfaisantes. 
 
 - Reflexions sur l'UML depuis le début (5 membres) : (4-5 heures de travail)
