@@ -15,13 +15,17 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
   - Jeu, Joueur : Alexandru (15 heures de travail)
   - Privilège, Pioche : Gaspard (10-11 heures de travail)
   - Tirage : Quentin (8 heures de travail)
+
 - interactions entre les classes : il faut qu'on finisse complètement toutes les classes pour avoir des interactions satisfaisantes. 
 
 - Reflexions sur l'UML depuis le début (5 membres) : (4-5 heures de travail)
 
 - Modification du diagramme UML : Quentin (2 heures de travail)
     - avancement 99%
+
 - Création du JSON contenant toutes les cartes : Aubin (2h30 de travail)
+
+- Scan des cartes du jeu pour l'interface graphique : Aubin (2-3 heures de travail)
 
   
 ## Nouvelles tâches & tâches mises à jour : 
