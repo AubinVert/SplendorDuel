@@ -8,10 +8,10 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 ## Avancement des tâches à grande prioritées :
 
 - Définition des classes, méthodes et fonctions à implémenter (5 membres) 
-    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter :  Joueur, Jeu et tirage. (temps consacré : )
+    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter en totalité :  Joueur, Jeu et tirage. (temps consacré : )
 - répartition du développement des classes : 
-  - Cartes, Exception : Léopold (10 heures de travail) 
-  - Jetons, Plateau, Sac : Aubin (15 heures de travail)
+  - Cartes, Exception : Léopold (12 heures de travail) 
+  - Jetons, Plateau, Sac : Aubin (17 heures de travail)
   - Jeu, Joueur : Alexandru (15 heures de travail)
   - Privilège, Pioche : Gaspard (10 heures de travail)
   - Tirage : Quentin (6 heures de travail)
@@ -27,6 +27,9 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 ## Nouvelles tâches & tâches mises à jour : 
 
 ### Priorité élevée (sous stéroïdes)
+
+- développement du main
+    - Durée estimée : 4/5 heures
 
 - terminer le développement des classes/méthodes (et toutes les interactions)
     - Durée estimée :  15 heures
@@ -95,6 +98,8 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 
 Nous avons utilisé la librairie nlohmann JSON for Modern C++
 pour pouvoir lire simplement les cartes depuis le JSON crée. https://github.com/nlohmann/json 
+
+Les temps de travail décrits dans ce rapport correspondent au temps passé par le membre en charge de la tâche. Or comme nous nous aidons les uns les autres régulièrement, cela ne représente pas le temps exact passé par chacun des membres sur le projet, il s'agit donc plutôt d'une borne inférieure.
 
 
 ## Bilan sur la cohesion du groupe :
