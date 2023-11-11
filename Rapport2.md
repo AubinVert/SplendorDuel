@@ -8,13 +8,13 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 ## Avancement des tâches à grande prioritées :
 
 - Définition des classes, méthodes et fonctions à implémenter (5 membres) 
-    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter en totalité :  Joueur, Jeu et tirage. (temps consacré : )
+    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter en totalité :  Joueur, Jeu et tirage. (temps consacré : environ 75 heures)
 - répartition du développement des classes : 
   - Cartes, Exception : Léopold (12 heures de travail) 
   - Jetons, Plateau, Sac : Aubin (17 heures de travail)
   - Jeu, Joueur : Alexandru (15 heures de travail)
-  - Privilège, Pioche : Gaspard (10 heures de travail)
-  - Tirage : Quentin (6 heures de travail)
+  - Privilège, Pioche : Gaspard (11 heures de travail)
+  - Tirage : Quentin (8 heures de travail)
 - interactions entre les classes : il faut qu'on finisse complètement toutes les classes pour avoir des interactions satisfaisantes. 
 
 - Reflexions sur l'UML depuis le début (5 membres) : (4-5 heures de travail)
