@@ -8,25 +8,25 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 ## Avancement des tâches à grande prioritées :
 
 - Définition des classes, méthodes et fonctions à implémenter (5 membres) 
-    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter en totalité :  Joueur, Jeu et tirage. (temps consacré : environ 75 heures)
+    - avancement 80% : la plupart des classes sont implementées. Il manque encore à implémenter en totalité :  Joueur et Jeu. (temps consacré : environ 75 heures)
 - répartition du développement des classes : 
   - Cartes, Exception : Léopold (12 heures de travail) 
   - Jetons, Plateau, Sac : Aubin (17 heures de travail)
   - Jeu, Joueur : Alexandru (15 heures de travail)
-  - Privilège, Pioche : Gaspard (11 heures de travail)
+  - Privilège, Pioche : Gaspard (10-11 heures de travail)
   - Tirage : Quentin (8 heures de travail)
 - interactions entre les classes : il faut qu'on finisse complètement toutes les classes pour avoir des interactions satisfaisantes. 
 
 - Reflexions sur l'UML depuis le début (5 membres) : (4-5 heures de travail)
 
 - Modification du diagramme UML : Quentin (2 heures de travail)
-    - avancement 98%
+    - avancement 99%
 - Création du JSON contenant toutes les cartes : Aubin (2h30 de travail)
 
   
 ## Nouvelles tâches & tâches mises à jour : 
 
-### Priorité élevée (sous stéroïdes)
+### Priorité élevée
 
 - développement du main
     - Durée estimée : 4/5 heures
@@ -49,6 +49,7 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 
 - Une meilleure interface graphique
     - Durée estimée :  20 heures
+
 - Une meilleure IA 
     - Durée estimée : 15-20 heures
 
@@ -88,7 +89,7 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
         - Sac 
             - Jeton
 
-### associations entre les classes : 
+### Associations entre les classes : 
 
 ![UML.png](UML_v2.png)
 
@@ -97,7 +98,7 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 ## Remarques :
 
 Nous avons utilisé la librairie nlohmann JSON for Modern C++
-pour pouvoir lire simplement les cartes depuis le JSON crée. https://github.com/nlohmann/json 
+pour pouvoir lire simplement les cartes depuis le JSON créé. https://github.com/nlohmann/json 
 
 Les temps de travail décrits dans ce rapport correspondent au temps passé par le membre en charge de la tâche. Or comme nous nous aidons les uns les autres régulièrement, cela ne représente pas le temps exact passé par chacun des membres sur le projet, il s'agit donc plutôt d'une borne inférieure.
 
