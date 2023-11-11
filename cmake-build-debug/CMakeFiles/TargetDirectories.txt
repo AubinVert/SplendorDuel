@@ -1,3 +1,0 @@
-C:/Users/chapp/OneDrive/Bureau/lo21-splendor-duel/cmake-build-debug/CMakeFiles/lo21_splendor_duel.dir
-C:/Users/chapp/OneDrive/Bureau/lo21-splendor-duel/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/chapp/OneDrive/Bureau/lo21-splendor-duel/cmake-build-debug/CMakeFiles/rebuild_cache.dir
