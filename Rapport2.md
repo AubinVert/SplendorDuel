@@ -3,7 +3,7 @@
 ## LO21: Projet Splendor duel
 
 ## **Rapport 2:**
-Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable), Ghitu Alexandru, Vert Aubin
+Petri Gaspard, Leopold Chappuis, Fouinat Quentin (responsable), Ghitu Alexandru, Vert Aubin
 
 ## Avancement des tâches à grande prioritées :
 
@@ -25,7 +25,9 @@ Petri Gaspard (co-reponsable), Leopold Chappuis, Fouinat Quentin (co-reponsable)
 
 - Création du JSON contenant toutes les cartes : Aubin (2h30 de travail)
 
-- Scan des cartes du jeu pour l'interface graphique : Aubin (2-3 heures de travail)
+- Scan des cartes du jeu pour l'interface graphique (en cours): Aubin (environ 2-3 heures de travail)
+
+- Rédaction du rapport 1 et 2: les 5 membres du groupe (environ 2-3 heures de travail par personne)
 
   
 ## Nouvelles tâches & tâches mises à jour : 
@@ -105,6 +107,8 @@ Nous avons utilisé la librairie nlohmann JSON for Modern C++
 pour pouvoir lire simplement les cartes depuis le JSON créé. https://github.com/nlohmann/json 
 
 Les temps de travail décrits dans ce rapport correspondent au temps passé par le membre en charge de la tâche. Or comme nous nous aidons les uns les autres régulièrement, cela ne représente pas le temps exact passé par chacun des membres sur le projet, il s'agit donc plutôt d'une borne inférieure.
+
+On parlera des difficultés rencontrées lors du prochain rapport, car toutes les classes seront finies.
 
 
 ## Bilan sur la cohesion du groupe :
