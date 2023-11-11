@@ -2,6 +2,7 @@
 #include "classes/plateau.h"
 #include "classes/jetons.h"
 #include "classes/sac.h"
+#include "classes/tirage.h"
 
 int main(){
 

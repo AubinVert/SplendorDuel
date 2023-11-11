@@ -3,10 +3,8 @@
 int Tirage::nb_tirages = 0;
 
 void Tirage::remplirTirage() {
-    while(nb_cartes < max_cartes) {
-        if(!pioche->est_vide()) {
-            pioche[0].push_pack()
-        }
+    while(nb_cartes < max_cartes && !pioche->est_vide()) {
+            pioche-> [0].push_pack();
     }
 }
 

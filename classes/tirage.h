@@ -1,8 +1,8 @@
 #ifndef LO21_SPLENDOR_DUEL_PIOCHE_TIRAGE_H
 #define LO21_SPLENDOR_DUEL_PIOCHE_TIRAGE_H
 #include <iostream>
-#include <vector.h>
-#include <nlohmann/json.hpp>
+#include <vector>
+#include <nlohmann-json>
 #include "carte.h"
 #include "pioche.h"
 #include "Exception.h"
@@ -15,7 +15,7 @@ class Tirage{
     const int niveau;
     int nb_cartes;
     const int max_cartes;
-    vector<const Carte::Carte_joaillerie*> cartes;
+    vector<const Carte_joaillerie*> cartes;
 public:
     Tirage(int niv, int max, Pioche* p) : niveau(niv), max_cartes(max){
         if (p->getNiveau() != niv) {
@@ -28,19 +28,19 @@ public:
         pioche = p;
         nb_tirages++;
     }
-    ~Tirage()
+    ~Tirage();
     Tirage& operator=(const Tirage& t)=delete;
     Tirage(const Tirage& t)=delete;
 
 
     Pioche* getPioche() { return pioche; }
-    vector<Carte::Carte_joaillerie*> getTirage() { return cartes; }
+    vector<const Carte_joaillerie*> getTirage() { return cartes; }
     void remplirTirage();
 };
 
 inline std::ostream& operator<<(std::ostream& f, Tirage& t) {
-    for(int i = 0; i < nb ; i++) {
-        f<<t.getTirage()[i]x ;
+    for(int i = 0; i < t.nb ; i++) {
+        f<<t.getTirage()[i] ;
     }
     return f;
 }
