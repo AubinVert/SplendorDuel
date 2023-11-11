@@ -4,7 +4,15 @@
 #include "classes/sac.h"
 
 int main(){
-    test_unitaires();
+
+    try{
+        test_unitaires();
+
+    }catch(SplendorException& e){
+        cout<< e.getInfos()<<endl;
+    }
+
+
     return 0;
 }
 

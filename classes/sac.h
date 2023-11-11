@@ -1,6 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_SAC_H
 #define LO21_SPLENDOR_DUEL_SAC_H
 #include <iostream>
+#include <vector>
 #include "jetons.h"
 #include "plateau.h"
 
@@ -9,8 +10,7 @@ using namespace std;
 
 class Sac{
     int nb;
-    int max;
-    Jeton** jetons;
+    vector<const Jeton*> jetons;
     struct Handler_Sac{
         Sac * instance = nullptr;
         ~Handler_Sac(){
@@ -19,15 +19,7 @@ class Sac{
         }
     };
     static Handler_Sac handler_sac;
-    Sac(int max):nb(0),max(max){
-        if (max<0){
-            throw SplendorException("Nombre max de jetons dans le sac négatif!");
-        }
-        jetons = new Jeton*[max];
-        for(size_t i = 0; i<max; i++){
-            jetons[i] = nullptr;
-        }
-    }
+    Sac()=default;
     ~Sac()=default; // car agrégation !
 
     Sac& operator=(const Sac& s)=delete;
@@ -49,22 +41,22 @@ public:
         }
         nb = nbr;
     }
-    Jeton* get_jeton_i(int i) const{return jetons[i];}
+    const Jeton* get_jeton_i(int i) const{return jetons[i];}
     void set_sac_i(int i, Jeton* jet){jetons[i] = jet;}
-    void mettre_jeton_sac(Jeton* jet);
+    void mettre_jeton_sac(const Jeton* jet);
     void retirer_jeton_i(int i){
         if((i<0)||(i>=Sac::get_nb_sac())){
             throw SplendorException("L'indice du jeton ne peut pas être négatif, ou supérieur au nombre total de jetons autorisés");
         }
-        jetons[i]=jetons[--nb];
-        jetons[nb+1]=nullptr;
+        jetons.erase(jetons.begin()+i);
+        --nb;
     }
 
 };
 Sac::Handler_Sac Sac::handler_sac;
 Sac &Sac::get_sac(){
     if(handler_sac.instance==nullptr){
-        handler_sac.instance = new Sac(Jeton::get_nb_max_jetons());
+        handler_sac.instance = new Sac();
     }
     return *handler_sac.instance;
 }
@@ -74,10 +66,9 @@ void Sac::libere_sac() {
     handler_sac.instance = nullptr;
 }
 
-void Sac::mettre_jeton_sac(Jeton *jet) {
-    if(nb<max){
-        jetons[nb++]=jet;
-    }
+void Sac::mettre_jeton_sac(const Jeton *jet) {
+    jetons.push_back(jet);
+    ++nb;
 }
 
 
