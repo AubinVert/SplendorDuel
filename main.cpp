@@ -1,22 +1,19 @@
-#include "main.h"
-#include "classes/plateau.h"
-#include "classes/jetons.h"
-#include "classes/sac.h"
+//#include "main.h"
+//#include "classes/plateau.h"
+//#include "classes/jetons.h"
+//#include "classes/sac.h"
+#include "classes/carte.h"
+#include <string>
 
 int main(){
 
-    try{
-        test_unitaires();
-
-    }catch(SplendorException& e){
-        cout<< e.getInfos()<<endl;
-    }
+    printf("bonjour");
 
 
     return 0;
 }
 
-
+/*
 void test_unitaires(){
 
     testInitCartes();
@@ -35,3 +32,4 @@ void test_unitaires(){
 
 
 }
+*/
