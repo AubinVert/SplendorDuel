@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.13)  # CMake version check
+cmake_minimum_required(VERSION 3.13)  
 
-project(lo21-splendor-duel)               # Create project "simple_example"
+project(lo21-splendor-duel)               
 
-set(CMAKE_CXX_STANDARD 17)            # Enable c++14 standard
+set(CMAKE_CXX_STANDARD 17)           
 
 set(SOURCE_FILES
         main.cpp
