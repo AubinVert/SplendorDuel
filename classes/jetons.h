@@ -7,18 +7,6 @@
 
 using namespace std;
 
-string toString(Couleur c){
-    switch (c) {
-        case Couleur::rouge: return "Rouge";
-        case Couleur::bleu: return "Bleu";
-        case Couleur::vert: return "Vert";
-        case Couleur::blanc: return "Blanc";
-        case Couleur::noir: return "Noir";
-        case Couleur::gold: return "Or";
-        case Couleur::perle: return "Perle";
-        default: throw SplendorException("Couleur inconnue");
-    }
-}
 
 class Jeton{
     // il faut garantir l'unicité de chaque jeton
@@ -109,7 +97,7 @@ public:
             }
         }
     }
-    ~Jeton(){
+    /*~Jeton(){
         switch (couleur) {
             case Couleur::rouge: {
                 if (nb_rouge > 0) {
@@ -172,7 +160,7 @@ public:
                 break;
             }
         }
-    }
+    }*/
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
@@ -187,18 +175,11 @@ public:
 };
 
 
-int Jeton::nb_blanc = 0;
-int Jeton::nb_bleu = 0;
-int Jeton::nb_rouge = 0;
-int Jeton::nb_vert = 0;
-int Jeton::nb_noir = 0;
-int Jeton::nb_or = 0;
-int Jeton::nb_perle = 0;
-
-ostream& operator<<(ostream& f, const Jeton& jet){
+inline ostream& operator<<(ostream& f, const Jeton& jet){
     f<<"id: "<<jet.get_id()<<"; couleur: "<<toString(jet.get_couleur());
     return f;
 }
+
 
 
 /*
@@ -307,3 +288,4 @@ public:
 
 
 #endif //LO21_SPLENDOR_DUEL_JETONS_H
+

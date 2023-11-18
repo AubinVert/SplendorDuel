@@ -5,9 +5,10 @@
 using namespace std;
 
 class Pioche{
-private:
+protected:
     static const int max_pioches = 3;
     static int nb_pioches;
+private:
     const int niveau;
     Pioche& operator=(Pioche& p) = delete;
     vector<const Carte_joaillerie*> pioche;
@@ -20,8 +21,10 @@ public:
         if (nb_pioches > max_pioches){
             throw SplendorException("Maximum de pioches atteint");
         }
-        nb_pioches++;
+        ++nb_pioches;
     }
+
+    int getNiveau() const {return niveau;}
 
     bool est_vide(){
         return pioche.empty();
@@ -33,3 +36,5 @@ public:
 
     static void remplirPioche(Pioche* p1, Pioche* p2, Pioche* p3, vector<const Carte_joaillerie*>& cartes);
 };
+
+#endif //LO21_SPLENDOR_DUEL_MAIN_H
