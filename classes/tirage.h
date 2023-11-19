@@ -1,8 +1,8 @@
-#ifndef LO21_SPLENDOR_DUEL_PIOCHE_TIRAGE_H
-#define LO21_SPLENDOR_DUEL_PIOCHE_TIRAGE_H
+#ifndef LO21_SPLENDOR_DUEL_TIRAGE_H
+#define LO21_SPLENDOR_DUEL_TIRAGE_H
 #include <iostream>
 #include <vector>
-#include <nlohmann-json>
+#include <cstring>
 #include "carte.h"
 #include "pioche.h"
 #include "Exception.h"
@@ -11,40 +11,40 @@ using namespace std;
 class Tirage{
     static const int nb_max_tirages = 3;
     static int nb_tirages;
-    Pioche* pioche;
+    Pioche& pioche;
     const int niveau;
     int nb_cartes;
     const int max_cartes;
     vector<const Carte_joaillerie*> cartes;
 public:
-    Tirage(int niv, int max, Pioche* p) : niveau(niv), max_cartes(max){
-        if (p->getNiveau() != niv) {
+    Tirage(int niv, int max, Pioche& p) : niveau(niv), max_cartes(max), pioche(p){
+        if (p.getNiveau() != niveau) {
             throw SplendorException("La pioche n'est pas du même niveau que le tirage !");
         }
         else if (nb_tirages == nb_max_tirages) {
             throw SplendorException("Nombre maximum de tirages dépassé !");
         }
         nb_cartes = 0;
-        pioche = p;
         nb_tirages++;
     }
-    ~Tirage();
+    ~Tirage() { nb_tirages--; }
     Tirage& operator=(const Tirage& t)=delete;
     Tirage(const Tirage& t)=delete;
 
-
-    Pioche* getPioche() { return pioche; }
-    vector<const Carte_joaillerie*> getTirage() { return cartes; }
+    const int getNiveau() const { return niveau; }
+    const int getNbCartes() const { return nb_cartes; }
+    Pioche& getPioche() const { return pioche; }
+    vector<const Carte_joaillerie*> getTirage() const { return cartes; }
     void remplirTirage();
 };
 
 inline std::ostream& operator<<(std::ostream& f, Tirage& t) {
-    for(int i = 0; i < t.nb ; i++) {
-        f<<t.getTirage()[i] ;
+    for(const Carte_joaillerie* c : t.getTirage()) {
+        f << "\nniveau : " << c->getNiveau() << "\nprestige : " << c->getPrestige() << "\nnb couronnes : " << c->get_nb_couronnes() << "\nnb bonus : " << c->get_nb_bonus() << "\ncapacite : " << c->getCapacite() << "\ncout blanc : " << c->getCoutBlanc() << "\ncout bleu : " << c->getCoutBleu() << "\ncout noir : " << c->getCoutNoir() << "\ncout perle " << c->getCoutPerle() << "\ncout rouge : " << c->getCoutRouge() << "\ncout vert : " << c->getCoutVert() << "\n";
     }
     return f;
 }
 
-void testTirage()
+void testTirage();
 
-#endif //LO21_SPLENDOR_DUEL_PIOCHE_TIRAGE_H
+#endif //LO21_SPLENDOR_DUEL_TIRAGE_H
