@@ -1,6 +1,8 @@
 #ifndef LO21_SPLENDOR_DUEL_PIOCHE_H
 #define LO21_SPLENDOR_DUEL_PIOCHE_H
 #include <iostream>
+#include <algorithm>
+#include <random>
 #include "carte.h"
 using namespace std;
 
@@ -34,7 +36,7 @@ public:
 
     static int getNbPioches() {return nb_pioches;}
 
-    static void remplirPioche(Pioche* p1, Pioche* p2, Pioche* p3, vector<const Carte_joaillerie*>& cartes);
+    static void InitPioches(Pioche* p1, Pioche* p2, Pioche* p3, vector<const Carte_joaillerie*>& cartes);
 };
 
 #endif //LO21_SPLENDOR_DUEL_MAIN_H

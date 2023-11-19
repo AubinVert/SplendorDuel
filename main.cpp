@@ -25,11 +25,11 @@ void test_unitaires(){
         Pioche* p2 = new Pioche(2);
         Pioche* p3 = new Pioche(3);
         //Pioche* p4 = new Pioche(3); //lève une exception
-        cout<<Pioche::getNbPioches;
+        //cout<<Pioche::getNbPioches;
 
-        Pioche::remplirPioche(p1, p2, p3, ref);
+        Pioche::InitPioches(p1, p2, p3, ref);
 
-        if (not (p1->est_vide())){cout<<"pioche p1 pas vide";}
+        //if (not (p1->est_vide())){cout<<"pioche p1 pas vide";}
 
         //affichage des cartes de la pioche 1
         int compteur = 0;

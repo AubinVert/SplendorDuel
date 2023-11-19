@@ -97,7 +97,7 @@ public:
             }
         }
     }
-    /*~Jeton(){
+    ~Jeton(){
         switch (couleur) {
             case Couleur::rouge: {
                 if (nb_rouge > 0) {
@@ -160,7 +160,7 @@ public:
                 break;
             }
         }
-    }*/
+    }
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
