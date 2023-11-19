@@ -1,9 +1,12 @@
 #ifndef LO21_SPLENDOR_DUEL_JOUEUR_H
 #define LO21_SPLENDOR_DUEL_JOUEUR_H
 #include <iostream>
+#include <vector>
 #include "carte.h"
 #include "jetons.h"
 #include "privilege.h"
+#include "jeu.h"
+#include "sac.h"
 
 using namespace std;
 
@@ -14,80 +17,50 @@ class Joueur{
     int nb_cartes_j;
     int nb_cartes_r;
     int nb_privileges;
+    int nb_jetons;
+    static int const max_nb_jetons = 10;
 
-    int max_nb_jetons;
-    int max_nb_cartes_j;
-
-    Carte_joaillerie** cartes_joaillerie;
-    Carte_royale* cartes_royale[4]; // ok pour agrégation?
-    Jeton ** jetons;
-    Privilege* privileges[3]; // ok pour agrégation?
+    vector<const Carte_joaillerie*> cartes_joaillerie_achetees;
+    vector<const Carte_joaillerie*> cartes_joaiellerie_reservees; // 3 au max
+    vector<const Carte_royale*> cartes_royale; // ok pour agrégation?
+    vector<const Jeton*> jetons;
+    vector<const Privilege*> privileges; // ok pour agrégation?
 
 public:
+
+    // Getter et setter
+
     const int get_nb_points()const{return nb_points;};
     void set_points(int nb){nb_points = nb;};
     const int get_nb_couronnes()const{return nb_courones;};
     void set_nb_couronnes(int nb){nb_courones = nb;};
     const int get_nb_privileges()const{return nb_privileges;};
     void set_nb_privileges(int nb){nb_privileges = nb;};
+    const int get_nb_r() const {return nb_cartes_r;};
+    void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;};
 
+    int nb_jeton(const Couleur& c) const; // const ?
+    void retirer_jeton(const Couleur& c, int val); // const ?
+    // piocher jeton
 
-    // utilisation du design pattern iterator pour get cartes_j
+    // Constructeur et destructeur
+    Joueur(string &nom);
+    ~Joueur();
 
-    class IteratorJ {
-        Carte_joaillerie* start;
-        Carte_joaillerie* end;
-        size_t nb;
-        IteratorJ(Carte_joaillerie* start, size_t nb) : start(start), nb(nb){}
-        friend class Joueur;
-    public:
-        void operator++(){if(nb==0) throw "Le nombre de cartes doit être strictement supérieur à 0";start++;nb--;}
-        Carte_joaillerie& operator*(){if(nb==0) throw "Attention, le nombre de cartes est égal à 0"; return *start;}
-        bool operator!=(IteratorJ i){return start!=i.start;}
-    };
-
-    IteratorJ beginJ(){return IteratorJ(cartes_joaillerie[0],nb_cartes_r);}
-    IteratorJ endJ(){return IteratorJ(cartes_joaillerie[nb_cartes_r],0);}
-
-
-
-    // utilisation du design pattern iterator pour get cartes_r
-
-    // pas besoin d'iterator car pas tableau de pointeurs ?
-
-
-    // utilisation du design pattern iterator pour get jetons
-
-    class IteratorJetons {
-        Jeton* start;
-        size_t nb;
-        IteratorJetons(Jeton* start, size_t nb) : start(start), nb(nb){}
-        friend class Joueur;
-        friend class Sac;
-    public:
-        void operator++(int){if(nb==0) throw "Le nombre de cartes doit être strictement supérieur à 0";start++;nb--;}
-        // int car utilisation en postfixe!
-        Jeton& operator*(){if(nb==0) throw "Attention, le nombre de cartes est égal à 0"; return *start;}
-        bool operator!=(IteratorJetons i){return start!=i.start;}
-    };
-
-    IteratorJetons beginJetons(){return IteratorJetons(jetons[0],nb_cartes_r);}
-    IteratorJetons endJetons(){return IteratorJetons(jetons[nb_cartes_r],0);}
 
     // utilisation du design pattern iterator pour get privilèges
     // ??
 
-
-
-    void acheter_carte();
-    void reserver_carte();
-    void remplir_plateau();
-    void mettre_jetons_dans_sac();
+    int calculer_bonus(Bonus_couleur bonus);
+    void acheter_carte(const Carte_joaillerie& carte);
+    void reserver_carte(const Carte_joaillerie& carte, const Jeton* jet);
+    void remplir_plateau(); // Remplir plateau avec jetons
     void piocher_jetons();
-    void obtenir_carte_royale();
-
-
-
+    void obtenir_carte_royale(const Carte_royale& carte);
+    bool eligible_carte_royale();
 
 };
+
+int positif_ou_nul(int x);
+
 #endif //LO21_SPLENDOR_DUEL_JOUEUR_H
