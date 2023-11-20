@@ -1,44 +1,35 @@
-#include "main.h"
-#include "classes/plateau.h"
-#include "classes/jetons.h"
-#include "classes/sac.h"
+//#include "main.h"
+//#include "classes/plateau.h"
+//#include "classes/jetons.h"
+//#include "classes/sac.h"
+#include "classes/carte.h"
+#include <string>
 
 int main(){
 
-    try{
-        test_unitaires();
-
-    }catch(SplendorException& e){
-        cout<< e.getInfos()<<endl;
-    }
+    printf("bonjour");
 
 
     return 0;
 }
 
-
+/*
 void test_unitaires(){
-    try {
-        vector<const Carte_joaillerie*> test = initCartesJoaillerie();
-        vector<const Carte_joaillerie*>& ref = test;
-        Pioche* p1 = new Pioche(1);
-        Pioche* p2 = new Pioche(2);
-        Pioche* p3 = new Pioche(3);
-        //Pioche* p4 = new Pioche(3); //lève une exception
-        //cout<<Pioche::getNbPioches;
 
-        Pioche::InitPioches(p1, p2, p3, ref);
+    testInitCartes();
 
-        //if (not (p1->est_vide())){cout<<"pioche p1 pas vide";}
+//    try {
+//        Privilege* instance1 = Privilege::GetInstance();
+//        Privilege* instance2 = Privilege::GetInstance();
+//        Privilege* instance3 = Privilege::GetInstance();
+//        Privilege* instance4 = Privilege::GetInstance(); //Lève une exception car la limite est atteinte
+//        std::cout<<"id de la premiere instance : "<<instance1->get_id()<<"\n";
+//        std::cout<<"id de la seconde instance : "<<instance2->get_id()<<"\n";
+//        std::cout<<"id de la troisieme instance : "<<instance3->get_id()<<"\n";
+//    } catch (const SplendorException& e) {
+//        std::cerr << "Exception: " <<e.getInfos()<< std::endl;
+//    }
 
-        //affichage des cartes de la pioche 1
-        int compteur = 0;
-        for (int k = 0; k < (p1->getPioche()).size(); k++){
-            cout << *(p1->getPioche())[k]<<endl;
-            compteur++;
-        }
-        cout<<compteur; //on a bien 30 cartes de nv1
-    } catch (const SplendorException& e) {
-        std::cerr << "Exception: " <<e.getInfos()<< std::endl;
-    }
+
 }
+*/

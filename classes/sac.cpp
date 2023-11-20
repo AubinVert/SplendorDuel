@@ -44,6 +44,3 @@ void Sac::init_sac(){
         mettre_jeton_sac(new Jeton(j++,Couleur::gold));
     }
 }
-
-
-

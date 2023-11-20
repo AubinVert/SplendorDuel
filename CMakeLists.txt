@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.13)  
 
-project(lo21-splendor-duel)
+project(lo21-splendor-duel)               
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)           
 
 set(SOURCE_FILES
         main.cpp
@@ -25,5 +25,3 @@ FetchContent_MakeAvailable(json)
 add_executable(lo21-splendor-duel ${SOURCE_FILES})
 
 target_link_libraries(lo21-splendor-duel PRIVATE nlohmann_json::nlohmann_json)
-
-
