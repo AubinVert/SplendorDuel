@@ -61,9 +61,9 @@ private:
 public:
 
 
-     static int getNbCartes(){
-         return nb_cartes;
-     }
+    static int getNbCartes(){
+        return nb_cartes;
+    }
 
     ~Carte(){
         nb_cartes--;
@@ -110,7 +110,7 @@ public:
 
 
     Carte_royale(int points_prestige=0,std::optional<Capacite> capacite = nullopt)
-    : Carte(points_prestige, capacite){
+            : Carte(points_prestige, capacite){
         if(points_prestige<0 || points_prestige>10){
             throw SplendorException("Valeur non autorisée");
         }
@@ -241,9 +241,9 @@ inline std::ostream& operator<<(std::ostream& os, const Carte_royale& c){
 }
 inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
     os<<"Capacite : "<< c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<", Cout Perle :"<<
-    c.getCoutPerle()<<", Cout Bleu :"<<c.getCoutBleu()<<", Cout Blanc :"<<c.getCoutBlanc()<<", Cout Rouge :"<<c.getCoutRouge()
-    <<", Cout Vert :"<<c.getCoutVert()<<", Cout Noir :"<<c.getCoutNoir()<<", Bonus : "<<c.get_bonus()<<", nombre de bonus : "<<c.get_nb_bonus()
-    <<", Niveau : "<<c.getNiveau()<<endl;
+      c.getCoutPerle()<<", Cout Bleu :"<<c.getCoutBleu()<<", Cout Blanc :"<<c.getCoutBlanc()<<", Cout Rouge :"<<c.getCoutRouge()
+      <<", Cout Vert :"<<c.getCoutVert()<<", Cout Noir :"<<c.getCoutNoir()<<", Bonus : "<<c.get_bonus()<<", nombre de bonus : "<<c.get_nb_bonus()
+      <<", Niveau : "<<c.getNiveau()<<endl;
     return os;
 }
 
@@ -260,3 +260,4 @@ vector<const Carte_joaillerie*> initCartesJoaillerie();
 
 void testInitCartes();
 #endif //LO21_SPLENDOR_DUEL_CARTE_H
+

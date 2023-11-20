@@ -4,7 +4,7 @@
 
 //void Joueur::acheter_carte(Carte* targeted_carte){
 
-    // Pour acheter une carte il faut avoir assez de trucs pour
+// Pour acheter une carte il faut avoir assez de trucs pour
 
 
 
