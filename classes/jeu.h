@@ -8,10 +8,6 @@
 #include "tirage.h"
 #include "pioche.h"
 
-
-using namespace std;
-
-
 class Jeu {
 private:
     bool est_termine;
@@ -51,7 +47,6 @@ public:
     static Jeu& getJeu();
     static void libereJeu();
     static void test();
-
 
 };
 

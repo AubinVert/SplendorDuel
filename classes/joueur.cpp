@@ -175,12 +175,14 @@ void Joueur::reserver_carte(const Carte_joaillerie& carte, const Jeton* jet) {
 
 void Joueur::piocher_jeton(const Jeton& jeton) {
     jetons.push_back(&jeton);
-    std::cout << "Jeton acquis" << std::endl;
+    std::cout << "Jeton acquis." << std::endl;
+    // enlever le jeton du plateau
 }
 
 void Joueur::obtenir_carte_royale(const Carte_royale& carte) {
     if (eligible_carte_royale() == false) throw SplendorException("Pas eligible.");
     cartes_royale.push_back(&carte);
+    // ENLEVER DU PLATEAU DE LA PIOCHE
     increment_carte_royale();
 }
 
