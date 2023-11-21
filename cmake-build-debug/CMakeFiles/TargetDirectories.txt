@@ -1,0 +1,5 @@
+/Users/alexandrughitu/Library/CloudStorage/OneDrive-Personal/UTC/GI02/LO21/Projet/lo21-splendor-duel/cmake-build-debug/CMakeFiles/lo21-splendor-duel.dir
+/Users/alexandrughitu/Library/CloudStorage/OneDrive-Personal/UTC/GI02/LO21/Projet/lo21-splendor-duel/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/alexandrughitu/Library/CloudStorage/OneDrive-Personal/UTC/GI02/LO21/Projet/lo21-splendor-duel/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/alexandrughitu/Library/CloudStorage/OneDrive-Personal/UTC/GI02/LO21/Projet/lo21-splendor-duel/cmake-build-debug/_deps/json-build/CMakeFiles/edit_cache.dir
+/Users/alexandrughitu/Library/CloudStorage/OneDrive-Personal/UTC/GI02/LO21/Projet/lo21-splendor-duel/cmake-build-debug/_deps/json-build/CMakeFiles/rebuild_cache.dir

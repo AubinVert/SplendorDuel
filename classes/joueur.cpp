@@ -1,5 +1,6 @@
 #include "joueur.h"
 #include "Exception.h"
+#include "jeu.h"
 
 // Au début le joueur n'a aucune carte ou jeton
 Joueur::Joueur(string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),
@@ -15,7 +16,6 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     int cout_rouge = positif_ou_nul(carte.getCoutRouge() - calculer_bonus(Bonus_couleur::rouge));
     int cout_vert = positif_ou_nul(carte.getCoutVert() - calculer_bonus(Bonus_couleur::vert));
     int cout_noir = positif_ou_nul(carte.getCoutNoir() - calculer_bonus(Bonus_couleur::noir));
-    int cout_perle = positif_ou_nul(carte.getCoutPerle() - calculer_bonus(Bonus_couleur::perle)); // ya pas
 
     // Vérifier si le joueur veut utiliser des jetons en or (s'il en possède)
     // Et diminuer le coût respectivement
@@ -38,9 +38,7 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
                 if (choix == "bleu"|| "Bleu") cout_bleu = positif_ou_nul(cout_bleu - nb);
                 if (choix == "rouge"|| "Rouge") cout_rouge = positif_ou_nul(cout_rouge - nb);
                 if (choix == "vert"|| "Vert") cout_vert = positif_ou_nul(cout_vert - nb);
-                if (choix == "noir"|| "Noir") cout_noir = positif_ou_nul(cout_noir - nb);
-                if (choix == "perle"|| "Perle") cout_perle = positif_ou_nul(cout_perle - nb);
-            }
+                if (choix == "noir"|| "Noir") cout_noir = positif_ou_nul(cout_noir - nb);}
         }
     }
 
@@ -51,8 +49,7 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
         nb_jeton(Couleur::bleu) >= cout_bleu &&
         nb_jeton(Couleur::rouge) >= cout_rouge &&
         nb_jeton(Couleur::vert) >= cout_vert &&
-        nb_jeton(Couleur::noir) >= cout_noir &&
-        nb_jeton(Couleur::perle) >= cout_perle)
+        nb_jeton(Couleur::noir) >= cout_noir)
         eligible_achat = 1;
 
     if (eligible_achat == 0) throw SplendorException("Pas assez de jetons");
@@ -63,9 +60,8 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     retirer_jeton(Couleur::rouge, cout_rouge);
     retirer_jeton(Couleur::vert, cout_vert);
     retirer_jeton(Couleur::noir, cout_noir);
-    retirer_jeton(Couleur::perle, cout_perle);
 
-    // Mettre la carte dans la main du joueur et la retirer de la pioche
+    // Mettre la carte dans la main du joueur
     cartes_joaillerie_achetees.push_back(&carte);
 
 
@@ -84,22 +80,22 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     else { // La retirer du tirage et re piocher
         switch(carte.getNiveau()){
             case 1:
-                for (auto it = Jeu::getJeu().get_tirage_1()->get_cartes().begin(); it != Jeu::getJeu().get_tirage_1()->get_cartes().end(); ++it){
-                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_1()->get_cartes().erase(it);
+                for (auto it = Jeu::getJeu().get_tirage_1()->getTirage().begin(); it != Jeu::getJeu().get_tirage_1()->getTirage().end(); ++it){
+                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_1()->getTirage().erase(it);
                 }
-                // Re piocher
+                Jeu::getJeu().get_tirage_1()->remplirTirage();
                 break;
             case 2:
-                for (auto it = Jeu::getJeu().get_tirage_2()->get_cartes().begin(); it != Jeu::getJeu().get_tirage_2()->get_cartes().end(); ++it){
-                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_2()->get_cartes().erase(it);
+                for (auto it = Jeu::getJeu().get_tirage_2()->getTirage().begin(); it != Jeu::getJeu().get_tirage_2()->getTirage().end(); ++it){
+                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_2()->getTirage().erase(it);
                 }
-                // Re piocher
+                Jeu::getJeu().get_tirage_2()->remplirTirage();
                 break;
             case 3:
-                for (auto it = Jeu::getJeu().get_tirage_3()->get_cartes().begin(); it != Jeu::getJeu().get_tirage_3()->get_cartes().end(); ++it){
-                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_3()->get_cartes().erase(it);
+                for (auto it = Jeu::getJeu().get_tirage_3()->getTirage().begin(); it != Jeu::getJeu().get_tirage_3()->getTirage().end(); ++it){
+                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_3()->getTirage().erase(it);
                 }
-                // Re piocher
+                Jeu::getJeu().get_tirage_3()->remplirTirage();
                 break;
         }
     }
@@ -118,7 +114,7 @@ int positif_ou_nul(int x) {
 
 
 // Calculer le nb de jetons du joueur d'une couleur donnée
-int Joueur::calculer_bonus(Bonus_couleur bonus) {
+int Joueur::calculer_bonus(enum Bonus_couleur bonus) {
     int res = 0;
     for (auto c = cartes_joaillerie_achetees.begin(); c != cartes_joaillerie_achetees.end(); ++c){
         if (bonus == (*c)->get_bonus()) res++;
@@ -156,33 +152,30 @@ void Joueur::reserver_carte(const Carte_joaillerie& carte, const Jeton* jet) {
     // Retirer du tirage
     switch(carte.getNiveau()){
         case 1:
-            for (auto it = Jeu::getJeu().get_tirage_1()->get_cartes().begin(); it != Jeu::getJeu().get_tirage_1()->get_cartes().end(); ++it){
-                if ((*it) == &carte) it = Jeu::getJeu().get_tirage_1()->get_cartes().erase(it);
+            for (auto it = Jeu::getJeu().get_tirage_1()->getTirage().begin(); it != Jeu::getJeu().get_tirage_1()->getTirage().end(); ++it){
+                if ((*it) == &carte) it = Jeu::getJeu().get_tirage_1()->getTirage().erase(it);
             }
-            // remplir tirage niveau 1
-            // Re piocher
+            Jeu::getJeu().get_tirage_1()->remplirTirage();
             break;
         case 2:
-            for (auto it = Jeu::getJeu().get_tirage_2()->get_cartes().begin(); it != Jeu::getJeu().get_tirage_2()->get_cartes().end(); ++it){
-                if ((*it) == &carte) it = Jeu::getJeu().get_tirage_2()->get_cartes().erase(it);
+            for (auto it = Jeu::getJeu().get_tirage_2()->getTirage().begin(); it != Jeu::getJeu().get_tirage_2()->getTirage().end(); ++it){
+                if ((*it) == &carte) it = Jeu::getJeu().get_tirage_2()->getTirage().erase(it);
             }
-            // remplir tirage niveau 2
-            // Re piocher
+            Jeu::getJeu().get_tirage_2()->remplirTirage();
             break;
         case 3:
-            for (auto it = Jeu::getJeu().get_tirage_3()->get_cartes().begin(); it != Jeu::getJeu().get_tirage_3()->get_cartes().end(); ++it){
-                if ((*it) == &carte) it = Jeu::getJeu().get_tirage_3()->get_cartes().erase(it);
+            for (auto it = Jeu::getJeu().get_tirage_3()->getTirage().begin(); it != Jeu::getJeu().get_tirage_3()->getTirage().end(); ++it){
+                if ((*it) == &carte) it = Jeu::getJeu().get_tirage_3()->getTirage().erase(it);
             }
-            // remplir tirage niveau 3
-            // Re piocher
+            Jeu::getJeu().get_tirage_3()->remplirTirage();
             break;
     }
 
-    // Remplir le tirage
 }
 
-void Joueur::piocher_jetons() {
-    // random jeton
+void Joueur::piocher_jeton(const Jeton& jeton) {
+    jetons.push_back(&jeton);
+    std::cout << "Jeton acquis" << std::endl;
 }
 
 void Joueur::obtenir_carte_royale(const Carte_royale& carte) {

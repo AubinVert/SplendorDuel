@@ -5,12 +5,12 @@
 #include "carte.h"
 #include "jetons.h"
 #include "privilege.h"
-#include "jeu.h"
 #include "sac.h"
+#include "plateau.h"
 
 using namespace std;
 
-class Joueur{
+class Joueur {
     string nom;
     int nb_points;
     int nb_courones;
@@ -19,6 +19,8 @@ class Joueur{
     int nb_privileges;
     int nb_jetons;
     static int const max_nb_jetons = 10;
+    static int const max_nb_cartes_r = 2;
+    static int const max_nb_privileges = 3;
 
     vector<const Carte_joaillerie*> cartes_joaillerie_achetees;
     vector<const Carte_joaillerie*> cartes_joaiellerie_reservees; // 3 au max
@@ -41,7 +43,6 @@ public:
 
     int nb_jeton(const Couleur& c) const; // const ?
     void retirer_jeton(const Couleur& c, int val); // const ?
-    // piocher jeton
 
     // Constructeur et destructeur
     Joueur(string &nom);
@@ -51,11 +52,10 @@ public:
     // utilisation du design pattern iterator pour get privilèges
     // ??
 
-    int calculer_bonus(Bonus_couleur bonus);
+    int calculer_bonus(enum Bonus_couleur bonus);
     void acheter_carte(const Carte_joaillerie& carte);
     void reserver_carte(const Carte_joaillerie& carte, const Jeton* jet);
-    void remplir_plateau(); // Remplir plateau avec jetons
-    void piocher_jetons();
+    void piocher_jeton(const Jeton& jeton);
     void obtenir_carte_royale(const Carte_royale& carte);
     bool eligible_carte_royale();
 
