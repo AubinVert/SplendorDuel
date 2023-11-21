@@ -37,7 +37,7 @@ void testTirage() {
 
     vector<const Carte_joaillerie*> liste_cartes = initCartesJoaillerie();
 
-    p1.remplirPioche(&p1, &p2, &p3, liste_cartes);
+    p1.InitPioches(&p1, &p2, &p3, liste_cartes);
     Tirage t1 = Tirage(1, 30, p1);
     t1.remplirTirage();
 
