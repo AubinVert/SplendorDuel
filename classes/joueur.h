@@ -64,3 +64,4 @@ public:
 int positif_ou_nul(int x);
 
 #endif //LO21_SPLENDOR_DUEL_JOUEUR_H
+
