@@ -5,6 +5,8 @@
 #include "classes/carte.h"
 #include "classes/privilege.h"
 #include "classes/Exception.h"*/
-void test_unitaires();
+#include "classes/tirage.h"
+
+
 
 #endif //LO21_SPLENDOR_DUEL_MAIN_H

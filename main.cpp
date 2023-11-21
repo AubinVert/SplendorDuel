@@ -1,15 +1,14 @@
-//#include "main.h"
-//#include "classes/plateau.h"
-//#include "classes/jetons.h"
-//#include "classes/sac.h"
-#include "classes/carte.h"
-#include <string>
+#include "main.h"
 
 int main(){
 
-    //printf("bonjour");
+    try{
+        testTirage();
 
-    cout<<"bonjour"<<endl;
+    }catch(SplendorException& e){
+        cout<< e.getInfos()<<endl;
+    }
+
 
     return 0;
 }
