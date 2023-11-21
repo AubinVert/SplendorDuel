@@ -7,8 +7,9 @@
 
 int main(){
 
-    printf("bonjour");
+    //printf("bonjour");
 
+    cout<<"bonjour"<<endl;
 
     return 0;
 }
