@@ -7,11 +7,13 @@ class Sac{
 }
 
 class Tirage{
-  - niveau : int
-  - nb : int
-  - max : int
-  - cartes : Cartes_joaillerie*[max] 
-  - pioche : Pioche*
+  - nb_max_tirages : static const int;
+  - nb_tirages : static int;
+  - niveau : const int
+  - nb_cartes : int
+  - max_cartse : int
+  - cartes : vector<const Cartes_joaillerie*>
+  - pioche : Pioche&
 }
 
 class Plateau{
@@ -91,10 +93,10 @@ class Jeu{
 }
 
 class Pioche{
-  - niveau : int
-  - nb : int
-  - max : int
-  - cartes : Cartes_joaillerie*[max]
+  - niveau : const int
+  - nb_pioches : static int
+  - max_pioches : static const int
+  - pioche : vector<const Cartes_joaillerie*>
 }
 
 class SplendorException{
@@ -190,10 +192,21 @@ class SplendorException{
   Plateau : const Jeton* get_dessus_i(i:int) const
   Plateau : void print_tab() const
   
-  Tirage : void piocher()
-  Tirage : Tirage& getTirage() const
+  Tirage : Tirage(niv : int, max : int, p : Pioche&)
+  Tirage : \~Tirage()
+  Tirage : void remplirTirage()
+  Tirage : Pioche& getPioche() const
+  Tirage : vector<const Carte_joaillerie*> getTirage() const
+  Tirage : const int getNiveau() const
+  Tirage : const int getNbCartes() const
 
+  Pioche : Pioche(niv : int)
+  Pioche : \~Pioche()
   Pioche : bool est_vide()
+  Pioche : const int getNiveau() const
+  Pioche : vector<const Carte_joaillerie*> getPioche() const
+  Pioche : static int getNbPioches()
+  Pioche : static void remplirPioche(p1 : Pioche*, p2 : Pioche*, p3 : Pioche*, cartes : vector<const Carte_joaillerie*>&)
 
   SplendorException : SplendorException(str const std::string&)
   SplendorException : std::string getInfos() const
