@@ -39,7 +39,7 @@ public:
     const int getNiveau() const { return niveau; }
     const int getNbCartes() const { return nb_cartes; }
     Pioche& getPioche() const { return pioche; }
-    vector<const Carte_joaillerie*> getTirage() const { return cartes; }
+    vector<const Carte_joaillerie*>& getTirage() { return cartes; }
 
     // déclaration de la méthode qui permet de remplir le Tirage avec les cartes (voir tirage.cpp)
     void remplirTirage();

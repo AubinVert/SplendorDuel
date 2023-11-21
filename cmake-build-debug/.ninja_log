@@ -31,3 +31,8 @@
 3	705	1700597191428199145	CMakeFiles/lo21-splendor-duel.dir/classes/jeu.cpp.o	dd0f2c2bc47614e7
 4	749	1700597191473323591	CMakeFiles/lo21-splendor-duel.dir/classes/joueur.cpp.o	fe4112559f12014c
 749	781	1700597191506796862	lo21-splendor-duel	1c90e776fc47cc19
+4	750	1700597833588812034	CMakeFiles/lo21-splendor-duel.dir/classes/tirage.cpp.o	6d38a6f11ec6d812
+3	769	1700597833609073251	CMakeFiles/lo21-splendor-duel.dir/classes/jeu.cpp.o	dd0f2c2bc47614e7
+3	809	1700597833648406101	CMakeFiles/lo21-splendor-duel.dir/main.cpp.o	44d9c7238dcea514
+4	838	1700597833677380072	CMakeFiles/lo21-splendor-duel.dir/classes/joueur.cpp.o	fe4112559f12014c
+839	875	1700597833717851839	lo21-splendor-duel	1c90e776fc47cc19
