@@ -58,9 +58,10 @@ public:
     int calculer_bonus(enum Bonus_couleur bonus);
     void acheter_carte(const Carte_joaillerie& carte);
     void reserver_carte(const Carte_joaillerie& carte, const Jeton* jet);
-    void piocher_jeton(const Jeton& jeton);
+    void piocher_jeton(Plateau& p, int i);
     void obtenir_carte_royale(const Carte_royale& carte);
     bool eligible_carte_royale();
+    void obtenir_privilege();
 
 };
 

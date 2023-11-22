@@ -173,10 +173,11 @@ void Joueur::reserver_carte(const Carte_joaillerie& carte, const Jeton* jet) {
 
 }
 
-void Joueur::piocher_jeton(const Jeton& jeton) {
-    jetons.push_back(&jeton);
+void Joueur::piocher_jeton(Plateau& p, int i) {
+    jetons.push_back(p.get_plateau_i(i));
+    p.set_plateau_i(i,nullptr);
     std::cout << "Jeton acquis." << std::endl;
-    // enlever le jeton du plateau
+
 }
 
 void Joueur::obtenir_carte_royale(const Carte_royale& carte) {
@@ -200,3 +201,7 @@ bool Joueur::eligible_carte_royale() {
     }
 }
 
+void Joueur::obtenir_privilege() {
+
+    nb_privileges++;
+}
