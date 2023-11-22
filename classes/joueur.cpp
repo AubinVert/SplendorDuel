@@ -81,19 +81,19 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
         switch(carte.getNiveau()){
             case 1:
                 for (auto it = Jeu::getJeu().get_tirage_1()->getTirage().begin(); it != Jeu::getJeu().get_tirage_1()->getTirage().end(); ++it){
-                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_1()->getTirage().erase(it);
+                    if ((*it) == &carte) Jeu::getJeu().get_tirage_1()->getCarte(distance(it, Jeu::getJeu().get_tirage_1()->getTirage().begin()));
                 }
                 Jeu::getJeu().get_tirage_1()->remplirTirage();
                 break;
             case 2:
                 for (auto it = Jeu::getJeu().get_tirage_2()->getTirage().begin(); it != Jeu::getJeu().get_tirage_2()->getTirage().end(); ++it){
-                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_2()->getTirage().erase(it);
+                    if ((*it) == &carte) Jeu::getJeu().get_tirage_2()->getCarte(distance(it, Jeu::getJeu().get_tirage_2()->getTirage().begin()));
                 }
                 Jeu::getJeu().get_tirage_2()->remplirTirage();
                 break;
             case 3:
                 for (auto it = Jeu::getJeu().get_tirage_3()->getTirage().begin(); it != Jeu::getJeu().get_tirage_3()->getTirage().end(); ++it){
-                    if ((*it) == &carte) it = Jeu::getJeu().get_tirage_3()->getTirage().erase(it);
+                    if ((*it) == &carte) Jeu::getJeu().get_tirage_3()->getCarte(distance(it, Jeu::getJeu().get_tirage_3()->getTirage().begin()));
                 }
                 Jeu::getJeu().get_tirage_3()->remplirTirage();
                 break;
