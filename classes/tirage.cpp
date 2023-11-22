@@ -10,10 +10,10 @@ void Tirage::remplirTirage() {
 
         int max_p = p.size();
         while(this->nb_cartes < this->max_cartes && !this->pioche.est_vide() && this->nb_cartes < max_p){
-            const Carte_joaillerie* c = p.front();
-            this->cartes.push_back(c);
+
+            const Carte_joaillerie& c = this->pioche.getCarte();
+            this->cartes.push_back(&c);
             this->nb_cartes++;
-            p.erase(p.begin());
         }
 
     if(this->pioche.est_vide()) {
@@ -37,8 +37,14 @@ void testTirage() {
     vector<const Carte_joaillerie*> liste_cartes = initCartesJoaillerie();
 
     p1.InitPioches(&p1, &p2, &p3, liste_cartes);
+
+
+    std::cout<<p1.getPioche().size()<<endl;
+
     Tirage t1 = Tirage(1, 5, p1);
     t1.remplirTirage();
+
+    std::cout<<p1.getPioche().size()<<endl;
 
     Tirage t2 = Tirage(2, 4, p2);
     t2.remplirTirage();
