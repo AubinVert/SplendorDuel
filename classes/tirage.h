@@ -44,6 +44,19 @@ public:
     // déclaration de la méthode qui permet de remplir le Tirage avec les cartes (voir tirage.cpp)
     void remplirTirage();
 
+    const Carte_joaillerie& getCarte(unsigned int indice){
+
+        if(nb_cartes == 0){
+            throw SplendorException("Attention pas de cartes dans le tirage !");
+        }
+
+        const Carte_joaillerie* carte_retour = cartes[indice];
+        cartes.erase(cartes.begin()+indice);
+        nb_cartes--;
+
+        return *carte_retour;
+    }
+
 private:
     Tirage& operator=(const Tirage& t)=delete;
     Tirage(const Tirage& t)=delete;
