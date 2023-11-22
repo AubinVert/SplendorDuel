@@ -28,6 +28,9 @@ class Joueur {
     vector<const Jeton*> jetons;
     vector<const Privilege*> privileges; // ok pour agrégation?
 
+    Joueur& operator=(const Joueur&) = delete;
+    Joueur(const Joueur&) = delete;
+
 public:
 
     // Getter et setter

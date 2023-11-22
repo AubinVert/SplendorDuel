@@ -35,6 +35,7 @@ private:
     static Handler handler;
     Jeu();
     ~Jeu();
+
     Jeu (const Jeu&) = delete;
     Jeu& operator=(const Jeu&) = delete;
 
