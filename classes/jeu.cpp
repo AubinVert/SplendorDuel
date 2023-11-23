@@ -44,18 +44,19 @@ const int Jeu::choice(){
             cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
             cout<<"choix :";
             cin>>i;
-            if(i>3){
-                throw("Vous ne pouvez pas prendre plus de 3 jetons\n");
+            if(i>3 || i<=0){
+                throw SplendorException("Nombre de jetons invalide");
             }
             for (int j = 0; j < i; ++j) {
                 unsigned int k =0;
-                cout<<"Veuillez renseigner l'indice du jeton que vous voulez prendre : "<<endl;
+                cout<<"Veuillez renseigner l'id du jeton que vous voulez prendre : "<<endl;
                 cout<<"choix :";
                 cin>>k;
                 if(k>25){
                     throw SplendorException("Il 'n y a que 25 jetons sur le plateau\n");
                 }
-                qui_joue->piocher_jeton(k);
+
+                qui_joue->piocher_jeton(Plateau::get_plateau().getIndice(k));
             }
             break;
         }

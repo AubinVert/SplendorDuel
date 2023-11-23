@@ -48,7 +48,7 @@ int main(){
                 cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
             }
             try{
-                if(Jeu::getJeu().get_tour().getNbPrivileges()>0 || Sac::get_sac().get_nb_sac()>0){
+                if(Jeu::getJeu().get_tour().getNbPrivileges()>0 || (Plateau::get_plateau().getCurrentNb()<Jeton::getNbMaxJetons() && Sac::get_sac().get_nb_sac()>0)){
                 cout<<"Actions optionelles : "<<endl;
                 if(Jeu::getJeu().get_tour().getNbPrivileges()>0){
                     string tmp;
@@ -68,7 +68,7 @@ int main(){
                     }
 
                 }
-                if(Sac::get_sac().get_nb_sac()>0){
+                if(Plateau::get_plateau().getCurrentNb()<Jeton::getNbMaxJetons() && Sac::get_sac().get_nb_sac()>0){
                     cout<<"Voulez vous remplir le plateau ? "<<endl;
                     string tmp;
                     while(tmp != "Y" && tmp!= "N"){
@@ -86,6 +86,7 @@ int main(){
                 Jeu::getJeu().choice();
                 Jeu::getJeu().tour_suivant();
                 from_error = 0;
+
             }catch(SplendorException& e){
                 from_error = 1;
                 cout<<"=============ACTION NON AUTORISÉE ================="<<endl;

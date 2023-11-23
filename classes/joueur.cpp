@@ -209,15 +209,22 @@ void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointe
 }
 
 void Joueur::piocher_jeton( int i) {
+    cout<<"mabite"<<i<<endl;
 
-    if(i>25 || i<0){
+    if(i>26 || i<1){
         throw SplendorException("Indice du plateau non valide ! ");
     }
+
     const Jeton* tmp = Plateau::get_plateau().get_plateau_i(i);
+    if(tmp == nullptr){
+        throw SplendorException("Jeton déjà pris !");
+    }
     jetons.push_back(tmp);
     Plateau::get_plateau().set_plateau_i(i,nullptr);
     std::cout << "Jeton acquis." << std::endl;
     nb_jetons++;
+
+    Plateau::get_plateau().setCurrentNb(Plateau::get_plateau().getCurrentNb()-1);
 
 }
 

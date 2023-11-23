@@ -27,6 +27,8 @@ class Plateau{
 
 
     int nb = 0;
+    int current_nb = 0;
+
     vector<const Jeton*> jetons;
     struct Handler_Plateau{
         Plateau * instance = nullptr;
@@ -40,33 +42,47 @@ class Plateau{
         for (size_t i = 0; i< Jeton::getNbMaxJetons(); i++){
             jetons.push_back(nullptr);
         }
+
     };
     ~Plateau()=default; // car agrégation !
     Plateau& operator=(const Plateau& p)=delete;
     Plateau(const Plateau& p)=delete;
 public:
 
+    const int getCurrentNb() const {
+        return current_nb;
+    }
+
+    void setCurrentNb(const int value){
+        current_nb = value;
+    }
+
     static Plateau& get_plateau();
     static void libere_plateau();
 
+    const bool isInside(const unsigned int uid){
+        for (int i = 0; i < jetons.size(); ++i) {
+            if(jetons[i]->get_id() == uid){
+                return true;
+            }
+        }
+        return false;
+    }
 
-    const Jeton* getElementById(unsigned int id);
+     unsigned int getIndice(const unsigned int uid){
+
+        for (int i = 0; i < jetons.size(); ++i) {
+            if(jetons[i]->get_id() == uid){
+                return i;
+            }
+        }
+        throw SplendorException("Jeton non présent sur le platal");
+    }
+
+
 
     const Jeton* get_plateau_i(int i) const{ return jetons[i];}
 
-    const Jeton* getJetonById(const unsigned int id){
-        for (int i = 0; i < jetons.size(); ++i) {
-            if(jetons[i]->get_id() == id){
-                const Jeton* tmp = jetons[i];
-                // on doit retirer de l'emplacement ici
-                jetons.erase(jetons.begin()+i);
-                return tmp;
-            }
-
-        }
-        // si on a pas trouvé le jeton on renvoie une exception
-        throw SplendorException("Jeton non présent dans le plateau");
-    }
 
 
     void set_plateau_i(int i,const Jeton* jet){jetons[i] = jet;}
