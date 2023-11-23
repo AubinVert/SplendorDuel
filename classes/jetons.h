@@ -30,6 +30,7 @@ class Jeton{
 
 
 public:
+
     Jeton(int id,const Couleur& coul):id(id),couleur(coul){
         if((id<1)||(id>Jeton::get_nb_max_jetons())){
             throw SplendorException("Mauvais id de jetons!");
@@ -180,6 +181,7 @@ inline ostream& operator<<(ostream& f, const Jeton& jet){
     return f;
 }
 
+vector<const Jeton*> initJetons();
 
 
 /*

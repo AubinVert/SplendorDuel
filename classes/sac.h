@@ -23,13 +23,15 @@ class Sac{
 
     Sac& operator=(const Sac& s)=delete;
     Sac(const Sac& s)=delete;
+
+    void init_sac();
+
 public:
 
 
     static Sac& get_sac();
     static void libere_sac();
 
-    void init_sac();
 
     //Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
     //Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}
@@ -52,6 +54,7 @@ public:
     }
 
 };
+
 
 
 

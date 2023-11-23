@@ -2,6 +2,7 @@
 #define LO21_SPLENDOR_DUEL_PRIVILEGE_H
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 #include "Exception.h"
 
 
@@ -32,5 +33,8 @@ public:
 
 
 };
+
+
+std::vector<const Privilege*> initPrivileges();
 
 #endif //LO21_SPLENDOR_DUEL_PRIVILEGE_H

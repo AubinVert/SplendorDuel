@@ -5,7 +5,9 @@
 #include "classes/carte.h"
 #include "classes/privilege.h"
 #include "classes/Exception.h"*/
+#include "classes/jeu.h"
 #include "classes/tirage.h"
+#include "classes/joueur.h"
 
 
 

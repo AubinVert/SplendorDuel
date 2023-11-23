@@ -23,7 +23,7 @@ void Tirage::remplirTirage() {
         else if(this->nb_cartes < this->max_cartes) {
             throw SplendorException("La pioche fournie ne remplit pas complètement la capacité maximum du tirage !");
         }
-    }
+}
 
 
 
@@ -56,7 +56,5 @@ void testTirage() {
     t4.remplirTirage();
 
     t1.remplirTirage();
-
-
 
 }

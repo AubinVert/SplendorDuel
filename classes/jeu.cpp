@@ -11,21 +11,58 @@ const Joueur& Jeu::get_tour() const {
 }
 
 Jeu::Jeu() {
-    // constructeur jetons
+
+    // constructeur jetons (avec le sac)
+    Sac::get_sac();
+    Plateau::get_plateau();
     // construceur cartes
+    cartes_joiallerie = initCartesJoaillerie();
+    cartes_royales = initCartesRoyales();
+
     // constructeur privileges
-    // constructeur sac
-    // constructeur plateau
+    privileges = initPrivileges();
+
+    // pioches :
+    p1 = new Pioche(1);
+    p2 = new Pioche(2);
+    p3 = new Pioche(3);
+    p1->InitPioches(p1, p2, p3, cartes_joiallerie);
+
+    //std::cout<<p1->getPioche().size()<<endl;
+
+    // tirages ?
+
+    tirage_1 = new Tirage(1, 5, *p1);
+    tirage_2 = new Tirage(2, 4, *p2);
+    tirage_3 = new Tirage(3, 3, *p3);
+    tirage_1->remplirTirage();
+    tirage_2->remplirTirage();
+    tirage_3->remplirTirage();
+
+
 }
 
 Jeu::Handler Jeu::handler;
 
 Jeu::~Jeu(){
-    // destructeur jetons
-    // destructeur cartes
-    // destructeur privileges
-    // destructeur sac
-    // destructeur plateau
+    Sac::libere_sac(); // détruit aussi jetons ?
+
+
+    for (int i = 0; i < cartes_royales.size(); ++i) {
+        delete cartes_royales[i];
+    }
+    for (int i = 0; i < cartes_joiallerie.size(); ++i) {
+        delete cartes_joiallerie[i];
+    }
+
+    // libère les tirages :
+
+    delete tirage_1;
+    delete tirage_2;
+    delete tirage_3;
+
+    // reste à détruire privilèges, plateau ?
+
 };
 
 Jeu& Jeu::getJeu(){

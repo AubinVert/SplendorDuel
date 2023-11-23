@@ -7,22 +7,29 @@
 #include "privilege.h"
 #include "tirage.h"
 #include "pioche.h"
+#include "jetons.h"
+
 
 class Jeu {
 private:
-    bool est_termine;
-    bool contre_IA;
+
+    bool est_termine = false;
+    bool contre_IA = false;
     Joueur* qui_joue;
     Joueur* adversaire;
-
     Plateau* plateau;
-    Carte_joaillerie* cartes_joiallerie[67]; // Contient toutes les cartes du jeu
-    Jeton* jetons[15]; // Contient tous les jetons
-    Carte_royale* cartes_royales[4];
-    Privilege* privileges[3];
+    vector<const Carte_joaillerie*>  cartes_joiallerie; // Contient toutes les cartes du jeu
+    vector<const Jeton*> jetons; // Contient tous les jetons
+    vector<const Carte_royale*>  cartes_royales;
+    vector<const Privilege*> privileges;
+    Pioche* p1;
+    Pioche* p2;
+    Pioche* p3;
+
     Tirage* tirage_1;
     Tirage* tirage_2;
     Tirage* tirage_3;
+
 
     struct Handler {
         Jeu *instance = nullptr;
@@ -40,6 +47,31 @@ private:
     Jeu& operator=(const Jeu&) = delete;
 
 public:
+
+     vector<const Carte_royale*> getCartesRoyales () const {
+        return cartes_royales;
+    }
+
+    const Carte_royale& pullCarteRoyale (unsigned int i) {
+         if(i>cartes_royales.size() || i< 0) throw SplendorException("Indice non valide ! ");
+         const Carte_royale* tmp = cartes_royales[i];
+         cartes_royales.erase(cartes_royales.begin()+i);
+        return *tmp;
+     }
+
+     const unsigned int getNbPrivilege() const {
+         return privileges.size();
+     }
+
+    const Privilege& getPrivilege() {
+        if(privileges.size() <= 0){
+            throw SplendorException("Plus de privilège disponible");
+        }
+        const Privilege* tmp = privileges[0];
+        privileges.erase(privileges.begin());
+        return *tmp;
+    }
+
     const Joueur& get_tour() const;
     Tirage* get_tirage_1() const {return tirage_1;}
     Tirage* get_tirage_2() const {return tirage_2;}

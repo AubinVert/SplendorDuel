@@ -10,6 +10,8 @@ Plateau::Handler_Plateau Plateau::handler_plateau;
 Plateau &Plateau::get_plateau() {
     if(handler_plateau.instance==nullptr){
         handler_plateau.instance = new Plateau();
+        // au départ le plateau est rempli
+        handler_plateau.instance->remplir_plateau(Sac::get_sac());
     }
     return *handler_plateau.instance;
 }

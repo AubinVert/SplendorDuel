@@ -4,7 +4,6 @@
 #include <vector>
 #include "Exception.h"
 #include "jetons.h"
-#include "joueur.h"
 #include "sac.h"
 
 const int ordre[25] = {12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0};
@@ -51,7 +50,8 @@ public:
     static void libere_plateau();
 
 
-    const Jeton* get_plateau_i(int i) const{return jetons[i];}
+    const Jeton* get_plateau_i(int i) const{ return jetons[i];}
+
     void set_plateau_i(int i,const Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
         if((i+1)%5 != 0){
