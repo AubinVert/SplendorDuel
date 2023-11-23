@@ -144,7 +144,7 @@ int Joueur::calculateBonus(enum colorBonus bonus) {
 int Joueur::nbJeton(const Color& couleur) const {
     int res = 0;
     for (auto j = jetons.begin(); j != jetons.end(); ++j){
-        if ((*j)->get_couleur() == couleur) res++;
+        if ((*j)->getColor() == couleur) res++;
     }
     return res;
 }
@@ -153,7 +153,7 @@ int Joueur::nbJeton(const Color& couleur) const {
 void Joueur::withdrawJetons(const Color& c, int val) {
     int tmp = val;
         for(int k=0;k< jetons.size(); k++){
-            if(jetons[k]->get_couleur() == c && tmp !=0){
+            if(jetons[k]->getColor() == c && tmp != 0){
                 Sac::get_sac().mettre_jeton_sac(jetons[k]);
                 jetons.erase(jetons.begin() +k);
                 tmp--;
@@ -170,7 +170,7 @@ void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointe
     // Vérifier que la personne a un jeton or
     unsigned int count =0;
     for (int i = 0; i < jetons.size(); ++i) {
-        if(jetons[i]->get_couleur() == Color::gold) count++;
+        if(jetons[i]->getColor() == Color::gold) count++;
     }
     if(count == 0){
         throw SplendorException("Mauvaise couleur");

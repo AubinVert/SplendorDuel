@@ -37,7 +37,7 @@ class Joueur {
 
     vector<const Jeton*> jetons; // tableau de jetons ? or ?
 
-    vector<const Privilege*> privileges; // ok pour agrégation?
+    vector<const Privilege*> privileges;
 
     Joueur& operator=(const Joueur&) = delete;
     Joueur(const Joueur&) = delete;

@@ -50,6 +50,8 @@ public:
     static void libere_plateau();
 
 
+    const Jeton* getElementById(unsigned int id);
+
     const Jeton* get_plateau_i(int i) const{ return jetons[i];}
 
     const Jeton* getJetonById(const unsigned int id){

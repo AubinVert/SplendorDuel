@@ -165,20 +165,15 @@ public:
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
-    const Color& get_couleur() const {return couleur;}
+    const Color& getColor() const {return couleur;}
     const int get_id()const{return id;}
-
-
-
     static int getNbMaxJetons(){return max_bleu + max_blanc + max_or + max_noir + max_perle + max_rouge + max_vert;}
-
-
 
 };
 
 
 inline ostream& operator<<(ostream& f, const Jeton& jet){
-    f<<"id: "<<jet.get_id()<<"; couleur: "<<toString(jet.get_couleur());
+    f<<"id: "<<jet.get_id()<<"; couleur: "<<toString(jet.getColor());
     return f;
 }
 

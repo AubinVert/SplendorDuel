@@ -24,10 +24,11 @@ const bool Jeu::isFinished() {
 const int Jeu::choice(){
 
      int tmp = 0;
-    while (tmp != 1 && tmp != 2 && tmp != 3){
+    while (tmp != 1 && tmp != 2 && tmp != 3 && tmp!= 4){
         cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
         cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
         cout<<"Pour réserver une carte appuyez sur -> 3"<<endl;
+        cout<<"Pour voir la liste des jetons possédés -> 4"<<endl;
         cout<<"choix :";
         cin>>tmp;
     }
@@ -36,6 +37,7 @@ const int Jeu::choice(){
         case 1:
         {
             unsigned int i = 0;
+
             cout<<"\n\nPlateau :"<<endl;
             Plateau::get_plateau().printTab();
 
@@ -43,13 +45,16 @@ const int Jeu::choice(){
             cout<<"choix :";
             cin>>i;
             if(i>3){
-                throw("Vous ne pouvez pas prendre plus de 3 jetons");
+                throw("Vous ne pouvez pas prendre plus de 3 jetons\n");
             }
             for (int j = 0; j < i; ++j) {
                 unsigned int k =0;
                 cout<<"Veuillez renseigner l'indice du jeton que vous voulez prendre : "<<endl;
                 cout<<"choix :";
                 cin>>k;
+                if(k>25){
+                    throw SplendorException("Il 'n y a que 25 jetons sur le plateau\n");
+                }
                 qui_joue->piocher_jeton(k);
             }
             break;
@@ -208,6 +213,14 @@ const int Jeu::choice(){
                 }
 
             }
+        }
+        case 4:
+        {
+            // affichage des jetons du jouer !
+            cout<<"Inventaire du joueur : "<<qui_joue->getName()<<endl;
+            // afficher pour chaque type
+
+
         }
 
 

@@ -130,7 +130,7 @@ class SplendorException{
 
 
   Jeton : const int get_id() const
-  Jeton : static int get_nb_max_jetons()
+  Jeton : static int getNbMaxJetons()
   Jeton : \~Jeton()
   Jeton : Jeton(id:int, couleur:enum)
 

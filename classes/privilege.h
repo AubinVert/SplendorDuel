@@ -30,8 +30,6 @@ public:
         throw SplendorException("Nombres d'instances de privileges depasse");
     }
     static int get_max_instance(){return maxInstances;}
-
-
 };
 
 

@@ -40,6 +40,18 @@ void Plateau::printTab() const{
     }
 }
 
+const Jeton* Plateau::getElementById(unsigned int id){
+    for (int i = 0; i < jetons.size(); ++i) {
+        if(jetons[i]->get_id() == id){
+            const Jeton* tmp = jetons[i];
+            jetons[i] = nullptr;
+            return tmp;
+        }
+}
+
+
+    throw SplendorException("Jeton non présent sur le platal");
+}
 
 
 void Plateau::remplir_plateau(Sac& sac) {
