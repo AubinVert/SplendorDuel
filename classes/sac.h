@@ -28,8 +28,8 @@ class Sac{
 
 public:
 
-
-    static Sac& get_sac();
+    void print_sac() ;
+        static Sac& get_sac();
     static void libere_sac();
 
 

@@ -63,7 +63,7 @@ int main(){
                     }
                     if(tmp == "Y"){
                         Jeu::getJeu().remplirPlateau();
-                        Jeu::getJeu().getOpponent().obtenir_privilege();
+                        Jeu::getJeu().getOpponent().obtainPrivilege();
                     }
                 }
 

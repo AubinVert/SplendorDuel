@@ -19,7 +19,7 @@ Afin de gagner le jeu, un joueur doit remplir l’une des conditions suivantes :
 # Jetons #
 
 Il y a **25 jetons**. Il y en a 
-- 4 de chacune des cinq couleurs des **gemmes** (bleu, blanc, vert, noir et rouge). 
+- 4 de chacune des cinq couleurs des **gemmes** (bleu, blanc, vert, noir et red). 
 - 2 **perles**
 - 3 **or**. 
 
@@ -30,7 +30,7 @@ Au début du jeu, les 25 jetons nécessaires pour remplir le plateau sont placé
 
 **Propriétés** :
 
-- **Couleur** (les jetons or sont des jokers qui permettent de remplacer n’importe quelle couleur).
+- **Color** (les jetons or sont des jokers qui permettent de remplacer n’importe quelle couleur).
 
 **Remarques** :
 

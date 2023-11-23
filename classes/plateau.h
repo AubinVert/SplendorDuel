@@ -52,6 +52,21 @@ public:
 
     const Jeton* get_plateau_i(int i) const{ return jetons[i];}
 
+    const Jeton* getJetonById(const unsigned int id){
+        for (int i = 0; i < jetons.size(); ++i) {
+            if(jetons[i]->get_id() == id){
+                const Jeton* tmp = jetons[i];
+                // on doit retirer de l'emplacement ici
+                jetons.erase(jetons.begin()+i);
+                return tmp;
+            }
+
+        }
+        // si on a pas trouvé le jeton on renvoie une exception
+        throw SplendorException("Jeton non présent dans le plateau");
+    }
+
+
     void set_plateau_i(int i,const Jeton* jet){jetons[i] = jet;}
     const Jeton* get_droite_i(int i) const{
         if((i+1)%5 != 0){

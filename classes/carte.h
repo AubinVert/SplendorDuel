@@ -18,31 +18,31 @@ using namespace std;
 
 
 
-enum  class  Capacite {rejouer, voler_pion_adverse, prendre_privilege, prendre_sur_plateau, joker};
-enum  class Couleur {bleu, rouge, vert, blanc, noir, perle, gold};
-enum class Bonus_couleur {bleu, rouge, vert, blanc, noir, joker};
+enum  class  Capacity {rejouer, voler_pion_adverse, prendre_privilege, prendre_sur_plateau, joker};
+enum  class Color {bleu, rouge, vert, blanc, noir, perle, gold};
+enum class colorBonus {bleu, red, vert, blanc, noir, joker};
 
 
 
 
 
-optional<Capacite> getCapaciteFromString(const std::string& str);
-optional<Bonus_couleur> getBonusFromString(const std::string& str);
+optional<Capacity> getCapaciteFromString(const std::string& str);
+optional<colorBonus> getBonusFromString(const std::string& str);
 
 
-std::string toString(Couleur c);
-std::string toString(Capacite c);
-std ::string toString(optional<enum Bonus_couleur> bonus);
+std::string toString(Color c);
+std::string toString(Capacity c);
+std ::string toString(optional<enum colorBonus> bonus);
 
-std::ostream& operator<<(std::ostream& f, Couleur c);
-std::ostream& operator<<(std::ostream& f, optional<Capacite> c);
-std::ostream& operator<<(ostream& f, optional<Bonus_couleur> b);
+std::ostream& operator<<(std::ostream& f, Color c);
+std::ostream& operator<<(std::ostream& f, optional<Capacity> c);
+std::ostream& operator<<(ostream& f, optional<colorBonus> b);
 
-extern 	std::initializer_list<Couleur> Couleurs;
-extern 	std::initializer_list<Capacite> Capacites;
-extern std::initializer_list<Bonus_couleur> Bonus_couleur;
+extern 	std::initializer_list<Color> Colors;
+extern 	std::initializer_list<Capacity> Capacities;
+extern std::initializer_list<colorBonus> ColorBonuses;
 
-class Carte{
+class Card{
 
 protected:
 
@@ -52,9 +52,9 @@ protected:
 private:
 
 
-    Carte& operator=(Carte& c) =delete;
+    Card& operator=(Card& c) =delete;
 
-    const optional<Capacite> capacite;
+    const optional<Capacity> capacite;
     const int points_prestige;
 
 
@@ -65,11 +65,11 @@ public:
         return nb_cartes;
     }
 
-    ~Carte(){
+    ~Card(){
         nb_cartes--;
     }
 
-    explicit Carte(int points_prestige=0, std::optional<Capacite> capacite = std::nullopt) : capacite(capacite), points_prestige(points_prestige){
+    explicit Card(int points_prestige=0, std::optional<Capacity> capacite = std::nullopt) : capacite(capacite), points_prestige(points_prestige){
         if(nb_cartes > MAX){
             throw SplendorException("Maximum de cartes atteint");
         }
@@ -80,7 +80,7 @@ public:
         ++nb_cartes;
     }
 
-    const optional<Capacite>& getCapacite() const{return capacite;}
+    const optional<Capacity>& getCapacite() const{return capacite;}
 
 
 
@@ -89,13 +89,13 @@ public:
 
 
 };
-class Carte_royale:public Carte{
+class RoyalCard: public Card{
 
 public:
 
 
-    Carte_royale(int points_prestige=0,std::optional<Capacite> capacite = nullopt)
-            : Carte(points_prestige, capacite){
+    RoyalCard(int points_prestige=0, std::optional<Capacity> capacite = nullopt)
+            : Card(points_prestige, capacite){
         if(points_prestige<0 || points_prestige>10){
             throw SplendorException("Valeur non autorisée");
         }
@@ -107,7 +107,7 @@ public:
     }
 
 };
-class Carte_joaillerie:public Carte{
+class JewelryCard: public Card{
     const int cout_blanc;
     const int cout_bleu;
     const int cout_rouge;
@@ -116,7 +116,7 @@ class Carte_joaillerie:public Carte{
     const int cout_perle;
     const int niveau;
     const int nb_couronnes;
-    const optional<enum Bonus_couleur> bonus;
+    const optional<enum colorBonus> bonus;
     const int bonus_nombre;
 
 
@@ -125,18 +125,18 @@ public:
 
 
 
-    const int getCoutBlanc()const{return cout_blanc;}
-    const int getCoutBleu()const{return cout_bleu;}
-    const int getCoutRouge()const{return cout_rouge;}
-    const int getCoutVert()const{return cout_vert;}
-    const int getCoutNoir()const{return cout_noir;}
-    const int getCoutPerle()const{return cout_perle;}
+    const int getCostWhite()const{return cout_blanc;}
+    const int getCostBlue()const{return cout_bleu;}
+    const int getCostRed()const{return cout_rouge;}
+    const int getCostGreen()const{return cout_vert;}
+    const int getCostBlack()const{return cout_noir;}
+    const int getCostPerl()const{return cout_perle;}
 
 
 
 
-    Carte_joaillerie(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0,int bonus_nombre = 0, optional<enum Bonus_couleur> bonus = nullopt,optional<Capacite> capacite = nullopt)
-            : Carte(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
+    JewelryCard(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0, int bonus_nombre = 0, optional<enum colorBonus> bonus = nullopt, optional<Capacity> capacite = nullopt)
+            : Card(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
     {
         if(nb_cartes > MAX){
 
@@ -154,49 +154,49 @@ public:
 
 
     const int getNiveau()const{return niveau;}
-    const int get_nb_couronnes()const {return nb_couronnes;}
-    const optional<enum Bonus_couleur>& get_bonus()const{return bonus;}
+    const int getNbCrown()const {return nb_couronnes;}
+    const optional<enum colorBonus>& getBonus()const{return bonus;}
     const int getNbBonus() const {return bonus_nombre;}
 
 
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Carte& c){
-    os<<"Capacite : "<< c.getCapacite() <<" points prestiges : "<<c.getPrestige()<<endl;
+inline std::ostream& operator<<(std::ostream& os, const Card& c){
+    os<<"Capacity : "<< c.getCapacite() <<" points prestiges : "<<c.getPrestige()<<endl;
     return os;
 }
-inline std::ostream& operator<<(std::ostream& os, const Carte_royale& c){
-    os<<"Capacite : "<< c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<endl;
+inline std::ostream& operator<<(std::ostream& os, const RoyalCard& c){
+    os<<"Capacity : "<< c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<endl;
     return os;
 }
-inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
+inline std::ostream& operator<<(std::ostream& os, const JewelryCard& c){
     
-    os<<"Capacite : "<< c.getCapacite();
+    os<<"Capacity : "<< c.getCapacite();
     if(c.getPrestige() != 0){
         os<<", points prestiges : "<<c.getPrestige();
     }
-    if(c.getCoutPerle()!=0 ){
+    if(c.getCostPerl() != 0 ){
         os<<", Cout Perle :"<<
-          c.getCoutPerle();
+                            c.getCostPerl();
     }
-    if(c.getCoutBlanc()!=0 ){
+    if(c.getCostWhite() != 0 ){
         os<<", Cout Blanc :"<<
-          c.getCoutBlanc();
+                            c.getCostWhite();
     }
-    if(c.getCoutBleu()!=0 ){
+    if(c.getCostBlue() != 0 ){
         os<<", Cout Bleu :"<<
-          c.getCoutBleu();
+                           c.getCostBlue();
     }
-    if(c.getCoutRouge()!=0 ){
+    if(c.getCostRed() != 0 ){
         os<<", Cout Rouge :"<<
-          c.getCoutRouge();
+                            c.getCostRed();
     }
-    if(c.getCoutNoir()!=0 ){
+    if(c.getCostBlack() != 0 ){
         os<<", Cout Noir :"<<
-          c.getCoutNoir();
+                           c.getCostBlack();
     }
     if(c.getNbBonus() != 0){
-        os<<", Bonus : "<<c.get_bonus()<<", nombre de bonus : "<< c.getNbBonus();
+        os << ", Bonus : " << c.getBonus() << ", nombre de bonus : " << c.getNbBonus();
     }
     os<<", Niveau : "<<c.getNiveau()<<endl;
 
@@ -205,8 +205,8 @@ inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
 
 
 
-vector<const Carte_royale*> initCartesRoyales();
-vector<const Carte_joaillerie*> initCartesJoaillerie();
+vector<const RoyalCard*> initCartesRoyales();
+vector<const JewelryCard*> initCartesJoaillerie();
 
 
 

@@ -4,20 +4,20 @@ int Pioche::nb_pioches = 0;
 
 
 
-const Carte_joaillerie& Pioche::getCarte(){
+const JewelryCard& Pioche::getCarte(){
     if(this->pioche.size() == 0){
         throw SplendorException("Attention pas de cartes dans la pioche !");
     }
-    const Carte_joaillerie* carte_retour = pioche[0];
+    const JewelryCard* carte_retour = pioche[0];
     pioche.erase(pioche.begin());
     return *carte_retour;
 }
 
 
-void Pioche::InitPioches(Pioche* p1, Pioche* p2, Pioche* p3, vector<const Carte_joaillerie*>& cartes){
+void Pioche::InitPioches(Pioche* p1, Pioche* p2, Pioche* p3, vector<const JewelryCard*>& cartes){
     if (nb_pioches != max_pioches){throw SplendorException("les pioches ne sont pas toutes créées");}
 
-    for (const Carte_joaillerie* carte : cartes) { //pour chaque carte (ptr constant vers une carte) du vecteur cartes
+    for (const JewelryCard* carte : cartes) { //pour chaque carte (ptr constant vers une carte) du vecteur cartes
         switch(carte->getNiveau()){
             case 1:
                 (p1->pioche).push_back(carte);

@@ -66,7 +66,7 @@ Afin de gagner le jeu, un joueur doit remplir l’une des conditions suivantes :
 
 Il y a **25 jetons**. Il y en a 
 
-- 4 de chacune des cinq couleurs des **gemmes** (bleu, blanc, vert, noir et rouge).
+- 4 de chacune des cinq couleurs des **gemmes** (bleu, blanc, vert, noir et red).
 - 2 **perles.**
 - 3 **or**.
 
@@ -91,14 +91,14 @@ A la fin de chaque tour, le joueur peut posséder **au plus 10 jetons**. S’il 
 
 ## Cartes
 
-Les 2 classes (Carte_joaillerie et Carte_royale) vont partager des attributs et méthodes de la classe Carte. (voir UML). On parle d’héritage (pas encore vu en cours).
+Les 2 classes (JewelryCard et RoyalCard) vont partager des attributs et méthodes de la classe Card. (voir UML). On parle d’héritage (pas encore vu en cours).
 
 **Attributs** : - **capacite**. - **points_prestige**.
 
 **Méthodes** :
 
-- Carte getCarte().
-- Capacite getCapacite() const.
+- Card getCarte().
+- Capacity getCapacite() const.
 - int getPrestige() const.
 
 ### Cartes joaillerie
@@ -121,11 +121,11 @@ Il y a **3 types de cartes** séparées par niveau, qui devront être mélangée
 
 **Méthodes** :
 
-- int getCoutBlanc() const.
-- int getCoutVert() const.
-- int getCoutRouge() const.
-- int getCoutNoir() const.
-- int getCoutPerle() const.
+- int getCostWhite() const.
+- int getCostGreen() const.
+- int getCostRed() const.
+- int getCostBlack() const.
+- int getCostPerl() const.
 - void setCouts().
 - int getCouronnes() const.
 - bonus_couleur getBonusCouleur() const.
@@ -141,11 +141,11 @@ Il y a **4 cartes royales**. Elles peuvent être prises à l’obtention de la 3
 
 **Attributs**
 
-- Pas d’attributs propres, elles sont partagées avec la classe Carte.
+- Pas d’attributs propres, elles sont partagées avec la classe Card.
 
 **Méthodes**
 
-- Pas de méthodes propres, elles sont partagées avec la classe Carte.
+- Pas de méthodes propres, elles sont partagées avec la classe Card.
 
 ## Privilèges
 
@@ -232,8 +232,8 @@ Ce sac contient les jetons utilisés par les joueurs lors de l’achat de cartes
 - int setPoints().
 - int getCouronnes() const.
 - int setCouronnes().
-- Carte* getCartesJ() const.
-- Carte* getCartesR() const.
+- Card* getCartesJ() const.
+- Card* getCartesR() const.
 - void acheterCarte().
 - void mettreJetonDansSac().
 - void printCartesJ() const.

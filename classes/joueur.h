@@ -31,9 +31,9 @@ class Joueur {
     static int const max_nb_privileges = 3;
     static int const max_nb_cartes_reservees = 3;
 
-    vector<const Carte_joaillerie*> cartes_joaillerie_achetees;
-    vector<const Carte_joaillerie*> cartes_joaiellerie_reservees; // 3 au max
-    vector<const Carte_royale*> cartes_royale; // ok pour agrégation?
+    vector<const JewelryCard*> cartes_joaillerie_achetees;
+    vector<const JewelryCard*> cartes_joaiellerie_reservees; // 3 au max
+    vector<const RoyalCard*> cartes_royale; // ok pour agrégation?
 
     vector<const Jeton*> jetons; // tableau de jetons ? or ?
 
@@ -63,6 +63,7 @@ public:
     const string getName() const { return nom;}
     const int getNbCartesAchetees() const { return cartes_joaillerie_achetees.size();}
     const int getNbCartesReservees()const {return cartes_joaiellerie_reservees.size();}
+
     const int getNbPoints()const{return nb_points;}
     void setPoints(int nb){nb_points = nb;}
     const int getNbCouronnes()const{return nb_courones;}
@@ -70,11 +71,14 @@ public:
     const int getNbPrivileges()const{return nb_privileges;}
     void setNbPrivileges(int nb){nb_privileges = nb;}
     const int getNbCartesRoyales() const {return nb_cartes_r;}
-
+    vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;} // suce mon zob ?
 
-    int nb_jeton(const Couleur& c) const; // const ?
-    void retirer_jeton(const Couleur& c, int val); // const ?
+    void buyCardFromReserve( const int indice);
+
+
+        int nbJeton(const Color& couleur) const; // const ?
+    void withdrawJetons(const Color& c, int val); // const ?
 
     // Constructeur et destructeur
     Joueur(const string &nom);
@@ -85,13 +89,17 @@ public:
     // utilisation du design pattern iterator pour get privilèges
     // ??
 
-    int calculer_bonus(enum Bonus_couleur bonus);
-    void acheter_carte(const Carte_joaillerie& carte);
+    int calculateBonus(enum colorBonus bonus);
+
+    void buyCard(Tirage *t, const int indice);
+        void acheter_carte(const JewelryCard& carte);
+
+
     void reserver_carte(Tirage *t, const int indice); // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
     void piocher_jeton( int i);
-    void obtenir_carte_royale(unsigned int i);
-    bool eligible_carte_royale();
-    void obtenir_privilege();
+    void obtainRoyaleCard(unsigned int i);
+    bool royaleCardEligibility();
+    void obtainPrivilege();
     void retirerPrivilege();
 
 
@@ -123,7 +131,7 @@ inline std::ostream& operator<<(std::ostream& os, const Joueur& j){
     return os;
 }
 
-int positif_ou_nul(int x);
+int positiveOrNull(int x);
 
 void testJoueurs();
 

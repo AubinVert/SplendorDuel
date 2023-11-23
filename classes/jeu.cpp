@@ -36,9 +36,10 @@ const int Jeu::choice(){
         case 1:
         {
             unsigned int i = 0;
-            Plateau::get_plateau().print_tab();
             cout<<"\n\nPlateau :"<<endl;
-            cout<<Plateau::get_plateau<<endl;
+            Plateau::get_plateau().print_tab();
+
+
 
             cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
             cout<<"choix :";
@@ -58,8 +59,115 @@ const int Jeu::choice(){
 
         case 2:
 
-            // comment désigner la bonne carte mtn ?
+            // On demande s'il veut acheter une carte qu'il a réserver ou non
+        {
+            unsigned int choice = -1;
 
+            if(qui_joue->getNbCartesReservees()!=0){
+
+
+                while(choice != 1 && choice != 0){
+                    cout<<"Voulez vous acheter une carte que vous avez résever auparavant ? 1 pour oui /0 pour non"<<endl;
+                    cout<<"choix";
+                    cin>>choice;
+                }
+                if(choice==1){
+                    //alors on doit lui print les cartes qu'il peut acheter (celles qu'il a déjà reservé)
+                    vector<const JewelryCard*> reserved = qui_joue->getCartesReserved();
+                    for (int i = 0; i < reserved.size(); ++i) {
+                        cout<<"indice : "<<i<<" "<<*reserved[i]<<endl;
+                    }
+                    unsigned int indice;
+                    cout<<"veuillez renseigner l'indice de la carte choisie : ";
+                    cin>>indice;
+                    qui_joue->buyCardFromReserve(indice);
+                }else{
+                    cout<<"\n\nTirage1 :"<<endl;
+                    cout<<*tirage_1<<endl;
+                    cout<<"\nTirage2 :"<<endl;
+                    cout<<*tirage_2<<endl;
+                    cout<<"\nTirage3 :"<<endl;
+                    cout<<*tirage_3<<endl;
+                    int choix = 0;
+                    while(choix != 1 && choix != 2 && choix != 3){
+                        cout<<"Dans quel tirage vous voulez acheter une carte ?"<<endl;
+                        cout<<"choix";
+                        cin>>choix;
+                    }
+                    switch (choix) {
+                        case 1:{
+                            unsigned int indice = 0;
+                            cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                            cout<<"choix : ";
+                            cin>>indice;
+                            qui_joue->buyCard(tirage_1, indice);
+                            break;
+                        }case 2:{
+                            unsigned int indice = 0;
+                            cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                            cout<<"choix : ";
+                            cin>>indice;
+                            qui_joue->buyCard(tirage_2, indice);
+                            break;
+                        }
+                        case 3:{
+                            unsigned int indice = 0;
+                            cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                            cout<<"choix : ";
+                            cin>>indice;
+                            qui_joue->buyCard(tirage_3, indice);
+                            break;
+                        }
+
+                    }
+
+
+
+                }
+
+
+            }
+            else{
+                cout<<"\n\nTirage1 :"<<endl;
+                cout<<*tirage_1<<endl;
+                cout<<"\nTirage2 :"<<endl;
+                cout<<*tirage_2<<endl;
+                cout<<"\nTirage3 :"<<endl;
+                cout<<*tirage_3<<endl;
+                int choix = 0;
+                while(choix != 1 && choix != 2 && choix != 3){
+                    cout<<"Dans quel tirage vous voulez acheter une carte ?"<<endl;
+                    cout<<"choix";
+                    cin>>choix;
+                }
+                switch (choix) {
+                    case 1:{
+                        unsigned int indice = 0;
+                        cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                        cout<<"choix : ";
+                        cin>>indice;
+                        qui_joue->buyCard(tirage_1, indice);
+                        break;
+                    }case 2:{
+                        unsigned int indice = 0;
+                        cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                        cout<<"choix : ";
+                        cin>>indice;
+                        qui_joue->buyCard(tirage_2, indice);
+                        break;
+                    }
+                    case 3:{
+                        unsigned int indice = 0;
+                        cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                        cout<<"choix : ";
+                        cin>>indice;
+                        qui_joue->buyCard(tirage_3, indice);
+                        break;
+                    }
+
+                }
+            }
+        }
 
         case 3:
 

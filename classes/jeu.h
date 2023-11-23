@@ -19,9 +19,9 @@ private:
     unsigned int manche = 0;
      Joueur* adversaire;
     Plateau* plateau;
-    vector<const Carte_joaillerie*>  cartes_joiallerie; // Contient toutes les cartes du jeu
+    vector<const JewelryCard*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
-    vector<const Carte_royale*>  cartes_royales;
+    vector<const RoyalCard*>  cartes_royales;
     vector<const Privilege*> privileges;
     Pioche* p1;
     Pioche* p2;
@@ -64,17 +64,17 @@ public:
     Joueur& getOpponent();
 
 
-     vector<const Carte_royale*> getCartesRoyales () const {
+     vector<const RoyalCard*> getCartesRoyales () const {
         return cartes_royales;
     }
 
-    vector<const Carte_joaillerie*> getCartesJoaillerie () const {
+    vector<const JewelryCard*> getCartesJoaillerie () const {
         return cartes_joiallerie;
     }
 
-    const Carte_royale& pullCarteRoyale (unsigned int i) {
+    const RoyalCard& pullCarteRoyale (unsigned int i) {
          if(i>cartes_royales.size() || i< 0) throw SplendorException("Indice non valide ! ");
-         const Carte_royale* tmp = cartes_royales[i];
+         const RoyalCard* tmp = cartes_royales[i];
          cartes_royales.erase(cartes_royales.begin()+i);
         return *tmp;
      }

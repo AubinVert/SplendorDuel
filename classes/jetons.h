@@ -11,7 +11,7 @@ using namespace std;
 class Jeton{
     // il faut garantir l'unicité de chaque jeton
     const int id;
-    const Couleur couleur;
+    const Color couleur;
 
     static int nb_perle;
     static const int max_perle = 2;
@@ -31,20 +31,20 @@ class Jeton{
 
 public:
 
-    Jeton(int id,const Couleur& coul):id(id),couleur(coul){
+    Jeton(int id,const Color& coul): id(id), couleur(coul){
         if((id<1)||(id>Jeton::get_nb_max_jetons())){
             throw SplendorException("Mauvais id de jetons!");
         }
         switch (coul){
-            case Couleur::rouge:{
+            case Color::rouge:{
                 if(nb_rouge<max_rouge){
                     nb_rouge++;
                 }else{
-                    throw SplendorException("Impossible de créer plus de jetons rouge!");
+                    throw SplendorException("Impossible de créer plus de jetons red!");
                 }
                 break;
             }
-            case Couleur::bleu: {
+            case Color::bleu: {
                 if(nb_bleu<max_bleu){
                     nb_bleu++;
                 }else{
@@ -52,7 +52,7 @@ public:
                 }
                 break;
             }
-            case Couleur::vert: {
+            case Color::vert: {
                 if(nb_vert<max_vert){
                     nb_vert++;
                 }else{
@@ -60,7 +60,7 @@ public:
                 }
                 break;
             }
-            case Couleur::blanc:{
+            case Color::blanc:{
                 if(nb_blanc<max_blanc){
                     nb_blanc++;
                 }else{
@@ -68,7 +68,7 @@ public:
                 }
                 break;
             }
-            case Couleur::noir:{
+            case Color::noir:{
                 if(nb_noir<max_noir){
                     nb_noir++;
                 }else{
@@ -76,7 +76,7 @@ public:
                 }
                 break;
             }
-            case Couleur::perle:{
+            case Color::perle:{
                 if(nb_perle<max_perle){
                     nb_perle++;
                 }else{
@@ -84,7 +84,7 @@ public:
                 }
                 break;
             }
-            case Couleur::gold:{
+            case Color::gold:{
                 if(nb_or<max_or){
                     nb_or++;
                 }else{
@@ -93,22 +93,22 @@ public:
                 break;
             }
             default: {
-                throw SplendorException("Couleur inconnue");
+                throw SplendorException("Color inconnue");
                 break;
             }
         }
     }
     ~Jeton(){
         switch (couleur) {
-            case Couleur::rouge: {
+            case Color::rouge: {
                 if (nb_rouge > 0) {
                     nb_rouge--;
                 } else {
-                    throw SplendorException("Nombre de jetons rouge <= 0!");
+                    throw SplendorException("Nombre de jetons red <= 0!");
                 }
                 break;
             }
-            case Couleur::bleu: {
+            case Color::bleu: {
                 if (nb_bleu > 0) {
                     nb_bleu--;
                 } else {
@@ -116,7 +116,7 @@ public:
                 }
                 break;
             }
-            case Couleur::vert: {
+            case Color::vert: {
                 if (nb_vert > 0) {
                     nb_vert--;
                 } else {
@@ -124,7 +124,7 @@ public:
                 }
                 break;
             }
-            case Couleur::blanc: {
+            case Color::blanc: {
                 if (nb_blanc > 0) {
                     nb_blanc--;
                 } else {
@@ -132,7 +132,7 @@ public:
                 }
                 break;
             }
-            case Couleur::noir: {
+            case Color::noir: {
                 if (nb_noir > 0) {
                     nb_noir--;
                 } else {
@@ -140,7 +140,7 @@ public:
                 }
                 break;
             }
-            case Couleur::perle: {
+            case Color::perle: {
                 if (nb_perle > 0) {
                     nb_perle--;
                 } else {
@@ -148,7 +148,7 @@ public:
                 }
                 break;
             }
-            case Couleur::gold: {
+            case Color::gold: {
                 if (nb_or > 0) {
                     nb_or--;
                 } else {
@@ -157,7 +157,7 @@ public:
                 break;
             }
             default: {
-                throw SplendorException("Couleur de jetons inconnue");
+                throw SplendorException("Color de jetons inconnue");
                 break;
             }
         }
@@ -165,12 +165,13 @@ public:
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
-    const Couleur& get_couleur() const {return couleur;}
+    const Color& get_couleur() const {return couleur;}
     const int get_id()const{return id;}
 
 
 
     static int get_nb_max_jetons(){return max_bleu+max_blanc+max_or+max_noir+max_perle+max_rouge+max_vert;}
+
 
 
 };
@@ -222,7 +223,7 @@ public:
 };
 
 class Jeton_gemme:public Jeton{
-    Couleur couleur;
+    Color couleur;
 public:
     static int nb_vert;
     static int max_vert;
@@ -235,52 +236,52 @@ public:
     static int nb_noir;
     static int max_noir;
 
-    Jeton_gemme(int id, Couleur coul):Jeton(id),couleur(coul){
+    Jeton_gemme(int id, Color coul):Jeton(id),couleur(coul){
         if((id<1)||(id>25)){
             throw SplendorException("Id de jeton négatif!");
         }
         switch (coul){
-            case Couleur::rouge:{
+            case Color::red:{
                 if(nb_rouge<max_rouge){
                     nb_rouge++;
                 }else{
-                    throw SplendorException("Impossible de créer plus de jetons rouge!");
+                    throw SplendorException("Impossible de créer plus de jetons red!");
                 }
             }
-            case Couleur::bleu: {
+            case Color::bleu: {
                 if(nb_bleu<max_bleu){
                     nb_bleu++;
                 }else{
                     throw SplendorException("Impossible de créer plus de jetons bleu!");
                 }
             }
-            case Couleur::vert: {
+            case Color::vert: {
                 if(nb_vert<max_vert){
                     nb_vert++;
                 }else{
                     throw SplendorException("Impossible de créer plus de jetons vert!");
                 }
             }
-            case Couleur::blanc:{
+            case Color::blanc:{
                 if(nb_blanc<max_blanc){
                     nb_blanc++;
                 }else{
                     throw SplendorException("Impossible de créer plus de jetons blanc!");
                 }
             }
-            case Couleur::noir:{
+            case Color::noir:{
                 if(nb_noir<max_noir){
                     nb_noir++;
                 }else{
                     throw SplendorException("Impossible de créer plus de jetons noir!");
                 }
             }
-            default: throw SplendorException("Couleur inconnue");
+            default: throw SplendorException("Color inconnue");
         }
     }
 
-    const Couleur& get_couleur() const{return couleur;}
-    void set_couleur(const Couleur& coul){couleur = coul;}
+    const Color& get_couleur() const{return couleur;}
+    void set_couleur(const Color& coul){couleur = coul;}
 };*/
 
 

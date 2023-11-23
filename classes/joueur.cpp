@@ -10,38 +10,38 @@ Joueur::Joueur(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0)
 Joueur::~Joueur() = default;
 
 
-void Joueur::acheter_carte(const Carte_joaillerie& carte){
+void Joueur::acheter_carte(const JewelryCard& carte){
 
 
     // ici calculer bonus permet de retirer du cout total des cartes le bonus des cartes déjà possédées.
-    int cout_blanc = positif_ou_nul(carte.getCoutBlanc() - calculer_bonus(Bonus_couleur::blanc));
-    int cout_bleu = positif_ou_nul(carte.getCoutBleu() - calculer_bonus(Bonus_couleur::bleu));
-    int cout_rouge = positif_ou_nul(carte.getCoutRouge() - calculer_bonus(Bonus_couleur::rouge));
-    int cout_vert = positif_ou_nul(carte.getCoutVert() - calculer_bonus(Bonus_couleur::vert));
-    int cout_noir = positif_ou_nul(carte.getCoutNoir() - calculer_bonus(Bonus_couleur::noir));
+    int cout_blanc = positiveOrNull(carte.getCostWhite() - calculateBonus(colorBonus::blanc));
+    int cout_bleu = positiveOrNull(carte.getCostBlue() - calculateBonus(colorBonus::bleu));
+    int cout_rouge = positiveOrNull(carte.getCostRed() - calculateBonus(colorBonus::red));
+    int cout_vert = positiveOrNull(carte.getCostGreen() - calculateBonus(colorBonus::vert));
+    int cout_noir = positiveOrNull(carte.getCostBlack() - calculateBonus(colorBonus::noir));
 
     // Vérifier si le joueur veut utiliser des jetons en or (s'il en possède)
     // Et diminuer le coût respectivement
 
-    if (nb_jeton(Couleur::gold) != 0) {
+    if (nbJeton(Color::gold) != 0) {
         std::cout << "Voulez-vous utiliser des jetons or? (oui/non)" << std::endl;
         std::string choix;
         std::cin >> choix;
         int nb;
         if (choix == "oui") {
-            while (nb_jeton(Couleur::gold) != 0){
-                std::cout << "Couleur remplacée?" << std::endl;
+            while (nbJeton(Color::gold) != 0){
+                std::cout << "Color remplacée?" << std::endl;
                 std::cin >> choix;
                 do {
                     std::cout << "Nombre?" << std::endl;
                     std::cin >> nb;
-                } while (nb > nb_jeton(Couleur::gold));
-                retirer_jeton(Couleur::gold, nb_jeton(Couleur::gold) - nb); // Màj nombre jetons or
-                if (choix == "blanc" || "Blanc") cout_blanc = positif_ou_nul(cout_blanc - nb);
-                if (choix == "bleu"|| "Bleu") cout_bleu = positif_ou_nul(cout_bleu - nb);
-                if (choix == "rouge"|| "Rouge") cout_rouge = positif_ou_nul(cout_rouge - nb);
-                if (choix == "vert"|| "Vert") cout_vert = positif_ou_nul(cout_vert - nb);
-                if (choix == "noir"|| "Noir") cout_noir = positif_ou_nul(cout_noir - nb);}
+                } while (nb > nbJeton(Color::gold));
+                withdrawJetons(Color::gold, nbJeton(Color::gold) - nb); // Màj nombre jetons or
+                if (choix == "blanc" || "Blanc") cout_blanc = positiveOrNull(cout_blanc - nb);
+                if (choix == "bleu"|| "Bleu") cout_bleu = positiveOrNull(cout_bleu - nb);
+                if (choix == "red"|| "Rouge") cout_rouge = positiveOrNull(cout_rouge - nb);
+                if (choix == "vert"|| "Vert") cout_vert = positiveOrNull(cout_vert - nb);
+                if (choix == "noir"|| "Noir") cout_noir = positiveOrNull(cout_noir - nb);}
         }
     }
 
@@ -51,21 +51,21 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     int eligible_achat = 0;
 
     // vérifier si on a le nombre de jetons pour acheter
-    if (nb_jeton(Couleur::blanc) >= cout_blanc &&
-        nb_jeton(Couleur::bleu) >= cout_bleu &&
-        nb_jeton(Couleur::rouge) >= cout_rouge &&
-        nb_jeton(Couleur::vert) >= cout_vert &&
-        nb_jeton(Couleur::noir) >= cout_noir){eligible_achat = 1;}
+    if (nbJeton(Color::blanc) >= cout_blanc &&
+        nbJeton(Color::bleu) >= cout_bleu &&
+        nbJeton(Color::rouge) >= cout_rouge &&
+        nbJeton(Color::vert) >= cout_vert &&
+        nbJeton(Color::noir) >= cout_noir){ eligible_achat = 1;}
 
 
     if (eligible_achat == 0) throw SplendorException("Pas assez de jetons pour acheter la carte !");
 
     // Retirer les jetons utilisés et les mettre dans le sac
-    retirer_jeton(Couleur::blanc, cout_blanc);
-    retirer_jeton(Couleur::bleu, cout_bleu);
-    retirer_jeton(Couleur::rouge, cout_rouge);
-    retirer_jeton(Couleur::vert, cout_vert);
-    retirer_jeton(Couleur::noir, cout_noir);
+    withdrawJetons(Color::blanc, cout_blanc);
+    withdrawJetons(Color::bleu, cout_bleu);
+    withdrawJetons(Color::rouge, cout_rouge);
+    withdrawJetons(Color::vert, cout_vert);
+    withdrawJetons(Color::noir, cout_noir);
 
     // Mettre la carte dans la main du joueur
     cartes_joaillerie_achetees.push_back(&carte);
@@ -118,31 +118,144 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     }
 
     // Rajouter le nb de couronnes
-    this->nb_courones += carte.get_nb_couronnes();
+    this->nb_courones += carte.getNbCrown();
 
     // Dans le main tester si eligible pour carte royale et appeler get carte royale
 
 }
 
 
-int positif_ou_nul(int x) {
+void Joueur::buyCardFromReserve( const int indice){
+    if(cartes_joaiellerie_reservees.size() == 0 || indice>3) {
+        throw SplendorException("Pas de cartes réservées");
+    }
+
+    // on doit vérifier que l'achat peut se faire
+
+    const JewelryCard* carte = cartes_joaiellerie_reservees[indice];
+
+    int cout_blanc = positiveOrNull(carte->getCostWhite() - calculateBonus(colorBonus::blanc));
+    int cout_bleu = positiveOrNull(carte->getCostBlue() - calculateBonus(colorBonus::bleu));
+    int cout_rouge = positiveOrNull(carte->getCostRed() - calculateBonus(colorBonus::red));
+    int cout_vert = positiveOrNull(carte->getCostGreen() - calculateBonus(colorBonus::vert));
+    int cout_noir = positiveOrNull(carte->getCostBlack() - calculateBonus(colorBonus::noir));
+    // Vérifier si assez de jetons
+    int eligible_achat = 0;
+
+    // vérifier si on a le nombre de jetons pour acheter
+    if (nbJeton(Color::blanc) >= cout_blanc &&
+        nbJeton(Color::bleu) >= cout_bleu &&
+        nbJeton(Color::rouge) >= cout_rouge &&
+        nbJeton(Color::vert) >= cout_vert &&
+        nbJeton(Color::noir) >= cout_noir){ eligible_achat = 1;}
+
+
+    if (eligible_achat == 0) throw SplendorException("Pas assez de jetons pour acheter la carte !");
+
+    // Retirer les jetons utilisés et les mettre dans le sac
+    withdrawJetons(Color::blanc, cout_blanc);
+    withdrawJetons(Color::bleu, cout_bleu);
+    withdrawJetons(Color::rouge, cout_rouge);
+    withdrawJetons(Color::vert, cout_vert);
+    withdrawJetons(Color::noir, cout_noir);
+
+
+    cartes_joaiellerie_reservees.erase(cartes_joaiellerie_reservees.begin()+indice);
+    cartes_joaillerie_achetees.push_back(carte);
+
+    this->nb_courones += carte->getNbCrown();
+
+}
+
+
+void Joueur::buyCard(Tirage *t, const int indice){
+
+    // la carte qu'il veut supp c'est la ième du tirage t
+
+    const JewelryCard carte =  t->getCarte(indice);
+
+
+    // ici calculer bonus permet de retirer du cout total des cartes le bonus des cartes déjà possédées.
+    int cout_blanc = positiveOrNull(carte.getCostWhite() - calculateBonus(colorBonus::blanc));
+    int cout_bleu = positiveOrNull(carte.getCostBlue() - calculateBonus(colorBonus::bleu));
+    int cout_rouge = positiveOrNull(carte.getCostRed() - calculateBonus(colorBonus::red));
+    int cout_vert = positiveOrNull(carte.getCostGreen() - calculateBonus(colorBonus::vert));
+    int cout_noir = positiveOrNull(carte.getCostBlack() - calculateBonus(colorBonus::noir));
+
+    // Vérifier si le joueur veut utiliser des jetons en or (s'il en possède)
+    // Et diminuer le coût respectivement
+
+    if (nbJeton(Color::gold) != 0) {
+        std::cout << "Voulez-vous utiliser des jetons or? (oui/non)" << std::endl;
+        std::string choix;
+        std::cin >> choix;
+        int nb;
+        if (choix == "oui") {
+            while (nbJeton(Color::gold) != 0){
+                std::cout << "Color remplacée?" << std::endl;
+                std::cin >> choix;
+                do {
+                    std::cout << "Nombre?" << std::endl;
+                    std::cin >> nb;
+                } while (nb > nbJeton(Color::gold));
+                withdrawJetons(Color::gold, nbJeton(Color::gold) - nb); // Màj nombre jetons or
+                if (choix == "blanc" || "Blanc") cout_blanc = positiveOrNull(cout_blanc - nb);
+                if (choix == "bleu"|| "Bleu") cout_bleu = positiveOrNull(cout_bleu - nb);
+                if (choix == "red"|| "Rouge") cout_rouge = positiveOrNull(cout_rouge - nb);
+                if (choix == "vert"|| "Vert") cout_vert = positiveOrNull(cout_vert - nb);
+                if (choix == "noir"|| "Noir") cout_noir = positiveOrNull(cout_noir - nb);}
+        }
+    }
+
+    // Vérifier si assez de jetons
+    int eligible_achat = 0;
+
+    // vérifier si on a le nombre de jetons pour acheter
+    if (nbJeton(Color::blanc) >= cout_blanc &&
+        nbJeton(Color::bleu) >= cout_bleu &&
+        nbJeton(Color::rouge) >= cout_rouge &&
+        nbJeton(Color::vert) >= cout_vert &&
+        nbJeton(Color::noir) >= cout_noir){ eligible_achat = 1;}
+    if (eligible_achat == 0) throw SplendorException("Pas assez de jetons pour acheter la carte !");
+
+    // Retirer les jetons utilisés et les mettre dans le sac
+    withdrawJetons(Color::blanc, cout_blanc);
+    withdrawJetons(Color::bleu, cout_bleu);
+    withdrawJetons(Color::rouge, cout_rouge);
+    withdrawJetons(Color::vert, cout_vert);
+    withdrawJetons(Color::noir, cout_noir);
+
+    // Mettre la carte dans la main du joueur
+    cartes_joaillerie_achetees.push_back(&carte);
+
+    // Vérifier si c'est une carte réservée
+
+
+    // Rajouter le nb de couronnes
+    this->nb_courones += carte.getNbCrown();
+
+    // Dans le main tester si eligible pour carte royale et appeler get carte royale
+
+}
+
+int positiveOrNull(int x) {
     if (x < 0) return 0;
     return x;
 }
 
 // Calculer le nb de jetons du joueur d'une couleur donnée
-int Joueur::calculer_bonus(enum Bonus_couleur bonus) {
+int Joueur::calculateBonus(enum colorBonus bonus) {
     int res = 0;
     // débug ton code engulé
     //cout<<cartes_joaillerie_achetees.size()<<endl;
     for (auto c = cartes_joaillerie_achetees.begin(); c != cartes_joaillerie_achetees.end(); ++c){
-        if (bonus == (*c)->get_bonus()) res++;
+        if (bonus == (*c)->getBonus()) res++;
     }
     return res;
 }
 
 // Calculer le nb de jetons du joueur d'une couleur donnée
-int Joueur::nb_jeton(const Couleur& couleur) const {
+int Joueur::nbJeton(const Color& couleur) const {
     int res = 0;
     for (auto j = jetons.begin(); j != jetons.end(); ++j){
         if ((*j)->get_couleur() == couleur) res++;
@@ -151,7 +264,7 @@ int Joueur::nb_jeton(const Couleur& couleur) const {
 }
 
 // Supprimer val jetons de la main du joueur et remettre dans le sac
-void Joueur::retirer_jeton(const Couleur& c, int val) {
+void Joueur::withdrawJetons(const Color& c, int val) {
     int tmp = val;
         for(int k=0;k< jetons.size(); k++){
             if(jetons[k]->get_couleur() == c && tmp !=0){
@@ -171,12 +284,12 @@ void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointe
     // Vérifier que la personne a un jeton or
     unsigned int count =0;
     for (int i = 0; i < jetons.size(); ++i) {
-        if(jetons[i]->get_couleur() == Couleur::gold) count++;
+        if(jetons[i]->get_couleur() == Color::gold) count++;
     }
     if(count == 0){
         throw SplendorException("Mauvaise couleur");
     }
-    const Carte_joaillerie tmp =  t->getCarte(indice);
+    const JewelryCard tmp =  t->getCarte(indice);
     // la fonction getCarte retire déjà la carte du tirage en question
     cartes_joaiellerie_reservees.push_back(&tmp);
     nb_cartes_j++;
@@ -221,19 +334,19 @@ void Joueur::piocher_jeton( int i) {
     nb_jetons++;
 }
 
-void Joueur::obtenir_carte_royale(unsigned int i) {
+void Joueur::obtainRoyaleCard(unsigned int i) {
     // on prend une carte dans le jeu
     if(i>Jeu::getJeu().getCartesRoyales().size()){
-        throw SplendorException("Carte non disponible");
+        throw SplendorException("Card non disponible");
     }
-    //if (eligible_carte_royale() == false) throw SplendorException("Pas eligible.");
-    const Carte_royale tmp = Jeu::getJeu().pullCarteRoyale(i);
+    //if (royaleCardEligibility() == false) throw SplendorException("Pas eligible.");
+    const RoyalCard tmp = Jeu::getJeu().pullCarteRoyale(i);
     cartes_royale.push_back(&tmp);
     // ENLEVER DU jeu
     nb_cartes_r++;
 }
 
-bool Joueur::eligible_carte_royale() {
+bool Joueur::royaleCardEligibility() {
     if (nb_courones >= 3 and nb_courones < 6 and nb_cartes_r == 0){
         return true;
     }
@@ -247,7 +360,7 @@ bool Joueur::eligible_carte_royale() {
     }
 }
 
-void Joueur::obtenir_privilege() {
+void Joueur::obtainPrivilege() {
     // on va chercher dans le tirage des privilège un privilège. (du plateau ou alors de ton adversaire ? )
     // d'abord je regarde s'il y a des privilèges dans le jeu :
 
@@ -280,13 +393,13 @@ void testJoueurs(){
         j.piocher_jeton(i);
     }
 
-    j.obtenir_carte_royale(1);
-    j.obtenir_privilege();
+    j.obtainRoyaleCard(1);
+    j.obtainPrivilege();
     Tirage* tmp = Jeu::getJeu().get_tirage_1();
     j.reserver_carte(tmp, 1);
 
 
-    const Carte_joaillerie cartej = Jeu::getJeu().get_tirage_1()->getCarte(1);
+    const JewelryCard cartej = Jeu::getJeu().get_tirage_1()->getCarte(1);
 
     j.acheter_carte(cartej);
 

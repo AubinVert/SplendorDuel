@@ -16,7 +16,7 @@ class Tirage{
     const int niveau;
     int nb_cartes;
     const int max_cartes;
-    vector<const Carte_joaillerie*> cartes;
+    vector<const JewelryCard*> cartes;
 
 public:
 
@@ -39,23 +39,27 @@ public:
     const int getNiveau() const { return niveau; }
     const int getNbCartes() const { return nb_cartes; }
     Pioche& getPioche() const { return pioche; }
-    vector<const Carte_joaillerie*>& getTirage() { return cartes; }
+    vector<const JewelryCard*>& getTirage() { return cartes; }
 
     // déclaration de la méthode qui permet de remplir le Tirage avec les cartes (voir tirage.cpp)
     void remplirTirage();
 
-    const Carte_joaillerie& getCarte(unsigned int indice){
+    const JewelryCard& getCarte(unsigned int indice){
 
         if(nb_cartes == 0){
             throw SplendorException("Attention pas de cartes dans le tirage !");
         }
 
-        const Carte_joaillerie* carte_retour = cartes[indice];
+        const JewelryCard* carte_retour = cartes[indice];
         cartes.erase(cartes.begin()+indice);
         nb_cartes--;
 
         return *carte_retour;
     }
+
+
+
+
 
 private:
     Tirage& operator=(const Tirage& t)=delete;
@@ -66,7 +70,7 @@ private:
 // surchage de l'opérateur pour print sur la sortie standard le tirage
 inline std::ostream& operator<<(std::ostream& f, Tirage& t) {
     int i = 0;
-    for(const Carte_joaillerie* c : t.getTirage()) {
+    for(const JewelryCard* c : t.getTirage()) {
         f<<"indice : "<<i<<" carte : "<<*c<<endl;
         i++;
     }

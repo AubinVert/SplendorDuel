@@ -27,24 +27,31 @@ void Sac::mettre_jeton_sac(const Jeton *jet) {
 void Sac::init_sac(){
     int j = 1;
     for (int i = 0; i<4; i++) {
-        mettre_jeton_sac(new Jeton(j++, Couleur::bleu));
+        mettre_jeton_sac(new Jeton(j++, Color::bleu));
     }
     for (int i = 0; i<4; i++){
-        mettre_jeton_sac(new Jeton(j++,Couleur::rouge));
+        mettre_jeton_sac(new Jeton(j++, Color::rouge));
     }
     for (int i = 0; i<4; i++){
-        mettre_jeton_sac(new Jeton(j++,Couleur::vert));
+        mettre_jeton_sac(new Jeton(j++, Color::vert));
     }
     for (int i = 0; i<4; i++){
-        mettre_jeton_sac(new Jeton(j++,Couleur::blanc));
+        mettre_jeton_sac(new Jeton(j++, Color::blanc));
     }
     for (int i = 0; i<4; i++){
-        mettre_jeton_sac(new Jeton(j++,Couleur::noir));
+        mettre_jeton_sac(new Jeton(j++, Color::noir));
     }
     for (int i = 0; i<2; i++){
-        mettre_jeton_sac(new Jeton(j++,Couleur::perle));
+        mettre_jeton_sac(new Jeton(j++, Color::perle));
     }
     for (int i = 0; i<3; i++){
-        mettre_jeton_sac(new Jeton(j++,Couleur::gold));
+        mettre_jeton_sac(new Jeton(j++, Color::gold));
     }
 }
+
+void Sac::print_sac() {
+    for(int i = 0; i<Jeton::get_nb_max_jetons();i++){
+        cout<<*jetons[i]<<endl;
+    }
+}
+

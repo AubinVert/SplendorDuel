@@ -17,37 +17,37 @@ vector<const Jeton*> initJetons(){
     int id = 1;
 
     for (int i = 0; i < 3; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::gold);
+        Jeton* tmp = new Jeton(id, Color::gold);
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 2; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::perle);
+        Jeton* tmp = new Jeton(id, Color::perle);
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::rouge);
+        Jeton* tmp = new Jeton(id, Color::rouge);
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::bleu);
+        Jeton* tmp = new Jeton(id, Color::bleu);
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::vert);
+        Jeton* tmp = new Jeton(id, Color::vert);
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::noir);
+        Jeton* tmp = new Jeton(id, Color::noir);
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id,Couleur::blanc);
+        Jeton* tmp = new Jeton(id, Color::blanc);
         tab.push_back(tmp);
         id++;
     }

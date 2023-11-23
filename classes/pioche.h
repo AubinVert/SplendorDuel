@@ -16,7 +16,7 @@ private:
 
     Pioche &operator=(Pioche &p) = delete;
 
-    vector<const Carte_joaillerie *> pioche;
+    vector<const JewelryCard *> pioche;
 public:
     ~Pioche() { nb_pioches--; }
 
@@ -33,13 +33,13 @@ public:
         return pioche.empty();
     }
 
-    vector<const Carte_joaillerie *> getPioche() const { return pioche; }
+    vector<const JewelryCard *> getPioche() const { return pioche; }
 
     static int getNbPioches() { return nb_pioches; }
 
-    static void InitPioches(Pioche *p1, Pioche *p2, Pioche *p3, vector<const Carte_joaillerie *> &cartes);
+    static void InitPioches(Pioche *p1, Pioche *p2, Pioche *p3, vector<const JewelryCard *> &cartes);
 
-    const Carte_joaillerie &getCarte();
+    const JewelryCard &getCarte();
 
 };
 

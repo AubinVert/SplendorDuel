@@ -4,79 +4,81 @@
 
 #include <fstream>
 #include "carte.h"
-int Carte::nb_cartes = 0;
+int Card::nb_cartes = 0;
 
 
 
-std::string toString(Couleur c) {
+std::string toString(Color c) {
     switch (c) {
-        case Couleur::rouge: return "Rouge";
-        case Couleur::bleu: return "Bleu";
-        case Couleur::vert: return "Vert";
-        case Couleur::blanc: return "Blanc";
-        case Couleur::noir: return "Noir";
-        default: throw SplendorException("Couleur inconnue");
+        case Color::rouge: return "Rouge";
+        case Color::bleu: return "Bleu";
+        case Color::vert: return "Vert";
+        case Color::blanc: return "Blanc";
+        case Color::noir: return "Noir";
+        case Color::perle: return "Perle";
+        case Color::gold: return "Gold";
+        default: throw SplendorException("Color inconnue");
     }
 }
-std::string toString(optional<Capacite> c) {
+std::string toString(optional<Capacity> c) {
     if(c != nullopt){
-        if(c == Capacite::rejouer){
+        if(c == Capacity::rejouer){
             return "Rejouer";
-        }else if(c == Capacite::voler_pion_adverse){
+        }else if(c == Capacity::voler_pion_adverse){
             return "Voler un pion adverse";
-        }else if(c == Capacite::prendre_privilege){
+        }else if(c == Capacity::prendre_privilege){
             return "Prendre un privilege";
-        }else if(c == Capacite::prendre_sur_plateau){
+        }else if(c == Capacity::prendre_sur_plateau){
             return "Prendre un pion de la même couleur que le bonus de la carte sur le plateau";
-        }else if(c == Capacite::joker){
+        }else if(c == Capacity::joker){
             return "Joker";
         }else{
-            throw SplendorException("Capacite inconnue");
+            throw SplendorException("Capacity inconnue");
 
         }
     }else{
         return "Null";
     }
 }
-std ::string toString(optional<enum Bonus_couleur> bonus){
+std ::string toString(optional<enum colorBonus> bonus){
     if(bonus != nullopt) {
-        if (bonus == Bonus_couleur::bleu) {
+        if (bonus == colorBonus::bleu) {
             return "Bonus Bleu";
-        } else if (bonus == Bonus_couleur::rouge) {
+        } else if (bonus == colorBonus::red) {
             return "Bonus Rouge";
-        } else if (bonus == Bonus_couleur::vert) {
+        } else if (bonus == colorBonus::vert) {
             return "Bonus Vert";
-        } else if (bonus == Bonus_couleur::blanc) {
+        } else if (bonus == colorBonus::blanc) {
             return "Bonus Blanc";
-        } else if (bonus == Bonus_couleur::noir) {
+        } else if (bonus == colorBonus::noir) {
             return "Bonus Noir";
-        } else if (bonus == Bonus_couleur::joker) {
+        } else if (bonus == colorBonus::joker) {
             return "Bonus Joker";
         }
     }else{
         return "Null";}
 }
 
-std::ostream& operator<<(std::ostream& f, optional<Capacite> c) { return  f << toString(c) ;}
+std::ostream& operator<<(std::ostream& f, optional<Capacity> c) { return  f << toString(c) ;}
 
-std::ostream& operator<<(std::ostream& f, Couleur c) { f << toString(c); return f; }
+std::ostream& operator<<(std::ostream& f, Color c) { f << toString(c); return f; }
 
-std::ostream& operator<<(ostream& f, optional<enum Bonus_couleur> b) { f << toString(b); return f; }
+std::ostream& operator<<(ostream& f, optional<enum colorBonus> b) { f << toString(b); return f; }
 
-extern 	std::initializer_list<Couleur> Couleurs = { Couleur::rouge, Couleur::bleu, Couleur::vert, Couleur::blanc, Couleur::noir };
-extern 	std::initializer_list<Capacite> Capacites = { Capacite::rejouer, Capacite::voler_pion_adverse, Capacite::prendre_privilege, Capacite::prendre_sur_plateau, Capacite::joker };
-extern std::initializer_list< enum Bonus_couleur> Bonus_couleurs ={ Bonus_couleur::bleu, Bonus_couleur::rouge, Bonus_couleur::vert, Bonus_couleur::blanc, Bonus_couleur::noir, Bonus_couleur::joker};
+extern 	std::initializer_list<Color> Colors = {Color::rouge, Color::bleu, Color::vert, Color::blanc, Color::noir };
+extern 	std::initializer_list<Capacity> Capacities = {Capacity::rejouer, Capacity::voler_pion_adverse, Capacity::prendre_privilege, Capacity::prendre_sur_plateau, Capacity::joker };
+extern std::initializer_list< enum colorBonus> Bonus_couleurs ={colorBonus::bleu, colorBonus::red, colorBonus::vert, colorBonus::blanc, colorBonus::noir, colorBonus::joker};
 
-std::map<std::string,enum Bonus_couleur> bonusMap = {
-        {"bleu", Bonus_couleur::bleu},
-        {"rouge", Bonus_couleur::rouge},
-        {"vert", Bonus_couleur::vert},
-        {"blanc", Bonus_couleur::blanc},
-        {"noir", Bonus_couleur::noir},
-        {"joker", Bonus_couleur::joker}
+std::map<std::string,enum colorBonus> bonusMap = {
+        {"bleu",  colorBonus::bleu},
+        {"red",   colorBonus::red},
+        {"vert",  colorBonus::vert},
+        {"blanc", colorBonus::blanc},
+        {"noir",  colorBonus::noir},
+        {"joker", colorBonus::joker}
 };
 
-optional<enum Bonus_couleur> getBonusFromString(const std::string& str) {
+optional<enum colorBonus> getBonusFromString(const std::string& str) {
     auto it = bonusMap.find(str);
     if (it != bonusMap.end()) {
         return it->second;
@@ -85,15 +87,15 @@ optional<enum Bonus_couleur> getBonusFromString(const std::string& str) {
     }
 }
 
-std::map<std::string, Capacite> capaciteMap = {
-        {"rejouer", Capacite::rejouer},
-        {"voler_pion_adverse", Capacite::voler_pion_adverse},
-        {"prendre_privilege", Capacite::prendre_privilege},
-        {"prendre_sur_plateau", Capacite::prendre_sur_plateau},
-        {"joker", Capacite::joker}
+std::map<std::string, Capacity> capaciteMap = {
+        {"rejouer",             Capacity::rejouer},
+        {"voler_pion_adverse",  Capacity::voler_pion_adverse},
+        {"prendre_privilege",   Capacity::prendre_privilege},
+        {"prendre_sur_plateau", Capacity::prendre_sur_plateau},
+        {"joker",               Capacity::joker}
 };
 
-optional<Capacite> getCapaciteFromString(const std::string& str) {
+optional<Capacity> getCapaciteFromString(const std::string& str) {
     auto it = capaciteMap.find(str);
     if (it != capaciteMap.end()) {
         return it->second;
@@ -107,7 +109,7 @@ optional<Capacite> getCapaciteFromString(const std::string& str) {
 
 
 
-vector<const Carte_royale*> initCartesRoyales(){
+vector<const RoyalCard*> initCartesRoyales(){
     std::ifstream file("../src/cartes.json");
 
     if (!file.is_open()) {
@@ -119,16 +121,16 @@ vector<const Carte_royale*> initCartesRoyales(){
     file >> data;
     file.close();
 
-    std::vector<const Carte_royale*> cartes_royales_instances;
+    std::vector<const RoyalCard*> cartes_royales_instances;
 
     for (const auto& carte_royale_data : data["cartes_royales"]) {
 
 
         if(!carte_royale_data["capacite"].is_null()){
-            Carte_royale* instance = new Carte_royale(carte_royale_data["points_prestige"],getCapaciteFromString(carte_royale_data["capacite"]));
+            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], getCapaciteFromString(carte_royale_data["capacite"]));
             cartes_royales_instances.push_back(instance);
         }else{
-            Carte_royale* instance = new Carte_royale(carte_royale_data["points_prestige"], nullopt);
+            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], nullopt);
             cartes_royales_instances.push_back(instance);
         }
 
@@ -136,7 +138,7 @@ vector<const Carte_royale*> initCartesRoyales(){
     return cartes_royales_instances;
 }
 
-vector<const Carte_joaillerie*> initCartesJoaillerie(){
+vector<const JewelryCard*> initCartesJoaillerie(){
     std::ifstream file("../src/cartes.json");
 
     if (!file.is_open()) {
@@ -147,33 +149,33 @@ vector<const Carte_joaillerie*> initCartesJoaillerie(){
     json data;
     file >> data;
     file.close();
-    std::vector<const Carte_joaillerie*> cartes_joailleries_instances;
+    std::vector<const JewelryCard*> cartes_joailleries_instances;
     for (const auto& carte_joaillerie_data : data["cartes_joailleries"]) {
 
         if(carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null() ){
 
-            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt,nullopt);
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, nullopt);
             cartes_joailleries_instances.push_back(instance);
         }else if (!carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null())
         {
 
-            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt,getCapaciteFromString(carte_joaillerie_data["capacite"]));
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, getCapaciteFromString(carte_joaillerie_data["capacite"]));
             cartes_joailleries_instances.push_back(instance);
 
         }else if(carte_joaillerie_data["capacite"].is_null() && !carte_joaillerie_data["bonus_couleur"].is_null()){
 
-            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]),nullopt);
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]), nullopt);
             cartes_joailleries_instances.push_back(instance);
         }else{
 
-            Carte_joaillerie* instance = new Carte_joaillerie(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"],carte_joaillerie_data["cout_bleu"],carte_joaillerie_data["cout_rouge"],carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]),getCapaciteFromString(carte_joaillerie_data["capacite"]));
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]), getCapaciteFromString(carte_joaillerie_data["capacite"]));
             cartes_joailleries_instances.push_back(instance);
         }
     }
     return cartes_joailleries_instances;
 }
 
-// Tests unitaires de la classe Carte :
+// Tests unitaires de la classe Card :
 
 
 
@@ -181,8 +183,8 @@ vector<const Carte_joaillerie*> initCartesJoaillerie(){
 
 void testInitCartes(){
 
-    vector<const Carte_royale*> test = initCartesRoyales();
-    vector<const Carte_joaillerie*> test2 = initCartesJoaillerie();
+    vector<const RoyalCard*> test = initCartesRoyales();
+    vector<const JewelryCard*> test2 = initCartesJoaillerie();
 
     for (int k = 0; k < test2.size(); k++) {
         cout << *test2[k]<<endl;
@@ -191,7 +193,7 @@ void testInitCartes(){
         cout << *test[k]<<endl;
     }
 
-    cout<<"\n"<<Carte::getNbCartes()<<endl;
+    cout << "\n" << Card::getNbCartes() << endl;
 
 }
 
