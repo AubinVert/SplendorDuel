@@ -98,7 +98,7 @@ public:
     }
 
     void remplir_plateau(Sac& sac);
-    void print_tab() const;
+    void printTab() const;
 
 };
 

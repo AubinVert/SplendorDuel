@@ -37,9 +37,7 @@ const int Jeu::choice(){
         {
             unsigned int i = 0;
             cout<<"\n\nPlateau :"<<endl;
-            Plateau::get_plateau().print_tab();
-
-
+            Plateau::get_plateau().printTab();
 
             cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
             cout<<"choix :";

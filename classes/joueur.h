@@ -77,7 +77,7 @@ public:
     void buyCardFromReserve( const int indice);
 
 
-        int nbJeton(const Color& couleur) const; // const ?
+    int nbJeton(const Color& couleur) const; // const ?
     void withdrawJetons(const Color& c, int val); // const ?
 
     // Constructeur et destructeur
@@ -90,11 +90,7 @@ public:
     // ??
 
     int calculateBonus(enum colorBonus bonus);
-
     void buyCard(Tirage *t, const int indice);
-        void acheter_carte(const JewelryCard& carte);
-
-
     void reserver_carte(Tirage *t, const int indice); // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
     void piocher_jeton( int i);
     void obtainRoyaleCard(unsigned int i);

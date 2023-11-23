@@ -190,7 +190,7 @@ class SplendorException{
   Plateau : const Jeton* get_gauche_i(i:int) const
   Plateau : const Jeton* get_dessous_i(i:int) const
   Plateau : const Jeton* get_dessus_i(i:int) const
-  Plateau : void print_tab() const
+  Plateau : void printTab() const
   
   Tirage : Tirage(niv : int, max : int, p : Pioche&)
   Tirage : \~Tirage()

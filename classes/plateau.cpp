@@ -22,7 +22,7 @@ void Plateau::libere_plateau() {
     handler_plateau.instance = nullptr;
 }
 
-void Plateau::print_tab() const{
+void Plateau::printTab() const{
     for (size_t i = 0; i<Jeton::get_nb_max_jetons();i++){
         if(jetons[i]!=nullptr){
             if((i+1)%5 == 0){
