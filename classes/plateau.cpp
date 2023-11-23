@@ -23,7 +23,7 @@ void Plateau::libere_plateau() {
 }
 
 void Plateau::printTab() const{
-    for (size_t i = 0; i<Jeton::get_nb_max_jetons();i++){
+    for (size_t i = 0; i< Jeton::getNbMaxJetons(); i++){
         if(jetons[i]!=nullptr){
             if((i+1)%5 == 0){
                 cout<<*jetons[i]<<"\n";
@@ -44,7 +44,7 @@ void Plateau::printTab() const{
 
 void Plateau::remplir_plateau(Sac& sac) {
     srand(static_cast<unsigned>(std::time(nullptr)));
-    for(int i = 0;i<Jeton::get_nb_max_jetons();i++){
+    for(int i = 0;i< Jeton::getNbMaxJetons(); i++){
         if(jetons[ordre[i]]==nullptr){
             int nb_sac = sac.get_nb_sac();
             int rdm = rand()%nb_sac;

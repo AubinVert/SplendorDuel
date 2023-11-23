@@ -36,8 +36,8 @@ class Plateau{
         }
     };
     static Handler_Plateau handler_plateau;
-    Plateau():nb(Jeton::get_nb_max_jetons()),jetons(){
-        for (size_t i = 0; i<Jeton::get_nb_max_jetons();i++){
+    Plateau(): nb(Jeton::getNbMaxJetons()), jetons(){
+        for (size_t i = 0; i< Jeton::getNbMaxJetons(); i++){
             jetons.push_back(nullptr);
         }
     };

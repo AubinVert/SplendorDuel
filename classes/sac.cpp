@@ -50,7 +50,7 @@ void Sac::init_sac(){
 }
 
 void Sac::print_sac() {
-    for(int i = 0; i<Jeton::get_nb_max_jetons();i++){
+    for(int i = 0; i< Jeton::getNbMaxJetons(); i++){
         cout<<*jetons[i]<<endl;
     }
 }

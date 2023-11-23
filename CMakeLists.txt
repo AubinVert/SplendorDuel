@@ -15,7 +15,7 @@ set(SOURCE_FILES
         classes/tirage.cpp
         classes/pioche.cpp
         classes/sac.cpp
-        classes/lots_privileges.cpp)
+)
 
 include(FetchContent)
 
