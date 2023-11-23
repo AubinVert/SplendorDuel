@@ -25,10 +25,13 @@ int main(){
         cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
 
 
-        for (int i = 0; i < 10; ++i) {
+        while (!Jeu::getJeu().isFinished()) {
             Jeu::getJeu().get_tour();
 
-            cout<<"c'est à "<<Jeu::getJeu().get_tour()<<" de jouer maintenant !"<<endl;
+            cout<<"Etat des joueurs : "<<endl;
+            cout<<Jeu::getJeu().get_tour()<<endl;
+            cout<<Jeu::getJeu().getOpponent()<<endl;
+            cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
 
             if(Jeu::getJeu().get_tour().getNbPrivileges()>0 || Sac::get_sac().get_nb_sac()>0){
                 cout<<"Actions optionelles : "<<endl;
@@ -70,17 +73,7 @@ int main(){
 
             Jeu::getJeu().tour_suivant();
 
-
         }
-
-
-
-        //while(!Jeu::getJeu().isFinished()){
-
-            //cout<<Jeu::getJeu().get_tour()<<endl;
-
-            //Jeu::getJeu().tour_suivant();
-        //}
 
 
     }catch(SplendorException& e){

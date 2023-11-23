@@ -70,7 +70,6 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     // Mettre la carte dans la main du joueur
     cartes_joaillerie_achetees.push_back(&carte);
 
-
     // Vérifier si c'est une carte réservée
 
 

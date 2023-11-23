@@ -94,16 +94,32 @@ public:
     void obtenir_privilege();
     void retirerPrivilege();
 
+
+
+
 };
 
 
 inline std::ostream& operator<<(std::ostream& os, const Joueur& j){
-    os<<" nom : "<<j.getName();
-    os<<"nombre de points : "<<j.getNbPoints() <<" nombre de couronnes : "<<j.getNbCouronnes();
-    os<<" nombre cartes joaillerie : "<< j.getNbCartesJoaillerie()<<" nombre de cartes royales : "<<j.getNbCartesRoyales();
-    os<<" nombre de cartes réservées : "<<j.getNbCartesReservees();
-    os<<"nombre de cartes achetees : "<<j.getNbCartesAchetees();
-    os << " nombre de privilège : "<<j.getNbPrivileges()<<" nombre de jetons : "<< j.getNbJetons()<<endl;
+    os<<"Pseudo : "<<j.getName();
+    if(j.getNbPoints()!=0){
+        os<<"nombre de points : "<<j.getNbPoints();
+    }
+    if(j.getNbCouronnes() != 0){
+        os<<" nombre de couronnes : "<<j.getNbCouronnes();
+    }
+    if(j.getNbCartesReservees()!=0){
+        os<<" nombre de cartes réservées : "<<j.getNbCartesReservees();
+
+    }
+    if(j.getNbPrivileges() != 0){
+        os << " nombre de privilège : "<<j.getNbPrivileges();
+    }
+    if( j.getNbJetons()!=0){
+        os << " nombre de jetons : "<< j.getNbJetons();
+
+    }
+    os<<endl;
     return os;
 }
 

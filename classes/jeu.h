@@ -99,7 +99,7 @@ public:
          privileges.push_back(&p);
      }
 
-     bool isFinished(){return est_termine;}
+     const bool isFinished();
 
      Joueur& get_tour() ;
      Tirage* get_tirage_1()  {return tirage_1;}

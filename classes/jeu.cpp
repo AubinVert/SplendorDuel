@@ -8,6 +8,17 @@ void Jeu::tour_suivant() {
     qui_joue = adversaire;
     adversaire = temp;
     manche++;
+    if(qui_joue->getNbCouronnes() == 10 || qui_joue->getNbPoints() == 20  ){
+        est_termine = true;
+    }
+
+    est_termine = false;
+}
+
+// condition d'arrêt
+
+const bool Jeu::isFinished() {
+    return est_termine;
 }
 
 
@@ -26,7 +37,7 @@ const int Jeu::choice(){
         case 1:
         {
             unsigned int i = 0;
-            // ici il faut cout le plateau
+            Plateau::get_plateau().print_tab();
             cout<<"\n\nPlateau :"<<endl;
             cout<<Plateau::get_plateau<<endl;
 
@@ -116,6 +127,7 @@ Jeu::Jeu() {
     // constructeur jetons (avec le sac)
     Sac::get_sac();
     Plateau::get_plateau();
+    Plateau::get_plateau().remplir_plateau(Sac::get_sac());
     // construceur cartes
     cartes_joiallerie = initCartesJoaillerie();
     cartes_royales = initCartesRoyales();
