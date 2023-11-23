@@ -13,10 +13,7 @@ Joueur::~Joueur() = default;
 void Joueur::acheter_carte(const Carte_joaillerie& carte){
 
 
-
-
     // ici calculer bonus permet de retirer du cout total des cartes le bonus des cartes déjà possédées.
-
 
 
     int cout_blanc = positif_ou_nul(carte.getCoutBlanc() - calculer_bonus(Bonus_couleur::blanc));
@@ -81,8 +78,6 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
     // Vérifier si c'est une carte réservée
 
 
-
-
     int est_reservee = 0;
 
     for(int k=0;k< cartes_joaiellerie_reservees.size(); k++){
@@ -104,28 +99,24 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
 
             case 1:
 
-                cout<<Jeu::getJeu().get_tirage_1()->getTirage().size()<<endl;
-
-
-
-
-
-                //Jeu::getJeu().get_tirage_1()->remplirTirage();
-
+                for (auto it = Jeu::getJeu().get_tirage_1()->getTirage().begin(); it != Jeu::getJeu().get_tirage_1()->getTirage().end(); ++it){
+                    if ((*it) == &carte) Jeu::getJeu().get_tirage_1()->getCarte(it - Jeu::getJeu().get_tirage_1()->getTirage().begin());
+                }
+                Jeu::getJeu().get_tirage_1()->remplirTirage();
                 break;
-                /*
+
             case 2:
                 for (auto it = Jeu::getJeu().get_tirage_2()->getTirage().begin(); it != Jeu::getJeu().get_tirage_2()->getTirage().end(); ++it){
-                    //if ((*it) == &carte) Jeu::getJeu().get_tirage_2()->getCarte(*it - Jeu::getJeu().get_tirage_2()->getTirage().begin());
+                    if ((*it) == &carte) Jeu::getJeu().get_tirage_2()->getCarte(it - Jeu::getJeu().get_tirage_2()->getTirage().begin());
                 }
                 Jeu::getJeu().get_tirage_2()->remplirTirage();
                 break;
             case 3:
                 for (auto it = Jeu::getJeu().get_tirage_3()->getTirage().begin(); it != Jeu::getJeu().get_tirage_3()->getTirage().end(); ++it){
-                   // if ((*it) == &carte) Jeu::getJeu().get_tirage_3()->getCarte(*it - Jeu::getJeu().get_tirage_3()->getTirage().begin());
+                   if ((*it) == &carte) Jeu::getJeu().get_tirage_3()->getCarte(it - Jeu::getJeu().get_tirage_3()->getTirage().begin());
                 }
                 Jeu::getJeu().get_tirage_3()->remplirTirage();
-                break;*/
+                break;
 
         }
 
@@ -180,7 +171,7 @@ void Joueur::retirer_jeton(const Couleur& c, int val) {
             }
     }
 
-void Joueur::reserver_carte(const Tirage& t, const int indice) { // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
+void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
 
     // Vérifier que la personne a un jeton or
     unsigned int count =0;
@@ -190,10 +181,14 @@ void Joueur::reserver_carte(const Tirage& t, const int indice) { // pourquoi un 
     if(count == 0){
         throw SplendorException("Mauvaise couleur");
     }
-    const Carte_joaillerie* tmp = t.getCarte(indice);
-    cartes_joaiellerie_reservees.push_back(tmp);
+    const Carte_joaillerie tmp =  t->getCarte(indice);
+    // la fonction getCarte retire déjà la carte du tirage en question
+    cartes_joaiellerie_reservees.push_back(&tmp);
+    nb_cartes_j++;
+    t->remplirTirage();
 
 
+    /*
     // Retirer du tirage
     switch(carte.getNiveau()){
         case 1:
@@ -215,6 +210,7 @@ void Joueur::reserver_carte(const Tirage& t, const int indice) { // pourquoi un 
             Jeu::getJeu().get_tirage_3()->remplirTirage();
             break;
     }
+    */
 
 }
 
@@ -274,23 +270,21 @@ void testJoueurs(){
     Jeu::getJeu();
 
     Joueur j("pd");
-    j.setPoints(3);
-    j.setNbCouronnes(2);
 
 
     for (int i = 1; i < 20; ++i) {
         j.piocher_jeton(i);
     }
+
     j.obtenir_carte_royale(1);
-
     j.obtenir_privilege();
+    Tirage* tmp = Jeu::getJeu().get_tirage_1();
+    j.reserver_carte(tmp, 1);
 
 
+    const Carte_joaillerie cartej = Jeu::getJeu().get_tirage_1()->getCarte(1);
 
-    j.reserver_carte(Jeu::getJeu().get_tirage_1(), 1);
-
-    cout<<Jeu::getJeu().get_tirage_1()->sizef()<<endl;
-    //j.acheter_carte(*cartej);
+    j.acheter_carte(cartej);
 
 
 

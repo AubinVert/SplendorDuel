@@ -77,9 +77,9 @@ public:
     }
 
     const Joueur& get_tour() const;
-    const Tirage* get_tirage_1()  {return tirage_1;}
-    const Tirage* get_tirage_2()  {return tirage_2;}
-    const Tirage* get_tirage_3()  {return tirage_3;}
+     Tirage* get_tirage_1()  {return tirage_1;}
+     Tirage* get_tirage_2()  {return tirage_2;}
+     Tirage* get_tirage_3()  {return tirage_3;}
     void tour_suivant();
     static Jeu& getJeu();
     static void libereJeu();
