@@ -86,21 +86,6 @@ public:
 
     const int getPrestige() const {return points_prestige;}
 
-    // pas besoin de setters
-
-//    void setCapacite(Capacite capacite){
-//        capacite = capacite;
-//        // vérif ?
-//    }
-//
-//
-//    void setPointsPrestige(int points_prestige) {
-//            if(points_prestige<0 || points_prestige>10){
-//                throw SplendorException("Valeur non autorisée");
-//            }else{
-//                points_prestige = points_prestige;
-//            }
-//    }
 
 
 };
@@ -134,48 +119,10 @@ class Carte_joaillerie:public Carte{
     const optional<enum Bonus_couleur> bonus;
     const int bonus_nombre;
 
-    // bool est_reservee;
 
 
 public:
 
-    // pas besoin de setters car attributs const d'une carte
-
-//    void setNiveau(int niveau=1)
-//    {
-//        if(niveau<1 || niveau >3){
-//            throw SplendorException("Valeur non autorisée");
-//        }else{
-//            niveau = niveau;
-//        }
-//
-//
-//    }
-
-//    void setNb_couronnes(int nb)
-//    {
-//        if(nb_couronnes <0 || nb_couronnes >3 ){
-//            throw SplendorException("Valeur non autorisée");
-//        }else{
-//            nb_couronnes=nb;
-//        }
-//
-//
-//    }
-//
-//    void setBonusNombre(int nb) {
-//            if(bonus_nombre<0 || bonus_nombre>2){
-//                throw SplendorException("Valeur non autorisée");
-//            }else{
-//                bonus_nombre=nb;
-//            }
-//    }
-
-//    void setBonus(Bonus_couleur bonus)
-//    {
-//        //vérification ?
-//        bonus=bonus;
-//    }
 
 
     const int getCoutBlanc()const{return cout_blanc;}
@@ -205,28 +152,11 @@ public:
     }
 
 
-    // pas besoin de setters car attributs const
-
-//    void setCouts(int cout_blanc = 0, int cout_bleu=0,int cout_rouge=0,int cout_vert=0,int cout_noir=0,int cout_perle=0)
-//    {
-//        if(cout_blanc<0 || cout_blanc>10 || cout_bleu<0 || cout_bleu>10 || cout_rouge<0 || cout_rouge>10 || cout_vert<0 || cout_vert>10 || cout_noir<0 || cout_noir>10 || cout_perle <0 || cout_perle > 10 ){
-//            throw SplendorException("Valeur non autorisée");
-//        }else{
-//            this->cout_blanc = cout_blanc;
-//            this->cout_bleu = cout_bleu;
-//            this->cout_rouge = cout_rouge;
-//            this->cout_vert = cout_vert;
-//            this->cout_noir = cout_noir;
-//            this->cout_perle =cout_perle;
-//        }
-//
-//    }
-
 
     const int getNiveau()const{return niveau;}
     const int get_nb_couronnes()const {return nb_couronnes;}
     const optional<enum Bonus_couleur>& get_bonus()const{return bonus;}
-    const int get_nb_bonus() const {return bonus_nombre;}
+    const int getNbBonus() const {return bonus_nombre;}
 
 
 };
@@ -240,10 +170,36 @@ inline std::ostream& operator<<(std::ostream& os, const Carte_royale& c){
     return os;
 }
 inline std::ostream& operator<<(std::ostream& os, const Carte_joaillerie& c){
-    os<<"Capacite : "<< c.getCapacite()<<", points prestiges : "<<c.getPrestige()<<", Cout Perle :"<<
-      c.getCoutPerle()<<", Cout Bleu :"<<c.getCoutBleu()<<", Cout Blanc :"<<c.getCoutBlanc()<<", Cout Rouge :"<<c.getCoutRouge()
-      <<", Cout Vert :"<<c.getCoutVert()<<", Cout Noir :"<<c.getCoutNoir()<<", Bonus : "<<c.get_bonus()<<", nombre de bonus : "<<c.get_nb_bonus()
-      <<", Niveau : "<<c.getNiveau()<<endl;
+    
+    os<<"Capacite : "<< c.getCapacite();
+    if(c.getPrestige() != 0){
+        os<<", points prestiges : "<<c.getPrestige();
+    }
+    if(c.getCoutPerle()!=0 ){
+        os<<", Cout Perle :"<<
+          c.getCoutPerle();
+    }
+    if(c.getCoutBlanc()!=0 ){
+        os<<", Cout Blanc :"<<
+          c.getCoutBlanc();
+    }
+    if(c.getCoutBleu()!=0 ){
+        os<<", Cout Bleu :"<<
+          c.getCoutBleu();
+    }
+    if(c.getCoutRouge()!=0 ){
+        os<<", Cout Rouge :"<<
+          c.getCoutRouge();
+    }
+    if(c.getCoutNoir()!=0 ){
+        os<<", Cout Noir :"<<
+          c.getCoutNoir();
+    }
+    if(c.getNbBonus() != 0){
+        os<<", Bonus : "<<c.get_bonus()<<", nombre de bonus : "<< c.getNbBonus();
+    }
+    os<<", Niveau : "<<c.getNiveau()<<endl;
+
     return os;
 }
 

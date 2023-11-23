@@ -14,8 +14,6 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
 
 
     // ici calculer bonus permet de retirer du cout total des cartes le bonus des cartes déjà possédées.
-
-
     int cout_blanc = positif_ou_nul(carte.getCoutBlanc() - calculer_bonus(Bonus_couleur::blanc));
     int cout_bleu = positif_ou_nul(carte.getCoutBleu() - calculer_bonus(Bonus_couleur::bleu));
     int cout_rouge = positif_ou_nul(carte.getCoutRouge() - calculer_bonus(Bonus_couleur::rouge));
@@ -24,8 +22,6 @@ void Joueur::acheter_carte(const Carte_joaillerie& carte){
 
     // Vérifier si le joueur veut utiliser des jetons en or (s'il en possède)
     // Et diminuer le coût respectivement
-
-
 
     if (nb_jeton(Couleur::gold) != 0) {
         std::cout << "Voulez-vous utiliser des jetons or? (oui/non)" << std::endl;

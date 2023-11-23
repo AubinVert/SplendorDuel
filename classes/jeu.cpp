@@ -26,6 +26,10 @@ const int Jeu::choice(){
         case 1:
         {
             unsigned int i = 0;
+            // ici il faut cout le plateau
+            cout<<"\n\nPlateau :"<<endl;
+            cout<<Plateau::get_plateau<<endl;
+
             cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
             cout<<"choix :";
             cin>>i;
@@ -50,6 +54,12 @@ const int Jeu::choice(){
         case 3:
 
         {
+            cout<<"\n\nTirage1 :"<<endl;
+            cout<<*tirage_1<<endl;
+            cout<<"\nTirage2 :"<<endl;
+            cout<<*tirage_2<<endl;
+            cout<<"\nTirage3 :"<<endl;
+            cout<<*tirage_3<<endl;
             int choix = 0;
             while(choix != 1 && choix != 2 && choix != 3){
                 cout<<"Dans quel tirage vous voulez réserver une carte ?"<<endl;

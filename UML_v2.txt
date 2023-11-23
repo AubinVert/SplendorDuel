@@ -173,7 +173,7 @@ class SplendorException{
   Carte_joaillerie : const int getNiveau() const
   Carte_joaillerie : const int get_nb_couronnes() const
   Carte_joaillerie : const Bonus_couleur& get_bonus() const
-  Carte_joaillerie : const int get_nb_bonus() const
+  Carte_joaillerie : const int getNbBonus() const
 
   Carte_royale : Carte_royale(capacite : Capacite, points_prestige : int)
   

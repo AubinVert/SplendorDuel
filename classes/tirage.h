@@ -65,8 +65,10 @@ private:
 
 // surchage de l'opérateur pour print sur la sortie standard le tirage
 inline std::ostream& operator<<(std::ostream& f, Tirage& t) {
+    int i = 0;
     for(const Carte_joaillerie* c : t.getTirage()) {
-        f << "\nniveau : " << c->getNiveau() << "\nprestige : " << c->getPrestige() << "\nnb couronnes : " << c->get_nb_couronnes() << "\nnb bonus : " << c->get_nb_bonus() << "\ncapacite : " << c->getCapacite() << "\ncout blanc : " << c->getCoutBlanc() << "\ncout bleu : " << c->getCoutBleu() << "\ncout noir : " << c->getCoutNoir() << "\ncout perle " << c->getCoutPerle() << "\ncout rouge : " << c->getCoutRouge() << "\ncout vert : " << c->getCoutVert() << "\n";
+        f<<"indice : "<<i<<" carte : "<<*c<<endl;
+        i++;
     }
     return f;
 }

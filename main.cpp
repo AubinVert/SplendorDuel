@@ -66,8 +66,7 @@ int main(){
 
             }
 
-
-
+            Jeu::getJeu().choice();
 
             Jeu::getJeu().tour_suivant();
 
