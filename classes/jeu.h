@@ -52,6 +52,10 @@ public:
         return cartes_royales;
     }
 
+    vector<const Carte_joaillerie*> getCartesJoaillerie () const {
+        return cartes_joiallerie;
+    }
+
     const Carte_royale& pullCarteRoyale (unsigned int i) {
          if(i>cartes_royales.size() || i< 0) throw SplendorException("Indice non valide ! ");
          const Carte_royale* tmp = cartes_royales[i];
@@ -73,9 +77,9 @@ public:
     }
 
     const Joueur& get_tour() const;
-    Tirage* get_tirage_1() const {return tirage_1;}
-    Tirage* get_tirage_2() const {return tirage_2;}
-    Tirage* get_tirage_3() const {return tirage_3;}
+    const Tirage* get_tirage_1()  {return tirage_1;}
+    const Tirage* get_tirage_2()  {return tirage_2;}
+    const Tirage* get_tirage_3()  {return tirage_3;}
     void tour_suivant();
     static Jeu& getJeu();
     static void libereJeu();

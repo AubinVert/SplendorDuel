@@ -180,12 +180,19 @@ void Joueur::retirer_jeton(const Couleur& c, int val) {
             }
     }
 
-void Joueur::reserver_carte(const Carte_joaillerie& carte, const Jeton* jet) { // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
+void Joueur::reserver_carte(const Tirage& t, const int indice) { // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
 
-    // Vérifier que cela est suite à une acquisiton de jeton or
+    // Vérifier que la personne a un jeton or
+    unsigned int count =0;
+    for (int i = 0; i < jetons.size(); ++i) {
+        if(jetons[i]->get_couleur() == Couleur::gold) count++;
+    }
+    if(count == 0){
+        throw SplendorException("Mauvaise couleur");
+    }
+    const Carte_joaillerie* tmp = t.getCarte(indice);
+    cartes_joaiellerie_reservees.push_back(tmp);
 
-    if (jet->get_couleur() != Couleur::gold) throw SplendorException("Mauvaise couleur");
-    cartes_joaiellerie_reservees.push_back(&carte);
 
     // Retirer du tirage
     switch(carte.getNiveau()){
@@ -274,13 +281,15 @@ void testJoueurs(){
     for (int i = 1; i < 20; ++i) {
         j.piocher_jeton(i);
     }
-
     j.obtenir_carte_royale(1);
-
 
     j.obtenir_privilege();
 
 
+
+    j.reserver_carte(Jeu::getJeu().get_tirage_1(), 1);
+
+    cout<<Jeu::getJeu().get_tirage_1()->sizef()<<endl;
     //j.acheter_carte(*cartej);
 
 

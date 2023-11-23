@@ -7,6 +7,7 @@
 #include "privilege.h"
 #include "sac.h"
 #include "plateau.h"
+#include "tirage.h"
 
 
 // tâches à réaliser : constructeur destructeur Joueur (jeu?)
@@ -54,7 +55,7 @@ public:
     }
 
 
-
+    const int getNbCartesReservees()const {return cartes_joaiellerie_reservees.size();}
     const int getNbPoints()const{return nb_points;}
     void setPoints(int nb){nb_points = nb;}
     const int getNbCouronnes()const{return nb_courones;}
@@ -79,7 +80,7 @@ public:
 
     int calculer_bonus(enum Bonus_couleur bonus);
     void acheter_carte(const Carte_joaillerie& carte);
-    void reserver_carte(const Carte_joaillerie& carte, const Jeton* jet);
+    void reserver_carte(const Tirage& t, const int indice);
     void piocher_jeton( int i);
     void obtenir_carte_royale(unsigned int i);
     bool eligible_carte_royale();
@@ -91,6 +92,7 @@ public:
 inline std::ostream& operator<<(std::ostream& os, const Joueur& j){
     os<<"nombre de points : "<<j.getNbPoints() <<" nombre de couronnes : "<<j.getNbCouronnes();
     os<<" nombre cartes joaillerie : "<< j.getNbCartesJoaillerie()<<" nombre de cartes royales : "<<j.getNbCartesRoyales();
+    os<<" nombre de cartes réservées : "<<j.getNbCartesReservees();
     os << " nombre de privilège : "<<j.getNbPrivileges()<<" nombre de jetons : "<< j.getNbJetons()<<endl;
     return os;
 }
