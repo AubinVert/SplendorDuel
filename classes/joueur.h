@@ -19,7 +19,7 @@ using namespace std;
 
 class Joueur {
     string nom;
-
+    int is_ia = 0;
     int nb_points;
     int nb_courones;
     int nb_cartes_j;
@@ -44,6 +44,12 @@ class Joueur {
 
 public:
 
+    void setIa(){
+        is_ia = 1;
+    }
+    const int getIa() const {
+        return is_ia;
+    }
     // Getter et setter
 
     const int getNbCartesJoaillerie() const {
@@ -54,6 +60,7 @@ public:
         return nb_jetons;
     }
 
+    const string getName() const { return nom;}
     const int getNbCartesAchetees() const { return cartes_joaillerie_achetees.size();}
     const int getNbCartesReservees()const {return cartes_joaiellerie_reservees.size();}
     const int getNbPoints()const{return nb_points;}
@@ -85,11 +92,13 @@ public:
     void obtenir_carte_royale(unsigned int i);
     bool eligible_carte_royale();
     void obtenir_privilege();
+    void retirerPrivilege();
 
 };
 
 
 inline std::ostream& operator<<(std::ostream& os, const Joueur& j){
+    os<<" nom : "<<j.getName();
     os<<"nombre de points : "<<j.getNbPoints() <<" nombre de couronnes : "<<j.getNbCouronnes();
     os<<" nombre cartes joaillerie : "<< j.getNbCartesJoaillerie()<<" nombre de cartes royales : "<<j.getNbCartesRoyales();
     os<<" nombre de cartes réservées : "<<j.getNbCartesReservees();

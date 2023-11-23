@@ -1,17 +1,108 @@
 #include "jeu.h"
 
+// condition pour savoir si le jeu est terminé à chaque tour on check ?
+
+
 void Jeu::tour_suivant() {
     Joueur* temp = qui_joue;
     qui_joue = adversaire;
-    adversaire = qui_joue;
+    adversaire = temp;
+    manche++;
 }
 
-const Joueur& Jeu::get_tour() const {
+
+const int Jeu::choice(){
+
+     int tmp = 0;
+    while (tmp != 1 && tmp != 2 && tmp != 3){
+        cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
+        cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
+        cout<<"Pour réserver une carte appuyez sur -> 3"<<endl;
+        cout<<"choix :";
+        cin>>tmp;
+    }
+
+    switch (tmp) {
+        case 1:
+        {
+            unsigned int i = 0;
+            cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
+            cout<<"choix :";
+            cin>>i;
+            if(i>3){
+                throw("Vous ne pouvez pas prendre plus de 3 jetons");
+            }
+            for (int j = 0; j < i; ++j) {
+                unsigned int k =0;
+                cout<<"Veuillez renseigner l'indice du jeton que vous voulez prendre : "<<endl;
+                cout<<"choix :";
+                cin>>k;
+                qui_joue->piocher_jeton(k);
+            }
+            break;
+        }
+
+        case 2:
+
+            // comment désigner la bonne carte mtn ?
+
+
+        case 3:
+
+        {
+            int choix = 0;
+            while(choix != 1 && choix != 2 && choix != 3){
+                cout<<"Dans quel tirage vous voulez réserver une carte ?"<<endl;
+                cout<<"choix";
+                cin>>choix;
+            }
+            switch (choix) {
+                case 1:{
+                    unsigned int indice = 0;
+                    cout<<"Veuillez renseigner l'indice de la carte que vous voulez retirer ! "<<endl;
+                    cout<<"choix : ";
+                    cin>>indice;
+                    qui_joue->reserver_carte(tirage_1, indice);
+                    break;
+                }case 2:{
+                    unsigned int indice = 0;
+                    cout<<"Veuillez renseigner l'indice de la carte que vous voulez retirer ! "<<endl;
+                    cout<<"choix : ";
+                    cin>>indice;
+                    qui_joue->reserver_carte(tirage_2, indice);
+                    break;
+                }
+                case 3:{
+                    unsigned int indice = 0;
+                    cout<<"Veuillez renseigner l'indice de la carte que vous voulez retirer ! "<<endl;
+                    cout<<"choix : ";
+                    cin>>indice;
+                    qui_joue->reserver_carte(tirage_3, indice);
+                    break;
+                }
+
+            }
+        }
+
+
+
+    }
+
+
+
+
+}
+
+
+ Joueur& Jeu::get_tour()  {
     return *qui_joue;
 }
 
-Jeu::Jeu() {
+Joueur& Jeu::getOpponent()  {
+    return *adversaire;
+}
 
+Jeu::Jeu() {
     // constructeur jetons (avec le sac)
     Sac::get_sac();
     Plateau::get_plateau();

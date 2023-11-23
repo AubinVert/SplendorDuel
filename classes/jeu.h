@@ -13,10 +13,11 @@
 class Jeu {
 private:
 
-    bool est_termine = false;
+     bool est_termine = false;
     bool contre_IA = false;
-    Joueur* qui_joue;
-    Joueur* adversaire;
+     Joueur* qui_joue;
+    unsigned int manche = 0;
+     Joueur* adversaire;
     Plateau* plateau;
     vector<const Carte_joaillerie*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
@@ -48,6 +49,21 @@ private:
 
 public:
 
+    void setPlayers( Joueur* j1,  Joueur* j2){
+        qui_joue=j1;
+        adversaire=j2;
+    }
+
+    const int choice();
+
+    void remplirPlateau(){
+        Plateau::get_plateau().remplir_plateau(Sac::get_sac());
+    }
+
+
+    Joueur& getOpponent();
+
+
      vector<const Carte_royale*> getCartesRoyales () const {
         return cartes_royales;
     }
@@ -76,7 +92,16 @@ public:
         return *tmp;
     }
 
-    const Joueur& get_tour() const;
+    void setPrivilege(const Privilege& p){
+         if(privileges.size()==3){
+             throw SplendorException("Nombre de privilège max dans le jeu déjà atteint");
+         }
+         privileges.push_back(&p);
+     }
+
+     bool isFinished(){return est_termine;}
+
+     Joueur& get_tour() ;
      Tirage* get_tirage_1()  {return tirage_1;}
      Tirage* get_tirage_2()  {return tirage_2;}
      Tirage* get_tirage_3()  {return tirage_3;}

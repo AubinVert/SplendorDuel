@@ -139,7 +139,7 @@ int positif_ou_nul(int x) {
 int Joueur::calculer_bonus(enum Bonus_couleur bonus) {
     int res = 0;
     // débug ton code engulé
-    cout<<cartes_joaillerie_achetees.size()<<endl;
+    //cout<<cartes_joaillerie_achetees.size()<<endl;
     for (auto c = cartes_joaillerie_achetees.begin(); c != cartes_joaillerie_achetees.end(); ++c){
         if (bonus == (*c)->get_bonus()) res++;
     }
@@ -262,6 +262,15 @@ void Joueur::obtenir_privilege() {
     privileges.push_back(&Jeu::getJeu().getPrivilege());
 
     nb_privileges++;
+}
+
+
+void Joueur::retirerPrivilege(){
+    if(nb_privileges==0){
+        throw SplendorException("Vous ne pouvez pas retirer de privilège au joueur");
+    }
+    Jeu::getJeu().setPrivilege(*privileges[0]);
+    privileges.erase(privileges.begin());
 }
 
 
