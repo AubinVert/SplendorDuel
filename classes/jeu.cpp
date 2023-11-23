@@ -8,11 +8,10 @@ void Jeu::tour_suivant() {
     qui_joue = adversaire;
     adversaire = temp;
     manche++;
-    if(qui_joue->getNbCouronnes() == 10 || qui_joue->getNbPoints() == 20  ){
+    if(qui_joue->getNbCouronnes() == 10 || qui_joue->getNbPoints() == 20 ){
         est_termine = true;
     }
 
-    est_termine = false;
 }
 
 // condition d'arrêt
