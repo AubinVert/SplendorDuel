@@ -238,15 +238,53 @@ const int Jeu::choice(){
     return *qui_joue;
 }
 
-Joueur& Jeu::getOpponent()  {
-    return *adversaire;
-}
-
 Jeu::Jeu() {
-    // constructeur jetons (avec le sac)
+
+    // Création sac
     Sac::get_sac();
+
+    // Création jetons. Ils sont mis dans le sac aussi
+    int j = 1;
+    for (int i = 0; i<4; i++) {
+        auto* temp = new Jeton(j++, Color::bleu);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+    for (int i = 0; i<4; i++){
+        auto* temp = new Jeton(j++, Color::rouge);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+    for (int i = 0; i<4; i++){
+        auto* temp = new Jeton(j++, Color::vert);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+    for (int i = 0; i<4; i++){
+        auto* temp = new Jeton(j++, Color::blanc);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+    for (int i = 0; i<4; i++){
+        auto* temp = new Jeton(j++, Color::noir);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+    for (int i = 0; i<2; i++){
+        auto* temp = new Jeton(j++, Color::perle);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+    for (int i = 0; i<3; i++){
+        auto* temp = new Jeton(j++, Color::gold);
+        jetons.push_back(temp);
+        Sac::get_sac().mettre_jeton_sac(temp);
+    }
+
+    // Construction plateau
     Plateau::get_plateau();
     Plateau::get_plateau().remplir_plateau(Sac::get_sac());
+
     // construceur cartes
     cartes_joiallerie = initCartesJoaillerie();
     cartes_royales = initCartesRoyales();
@@ -271,30 +309,55 @@ Jeu::Jeu() {
     tirage_2->remplirTirage();
     tirage_3->remplirTirage();
 
-
 }
 
 Jeu::Handler Jeu::handler;
 
 Jeu::~Jeu(){
-    Sac::libere_sac(); // détruit aussi jetons ?
 
-
-    for (int i = 0; i < cartes_royales.size(); ++i) {
-        delete cartes_royales[i];
+    // Déstruction jetons
+    for (auto & jeton : jetons){
+        delete jeton;
     }
-    for (int i = 0; i < cartes_joiallerie.size(); ++i) {
-        delete cartes_joiallerie[i];
+    jetons.clear();
+
+    // Déstruction cartes royales
+    for (auto & cartes_royale : cartes_royales){
+        delete cartes_royale;
     }
+    cartes_royales.clear();
 
-    // libère les tirages :
+    // Déstruction cartes joaillerie
+    for (auto & it : cartes_joiallerie){
+        delete it;
+    }
+    cartes_joiallerie.clear();
 
+    // Déstruction privilèges
+    for (auto & privilege : privileges){
+        delete privilege;
+    }
+    privileges.clear();
+
+    // Libération pioches
+    delete p1;
+    delete p2;
+    delete p3;
+
+    // Libère les tirages :
     delete tirage_1;
     delete tirage_2;
     delete tirage_3;
 
-    // reste à détruire privilèges, plateau ?
+    // Déstruction sac
+    Sac::libere_sac();
 
+    // Déstruction plateau
+    Plateau::libere_plateau();
+
+    // Détruire joueur et ses privilèges et cartes royales
+    delete qui_joue;
+    delete adversaire;
 };
 
 Jeu& Jeu::getJeu(){
@@ -309,4 +372,9 @@ void Jeu::libereJeu(){
 
 void Jeu::test() {
     if (handler.instance == nullptr) std::cout << "Test";
+}
+
+void Jeu::setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire){
+    qui_joue = new Joueur(celui_qui_joue);
+    adversaire = new Joueur(qui_est_adversaire);
 }
