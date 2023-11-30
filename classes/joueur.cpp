@@ -209,9 +209,9 @@ void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointe
 }
 
 void Joueur::piocher_jeton( int i) {
-    cout<<"mabite"<<i<<endl;
+    //cout<<"mabite"<<i<<endl;
 
-    if(i>26 || i<1){
+    if(i>24 || i<0){
         throw SplendorException("Indice du plateau non valide ! ");
     }
 

@@ -2,9 +2,24 @@
 #include "jetons.h"
 #include "joueur.h"
 #include <iostream>
+#include <optional>
 
 
 using namespace std;
+
+optional<Position> inverse_position(const optional<Position>& pos){
+        if(pos == Position::droite){ return Position::gauche;}
+        if(pos==Position::diag_haut_droite){ return Position::diag_bas_gauche;}
+        if(pos==Position::dessus){ return Position::dessous;}
+        if(pos==Position::diag_haut_gauche){ return Position::diag_bas_droite;}
+        if(pos==Position::gauche){ return Position::droite;}
+        if(pos==Position::diag_bas_gauche){ return Position::diag_haut_droite;}
+        if(pos==Position::dessous){ return Position::dessus;}
+        if(pos==Position::diag_bas_droite){ return Position::diag_haut_gauche;}
+        else return nullopt;
+}
+
+
 
 Plateau::Handler_Plateau Plateau::handler_plateau;
 Plateau &Plateau::get_plateau() {
@@ -26,15 +41,15 @@ void Plateau::printTab() const{
     for (size_t i = 0; i< Jeton::getNbMaxJetons(); i++){
         if(jetons[i]!=nullptr){
             if((i+1)%5 == 0){
-                cout<<*jetons[i]<<"\n";
+                cout<<"indice : "<<i<<" "<<*jetons[i]<<"\n";
             }else{
-                cout<<*jetons[i]<<" | ";
+                cout<<"indice : "<<i<<" "<<*jetons[i]<<" | ";
             }
         }else{
             if((i+1)%5 == 0){
-                cout<<"id: null; couleur: null\n";
+                cout<<"indice : "<<i<<" id: null; couleur: null\n";
             }else{
-                cout<<"id: null; couleur: null | ";
+                cout<<"indice : "<<i<<" id: null; couleur: null |";
             }
         }
     }
@@ -55,4 +70,39 @@ void Plateau::remplir_plateau(Sac& sac) {
         }
     current_nb++;
     }
+}
+
+extern 	std::initializer_list<Position> Positionsss = {Position::droite, Position::diag_haut_droite, Position::dessus, Position::diag_haut_gauche, Position::gauche, Position::diag_bas_gauche, Position::dessous, Position::diag_bas_droite};
+
+std::map<std::string,enum Position> positionMap = {
+        {"droite", Position::droite},
+        {"diag_haut_droite", Position::diag_haut_droite},
+        {"dessus", Position::dessus},
+        {"diag_haut_gauche", Position::diag_haut_gauche},
+        {"gauche", Position::gauche},
+        {"diag_bas_gauche", Position::diag_bas_gauche},
+        {"dessous", Position::dessous},
+        {"diag_bas_droite", Position::diag_bas_droite}
+};
+
+optional<const Position> Plateau::jeton_i_est_a_cote(int i, const Jeton *jet){
+    if(jet == get_droite_i(i))
+        return Position::droite;
+    if(jet == get_droite_dessus_i(i))
+        return Position::diag_haut_droite;
+    if(jet == get_dessus_i(i))
+        return Position::dessus;
+    if(jet == get_gauche_dessus_i(i))
+        return Position::diag_haut_gauche;
+    if(jet == get_gauche_i(i))
+        return Position::gauche;
+    if(jet == get_gauche_dessous_i(i))
+        return Position::diag_bas_gauche;
+    if(jet == get_dessous_i(i))
+        return Position::dessous;
+    if(jet == get_droite_dessous_i(i))
+        return Position::diag_bas_droite;
+
+    return nullopt;
+
 }

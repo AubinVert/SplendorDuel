@@ -10,14 +10,15 @@
 #include "jetons.h"
 
 
+
 class Jeu {
 private:
 
-     bool est_termine = false;
+    bool est_termine = false;
     bool contre_IA = false;
-     Joueur* qui_joue;
+    Joueur* qui_joue;
     unsigned int manche = 0;
-     Joueur* adversaire;
+    Joueur* adversaire;
     Plateau* plateau;
     vector<const JewelryCard*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
@@ -109,6 +110,7 @@ public:
     static Jeu& getJeu();
     static void libereJeu();
     static void test();
+    static void reservation_carte(const Joueur& player);
 
 };
 
