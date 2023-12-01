@@ -24,7 +24,7 @@ int main(){
 
         cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
 
-         unsigned int from_error =0;
+        unsigned int from_error =0;
 
         while (!Jeu::getJeu().isFinished()) {
 
