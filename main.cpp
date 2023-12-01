@@ -49,40 +49,39 @@ int main(){
             }
             try{
                 if(Jeu::getJeu().get_tour().getNbPrivileges()>0 || (Plateau::get_plateau().getCurrentNb()<Jeton::getNbMaxJetons() && Sac::get_sac().get_nb_sac()>0)){
-                cout<<"Actions optionelles : "<<endl;
-                if(Jeu::getJeu().get_tour().getNbPrivileges()>0){
-                    string tmp;
-                    while(tmp != "Y" && tmp!= "N"){
-                        cout<<"Voulez vous utiliser un privilège ? Y/N"<<endl;
-                        cout<<"choix :";
-                        cin>>tmp;
-                    }
-                    if(tmp == "Y"){
-                        Jeu::getJeu().get_tour().retirerPrivilege();
+                    cout<<"Actions optionelles : "<<endl;
+                    if(Jeu::getJeu().get_tour().getNbPrivileges()>0){
+                        string tmp;
+                        while(tmp != "Y" && tmp!= "N"){
+                            cout<<"Voulez vous utiliser un privilège ? Y/N"<<endl;
+                            cout<<"choix :";
+                            cin>>tmp;
+                        }
+                        if(tmp == "Y"){
+                            Jeu::getJeu().get_tour().retirerPrivilege();
 
-                        unsigned int tmp;
-                        cout<<"Quel jeton voulez-vous piocher ? "<<endl;
-                        cout<<"indice : ";
-                        cin>>tmp;
-                        Jeu::getJeu().get_tour().piocher_jeton(tmp);
-                    }
+                            unsigned int tmp;
+                            cout<<"Quel jeton voulez-vous piocher ? "<<endl;
+                            cout<<"indice : ";
+                            cin>>tmp;
+                            Jeu::getJeu().get_tour().piocher_jeton(tmp);
+                        }
 
+                    }
+                    if(Plateau::get_plateau().getCurrentNb()<Jeton::getNbMaxJetons() && Sac::get_sac().get_nb_sac()>0){
+                        cout<<"Voulez vous remplir le plateau ? "<<endl;
+                        string tmp;
+                        while(tmp != "Y" && tmp!= "N"){
+                            cout<<"Voulez vous utiliser un privilège ? Y/N"<<endl;
+                            cout<<"choix :";
+                            cin>>tmp;
+                        }
+                        if(tmp == "Y"){
+                            Jeu::getJeu().remplirPlateau();
+                            Jeu::getJeu().getOpponent().obtainPrivilege();
+                        }
+                    }
                 }
-                if(Plateau::get_plateau().getCurrentNb()<Jeton::getNbMaxJetons() && Sac::get_sac().get_nb_sac()>0){
-                    cout<<"Voulez vous remplir le plateau ? "<<endl;
-                    string tmp;
-                    while(tmp != "Y" && tmp!= "N"){
-                        cout<<"Voulez vous utiliser un privilège ? Y/N"<<endl;
-                        cout<<"choix :";
-                        cin>>tmp;
-                    }
-                    if(tmp == "Y"){
-                        Jeu::getJeu().remplirPlateau();
-                        Jeu::getJeu().getOpponent().obtainPrivilege();
-                    }
-                }
-
-            }
                 Jeu::getJeu().choice();
                 Jeu::getJeu().tour_suivant();
                 from_error = 0;

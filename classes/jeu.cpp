@@ -24,13 +24,26 @@ const bool Jeu::isFinished() {
 
 const int Jeu::choice(){
 
-     int tmp = 0;
-    while (tmp != 1 && tmp != 2 && tmp != 3 && tmp!= 4){
-        cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
-        cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
-        cout<<"Pour voir la liste des jetons possédés -> 3"<<endl;
-        cout<<"choix :";
-        cin>>tmp;
+    int tmp = 0;
+    bool fin_choix = 0;
+    while (!fin_choix){
+        try{
+            cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
+            cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
+            cout<<"Pour voir la liste des jetons possédés -> 3"<<endl;
+            cout<<"choix :";
+            cin>>tmp;
+
+            if(tmp<1 or tmp>3){
+                throw SplendorException("Il n'y a que 3 choix! Vous ne pouvez pas choisir autre chose que 1, 2 ou 3!\n");
+            }
+
+            fin_choix = 1;
+        }catch(SplendorException& e){
+            cout<<e.getInfos()<<"\n";
+        }
+
+
     }
 
     switch (tmp) {
@@ -47,6 +60,9 @@ const int Jeu::choice(){
             if(nb>3 || nb<=0){
                 throw SplendorException("Nombre de jetons invalide");
             }
+            if(nb > Plateau::get_plateau().getCurrentNb()){
+                throw SplendorException("Il ne reste que "+std::to_string(Plateau::get_plateau().getCurrentNb())+" jetons sur le plateau! Vous ne pouvez pas en prendre plus!");
+            }
 
             bool choix_ok = 0;
             while(!choix_ok){
@@ -61,6 +77,9 @@ const int Jeu::choice(){
                         cout<<"Veuillez renseigner l'indice du jeton "<<i<<" que vous voulez prendre : "<<endl;
                         cout<<"choix :";
                         cin>>indice;
+                        if(Plateau::get_plateau().get_plateau_i(indice)==nullptr){//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                            throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+                        }
                         if(indice>Jeton::getNbMaxJetons()){//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
                             throw SplendorException("Il n'y a que "+std::to_string(Jeton::getNbMaxJetons())+" places sur le plateau\n");
                         }
@@ -255,7 +274,7 @@ const int Jeu::choice(){
 
             break;
         }
-
+        default:break;
 
 
     }
