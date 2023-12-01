@@ -47,10 +47,11 @@ const int Jeu::choice(){
             if(nb>3 || nb<=0){
                 throw SplendorException("Nombre de jetons invalide");
             }
-            std::vector<const int> tmp_tab;
+
             bool choix_ok = 0;
             while(!choix_ok){
                 try{
+                    std::vector<const int> tmp_tab;
                     optional<Position> pos = nullopt;
                     int nb_or = 0;
                     int nb_perle = 0;
@@ -113,9 +114,7 @@ const int Jeu::choice(){
                         }
                     }
                     // on a fini d'ajouter les jetons alignés dans tab_tmp
-                    for(int i = 0; i<nb;i++){ // acquisition des jetons par le joueur
-                        Jeu::get_tour().piocher_jeton(tmp_tab[i]);
-                    }
+
                     if(nb_or==1){
                         Jeu::reservation_carte(Jeu::get_tour());
                     }
@@ -128,6 +127,9 @@ const int Jeu::choice(){
                         &&(Plateau::get_plateau().get_plateau_i(tmp_tab[1])->getColor()==Plateau::get_plateau().get_plateau_i(tmp_tab[2])->getColor())){
                             Jeu::getOpponent().obtainPrivilege();
                         }
+                    }
+                    for(int i = 0; i<nb;i++){ // acquisition des jetons par le joueur
+                        Jeu::get_tour().piocher_jeton(tmp_tab[i]);
                     }
                     choix_ok = 1;
                 }catch(SplendorException& e){
