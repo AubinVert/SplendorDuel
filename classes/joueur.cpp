@@ -7,7 +7,19 @@ Joueur::Joueur(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0)
                               nom(nom), nb_jetons(0)
                               {}
 
-Joueur::~Joueur() = default;
+Joueur::~Joueur(){
+    // Déstruction cartes royales
+    for (auto & cartes_royale : cartes_royale){
+        delete cartes_royale;
+    }
+    cartes_royale.clear();
+
+    // Déstruction privilèges
+    for (auto & privilege : privileges){
+        delete privilege;
+    }
+    privileges.clear();
+}
 
 
 

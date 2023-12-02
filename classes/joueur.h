@@ -60,7 +60,8 @@ public:
         return nb_jetons;
     }
 
-    const string getName() const { return nom;}
+    const string getName() const {return nom;}
+    void setName(string& s) {nom = s;}
     const int getNbCartesAchetees() const { return cartes_joaillerie_achetees.size();}
     const int getNbCartesReservees()const {return cartes_joaiellerie_reservees.size();}
 

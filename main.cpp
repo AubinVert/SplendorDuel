@@ -17,10 +17,7 @@ int main(){
         cout<<"pseudo :";
         cin>>pseudo2;
 
-         Joueur* joueur1 = new Joueur(pseudo1);
-         Joueur* joueur2 = new Joueur(pseudo2);
-
-        Jeu::getJeu().setPlayers(joueur1,joueur2);
+        Jeu::getJeu().setPlayers(pseudo1, pseudo2);
 
         cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
 
@@ -93,8 +90,7 @@ int main(){
             }
 
         }
-
-
+    Jeu::libereJeu();
 
     return 0;
 }

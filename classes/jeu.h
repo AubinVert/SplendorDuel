@@ -19,7 +19,7 @@ private:
     Joueur* qui_joue;
     unsigned int manche = 0;
     Joueur* adversaire;
-    Plateau* plateau;
+    // Plateau* plateau; // Plateau singleton ?
     vector<const JewelryCard*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
     vector<const RoyalCard*>  cartes_royales;
@@ -49,11 +49,8 @@ private:
     Jeu& operator=(const Jeu&) = delete;
 
 public:
-
-    void setPlayers( Joueur* j1,  Joueur* j2){
-        qui_joue=j1;
-        adversaire=j2;
-    }
+    // Initialiser les noms des joueurs
+    void setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire);
 
     const int choice();
 
@@ -61,8 +58,8 @@ public:
         Plateau::get_plateau().remplir_plateau(Sac::get_sac());
     }
 
-
-    Joueur& getOpponent();
+    Joueur& getCurrentPlayer() const {return *qui_joue;}
+    Joueur& getOpponent() const {return *adversaire;}
 
 
      vector<const RoyalCard*> getCartesRoyales () const {
@@ -110,7 +107,11 @@ public:
     static Jeu& getJeu();
     static void libereJeu();
     static void test();
+
+    const Jeton* getJeton(int i) { return jetons[i];}
+    void setJoueurNames(const string& s1, const string& s2);
     static void reservation_carte(const Joueur& player);
+
 
 };
 
