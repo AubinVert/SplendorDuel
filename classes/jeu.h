@@ -10,6 +10,7 @@
 #include "jetons.h"
 
 
+
 class Jeu {
 private:
 
@@ -106,8 +107,11 @@ public:
     static Jeu& getJeu();
     static void libereJeu();
     static void test();
+
     const Jeton* getJeton(int i) { return jetons[i];}
     void setJoueurNames(const string& s1, const string& s2);
+    static void reservation_carte(const Joueur& player);
+
 
 };
 

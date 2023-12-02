@@ -7,6 +7,11 @@
 #include "sac.h"
 
 const int ordre[25] = {12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0};
+enum  class  Position {droite, diag_haut_droite, dessus, diag_haut_gauche, gauche, diag_bas_gauche, dessous,diag_bas_droite};
+extern 	std::initializer_list<Position> Positionsss;
+
+optional<Position> inverse_position(const optional<Position>& pos);
+std::string toString(optional<Position>& pos);
 
 using namespace std;
 
@@ -76,7 +81,7 @@ public:
                 return i;
             }
         }
-        throw SplendorException("Jeton non présent sur le platal");
+        throw SplendorException("Jeton non présent sur le plateau");
     }
 
 
@@ -86,6 +91,7 @@ public:
 
 
     void set_plateau_i(int i,const Jeton* jet){jetons[i] = jet;}
+
     const Jeton* get_droite_i(int i) const{
         if((i+1)%5 != 0){
             return jetons[++i];
@@ -114,6 +120,38 @@ public:
             return nullptr;
         }
     }
+    const Jeton* get_droite_dessus_i(int i) const{
+        if((i>4)&&((i+1)%5 != 0)){ // si le jeton n'est pas au niveau supérieur et sur un bord à droite
+            return jetons[i-4];
+        }else{
+            return nullptr;
+        }
+    }
+    const Jeton* get_gauche_dessus_i(int i) const{
+        if((i>4)&&(i%5 != 0)){ // si le jeton n'est pas au niveau supérieur et sur un bord à gauche
+            return jetons[i-6];
+        }else{
+            return nullptr;
+        }
+    }
+
+    const Jeton* get_droite_dessous_i(int i) const{
+        if((i<20)&&((i+1)%5 != 0)){ // si le jeton n'est pas au niveau inférieur et sur un bord à droite
+            return jetons[i+6];
+        }else{
+            return nullptr;
+        }
+    }
+
+    const Jeton* get_gauche_dessous_i(int i) const{
+        if((i<20)&&(i%5 != 0)){ // si le jeton n'est pas au niveau inférieur et sur un bord à droite
+            return jetons[i+4];
+        }else{
+            return nullptr;
+        }
+    }
+
+    optional<const Position> jeton_i_est_a_cote(int i, const Jeton *jet);
 
     void remplir_plateau(Sac& sac);
     void printTab() const;
