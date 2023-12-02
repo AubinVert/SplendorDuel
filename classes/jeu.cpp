@@ -1,6 +1,8 @@
 #include "jeu.h"
 #include <string>
 
+
+
 // condition pour savoir si le jeu est terminé à chaque tour on check ?
 
 
@@ -67,7 +69,7 @@ const int Jeu::choice(){
             bool choix_ok = 0;
             while(!choix_ok){
                 try{
-                    std::vector<const int> tmp_tab;
+                    std::vector<int> tmp_tab(0);
                     optional<Position> pos = nullopt;
                     int nb_or = 0;
                     int nb_perle = 0;
@@ -89,50 +91,55 @@ const int Jeu::choice(){
                         if(Plateau::get_plateau().get_plateau_i(indice)->getColor()==Color::perle){
                             nb_perle++;
                         }
-                        switch(i){ // traitement du choix différent en fonction du jeton en cours de selection
-                            case 0:{ // premier jeton vient d'être choisis
-                                if((nb_or==1)&&(Jeu::getJeu().get_tour().getNbCartesReservees()>=3)){
-                                    throw SplendorException("Vous n'avez pas le droit de réserver une carte supplémentaire!");
-                                }
-                                tmp_tab.push_back(indice);
-                                break;
-                            }
-                            case 1:{ // deuxième jeton vient d'être choisis
-                                if(nb_or==1){
-                                    throw SplendorException("Attention, on ne peut prendre qu'un seul jeton or!");
-                                }
-                                const Jeton* old1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);;
-                                pos = Plateau::get_plateau().jeton_i_est_a_cote(indice,old1);
-                                if(pos==nullopt){
-                                    throw SplendorException("Ces jetons ne sont pas à côté! Veuillez sélectionner 2 jetons adjacents\n");
-                                }else{ // si adjacent on ajoute
-                                    tmp_tab.push_back(indice);
-                                }
-                                break;
-                            }
-                            case 2:{ // troisième jeton vient d'être choisis
-                                // test de la position par rapport au premier jeton
-                                const Jeton* old1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);
-                                optional <Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(indice,old1);
+                        if((nb_or==1)&&(Jeu::getJeu().get_tour().getNbCartesReservees()>=3)){
+                            throw SplendorException("Vous n'avez pas le droit de réserver une carte supplémentaire!");
+                        }
+                        if(nb_or==1 and nb>1){
+                            throw SplendorException("Attention, on ne peut prendre qu'un seul jeton or!");
+                        }
+                        tmp_tab.push_back(indice);
 
-                                // test de la position par rapport au deuxieme jeton
-                                const Jeton* old2 = Plateau::get_plateau().get_plateau_i(tmp_tab[1]);;
-                                optional <Position> pos3 = Plateau::get_plateau().jeton_i_est_a_cote(indice,old2);
-
-                                // test d'alignements du dernier jeton par rapport au 2 d'avant
-                                if(pos3 == pos){// si on a choisi le jeton dans le même sens que pour celui d'avant
-                                    tmp_tab.push_back(indice);
-                                }else{
-                                    if(pos2 == inverse_position(pos)){// si dans le sens inverse par rapport au premier
-                                        tmp_tab.push_back(indice);
-                                    }else{
-                                        throw SplendorException("Ces jetons ne sont pas à côté! Veuillez sélectionner 3 jetons adjacents\n");
-                                    }
-                                }
+                    }
+                    //tri du vecteur par selection
+                    int min = 0;
+                    for(int j = 0;j<tmp_tab.size()-1;j++){
+                        min = j;
+                        for(int k = j+1; k<tmp_tab.size();k++){
+                            if (tmp_tab[k]<tmp_tab[min]){
+                                min = k;
                             }
                         }
+                        if (min!=j){
+                            int tmp2 = tmp_tab[min];
+                            tmp_tab[min] = tmp_tab[j];
+                            tmp_tab[j] = tmp2;
+                        }
                     }
-                    // on a fini d'ajouter les jetons alignés dans tab_tmp
+                    // vecteur trié
+                    // cout<<"vecteur trié\n";
+
+
+                    if (nb == 2){ // vérification de l'alignement pour 2 jetons
+                        //cout<<"vérification pour 2 jetons\n";
+                        const Jeton* jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);
+                        optional <Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1],jet1);
+                        if(pos1==nullopt){
+                            throw SplendorException("Jetons non-alignés\n");
+                        }
+                    }
+                    if(nb==3){ // vérification de l'alignement pour 3 jetons
+                        //cout<<"vérification pour 3 jetons\n";
+                        const Jeton* jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[1]);
+                        optional <Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[0],jet1);
+
+                        const Jeton* jet2 = Plateau::get_plateau().get_plateau_i(tmp_tab[2]);
+                        optional <Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1],jet2);
+
+                        if((pos1!=pos2) || (pos1==nullopt) || (pos2==nullopt)){
+                            throw SplendorException("Jetons non-alignés\n");
+                        }
+                    }
+                    // on a vérifié l'alignement des jetons
 
                     if(nb_or==1){
                         Jeu::reservation_carte(Jeu::get_tour());
@@ -161,7 +168,7 @@ const int Jeu::choice(){
 
         case 2:
 
-            // On demande s'il veut acheter une carte qu'il a réserver ou non
+            // On demande s'il veut acheter une carte qu'il a réservé ou non
         {
             unsigned int choice = -1;
 

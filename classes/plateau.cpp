@@ -19,6 +19,18 @@ optional<Position> inverse_position(const optional<Position>& pos){
         else return nullopt;
 }
 
+std::string toString(optional<Position>& pos){
+    if(pos == Position::droite){ return "droite";}
+    if(pos==Position::diag_haut_droite){ return "diag_haut_droite";}
+    if(pos==Position::dessus){ return "dessus";}
+    if(pos==Position::diag_haut_gauche){ return "diag_haut_gauche";}
+    if(pos==Position::gauche){ return "gauche";}
+    if(pos==Position::diag_bas_gauche){ return "diag_bas_gauche";}
+    if(pos==Position::dessous){ return "dessous";}
+    if(pos==Position::diag_bas_droite){ return "diag_bas_droite";}
+    if(pos==nullopt){ return "pas à coté!";}
+
+}
 
 
 Plateau::Handler_Plateau Plateau::handler_plateau;

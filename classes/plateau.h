@@ -11,6 +11,7 @@ enum  class  Position {droite, diag_haut_droite, dessus, diag_haut_gauche, gauch
 extern 	std::initializer_list<Position> Positionsss;
 
 optional<Position> inverse_position(const optional<Position>& pos);
+std::string toString(optional<Position>& pos);
 
 using namespace std;
 
