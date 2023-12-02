@@ -436,6 +436,8 @@ void Jeu::test() {
 void Jeu::setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire){
     qui_joue = new Joueur(celui_qui_joue);
     adversaire = new Joueur(qui_est_adversaire);
+}
+
 
 void Jeu::reservation_carte(const Joueur& player) {
     cout << "\n\nTirage1 :" << endl;

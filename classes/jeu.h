@@ -110,6 +110,7 @@ public:
 
     const Jeton* getJeton(int i) { return jetons[i];}
     void setJoueurNames(const string& s1, const string& s2);
+
     static void reservation_carte(const Joueur& player);
 
 
