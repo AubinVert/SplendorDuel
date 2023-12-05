@@ -7,7 +7,7 @@
 
 
 void Jeu::tour_suivant() {
-    Joueur* temp = qui_joue;
+    Strategy_player* temp = qui_joue;
     qui_joue = adversaire;
     adversaire = temp;
     manche++;
@@ -23,7 +23,7 @@ const bool Jeu::isFinished() {
     return est_termine;
 }
 
-
+/*
 const int Jeu::choice(){
 
     int tmp = 0;
@@ -290,9 +290,9 @@ const int Jeu::choice(){
 
 
 }
+*/
 
-
- Joueur& Jeu::get_tour()  {
+Strategy_player& Jeu::get_tour()  {
     return *qui_joue;
 }
 
@@ -439,44 +439,3 @@ void Jeu::setPlayers(const string& celui_qui_joue, const string& qui_est_adversa
 }
 
 
-void Jeu::reservation_carte(const Joueur& player) {
-    cout << "\n\nTirage1 :" << endl;
-    cout << *Jeu::getJeu().get_tirage_1() << endl;
-    cout << "\nTirage2 :" << endl;
-    cout << *Jeu::getJeu().get_tirage_2() << endl;
-    cout << "\nTirage3 :" << endl;
-    cout << *Jeu::getJeu().get_tirage_3() << endl;
-    int choix = 0;
-    while (choix != 1 && choix != 2 && choix != 3) {
-        cout << "Dans quel tirage vous voulez réserver une carte ?" << endl;
-        cout << "choix";
-        cin >> choix;
-    }
-    switch (choix) {
-        case 1: {
-            unsigned int indice = 0;
-            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
-            cout << "choix : ";
-            cin >> indice;
-            Jeu::getJeu().get_tour().reserver_carte(Jeu::getJeu().get_tirage_1(), indice);
-            break;
-        }
-        case 2: {
-            unsigned int indice = 0;
-            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
-            cout << "choix : ";
-            cin >> indice;
-            Jeu::getJeu().get_tour().reserver_carte(Jeu::getJeu().get_tirage_2(), indice);
-            break;
-        }
-        case 3: {
-            unsigned int indice = 0;
-            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
-            cout << "choix : ";
-            cin >> indice;
-            Jeu::getJeu().get_tour().reserver_carte(Jeu::getJeu().get_tirage_3(), indice);
-            break;
-        }
-
-    }
-}

@@ -1,13 +1,17 @@
 #include "joueur.h"
-#include "Exception.h"
-#include "jeu.h"
+/******************** Fonction utilitaires ********************/
+int positiveOrNull(int x) {
+    if (x < 0) return 0;
+    return x;
+}
+/******************** Fonction utilitaires ********************/
 
-// Au début le joueur n'a aucune carte ou jeton
-Joueur::Joueur(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),
-                              nom(nom), nb_jetons(0)
-                              {}
 
-Joueur::~Joueur(){
+/******************** Strategy_player ********************/
+
+// constructeur destructeur
+Strategy_player::Strategy_player(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0){}
+Strategy_player::~Strategy_player(){
     // Déstruction cartes royales
     for (auto & cartes_royale : cartes_royale){
         delete cartes_royale;
@@ -21,9 +25,9 @@ Joueur::~Joueur(){
     privileges.clear();
 }
 
+//méthode utilitaire pour les classes filles
 
-
-void Joueur::buyCardFromReserve( const int indice){
+void Strategy_player::buyCardFromReserve( const int indice){
     if(cartes_joaiellerie_reservees.size() == 0 || indice>3) {
         throw SplendorException("Pas de cartes réservées");
     }
@@ -65,8 +69,7 @@ void Joueur::buyCardFromReserve( const int indice){
 
 }
 
-
-void Joueur::buyCard(Tirage *t, const int indice){
+void Strategy_player::buyCard(Tirage *t, const int indice){
 
     // la carte qu'il veut supp c'est la ième du tirage t
 
@@ -136,15 +139,9 @@ void Joueur::buyCard(Tirage *t, const int indice){
 
 }
 
-int positiveOrNull(int x) {
-    if (x < 0) return 0;
-    return x;
-}
-
 // Calculer le nb de jetons du joueur d'une couleur donnée
-int Joueur::calculateBonus(enum colorBonus bonus) {
+int Strategy_player::calculateBonus(enum colorBonus bonus) {
     int res = 0;
-    // débug ton code engulé
     //cout<<cartes_joaillerie_achetees.size()<<endl;
     for (auto c = cartes_joaillerie_achetees.begin(); c != cartes_joaillerie_achetees.end(); ++c){
         if (bonus == (*c)->getBonus()) res++;
@@ -153,7 +150,7 @@ int Joueur::calculateBonus(enum colorBonus bonus) {
 }
 
 // Calculer le nb de jetons du joueur d'une couleur donnée
-int Joueur::nbJeton(const Color& couleur) const {
+int Strategy_player::nbJeton(const Color& couleur) const {
     int res = 0;
     for (auto j = jetons.begin(); j != jetons.end(); ++j){
         if ((*j)->getColor() == couleur) res++;
@@ -162,22 +159,22 @@ int Joueur::nbJeton(const Color& couleur) const {
 }
 
 // Supprimer val jetons de la main du joueur et remettre dans le sac
-void Joueur::withdrawJetons(const Color& c, int val) {
+void Strategy_player::withdrawJetons(const Color& c, int val) {
     int tmp = val;
-        for(int k=0;k< jetons.size(); k++){
-            if(jetons[k]->getColor() == c && tmp != 0){
-                Sac::get_sac().mettre_jeton_sac(jetons[k]);
-                jetons.erase(jetons.begin() +k);
-                tmp--;
-                nb_jetons--;
-            }
+    for(int k=0;k< jetons.size(); k++){
+        if(jetons[k]->getColor() == c && tmp != 0){
+            Sac::get_sac().mettre_jeton_sac(jetons[k]);
+            jetons.erase(jetons.begin() +k);
+            tmp--;
+            nb_jetons--;
         }
-            if(tmp > 0){
-                throw SplendorException("Pas assez de jetons de cette couleur pour en supprimer plus ! ");
-            }
     }
+    if(tmp > 0){
+        throw SplendorException("Pas assez de jetons de cette couleur pour en supprimer plus ! ");
+    }
+}
 
-void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
+void Strategy_player::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
 
     // Vérifier que la personne a un jeton or
     unsigned int count =0;
@@ -220,8 +217,7 @@ void Joueur::reserver_carte(Tirage *t, const int indice) { // pourquoi un pointe
 
 }
 
-void Joueur::piocher_jeton( int i) {
-    //cout<<"mabite"<<i<<endl;
+void Strategy_player::piocher_jeton( int i) {
 
     if(i>24 || i<0){
         throw SplendorException("Indice du plateau non valide ! ");
@@ -240,7 +236,7 @@ void Joueur::piocher_jeton( int i) {
 
 }
 
-void Joueur::obtainRoyaleCard(unsigned int i) {
+void Strategy_player::obtainRoyaleCard(unsigned int i) {
     // on prend une carte dans le jeu
     if(i>Jeu::getJeu().getCartesRoyales().size()){
         throw SplendorException("Card non disponible");
@@ -252,7 +248,7 @@ void Joueur::obtainRoyaleCard(unsigned int i) {
     nb_cartes_r++;
 }
 
-bool Joueur::royaleCardEligibility() {
+bool Strategy_player::royaleCardEligibility() {
     if (nb_courones >= 3 and nb_courones < 6 and nb_cartes_r == 0){
         return true;
     }
@@ -266,7 +262,7 @@ bool Joueur::royaleCardEligibility() {
     }
 }
 
-void Joueur::obtainPrivilege() {
+void Strategy_player::obtainPrivilege() {
     // on va chercher dans le tirage des privilège un privilège. (du plateau ou alors de ton adversaire ? )
     // d'abord je regarde s'il y a des privilèges dans le jeu :
 
@@ -278,8 +274,7 @@ void Joueur::obtainPrivilege() {
     nb_privileges++;
 }
 
-
-void Joueur::retirerPrivilege(){
+void Strategy_player::retirerPrivilege(){
     if(nb_privileges==0){
         throw SplendorException("Vous ne pouvez pas retirer de privilège au joueur");
     }
@@ -287,27 +282,341 @@ void Joueur::retirerPrivilege(){
     privileges.erase(privileges.begin());
 }
 
-
-void testJoueurs(){
-
-    Jeu::getJeu();
-
-    Joueur j("pd");
+/******************** Strategy_player ********************/
 
 
-    for (int i = 1; i < 20; ++i) {
-        j.piocher_jeton(i);
+
+/******************** Joueur ********************/
+
+//constructeur et destructeur
+Joueur::Joueur(const string & nom) : Strategy_player(nom){}
+
+Joueur::~Joueur(){
+    // Déstruction cartes royales
+    for (auto & cartes_royale : cartes_royale){
+        delete cartes_royale;
+    }
+    cartes_royale.clear();
+
+    // Déstruction privilèges
+    for (auto & privilege : privileges){
+        delete privilege;
+    }
+    privileges.clear();
+}
+
+// Méthodes polymorphiques
+
+void Joueur::choice() {
+
+    int tmp = 0;
+    bool fin_choix = 0;
+    while (!fin_choix){
+        try{
+            cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
+            cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
+            cout<<"Pour voir la liste des jetons possédés -> 3"<<endl;
+            cout<<"choix :";
+            cin>>tmp;
+
+            if(tmp<1 or tmp>3){
+                throw SplendorException("Il n'y a que 3 choix! Vous ne pouvez pas choisir autre chose que 1, 2 ou 3!\n");
+            }
+
+            fin_choix = 1;
+        }catch(SplendorException& e){
+            cout<<e.getInfos()<<"\n";
+        }
+
+
     }
 
-    j.obtainRoyaleCard(1);
-    j.obtainPrivilege();
-    Tirage* tmp = Jeu::getJeu().get_tirage_1();
-    j.reserver_carte(tmp, 1);
+    switch (tmp) {
+        case 1:
+        {
+            selection_jetons();
+            break;
+        }
+
+        case 2:
+
+            // On demande s'il veut acheter une carte qu'il a réservé ou non
+        {
+            achat_carte();
+            break;
+        }
+
+        case 3:
+        {
+            // affichage des jetons du jouer !
+            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
+            // afficher pour chaque type
+
+            break;
+        }
+        default:break;
 
 
-    const JewelryCard cartej = Jeu::getJeu().get_tirage_1()->getCarte(1);
-
-
-
-    cout<<j<<endl;
+    }
 }
+
+void Joueur::selection_jetons() {
+    unsigned int nb = 0;
+
+    cout<<"\n\nPlateau :"<<endl;
+    Plateau::get_plateau().printTab();
+
+    cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
+    cout<<"choix :";
+    cin>>nb;
+    if(nb>3 || nb<=0){
+        throw SplendorException("Nombre de jetons invalide");
+    }
+    if(nb > Plateau::get_plateau().getCurrentNb()){
+        throw SplendorException("Il ne reste que "+std::to_string(Plateau::get_plateau().getCurrentNb())+" jetons sur le plateau! Vous ne pouvez pas en prendre plus!");
+    }
+
+    bool choix_ok = 0;
+    while(!choix_ok){
+        try{
+            std::vector<int> tmp_tab(0);
+            optional<Position> pos = nullopt;
+            int nb_or = 0;
+            int nb_perle = 0;
+
+            for(int i = 0; i<nb; i++){
+                unsigned int indice = 0;
+                cout<<"Veuillez renseigner l'indice du jeton "<<i<<" que vous voulez prendre : "<<endl;
+                cout<<"choix :";
+                cin>>indice;
+                if(Plateau::get_plateau().get_plateau_i(indice)==nullptr){//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                    throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+                }
+                if(indice>Jeton::getNbMaxJetons()){//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                    throw SplendorException("Il n'y a que "+std::to_string(Jeton::getNbMaxJetons())+" places sur le plateau\n");
+                }
+                if(Plateau::get_plateau().get_plateau_i(indice)->getColor()==Color::gold){
+                    nb_or++;
+                }
+                if(Plateau::get_plateau().get_plateau_i(indice)->getColor()==Color::perle){
+                    nb_perle++;
+                }
+                if((nb_or==1)&&(Jeu::getJeu().get_tour().getNbCartesReservees()>=3)){
+                    throw SplendorException("Vous n'avez pas le droit de réserver une carte supplémentaire!");
+                }
+                if(nb_or==1 and nb>1){
+                    throw SplendorException("Attention, on ne peut prendre qu'un seul jeton or!");
+                }
+                tmp_tab.push_back(indice);
+
+            }
+            //tri du vecteur par selection
+            int min = 0;
+            for(int j = 0;j<tmp_tab.size()-1;j++){
+                min = j;
+                for(int k = j+1; k<tmp_tab.size();k++){
+                    if (tmp_tab[k]<tmp_tab[min]){
+                        min = k;
+                    }
+                }
+                if (min!=j){
+                    int tmp2 = tmp_tab[min];
+                    tmp_tab[min] = tmp_tab[j];
+                    tmp_tab[j] = tmp2;
+                }
+            }
+            // vecteur trié
+            // cout<<"vecteur trié\n";
+
+
+            if (nb == 2){ // vérification de l'alignement pour 2 jetons
+                //cout<<"vérification pour 2 jetons\n";
+                const Jeton* jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);
+                optional <Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1],jet1);
+                if(pos1==nullopt){
+                    throw SplendorException("Jetons non-alignés\n");
+                }
+            }
+            if(nb==3){ // vérification de l'alignement pour 3 jetons
+                //cout<<"vérification pour 3 jetons\n";
+                const Jeton* jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[1]);
+                optional <Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[0],jet1);
+
+                const Jeton* jet2 = Plateau::get_plateau().get_plateau_i(tmp_tab[2]);
+                optional <Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1],jet2);
+
+                if((pos1!=pos2) || (pos1==nullopt) || (pos2==nullopt)){
+                    throw SplendorException("Jetons non-alignés\n");
+                }
+            }
+            // on a vérifié l'alignement des jetons
+
+            if(nb_or==1){
+                reservation_carte();
+            }
+            if(nb_perle == 2){ // obtention d'un privilège par l'adversaire si on pioche les 2 jetons perles en une fois
+                Jeu::getJeu().getOpponent().obtainPrivilege();
+            }
+
+            if(nb==3){// obtention d'un privilège par l'adversaire si les 3 jetons sont de la même couleur
+                if((Plateau::get_plateau().get_plateau_i(tmp_tab[0])->getColor()==Plateau::get_plateau().get_plateau_i(tmp_tab[1])->getColor())
+                   &&(Plateau::get_plateau().get_plateau_i(tmp_tab[1])->getColor()==Plateau::get_plateau().get_plateau_i(tmp_tab[2])->getColor())){
+                    Jeu::getJeu().getOpponent().obtainPrivilege();
+                }
+            }
+            for(int i = 0; i<nb;i++){ // acquisition des jetons par le joueur
+                Jeu::getJeu().getCurrentPlayer().piocher_jeton(tmp_tab[i]);
+            }
+            choix_ok = 1;
+        }catch(SplendorException& e){
+            cout<<e.getInfos()<<"\n";
+        }
+    }
+}
+
+void Joueur::reservation_carte() {
+    cout << "\n\nTirage1 :" << endl;
+    cout << *Jeu::getJeu().get_tirage_1() << endl;
+    cout << "\nTirage2 :" << endl;
+    cout << *Jeu::getJeu().get_tirage_2() << endl;
+    cout << "\nTirage3 :" << endl;
+    cout << *Jeu::getJeu().get_tirage_3() << endl;
+    int choix = 0;
+    while (choix != 1 && choix != 2 && choix != 3) {
+        cout << "Dans quel tirage vous voulez réserver une carte ?" << endl;
+        cout << "choix";
+        cin >> choix;
+    }
+    switch (choix) {
+        case 1: {
+            unsigned int indice = 0;
+            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
+            cout << "choix : ";
+            cin >> indice;
+            reserver_carte(Jeu::getJeu().get_tirage_1(), indice);
+            break;
+        }
+        case 2: {
+            unsigned int indice = 0;
+            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
+            cout << "choix : ";
+            cin >> indice;
+            reserver_carte(Jeu::getJeu().get_tirage_2(), indice);
+            break;
+        }
+        case 3: {
+            unsigned int indice = 0;
+            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
+            cout << "choix : ";
+            cin >> indice;
+            reserver_carte(Jeu::getJeu().get_tirage_3(), indice);
+            break;
+        }
+
+    }
+}
+
+void Joueur::achat_carte(){
+    unsigned int choice = -1;
+
+    if(Jeu::getJeu().getCurrentPlayer().getNbCartesReservees()!=0){
+
+
+        while(choice != 1 && choice != 0){
+            cout<<"Voulez vous acheter une carte que vous avez réserver auparavant ? 1 pour oui /0 pour non"<<endl;
+            cout<<"choix";
+            cin>>choice;
+        }
+        if(choice==1){
+            //alors on doit lui print les cartes qu'il peut acheter (celles qu'il a déjà reservé)
+            vector<const JewelryCard*> reserved = Jeu::getJeu().getCurrentPlayer().getCartesReserved();
+            for (int i = 0; i < reserved.size(); ++i) {
+                cout<<"indice : "<<i<<" "<<*reserved[i]<<endl;
+            }
+            unsigned int indice;
+            cout<<"veuillez renseigner l'indice de la carte choisie : ";
+            cin>>indice;
+            Jeu::getJeu().getCurrentPlayer().buyCardFromReserve(indice);
+        }else{
+            cout<<"\n\nTirage1 :"<<endl;
+            cout<<*Jeu::getJeu().get_tirage_1()<<endl;
+            cout<<"\nTirage2 :"<<endl;
+            cout<<*Jeu::getJeu().get_tirage_2()<<endl;
+            cout<<"\nTirage3 :"<<endl;
+            cout<<*Jeu::getJeu().get_tirage_3()<<endl;
+            int choix = 0;
+            while(choix != 1 && choix != 2 && choix != 3){
+                cout<<"Dans quel tirage vous voulez acheter une carte ?"<<endl;
+                cout<<"choix";
+                cin>>choix;
+            }
+            switch (choix) {
+                case 1:{
+                    unsigned int indice = 0;
+                    cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                    cout<<"choix : ";
+                    cin>>indice;
+                    Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
+                    break;
+                }case 2:{
+                    unsigned int indice = 0;
+                    cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                    cout<<"choix : ";
+                    cin>>indice;
+                    Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_2(), indice);
+                    break;
+                }
+                case 3:{
+                    unsigned int indice = 0;
+                    cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                    cout<<"choix : ";
+                    cin>>indice;
+                    Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_3(), indice);
+                    break;
+                }
+            }
+        }
+    }
+    else{
+        cout<<"\n\nTirage1 :"<<endl;
+        cout<<*Jeu::getJeu().get_tirage_1()<<endl;
+        cout<<"\nTirage2 :"<<endl;
+        cout<<*Jeu::getJeu().get_tirage_2()<<endl;
+        cout<<"\nTirage3 :"<<endl;
+        cout<<*Jeu::getJeu().get_tirage_3()<<endl;
+        int choix = 0;
+        while(choix != 1 && choix != 2 && choix != 3){
+            cout<<"Dans quel tirage vous voulez acheter une carte ?"<<endl;
+            cout<<"choix";
+            cin>>choix;
+        }
+        switch (choix) {
+            case 1:{
+                unsigned int indice = 0;
+                cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                cout<<"choix : ";
+                cin>>indice;
+                Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
+                break;
+            }case 2:{
+                unsigned int indice = 0;
+                cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                cout<<"choix : ";
+                cin>>indice;
+                Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_2(), indice);
+                break;
+            }
+            case 3:{
+                unsigned int indice = 0;
+                cout<<"Veuillez renseigner l'indice de la carte que vous voulez acheter ! "<<endl;
+                cout<<"choix : ";
+                cin>>indice;
+                Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
+                break;
+            }
+
+        }
+    }
+}
+
+

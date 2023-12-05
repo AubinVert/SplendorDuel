@@ -9,6 +9,7 @@
 #include "pioche.h"
 #include "jetons.h"
 
+class Strategy_player;
 
 
 class Jeu {
@@ -16,9 +17,9 @@ private:
 
     bool est_termine = false;
     bool contre_IA = false;
-    Joueur* qui_joue;
+    Strategy_player* qui_joue;
     unsigned int manche = 0;
-    Joueur* adversaire;
+    Strategy_player* adversaire;
     // Plateau* plateau; // Plateau singleton ?
     vector<const JewelryCard*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
@@ -52,17 +53,17 @@ public:
     // Initialiser les noms des joueurs
     void setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire);
 
-    const int choice();
+    //const int choice();
 
     void remplirPlateau(){
         Plateau::get_plateau().remplir_plateau(Sac::get_sac());
     }
 
-    Joueur& getCurrentPlayer() const {return *qui_joue;}
-    Joueur& getOpponent() const {return *adversaire;}
+    Strategy_player& getCurrentPlayer() const {return *qui_joue;}
+    Strategy_player& getOpponent() const {return *adversaire;}
 
 
-     vector<const RoyalCard*> getCartesRoyales () const {
+    vector<const RoyalCard*> getCartesRoyales () const {
         return cartes_royales;
     }
 
@@ -75,11 +76,11 @@ public:
          const RoyalCard* tmp = cartes_royales[i];
          cartes_royales.erase(cartes_royales.begin()+i);
         return *tmp;
-     }
+    }
 
-     const unsigned int getNbPrivilege() const {
+    const unsigned int getNbPrivilege() const {
          return privileges.size();
-     }
+    }
 
     const Privilege& getPrivilege() {
         if(privileges.size() <= 0){
@@ -95,14 +96,14 @@ public:
              throw SplendorException("Nombre de privilège max dans le jeu déjà atteint");
          }
          privileges.push_back(&p);
-     }
+    }
 
-     const bool isFinished();
+    const bool isFinished();
 
-     Joueur& get_tour() ;
-     Tirage* get_tirage_1()  {return tirage_1;}
-     Tirage* get_tirage_2()  {return tirage_2;}
-     Tirage* get_tirage_3()  {return tirage_3;}
+    Strategy_player& get_tour();
+    Tirage* get_tirage_1()  {return tirage_1;}
+    Tirage* get_tirage_2()  {return tirage_2;}
+    Tirage* get_tirage_3()  {return tirage_3;}
     void tour_suivant();
     static Jeu& getJeu();
     static void libereJeu();
@@ -111,7 +112,6 @@ public:
     const Jeton* getJeton(int i) { return jetons[i];}
     void setJoueurNames(const string& s1, const string& s2);
 
-    static void reservation_carte(const Joueur& player);
 
 
 };

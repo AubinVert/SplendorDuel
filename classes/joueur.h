@@ -1,5 +1,8 @@
 #ifndef LO21_SPLENDOR_DUEL_JOUEUR_H
 #define LO21_SPLENDOR_DUEL_JOUEUR_H
+
+#include "Exception.h"
+#include <string>
 #include <iostream>
 #include <vector>
 #include "carte.h"
@@ -8,6 +11,7 @@
 #include "sac.h"
 #include "plateau.h"
 #include "tirage.h"
+#include "jeu.h"
 
 
 // tâches à réaliser : constructeur destructeur Joueur (jeu?)
@@ -17,9 +21,10 @@
 
 using namespace std;
 
-class Joueur {
-    string nom;
-    int is_ia = 0;
+class Strategy_player{ // Utilisation Design Pattern Strategy
+protected:
+    std::string nom;
+    //int is_ia = 0;
     int nb_points;
     int nb_courones;
     int nb_cartes_j;
@@ -39,32 +44,26 @@ class Joueur {
 
     vector<const Privilege*> privileges;
 
-    Joueur& operator=(const Joueur&) = delete;
-    Joueur(const Joueur&) = delete;
-
+    Strategy_player& operator=(const Strategy_player&) = delete;
+    Strategy_player(const Strategy_player&) = delete;
 public:
+    //constructeur destructeur
+    Strategy_player(const string &nom);
+    virtual ~Strategy_player();
 
-    void setIa(){
-        is_ia = 1;
-    }
-    const int getIa() const {
-        return is_ia;
-    }
-    // Getter et setter
+    //méthode abstraite pure
+    virtual void choice()=0;
+    virtual void selection_jetons()=0;
+    virtual void achat_carte()=0;
+    virtual void reservation_carte()=0;
 
-    const int getNbCartesJoaillerie() const {
-        return nb_cartes_j;
-    }
-
-    const int getNbJetons() const {
-        return nb_jetons;
-    }
-
+    //getters setters
+    const int getNbCartesJoaillerie() const {return nb_cartes_j;}
+    const int getNbJetons() const {return nb_jetons;}
     const string getName() const {return nom;}
     void setName(string& s) {nom = s;}
     const int getNbCartesAchetees() const { return cartes_joaillerie_achetees.size();}
     const int getNbCartesReservees()const {return cartes_joaiellerie_reservees.size();}
-
     const int getNbPoints()const{return nb_points;}
     void setPoints(int nb){nb_points = nb;}
     const int getNbCouronnes()const{return nb_courones;}
@@ -73,39 +72,39 @@ public:
     void setNbPrivileges(int nb){nb_privileges = nb;}
     const int getNbCartesRoyales() const {return nb_cartes_r;}
     vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
-    void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;} // suce mon zob ?
+    void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
 
+    //méthode utilitaires aux classes filles
     void buyCardFromReserve( const int indice);
-
-
-    int nbJeton(const Color& couleur) const; // const ?
-    void withdrawJetons(const Color& c, int val); // const ?
-
-    // Constructeur et destructeur
-    Joueur(const string &nom);
-
-    ~Joueur();
-
-
-    // utilisation du design pattern iterator pour get privilèges
-    // ??
-
-    int calculateBonus(enum colorBonus bonus);
     void buyCard(Tirage *t, const int indice);
-    void reserver_carte(Tirage *t, const int indice); // pourquoi un pointeur de jetons ? il faut juste que le jeton soit stockée dedans
+    int calculateBonus(enum colorBonus bonus);
+    int nbJeton(const Color& couleur) const;
+    void withdrawJetons(const Color& c, int val);
+    void reserver_carte(Tirage *t, const int indice);
     void piocher_jeton( int i);
     void obtainRoyaleCard(unsigned int i);
     bool royaleCardEligibility();
     void obtainPrivilege();
     void retirerPrivilege();
-
-
-
-
 };
 
 
-inline std::ostream& operator<<(std::ostream& os, const Joueur& j){
+class Joueur : public Strategy_player {
+
+public:
+    // Constructeur et destructeur
+    Joueur(const string &nom);
+    ~Joueur();
+
+    // Méthodes polymorphiques adaptées pour un joueur
+    void choice();
+    void selection_jetons();
+    void reservation_carte();
+    void achat_carte();
+
+};
+
+inline std::ostream& operator<<(std::ostream& os, const Strategy_player& j){
     os<<"Pseudo : "<<j.getName();
     if(j.getNbPoints()!=0){
         os<<"nombre de points : "<<j.getNbPoints();

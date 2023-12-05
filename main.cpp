@@ -4,7 +4,7 @@ int main(){
 
 
 
-        cout<<"Bienvenu dans le jeu splendor duel ! "<<endl;
+        cout<<"Bienvenue dans le jeu splendor duel ! "<<endl;
 
         Jeu::getJeu();
 
@@ -40,7 +40,7 @@ int main(){
                 cout<<*Jeu::getJeu().get_tirage_3()<<endl;
 
                 cout<<"Etat des joueurs : "<<endl;
-                cout<<Jeu::getJeu().get_tour()<<endl;
+                cout<<Jeu::getJeu().getCurrentPlayer()<<endl;
                 cout<<Jeu::getJeu().getOpponent()<<endl;
                 cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
             }
@@ -79,7 +79,7 @@ int main(){
                         }
                     }
                 }
-                Jeu::getJeu().choice();
+                Jeu::getJeu().getCurrentPlayer().choice();
                 Jeu::getJeu().tour_suivant();
                 from_error = 0;
 
