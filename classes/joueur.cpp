@@ -282,6 +282,25 @@ void Strategy_player::retirerPrivilege(){
     privileges.erase(privileges.begin());
 }
 
+// méthode utilitaire pour le main
+int Strategy_player::getOptionalChoices(){
+    /***Convention***
+    Cette méthode renvoie:
+     - 1 si le joueur ou l'ia ne peut qu'utiliser un privilège,
+     - 2 si le joueur ou l'ia ne peut que remplir le plateau,
+     - 3 si le joueur ou l'ia peut faire les deux.
+    ****************/
+    int nb_choices = 0;
+    if (Jeu::getJeu().getCurrentPlayer().getNbPrivileges() > 0){
+        nb_choices++;
+    }
+    if (Plateau::get_plateau().getCurrentNb() < Jeton::getNbMaxJetons() && Sac::get_sac().get_nb_sac() > 0){
+        nb_choices++;
+        nb_choices++;
+    }
+    return nb_choices;
+}
+
 /******************** Strategy_player ********************/
 
 
@@ -306,13 +325,118 @@ Joueur::~Joueur(){
 }
 
 // Méthodes polymorphiques
+void Joueur::optional_choice(){
+    bool finished = 0;
+    while(!finished) {
+        int nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
+        int i = 1;
+        int tmp;
+        cout<<"Actions optionnelles disponibles:"<<endl;
+        if(nb_choice%2 == 1){
+            cout<<"Utiliser un privilège->"<<i++<<endl;
+        }
+        if(nb_choice>=2){
+            cout<<"Remplir le plateau ->"<<i++<<endl;
+        }
+        cout<<"Vous ne voulez pas effectuer d'action optionnelle -> "<<i++<<endl;
+        cout<<"Votre choix: ";
+        cin>>tmp;
+        string validation;
+        cout<<"Validez vous votre choix? [Y/N] "<<endl;
+        cin>>validation;
+        if(validation=="N"){
+            tmp = 100; // on rentre dans le default sans pour autant finir la boucle => on recommence le choix optionnel
+        }
+        switch(tmp){
+            case(1):{
+                switch(nb_choice){
+                    case(0):{ // si pas d'action optionnelle possible, l'entrée 1 pour tmp vaut forcément exit de optionnal choice
+                        finished = 1;
+                        break;
+                    }
+                    case(1):{ // utilisation privilège
+                        Jeu::getJeu().get_tour().retirerPrivilege();
+                        unsigned int indice;
+                        cout<<"Quel jeton voulez-vous piocher ? "<<endl;
+                        cout<<"indice : ";
+                        cin>>indice;
+                        Jeu::getJeu().get_tour().piocher_jeton(indice);
+                        break;
+                    }
+                    case(2):{ // remplissage plateau
+                        Jeu::getJeu().remplirPlateau();
+                        Jeu::getJeu().getOpponent().obtainPrivilege();
+                        break;
+                    }
+                    case(3):{ // utilisation privilège
+                        Jeu::getJeu().get_tour().retirerPrivilege();
+                        unsigned int indice;
+                        cout<<"Quel jeton voulez-vous piocher ? "<<endl;
+                        cout<<"indice : ";
+                        cin>>indice;
+                        Jeu::getJeu().get_tour().piocher_jeton(indice);
+                        break;
+                    }
+                    default:{break;}
+                }
+                break;
+            }
+            case(2):{
+                switch(nb_choice){
+                    case(0):{ // tmp = 2 interdit => compte pour exit
+                        finished = 1;
+                        break;
+                    }
+                    case(1):{ // exit
+                        finished = 1;
+                        break;
+                    }
+                    case(2):{ // exit
+                        finished = 1;
+                        break;
+                    }
+                    case(3):{ // remplissage plateau
+                        Jeu::getJeu().remplirPlateau();
+                        Jeu::getJeu().getOpponent().obtainPrivilege();
+                        break;
+                    }
+                    default:{break;}
+                }
+                break;
+            }
+            case(3):{
+                switch(nb_choice){
+                    case(0):{ // interdit => exit
+                        finished = 1;
+                        break;
+                    }
+                    case(1):{ // interdit => exit
+                        finished = 1;
+                        break;
+                    }
+                    case(2):{ // interdit => exit
+                        finished = 1;
+                        break;
+                    }
+                    case(3):{ // exit
+                        finished = 1;
+                        break;
+                    }
+                    default:{break;}
+                }
+                break;
+            }
+            default:{break;}
+        }
+    }
+}
 
-void Joueur::choice() {
-
+void Joueur::choice(){
     int tmp = 0;
     bool fin_choix = 0;
     while (!fin_choix){
         try{
+            cout<<"Actions obligatoire:"<<endl;
             cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
             cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
             cout<<"Pour voir la liste des jetons possédés -> 3"<<endl;

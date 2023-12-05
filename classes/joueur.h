@@ -52,6 +52,7 @@ public:
     virtual ~Strategy_player();
 
     //méthode abstraite pure
+    virtual void optional_choice()=0;
     virtual void choice()=0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
@@ -86,6 +87,9 @@ public:
     bool royaleCardEligibility();
     void obtainPrivilege();
     void retirerPrivilege();
+
+    // méthode utilitaire pour le main
+    int getOptionalChoices();
 };
 
 
@@ -97,6 +101,7 @@ public:
     ~Joueur();
 
     // Méthodes polymorphiques adaptées pour un joueur
+    void optional_choice();
     void choice();
     void selection_jetons();
     void reservation_carte();
