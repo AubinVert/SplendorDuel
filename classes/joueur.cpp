@@ -436,6 +436,7 @@ void Joueur::choice(){
     bool fin_choix = 0;
     while (!fin_choix){
         try{
+
             cout<<"Actions obligatoire:"<<endl;
             cout<<"Pour prendre des jetons appuyez sur -> 1"<<endl;
             cout<<"Pour acheter une carte appuyez sur -> 2"<<endl;
@@ -446,11 +447,19 @@ void Joueur::choice(){
             if(tmp<1 or tmp>3){
                 throw SplendorException("Il n'y a que 3 choix! Vous ne pouvez pas choisir autre chose que 1, 2 ou 3!\n");
             }
+            string info;
+            cout<<"Validez-vous votre choix? [Y/N]"<<endl;
+            cin>>info;
+            if(info=="N"){
+                cout<<"Vous n'avez pas validé , vous devez recommencer voter choix!";
+                throw SplendorException("");
+            }
 
             fin_choix = 1;
         }catch(SplendorException& e){
             cout<<e.getInfos()<<"\n";
         }
+
 
 
     }
@@ -485,21 +494,30 @@ void Joueur::choice(){
 }
 
 void Joueur::selection_jetons() {
+    /*
+    while(!nb_ok){
+        cout << "\n\nPlateau :" << endl;
+        Plateau::get_plateau().printTab();
+
+        cout << "Combien de jetons voulez-vous prendre ? : " << endl;
+        cout << "choix :";
+        cin >> nb;
+        if (nb > 3 || nb <= 0) {
+            cout<<"Nombre de jetons invalide"<<endl;
+        }
+        if (nb > Plateau::get_plateau().getCurrentNb()) {
+            cout<<"Il ne reste que " + std::to_string(Plateau::get_plateau().getCurrentNb()) +
+                                    " jetons sur le plateau! Vous ne pouvez pas en prendre plus!";
+        }
+        string continuer;
+        cout<<"Validez-vous ce nombre de jetons? Attention vous ne pourrez plus changer après! [Y/N]";
+        cin>>continuer;
+        if(continuer == "Y") {
+            nb_ok = 1;
+        }
+    }*/
+    bool nb_ok=0;
     unsigned int nb = 0;
-
-    cout<<"\n\nPlateau :"<<endl;
-    Plateau::get_plateau().printTab();
-
-    cout<<"Combien de jetons voulez-vous prendre ? : "<<endl;
-    cout<<"choix :";
-    cin>>nb;
-    if(nb>3 || nb<=0){
-        throw SplendorException("Nombre de jetons invalide");
-    }
-    if(nb > Plateau::get_plateau().getCurrentNb()){
-        throw SplendorException("Il ne reste que "+std::to_string(Plateau::get_plateau().getCurrentNb())+" jetons sur le plateau! Vous ne pouvez pas en prendre plus!");
-    }
-
     bool choix_ok = 0;
     while(!choix_ok){
         try{
@@ -507,43 +525,71 @@ void Joueur::selection_jetons() {
             optional<Position> pos = nullopt;
             int nb_or = 0;
             int nb_perle = 0;
-
-            for(int i = 0; i<nb; i++){
-                unsigned int indice = 0;
-                cout<<"Veuillez renseigner l'indice du jeton "<<i<<" que vous voulez prendre : "<<endl;
-                cout<<"choix :";
-                cin>>indice;
-                if(Plateau::get_plateau().get_plateau_i(indice)==nullptr){//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
-                    throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+            int i = 0;
+            string validation;
+            while(validation!="Y"){
+                while(i<3) {
+                    unsigned int indice = 0;
+                    cout << "Veuillez renseigner l'indice du jeton " << i << " que vous voulez prendre ";
+                    if (i>0){ // ajout de la possibilité de s'arrêter
+                        cout<<"-1 pour arrêter la sélection de jetons";
+                    }
+                    i++;
+                    cout<<" :"<<endl;
+                    cout << "choix :";
+                    cin >> indice;
+                    if (indice == -1){
+                        break;
+                    }
+                    if (Plateau::get_plateau().get_plateau_i(indice) ==
+                        nullptr) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                        throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+                    }
+                    if (indice >
+                        Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                        throw SplendorException(
+                                "Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau\n");
+                    }
+                    if (Plateau::get_plateau().get_plateau_i(indice)->getColor() == Color::gold) {
+                        nb_or++;
+                    }
+                    if (Plateau::get_plateau().get_plateau_i(indice)->getColor() == Color::perle) {
+                        nb_perle++;
+                    }
+                    if ((nb_or == 1) && (Jeu::getJeu().get_tour().getNbCartesReservees() >= 3)) {
+                        throw SplendorException("Vous n'avez pas le droit de réserver une carte supplémentaire!");
+                    }
+                    if (nb_or == 1 and nb > 1) {
+                        throw SplendorException("Attention, on ne peut prendre un jeton or seulement tout seul!");
+                    }
+                    tmp_tab.push_back(indice);
+                    nb++;
                 }
-                if(indice>Jeton::getNbMaxJetons()){//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
-                    throw SplendorException("Il n'y a que "+std::to_string(Jeton::getNbMaxJetons())+" places sur le plateau\n");
+                cout<<"Validez-vous votre sélection? [Y/N] ";
+                cin>>validation;
+                if(validation != "Y"){//on recommence le choix des jetons
+                    for (int j = 0;j<i; j++){ // on vide le vecteur
+                        tmp_tab.clear();
+                    }
+                    i = 0;
+                    nb = 0;
+                    nb_or = 0;
+                    nb_perle = 0;
+                    cout<<"\n Vous allez recommencer le choix des jetons: "<<endl;
                 }
-                if(Plateau::get_plateau().get_plateau_i(indice)->getColor()==Color::gold){
-                    nb_or++;
-                }
-                if(Plateau::get_plateau().get_plateau_i(indice)->getColor()==Color::perle){
-                    nb_perle++;
-                }
-                if((nb_or==1)&&(Jeu::getJeu().get_tour().getNbCartesReservees()>=3)){
-                    throw SplendorException("Vous n'avez pas le droit de réserver une carte supplémentaire!");
-                }
-                if(nb_or==1 and nb>1){
-                    throw SplendorException("Attention, on ne peut prendre qu'un seul jeton or!");
-                }
-                tmp_tab.push_back(indice);
-
             }
+
+
             //tri du vecteur par selection
             int min = 0;
-            for(int j = 0;j<tmp_tab.size()-1;j++){
+            for (int j = 0; j < tmp_tab.size() - 1; j++) {
                 min = j;
-                for(int k = j+1; k<tmp_tab.size();k++){
-                    if (tmp_tab[k]<tmp_tab[min]){
+                for (int k = j + 1; k < tmp_tab.size(); k++) {
+                    if (tmp_tab[k] < tmp_tab[min]) {
                         min = k;
                     }
                 }
-                if (min!=j){
+                if (min != j) {
                     int tmp2 = tmp_tab[min];
                     tmp_tab[min] = tmp_tab[j];
                     tmp_tab[j] = tmp2;
@@ -553,26 +599,27 @@ void Joueur::selection_jetons() {
             // cout<<"vecteur trié\n";
 
 
-            if (nb == 2){ // vérification de l'alignement pour 2 jetons
+            if (nb == 2) { // vérification de l'alignement pour 2 jetons
                 //cout<<"vérification pour 2 jetons\n";
-                const Jeton* jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);
-                optional <Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1],jet1);
-                if(pos1==nullopt){
+                const Jeton *jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);
+                optional<Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1], jet1);
+                if (pos1 == nullopt) {
                     throw SplendorException("Jetons non-alignés\n");
                 }
             }
-            if(nb==3){ // vérification de l'alignement pour 3 jetons
+            if (nb == 3) { // vérification de l'alignement pour 3 jetons
                 //cout<<"vérification pour 3 jetons\n";
-                const Jeton* jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[1]);
-                optional <Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[0],jet1);
+                const Jeton *jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[1]);
+                optional<Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[0], jet1);
 
-                const Jeton* jet2 = Plateau::get_plateau().get_plateau_i(tmp_tab[2]);
-                optional <Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1],jet2);
+                const Jeton *jet2 = Plateau::get_plateau().get_plateau_i(tmp_tab[2]);
+                optional<Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1], jet2);
 
-                if((pos1!=pos2) || (pos1==nullopt) || (pos2==nullopt)){
+                if ((pos1 != pos2) || (pos1 == nullopt) || (pos2 == nullopt)) {
                     throw SplendorException("Jetons non-alignés\n");
                 }
             }
+
             // on a vérifié l'alignement des jetons
 
             if(nb_or==1){
