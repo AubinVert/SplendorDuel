@@ -89,6 +89,14 @@ public:
         return *tmp;
     }
 
+    Pioche* getPioche(int num){
+        if(num == 1) return p1;
+        if(num == 2) return p2;
+        if(num == 3) return p3;
+
+        throw SplendorException("Cette pioche n'existe pas!");
+    }
+
     void setPrivilege(const Privilege& p){
          if(privileges.size()==3){
              throw SplendorException("Nombre de privilège max dans le jeu déjà atteint");

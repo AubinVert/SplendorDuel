@@ -28,6 +28,7 @@ protected:
     int nb_points;
     int nb_courones;
     int nb_cartes_j;
+    int nb_cartes_j_reservees;
     int nb_cartes_r;
     int nb_privileges;
     int nb_jetons;
@@ -56,6 +57,8 @@ public:
     virtual void utilisationPrivilege() = 0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
+    virtual void buyCard(Tirage *t, const int indice) = 0;
+    virtual void buyCardFromReserve( const int indice) = 0;
     virtual void reservation_carte()=0;
 
     //getters setters
@@ -76,12 +79,12 @@ public:
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
 
     //méthode utilitaires aux classes filles
-    void buyCardFromReserve( const int indice);
-    void buyCard(Tirage *t, const int indice);
+
     int calculateBonus(enum colorBonus bonus);
     int nbJeton(const Color& couleur) const;
     void withdrawJetons(const Color& c, int val);
     void reserver_carte(Tirage *t, const int indice);
+    void reserver_carte(Pioche *p);
     void piocher_jeton( int i);
     void obtainRoyaleCard(unsigned int i);
     bool royaleCardEligibility();
@@ -105,8 +108,10 @@ public:
     void choice();
     void utilisationPrivilege();
     void selection_jetons();
-    void reservation_carte();
     void achat_carte();
+    void buyCard(Tirage *t, const int indice);
+    void buyCardFromReserve( const int indice);
+    void reservation_carte();
 
 
 
@@ -120,9 +125,12 @@ public:
 
     // Méthodes polymorphiques adaptées pour une IA
     void choice();
+    void utilisationPrivilege();
     void selection_jetons();
-    void reservation_carte();
     void achat_carte();
+    void buyCard(Tirage *t, const int indice);
+    void buyCardFromReserve( const int indice);
+    void reservation_carte();
 
 
 };

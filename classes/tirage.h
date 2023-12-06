@@ -57,6 +57,13 @@ public:
         return *carte_retour;
     }
 
+    const JewelryCard& getCarteSansSupr(unsigned int indice){
+        if(nb_cartes == 0){
+            throw SplendorException("Attention pas de cartes dans le tirage !");
+        }
+        return *cartes[indice];
+    }
+
 
 
 
