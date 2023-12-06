@@ -51,9 +51,9 @@ public:
     Strategy_player(const string &nom);
     virtual ~Strategy_player();
 
-    //méthode abstraite pure
-    virtual void optional_choice()=0;
+    //méthodes virtuelles pures
     virtual void choice()=0;
+    virtual void utilisationPrivilege() = 0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
     virtual void reservation_carte()=0;
@@ -87,6 +87,7 @@ public:
     bool royaleCardEligibility();
     void obtainPrivilege();
     void retirerPrivilege();
+    void remplissagePlateau();
 
     // méthode utilitaire pour le main
     int getOptionalChoices();
@@ -101,14 +102,34 @@ public:
     ~Joueur();
 
     // Méthodes polymorphiques adaptées pour un joueur
-    void optional_choice();
+    void choice();
+    void utilisationPrivilege();
+    void selection_jetons();
+    void reservation_carte();
+    void achat_carte();
+
+
+
+};
+
+
+class IA: public Strategy_player {
+public:
+    IA(const string & nom = "IA");
+    ~IA();
+
+    // Méthodes polymorphiques adaptées pour une IA
     void choice();
     void selection_jetons();
     void reservation_carte();
     void achat_carte();
 
+
 };
 
+
+
+/**************** Fonctions utilitaires ****************/
 inline std::ostream& operator<<(std::ostream& os, const Strategy_player& j){
     os<<"Pseudo : "<<j.getName();
     if(j.getNbPoints()!=0){

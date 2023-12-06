@@ -8,16 +8,7 @@ int main(){
 
         Jeu::getJeu();
 
-        cout<<"Veuillez renseigner le pseudo du premier joueur ! "<<endl;
-        string pseudo1;
-        cout<<"pseudo :";
-        cin>>pseudo1;
-        cout<<"Veuillez renseigner le pseudo du deuxième joueur  ! "<<endl;
-        string pseudo2;
-        cout<<"pseudo :";
-        cin>>pseudo2;
-
-        Jeu::getJeu().setPlayers(pseudo1, pseudo2);
+        Jeu::getJeu().setPlayers();
 
         cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
 
@@ -46,7 +37,6 @@ int main(){
             }
             try{
 
-                Jeu::getJeu().getCurrentPlayer().optional_choice();
                 Jeu::getJeu().getCurrentPlayer().choice();
                 Jeu::getJeu().tour_suivant();
                 from_error = 0;

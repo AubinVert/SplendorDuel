@@ -36,7 +36,7 @@ Plateau &Plateau::get_plateau() {
     if(handler_plateau.instance==nullptr){
         handler_plateau.instance = new Plateau();
         // au départ le plateau est rempli
-        handler_plateau.instance->remplir_plateau(Sac::get_sac());
+        // handler_plateau.instance->remplir_plateau(Sac::get_sac());
     }
     return *handler_plateau.instance;
 }
@@ -77,8 +77,8 @@ void Plateau::remplir_plateau(Sac& sac) {
             //cout<<"ordre[i] : "<<ordre[i]<<"; jeton : "<<rdm<<"\n";
             set_plateau_i(ordre[i],sac.get_jeton_i(rdm));
             sac.retirer_jeton_i(rdm);
+            current_nb++;
         }
-    current_nb++;
     }
 }
 

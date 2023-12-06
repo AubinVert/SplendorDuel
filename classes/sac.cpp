@@ -11,9 +11,6 @@ Sac &Sac::get_sac(){
 }
 
 void Sac::libere_sac() {
-    // tu oublies de libérer les jetons ?
-
-
     delete handler_sac.instance;
     handler_sac.instance = nullptr;
 }

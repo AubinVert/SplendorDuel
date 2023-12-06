@@ -1,5 +1,6 @@
 #include "jeu.h"
 #include <string>
+#include "joueur.h"
 
 
 
@@ -343,6 +344,7 @@ Jeu::Jeu() {
     Plateau::get_plateau();
     Plateau::get_plateau().remplir_plateau(Sac::get_sac());
 
+
     // construceur cartes
     cartes_joiallerie = initCartesJoaillerie();
     cartes_royales = initCartesRoyales();
@@ -433,9 +435,32 @@ void Jeu::test() {
 }
 
 
-void Jeu::setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire){
-    qui_joue = new Joueur(celui_qui_joue);
-    adversaire = new Joueur(qui_est_adversaire);
+void Jeu::setPlayers(){
+    string choix1;
+    cout<<"Le premier joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
+    cin>>choix1;
+
+    string name1;
+    if(choix1 == "J"){
+        cout<<"Veuillez entrer son nom : ";
+        cin>>name1;
+        qui_joue = new Joueur(name1);
+    }else{
+        qui_joue = new IA();
+    }
+
+    string choix2;
+    cout<<"Le second joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
+    cin>>choix2;
+
+    string name2;
+    if(choix1 == "J"){
+        cout<<"Veuillez entrer son nom : ";
+        cin>>name2;
+        adversaire = new Joueur(name2);
+    }else{
+        adversaire = new IA();
+    }
 }
 
 

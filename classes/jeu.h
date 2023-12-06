@@ -2,7 +2,7 @@
 #define LO21_SPLENDOR_DUEL_JEU_H
 #include <iostream>
 #include "sac.h"
-#include "joueur.h"
+//#include "joueur.h"
 #include "plateau.h"
 #include "privilege.h"
 #include "tirage.h"
@@ -10,7 +10,6 @@
 #include "jetons.h"
 
 class Strategy_player;
-
 
 class Jeu {
 private:
@@ -51,9 +50,8 @@ private:
 
 public:
     // Initialiser les noms des joueurs
-    void setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire);
+    void setPlayers();
 
-    //const int choice();
 
     void remplirPlateau(){
         Plateau::get_plateau().remplir_plateau(Sac::get_sac());
