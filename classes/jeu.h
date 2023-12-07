@@ -89,7 +89,7 @@ public:
         return *tmp;
     }
 
-    Pioche* getPioche(int num){
+    Pioche* getPioche(int num) const {
         if(num == 1) return p1;
         if(num == 2) return p2;
         if(num == 3) return p3;

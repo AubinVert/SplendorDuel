@@ -1,6 +1,7 @@
 #include "jeu.h"
 #include <string>
 #include "joueur.h"
+#include <time.h>
 
 
 
@@ -304,6 +305,8 @@ Jeu::Jeu() {
 
     // Création jetons. Ils sont mis dans le sac aussi
     int j = 1;
+
+
     for (int i = 0; i<4; i++) {
         auto* temp = new Jeton(j++, Color::bleu);
         jetons.push_back(temp);
@@ -339,6 +342,7 @@ Jeu::Jeu() {
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
+
 
     // Construction plateau
     Plateau::get_plateau();
@@ -441,26 +445,48 @@ void Jeu::setPlayers(){
     cin>>choix1;
 
     string name1;
-    if(choix1 == "J"){
-        cout<<"Veuillez entrer son nom : ";
-        cin>>name1;
-        qui_joue = new Joueur(name1);
-    }else{
-        qui_joue = new IA();
-    }
+    cout << "Veuillez entrer son nom : ";
+    cin >> name1;
+
 
     string choix2;
     cout<<"Le second joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
     cin>>choix2;
 
     string name2;
-    if(choix1 == "J"){
-        cout<<"Veuillez entrer son nom : ";
-        cin>>name2;
-        adversaire = new Joueur(name2);
+    cout << "Veuillez entrer son nom : ";
+    cin >> name2;
+
+
+
+    srand(static_cast<unsigned>(std::time(nullptr)));
+    if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement
+        if (choix1 == "J") {
+            qui_joue = new Joueur(name1);
+        } else {
+            qui_joue = new IA();
+        }
+
+        if (choix2 == "J") {
+            adversaire = new Joueur(name2);
+
+        } else {
+            adversaire = new IA();
+        }
     }else{
-        adversaire = new IA();
+        if (choix1 == "J") {
+            adversaire = new Joueur(name1);
+        } else {
+            adversaire = new IA();
+        }
+
+        if (choix2 == "J") {
+            qui_joue = new Joueur(name2);
+        } else {
+            qui_joue = new IA();
+        }
     }
+    adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
 
 

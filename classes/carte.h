@@ -174,30 +174,28 @@ inline std::ostream& operator<<(std::ostream& os, const JewelryCard& c){
     if(c.getCapacite() != nullopt){
         os<<"Capacity : "<< c.getCapacite();
     }
-    if(c.getPrestige() != 0){
+    if(c.getPrestige() > 0){
         os<<", points prestiges : "<<c.getPrestige();
     }
-    if(c.getCostPerl() != 0 ){
-        os<<", Cout Perle :"<<
-                            c.getCostPerl();
+    if(c.getCostPerl() > 0 ){
+        os<<", Cout Perle :"<<c.getCostPerl();
     }
-    if(c.getCostWhite() != 0 ){
-        os<<", Cout Blanc :"<<
-                            c.getCostWhite();
+    if(c.getCostWhite() > 0 ){
+        os<<", Cout Blanc :"<<c.getCostWhite();
     }
-    if(c.getCostBlue() != 0 ){
-        os<<", Cout Bleu :"<<
-                           c.getCostBlue();
+    if(c.getCostBlue() > 0 ){
+        os<<", Cout Bleu :"<<c.getCostBlue();
     }
-    if(c.getCostRed() != 0 ){
-        os<<", Cout Rouge :"<<
-                            c.getCostRed();
+    if(c.getCostRed() > 0 ){
+        os<<", Cout Rouge :"<<c.getCostRed();
     }
-    if(c.getCostBlack() != 0 ){
-        os<<", Cout Noir :"<<
-                           c.getCostBlack();
+    if(c.getCostGreen() > 0 ){
+        os<<", Cout Vert :"<<c.getCostGreen();
     }
-    if(c.getNbBonus() != 0){
+    if(c.getCostBlack() > 0 ){
+        os<<", Cout Noir :"<<c.getCostBlack();
+    }
+    if(c.getNbBonus() > 0){
         os << ", Bonus : " << c.getBonus() << ", nombre de bonus : " << c.getNbBonus();
     }
     os<<", Niveau : "<<c.getNiveau()<<endl;

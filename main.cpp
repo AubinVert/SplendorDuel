@@ -48,7 +48,6 @@ int main(){
             }
 
         }
-    Jeu::libereJeu();
+         Jeu::libereJeu();
 
-    return 0;
 }

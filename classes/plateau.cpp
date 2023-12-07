@@ -70,7 +70,8 @@ void Plateau::printTab() const{
 
 void Plateau::remplir_plateau(Sac& sac) {
     srand(static_cast<unsigned>(std::time(nullptr)));
-    for(int i = 0;i< Jeton::getNbMaxJetons(); i++){
+    int i = 0;
+    while(sac.get_nb_sac()>0){
         if(jetons[ordre[i]]==nullptr){
             int nb_sac = sac.get_nb_sac();
             int rdm = rand()%nb_sac;
@@ -79,6 +80,7 @@ void Plateau::remplir_plateau(Sac& sac) {
             sac.retirer_jeton_i(rdm);
             current_nb++;
         }
+        i++;
     }
 }
 
