@@ -133,7 +133,7 @@ public:
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
-    void selectionRoyalCard()
+    void selectionRoyalCard();
 
 
 };

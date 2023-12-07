@@ -850,12 +850,19 @@ void Joueur::selectionRoyalCard(){
         cout << "Veuillez entrer l'indice de la carte royale que vous souhaitez prendre:" << endl;
         cout << "choix: ";
         cin >> tmp;
-        if (tmp > 0 and tmp < Jeu::getJeu().getCartesRoyales().size()) {
-            choix_ok = 1; // on peut sortir de la boucle
+        if (tmp >= 0 and tmp < Jeu::getJeu().getCartesRoyales().size()) {
+            string validate;
+            cout<<"Valider ? [Y/N] :"<<endl;
+            cout<<"choix : ";
+            cin>>validate;
+            if(validate=="Y"){
+                choix_ok = 1; // on peut sortir de la boucle
+            }
         }
         else{
             cout<<"Indice de carte invalide!"<<endl;
         }
+
     }
     obtainRoyaleCard(tmp);
 }
