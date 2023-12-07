@@ -6,6 +6,8 @@
 #include "jetons.h"
 #include "sac.h"
 
+
+
 const int ordre[25] = {12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0};
 enum  class  Position {droite, diag_haut_droite, dessus, diag_haut_gauche, gauche, diag_bas_gauche, dessous,diag_bas_droite};
 extern 	std::initializer_list<Position> Positionsss;

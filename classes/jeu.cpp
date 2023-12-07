@@ -1,5 +1,7 @@
 #include "jeu.h"
 #include <string>
+#include "joueur.h"
+#include <time.h>
 
 
 
@@ -7,7 +9,7 @@
 
 
 void Jeu::tour_suivant() {
-    Joueur* temp = qui_joue;
+    Strategy_player* temp = qui_joue;
     qui_joue = adversaire;
     adversaire = temp;
     manche++;
@@ -23,7 +25,7 @@ const bool Jeu::isFinished() {
     return est_termine;
 }
 
-
+/*
 const int Jeu::choice(){
 
     int tmp = 0;
@@ -290,9 +292,9 @@ const int Jeu::choice(){
 
 
 }
+*/
 
-
- Joueur& Jeu::get_tour()  {
+Strategy_player& Jeu::get_tour()  {
     return *qui_joue;
 }
 
@@ -303,6 +305,8 @@ Jeu::Jeu() {
 
     // Création jetons. Ils sont mis dans le sac aussi
     int j = 1;
+
+
     for (int i = 0; i<4; i++) {
         auto* temp = new Jeton(j++, Color::bleu);
         jetons.push_back(temp);
@@ -339,9 +343,11 @@ Jeu::Jeu() {
         Sac::get_sac().mettre_jeton_sac(temp);
     }
 
+
     // Construction plateau
     Plateau::get_plateau();
     Plateau::get_plateau().remplir_plateau(Sac::get_sac());
+
 
     // construceur cartes
     cartes_joiallerie = initCartesJoaillerie();
@@ -433,50 +439,54 @@ void Jeu::test() {
 }
 
 
-void Jeu::setPlayers(const string& celui_qui_joue, const string& qui_est_adversaire){
-    qui_joue = new Joueur(celui_qui_joue);
-    adversaire = new Joueur(qui_est_adversaire);
+void Jeu::setPlayers(){
+    string choix1;
+    cout<<"Le premier joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
+    cin>>choix1;
+
+    string name1;
+    cout << "Veuillez entrer son nom : ";
+    cin >> name1;
+
+
+    string choix2;
+    cout<<"Le second joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
+    cin>>choix2;
+
+    string name2;
+    cout << "Veuillez entrer son nom : ";
+    cin >> name2;
+
+
+
+    srand(static_cast<unsigned>(std::time(nullptr)));
+    if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement
+        if (choix1 == "J") {
+            qui_joue = new Joueur(name1);
+        } else {
+            qui_joue = new IA();
+        }
+
+        if (choix2 == "J") {
+            adversaire = new Joueur(name2);
+
+        } else {
+            adversaire = new IA();
+        }
+    }else{
+        if (choix1 == "J") {
+            adversaire = new Joueur(name1);
+        } else {
+            adversaire = new IA();
+        }
+
+        if (choix2 == "J") {
+            qui_joue = new Joueur(name2);
+        } else {
+            qui_joue = new IA();
+        }
+    }
+    adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
 
 
-void Jeu::reservation_carte(const Joueur& player) {
-    cout << "\n\nTirage1 :" << endl;
-    cout << *Jeu::getJeu().get_tirage_1() << endl;
-    cout << "\nTirage2 :" << endl;
-    cout << *Jeu::getJeu().get_tirage_2() << endl;
-    cout << "\nTirage3 :" << endl;
-    cout << *Jeu::getJeu().get_tirage_3() << endl;
-    int choix = 0;
-    while (choix != 1 && choix != 2 && choix != 3) {
-        cout << "Dans quel tirage vous voulez réserver une carte ?" << endl;
-        cout << "choix";
-        cin >> choix;
-    }
-    switch (choix) {
-        case 1: {
-            unsigned int indice = 0;
-            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
-            cout << "choix : ";
-            cin >> indice;
-            Jeu::getJeu().get_tour().reserver_carte(Jeu::getJeu().get_tirage_1(), indice);
-            break;
-        }
-        case 2: {
-            unsigned int indice = 0;
-            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
-            cout << "choix : ";
-            cin >> indice;
-            Jeu::getJeu().get_tour().reserver_carte(Jeu::getJeu().get_tirage_2(), indice);
-            break;
-        }
-        case 3: {
-            unsigned int indice = 0;
-            cout << "Veuillez renseigner l'indice de la carte que vous voulez retirer ! " << endl;
-            cout << "choix : ";
-            cin >> indice;
-            Jeu::getJeu().get_tour().reserver_carte(Jeu::getJeu().get_tirage_3(), indice);
-            break;
-        }
-
-    }
-}

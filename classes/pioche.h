@@ -39,7 +39,7 @@ public:
 
     static void InitPioches(Pioche *p1, Pioche *p2, Pioche *p3, vector<const JewelryCard *> &cartes);
 
-    const JewelryCard &getCarte();
+    const JewelryCard& getCarte();
 
 };
 
