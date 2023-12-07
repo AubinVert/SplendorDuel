@@ -841,6 +841,26 @@ void Joueur::buyCardFromReserve( const int indice){
 
 }
 
+void Joueur::selectionRoyalCard(){
+    cout<<"Votre nombre de couronne vous donne le droit de piocher une carte royale!"<<endl;
+    Jeu::getJeu().printCarteRoyale();
+    int tmp;
+    bool choix_ok = 0;
+    while(!choix_ok) {
+        cout << "Veuillez entrer l'indice de la carte royale que vous souhaitez prendre:" << endl;
+        cout << "choix: ";
+        cin >> tmp;
+        if (tmp > 0 and tmp < Jeu::getJeu().getCartesRoyales().size()) {
+            choix_ok = 1; // on peut sortir de la boucle
+        }
+        else{
+            cout<<"Indice de carte invalide!"<<endl;
+        }
+    }
+    obtainRoyaleCard(tmp);
+}
+/******************** Joueur ********************/
+
 /******************** IA ********************/
 
 IA::IA(const string & nom) : Strategy_player(nom){}
@@ -875,4 +895,7 @@ void IA::buyCardFromReserve(const int indice) {}
 
 void IA::reservation_carte(){}
 
+void IA::selectionRoyalCard(){}
 
+
+/******************** IA ********************/

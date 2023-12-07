@@ -60,6 +60,7 @@ public:
     virtual void buyCard(Tirage *t, const int indice) = 0;
     virtual void buyCardFromReserve( const int indice) = 0;
     virtual void reservation_carte()=0;
+    virtual void selectionRoyalCard() = 0;
 
     //getters setters
     const int getNbCartesJoaillerie() const {return nb_cartes_j;}
@@ -112,6 +113,7 @@ public:
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
+    void selectionRoyalCard();
 
 
 
@@ -131,6 +133,7 @@ public:
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
+    void selectionRoyalCard()
 
 
 };

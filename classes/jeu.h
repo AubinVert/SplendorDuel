@@ -73,7 +73,7 @@ public:
          if(i>cartes_royales.size() || i< 0) throw SplendorException("Indice non valide ! ");
          const RoyalCard* tmp = cartes_royales[i];
          cartes_royales.erase(cartes_royales.begin()+i);
-        return *tmp;
+         return *tmp;
     }
 
     const unsigned int getNbPrivilege() const {
@@ -103,6 +103,8 @@ public:
          }
          privileges.push_back(&p);
     }
+
+    void printCarteRoyale();
 
     const bool isFinished();
 

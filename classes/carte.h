@@ -89,17 +89,20 @@ public:
 
 
 };
+
 class RoyalCard: public Card{
 
+    static const int max_royal_card = 4;
 public:
 
+    static const int getMaxCarteR(){return max_royal_card;}
 
     RoyalCard(int points_prestige=0, std::optional<Capacity> capacite = nullopt)
             : Card(points_prestige, capacite){
         if(points_prestige<0 || points_prestige>10){
             throw SplendorException("Valeur non autorisée");
         }
-        if(nb_cartes > MAX){
+        if(nb_cartes > max_royal_card){
             throw SplendorException("Maximum de cartes atteint");
 
         }
@@ -107,6 +110,7 @@ public:
     }
 
 };
+
 class JewelryCard: public Card{
     const int cout_blanc;
     const int cout_bleu;
@@ -118,6 +122,9 @@ class JewelryCard: public Card{
     const int nb_couronnes;
     const optional<enum colorBonus> bonus;
     const int bonus_nombre;
+
+    static const int max_carte_j = 67;
+
 
 
 
@@ -131,14 +138,14 @@ public:
     const int getCostGreen()const{return cout_vert;}
     const int getCostBlack()const{return cout_noir;}
     const int getCostPerl()const{return cout_perle;}
-
+    static const int getMaxCarteJ(){return max_carte_j;}
 
 
 
     JewelryCard(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0, int bonus_nombre = 0, optional<enum colorBonus> bonus = nullopt, optional<Capacity> capacite = nullopt)
             : Card(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
     {
-        if(nb_cartes > MAX){
+        if(nb_cartes > max_carte_j){
 
             throw SplendorException("Maximum de cartes atteint");
 

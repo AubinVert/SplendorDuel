@@ -38,6 +38,9 @@ int main(){
             try{
 
                 Jeu::getJeu().getCurrentPlayer().choice();
+                if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
+                    Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
+                }
                 Jeu::getJeu().tour_suivant();
                 from_error = 0;
 
