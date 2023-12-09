@@ -157,7 +157,7 @@ public:
 
     void remplir_plateau(Sac& sac);
     void printTab() const;
-
+    bool onlyGold();
 };
 
 

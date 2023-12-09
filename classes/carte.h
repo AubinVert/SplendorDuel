@@ -65,7 +65,7 @@ public:
         return nb_cartes;
     }
 
-    ~Card(){
+    virtual ~Card(){
         nb_cartes--;
     }
 
@@ -204,6 +204,9 @@ inline std::ostream& operator<<(std::ostream& os, const JewelryCard& c){
     }
     if(c.getNbBonus() > 0){
         os << ", Bonus : " << c.getBonus() << ", nombre de bonus : " << c.getNbBonus();
+    }
+    if(c.getNbCrown()>0){
+        os << ", Nb Couronne : "<<c.getNbCrown();
     }
     os<<", Niveau : "<<c.getNiveau()<<endl;
 

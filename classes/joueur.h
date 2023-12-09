@@ -94,6 +94,7 @@ public:
     void remplissagePlateau();
 
     // méthode utilitaire pour le main
+    void print_player();
     int getOptionalChoices();
 };
 

@@ -1,7 +1,3 @@
-//
-// Created by Aubin VERT on 31/10/2023.
-//
-
 #include <fstream>
 #include "carte.h"
 int Card::nb_cartes = 0;
@@ -156,8 +152,7 @@ vector<const JewelryCard*> initCartesJoaillerie(){
 
             JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, nullopt);
             cartes_joailleries_instances.push_back(instance);
-        }else if (!carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null())
-        {
+        }else if (!carte_joaillerie_data["capacite"].is_null() && carte_joaillerie_data["bonus_couleur"].is_null()){
 
             JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, getCapaciteFromString(carte_joaillerie_data["capacite"]));
             cartes_joailleries_instances.push_back(instance);

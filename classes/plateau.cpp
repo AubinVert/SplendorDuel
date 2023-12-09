@@ -71,11 +71,10 @@ void Plateau::printTab() const{
 void Plateau::remplir_plateau(Sac& sac) {
     srand(static_cast<unsigned>(std::time(nullptr)));
     int i = 0;
-    while(sac.get_nb_sac()>0){
+    while(Sac::get_sac().get_nb_sac()>0){
         if(jetons[ordre[i]]==nullptr){
             int nb_sac = sac.get_nb_sac();
             int rdm = rand()%nb_sac;
-            //cout<<"ordre[i] : "<<ordre[i]<<"; jeton : "<<rdm<<"\n";
             set_plateau_i(ordre[i],sac.get_jeton_i(rdm));
             sac.retirer_jeton_i(rdm);
             current_nb++;
@@ -117,4 +116,13 @@ optional<const Position> Plateau::jeton_i_est_a_cote(int i, const Jeton *jet){
 
     return nullopt;
 
+}
+
+bool Plateau::onlyGold(){
+    if (getCurrentNb()==0) throw SplendorException("Plateau vide!");
+    for(auto jet : jetons){
+        if(jet != nullptr and jet->getColor()!=Color::gold) return false;
+
+    }
+    return true;
 }

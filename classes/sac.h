@@ -36,6 +36,7 @@ public:
     //Joueur::IteratorJetons begin_jetons(){return Joueur::IteratorJetons(*jetons,nb);}
     //Joueur::IteratorJetons end_jetons(){return Joueur::IteratorJetons(jetons[nb],0);}
     const int get_nb_sac()const{return nb;}
+
     void set_nb_sac(int nbr){
         if(nb<0){
             throw SplendorException("Il n'y a déjà plus de jetons dans le sac!");

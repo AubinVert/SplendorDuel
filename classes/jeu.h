@@ -2,7 +2,6 @@
 #define LO21_SPLENDOR_DUEL_JEU_H
 #include <iostream>
 #include "sac.h"
-//#include "joueur.h"
 #include "plateau.h"
 #include "privilege.h"
 #include "tirage.h"
