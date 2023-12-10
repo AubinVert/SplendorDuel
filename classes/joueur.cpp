@@ -399,6 +399,8 @@ void Joueur::choice(){
 void Joueur::utilisationPrivilege(){
     if (nb_privileges<=0)
         throw SplendorException("Vous n'avez pas de privilège!");
+    if (nb_jetons >= 10)
+        throw SplendorException("Vous n'avez pas le droit de piocher plus de 10 jetons!");
     unsigned int indice;
     cout << "Quel jeton voulez-vous piocher ? " << endl;
     cout << "indice : ";
@@ -1066,7 +1068,8 @@ void IA::choice() {
 void IA::utilisationPrivilege() {
     if (nb_privileges<=0)
         throw SplendorException("Vous n'avez pas de privilège!");
-
+    if (nb_jetons >= 10)
+        throw SplendorException("Vous n'avez pas le droit de piocher plus de 10 jetons!");
     unsigned int indice = rand()%Jeton::getNbMaxJetons();
     Jeu::getJeu().get_tour().piocher_jeton(indice);
     retirerPrivilege();
