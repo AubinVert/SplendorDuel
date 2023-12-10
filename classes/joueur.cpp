@@ -167,12 +167,22 @@ void Strategy_player::obtainPrivilege() {
     // on va chercher dans le tirage des privilège un privilège. (du plateau ou alors de ton adversaire ? )
     // d'abord je regarde s'il y a des privilèges dans le jeu :
 
-    if(Jeu::getJeu().getNbPrivilege() <= 0 and nb_privileges==3){
-        throw SplendorException("Plus de privilèges disponibles");
-    }else{
-        privileges.push_back(&Jeu::getJeu().getPrivilege());
-        nb_privileges++;
+    if(nb_privileges==Privilege::get_max_instance()) {
+        throw SplendorException("Vous avez déjà le nombre maximum autorisé de privilège!");
     }
+    if(Jeu::getJeu().getNbPrivilege()==0){
+        //si l'adversaire a tous les privilèges
+        if(this == &Jeu::getJeu().getCurrentPlayer()){
+            //si le joueur qui obtient le privilège est celui dont c'est le tour, on prend à l'opponent
+            Jeu::getJeu().getOpponent().retirerPrivilege();
+        }else{ // si c'est l'adversaire de clui dont c'est le tour, on retire le privilège à celui qui est en train de jouer
+            Jeu::getJeu().getCurrentPlayer().retirerPrivilege();
+        }
+    }
+
+    privileges.push_back(&Jeu::getJeu().getPrivilege());
+    nb_privileges++;
+
 
 }
 
