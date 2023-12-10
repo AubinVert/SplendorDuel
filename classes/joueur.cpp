@@ -202,6 +202,37 @@ void Strategy_player::remplissagePlateau(){
     Plateau::get_plateau().printTab();
 }
 // méthode utilitaire pour le main
+bool Strategy_player::victoryConditions() {
+    if(nb_courones >= 10)
+        return true;
+    if(nb_points >= 20)
+        return true;
+
+    //test sur les couleurs, si le joueur possède 10 points pour des cartes dont le bonus est de même couleurs, alors le joueur gagne
+    int points_blanc = 0;
+    int points_bleu = 0;
+    int points_rouge = 0;
+    int points_vert = 0;
+    int points_noir = 0;
+    for(auto card: cartes_joaiellerie_reservees){
+        optional<colorBonus> bonus = (*card).getBonus();
+        if(bonus != nullopt){
+            if(bonus == colorBonus::blanc) points_blanc += card->getPrestige();
+            if(bonus == colorBonus::bleu) points_bleu += card->getPrestige();
+            if(bonus == colorBonus::red) points_rouge += card->getPrestige();
+            if(bonus == colorBonus::vert) points_vert += card->getPrestige();
+            if(bonus == colorBonus::noir) points_noir += card->getPrestige();
+        }
+    }
+    if(10<= points_blanc || points_bleu || points_noir || points_rouge || points_vert){
+        return true;
+    }
+
+    // on renvoie false si rien n'est bon!
+
+    return false;
+}
+
 void Strategy_player::print_player() {
     cout<<"Joueur : "<<nom<<endl;
     cout<<"Nombre de points : "<<nb_points<<endl;

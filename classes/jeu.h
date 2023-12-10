@@ -14,11 +14,9 @@ class Jeu {
 private:
 
     bool est_termine = false;
-    bool contre_IA = false;
     Strategy_player* qui_joue;
     unsigned int manche = 0;
     Strategy_player* adversaire;
-    // Plateau* plateau; // Plateau singleton ?
     vector<const JewelryCard*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
     vector<const RoyalCard*>  cartes_royales;

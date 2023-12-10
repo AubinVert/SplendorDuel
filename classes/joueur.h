@@ -94,6 +94,7 @@ public:
     void remplissagePlateau();
 
     // méthode utilitaire pour le main
+    bool victoryConditions(); // si le joueur rempli une des trois conditions de victoire, renvoie true
     void print_player();
     int getOptionalChoices();
 };
@@ -115,6 +116,7 @@ public:
     void buyCardFromReserve( const int indice);
     void reservation_carte();
     void selectionRoyalCard();
+
 
 
 
