@@ -110,6 +110,8 @@ public:
     void choice();
     void utilisationPrivilege();
     void selection_jetons();
+    void applicationCapacite(Tirage *t, const int indice, const Joueur& adversaire);
+    void applicationCapacite(const int indice, const Joueur& adversaire);
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
