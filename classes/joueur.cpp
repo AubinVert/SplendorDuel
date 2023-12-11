@@ -691,13 +691,27 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
             const optional<enum colorBonus>& couleur = carte.getBonus();
             if (Plateau::get_plateau().colorInPlateau(couleur)){
                 bool choix_ok = 0;
+                unsigned int indice = 0;
                 while(!choix_ok){
                     try{
-                        string validation;
-                        while (validation != "Y"){
-                            unsigned int indice = 0;
-                            cout << "Veuillez renseigner l'indice du jeton que vous voulez prendre ";
-
+                        cout << "Veuillez renseigner l'indice du jeton que vous voulez prendre\n ";
+                        cout << "choix :"<<endl;
+                        cin >> indice;
+                        if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                            indice = 0;
+                            throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+                        }
+                        if (indice >Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                            indice = 0;
+                            throw SplendorException("Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau\n");
+                        }
+                        string s = "Bonus ";
+                        if (s + toString(Plateau::get_plateau().get_plateau_i(indice)->getColor()) != toString(couleur)){
+                            indice = 0;
+                            throw SplendorException("il faut choisir un jeton de la couleur du bonus!\n");
+                        }else{
+                            Jeu::getJeu().getCurrentPlayer().piocher_jeton(indice);
+                            choix_ok = 1;
                         }
                     }
                     catch(SplendorException& e){
@@ -705,7 +719,6 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
                     }
                 }
             }
-
         }
         else if (capa == Capacity::joker){
 
