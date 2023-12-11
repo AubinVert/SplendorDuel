@@ -721,7 +721,85 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
             }
         }
         else if (capa == Capacity::joker){
+            cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
+                  "une de vos carte dotée d'au moins un bonus.\n";
+            int bonus_blanc = calculateBonus(colorBonus::blanc);
+            int bonus_bleu = calculateBonus(colorBonus::bleu);
+            int bonus_rouge = calculateBonus(colorBonus::red);
+            int bonus_vert = calculateBonus(colorBonus::vert);
+            int bonus_noir = calculateBonus(colorBonus::noir);
 
+            bool verif_choix = false;
+            try {
+                while (!verif_choix) {
+                    cout << "Faites votre choix :" << endl;
+                    int option = 0;
+                    if (bonus_blanc > 0) {
+                        cout << "Bonus blanc [1]" << endl;
+                        option++;
+                    }
+                    if (bonus_bleu > 0) {
+                        cout << "Bonus bleu [2]" << endl;
+                        option++;
+                    }
+                    if (bonus_rouge > 0) {
+                        cout << "Bonus rouge [3]" << endl;
+                        option++;
+                    }
+                    if (bonus_vert > 0) {
+                        cout << "Bonus vert [4]" << endl;
+                        option++;
+                    }
+                    if (bonus_noir > 0) {
+                        cout << "Bonus noir [5]" << endl;
+                        option++;
+                    }
+                    // Vérifiez si aucune option n'est disponible
+                    if (option == 0) {
+                        verif_choix = true;
+                        throw SplendorException("vous ne possédez aucune carte dotée de bonus.. Capacité"
+                                                " sans effet\n");
+                    } else {
+                        int choix;
+                        int tmp_prestige = carte.getPrestige();
+                        int tmp_blanc = carte.getCostWhite();
+                        int tmp_bleu = carte.getCostBlue();
+                        int tmp_rouge = carte.getCostRed();
+                        int tmp_vert  = carte.getCostGreen();
+                        int tmp_noir = carte.getCostBlack();
+                        int tmp_perle = carte.getCostPerl();
+                        int tmp_niveau = carte.getNiveau();
+                        int tmp_couronnes = carte.getNbCrown();
+                        int tmp_bonus_nombre = carte.getNbBonus();
+                        optional<enum colorBonus> tmp_bonus = carte.getBonus();
+                        optional<Capacity> tmp_capacite = carte.getCapacite();
+                        cin >> choix;
+                        switch (choix) {
+                            case 1:
+                                delete carte;
+                                bonus_blanc;
+                                verif_choix = true;
+                            case 2:
+                                bonus_bleu;
+                                verif_choix = true;
+                            case 3:
+                                bonus_rouge;
+                                verif_choix = true;
+                            case 4:
+                                bonus_vert;
+                                verif_choix = true;
+                            case 5:
+                                bonus_noir;
+                                verif_choix = true;
+                            default:
+                                cout << "Choix invalide, veuillez recommencer.\n";
+                        }
+                    }
+                }
+            }
+            catch(SplendorException& e){
+                cout<<e.getInfos()<<"\n";
+            }
         }
         else{
             //rejouer
