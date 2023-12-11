@@ -683,9 +683,28 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
             }
         }
         else if (capa == Capacity::prendre_privilege){
-
+            Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
         }
         else if (capa == Capacity::prendre_sur_plateau){
+            cout<<"Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte\n";
+            if(nb_jetons >= 10) throw SplendorException("Vous avez déjà 10 jetons, vous ne pouvez pas en piocher plus!");
+            const optional<enum colorBonus>& couleur = carte.getBonus();
+            if (Plateau::get_plateau().colorInPlateau(couleur)){
+                bool choix_ok = 0;
+                while(!choix_ok){
+                    try{
+                        string validation;
+                        while (validation != "Y"){
+                            unsigned int indice = 0;
+                            cout << "Veuillez renseigner l'indice du jeton que vous voulez prendre ";
+
+                        }
+                    }
+                    catch(SplendorException& e){
+                        cout<<e.getInfos()<<"\n";
+                    }
+                }
+            }
 
         }
         else if (capa == Capacity::joker){

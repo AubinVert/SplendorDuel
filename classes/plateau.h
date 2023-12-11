@@ -158,6 +158,7 @@ public:
     void remplir_plateau(Sac& sac);
     void printTab() const;
     bool onlyGold();
+    bool colorInPlateau(const optional<enum colorBonus>& couleur);
 };
 
 
