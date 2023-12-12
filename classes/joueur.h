@@ -41,7 +41,7 @@ protected:
     vector<const JewelryCard*> cartes_joaiellerie_reservees; // 3 au max
     vector<const RoyalCard*> cartes_royale; // ok pour agrégation?
 
-    vector<const Jeton*> jetons; // tableau de jetons ? or ?
+    vector<const Jeton*> jetons;// tableau de jetons ? or ?
 
     vector<const Privilege*> privileges;
 
@@ -59,6 +59,7 @@ public:
     virtual void achat_carte()=0;
     virtual void buyCard(Tirage *t, const int indice) = 0;
     virtual void buyCardFromReserve( const int indice) = 0;
+    virtual void applicationCapacite(Tirage *t, const int indice, Strategy_player& adversaire) = 0;
     virtual void reservation_carte()=0;
     virtual void selectionRoyalCard() = 0;
 
@@ -78,6 +79,8 @@ public:
     const int getNbCartesRoyales() const {return nb_cartes_r;}
     vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
+    vector<const Jeton*>& getJeton() {return jetons;}
+
 
     //méthode utilitaires aux classes filles
 
@@ -110,15 +113,13 @@ public:
     void choice();
     void utilisationPrivilege();
     void selection_jetons();
-    void applicationCapacite(Tirage *t, const int indice, const Joueur& adversaire);
+    void applicationCapacite(Tirage *t, const int indice, Strategy_player& adversaire);
     void applicationCapacite(const int indice, const Joueur& adversaire);
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
     void selectionRoyalCard();
-
-
 
 };
 

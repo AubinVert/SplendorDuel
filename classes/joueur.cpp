@@ -604,7 +604,7 @@ void Joueur::reservation_carte() {
     }
 }
 
-void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adversaire) {
+void Joueur::applicationCapacite(Tirage *t, const int indice, Strategy_player& adversaire) {
     const JewelryCard carte =  t->getCarteSansSupr(indice);
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
@@ -612,14 +612,14 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
             cout<<"Utilisation de capacité : vous pouvez prendre un jeton blanc ou perle à votre"
                   " adversaire\n";
 
-            if (adversaire.jetons.empty()){
-                cout<<"aïe! L'adversaire ne possède pas de jeton blanc ou perle\n";
+            if (adversaire.getJeton().empty()){
+                throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
             }
             else{
                 int verif_blanc = 0;
                 int verif_perle = 0;
                 int compteur = 0;
-                vector<const Jeton*> jetons_adversaire = adversaire.jetons;
+                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
                 for (size_t i = 0; i<jetons_adversaire.size(); ++i){
                     if (jetons_adversaire[i]->getColor() == Color::perle){
                         verif_perle++;
@@ -629,7 +629,7 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
                     }
                 }
                 if (verif_blanc==0 && verif_perle==0){
-                    cout<<"aïe! L'adversaire ne possède pas de jeton blanc ou perle\n";
+                    throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
                 }
                 else if (verif_blanc!=0 && verif_perle==0){
                     cout<<"L'adversaire possède un jeton blanc mais pas de jeton perle, vous venez de lui prendre\n";
@@ -719,7 +719,7 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
                     }
                 }
             }
-        }
+        }/*
         else if (capa == Capacity::joker){
             cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
                   "une de vos carte dotée d'au moins un bonus.\n";
@@ -803,7 +803,7 @@ void Joueur::applicationCapacite(Tirage *t, const int indice, const Joueur& adve
         }
         else{
             //rejouer
-        }
+        }*/
     }
 }
 
@@ -851,6 +851,8 @@ void Joueur::achat_carte(){
                     cout<<"choix : ";
                     cin>>indice;
                     Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
+                    Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_1(), indice,
+                                                                         Jeu::getJeu().getOpponent());
                     break;
                 }case 2:{
                     unsigned int indice = 0;
@@ -858,6 +860,8 @@ void Joueur::achat_carte(){
                     cout<<"choix : ";
                     cin>>indice;
                     Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_2(), indice);
+                    Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_2(), indice,
+                                                                         Jeu::getJeu().getOpponent());
                     break;
                 }
                 case 3:{
@@ -866,6 +870,8 @@ void Joueur::achat_carte(){
                     cout<<"choix : ";
                     cin>>indice;
                     Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_3(), indice);
+                    Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_3(), indice,
+                                                                         Jeu::getJeu().getOpponent());
                     break;
                 }
             }
@@ -891,6 +897,8 @@ void Joueur::achat_carte(){
                 cout<<"choix : ";
                 cin>>indice;
                 Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
+                Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_1(), indice,
+                                                                     Jeu::getJeu().getOpponent());
                 break;
             }case 2:{
                 unsigned int indice = 0;
@@ -898,6 +906,8 @@ void Joueur::achat_carte(){
                 cout<<"choix : ";
                 cin>>indice;
                 Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_2(), indice);
+                Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_2(), indice,
+                                                                     Jeu::getJeu().getOpponent());
                 break;
             }
             case 3:{
@@ -906,6 +916,8 @@ void Joueur::achat_carte(){
                 cout<<"choix : ";
                 cin>>indice;
                 Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
+                Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_3(), indice,
+                                                                     Jeu::getJeu().getOpponent());
                 break;
             }
 
