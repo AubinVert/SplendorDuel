@@ -1,16 +1,16 @@
-#ifndef TIRAGES_H
-#define TIRAGES_H
+#ifndef QT_TIRAGES_H
+#define QT_TIRAGES_H
 
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QVector>
 
-class Tirages : public QWidget {
+class Qt_Tirages : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Tirages(QWidget *parent = nullptr);
+    explicit Qt_Tirages(QWidget *parent = nullptr);
 
 private:
     QHBoxLayout *tier1Layout;
@@ -26,4 +26,4 @@ private:
     void setupTierLayout(QHBoxLayout *&layout, QVector<QLabel*> &cards, int cardCount, QLabel *&deckImage);
 };
 
-#endif // TIRAGES_H
+#endif // QT_TIRAGES_H

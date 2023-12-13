@@ -1,7 +1,7 @@
-#include "tirages.h"
+#include "qt_tirages.h"
 #include <QVBoxLayout>
 
-Tirages::Tirages(QWidget *parent) : QWidget(parent) {
+Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     // Setup each tier with the decks on the right
@@ -14,7 +14,7 @@ Tirages::Tirages(QWidget *parent) : QWidget(parent) {
     mainLayout->addLayout(tier3Layout);
 }
 
-void Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<QLabel*> &cards, int cardCount, QLabel *&deckImage) {
+void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<QLabel*> &cards, int cardCount, QLabel *&deckImage) {
     layout = new QHBoxLayout();
 
     for (int i = 0; i < cardCount; ++i) {

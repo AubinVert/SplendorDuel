@@ -1,6 +1,6 @@
-#include "plateau.h"
+#include "qt_plateau.h"
 
-Plateau::Plateau(QWidget *parent) : QWidget(parent) {
+Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     layout = new QGridLayout(this);
 
     // Setup the card grid

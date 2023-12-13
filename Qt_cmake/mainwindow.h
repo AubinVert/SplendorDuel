@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "tirages.h"
-#include "plateau.h"
+#include "qt_tirages.h"
+#include "qt_plateau.h"
 #include <QApplication>
 #include <QMainWindow>
 #include <QVBoxLayout>

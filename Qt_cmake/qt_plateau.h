@@ -1,16 +1,16 @@
-#ifndef PLATEAU_H
-#define PLATEAU_H
+#ifndef QT_PLATEAU_H
+#define QT_PLATEAU_H
 
 #include <QWidget>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 
-class Plateau : public QWidget {
+class Qt_Plateau : public QWidget {
     Q_OBJECT;
 
 public:
-    explicit Plateau(QWidget *parent = nullptr);
+    explicit Qt_Plateau(QWidget *parent = nullptr);
 
 private:
     QGridLayout *layout;
@@ -19,4 +19,4 @@ private:
 };
 
 
-#endif // PLATEAU_H
+#endif // QT_PLATEAU_H
