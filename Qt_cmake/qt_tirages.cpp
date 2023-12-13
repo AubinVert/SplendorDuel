@@ -8,7 +8,9 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     setupTierLayout(tier1Layout, tier1Cards, 5, deckImage1);
     setupTierLayout(tier2Layout, tier2Cards, 4, deckImage2);
     setupTierLayout(tier3Layout, tier3Cards, 3, deckImage3);
+    setupTierLayout(royalLayout, royalCards, 4, royalCardsImage);
 
+    mainLayout->addLayout(royalLayout);
     mainLayout->addLayout(tier1Layout);
     mainLayout->addLayout(tier2Layout);
     mainLayout->addLayout(tier3Layout);

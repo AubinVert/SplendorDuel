@@ -15,7 +15,6 @@ public:
 private:
     QGridLayout *layout;
     QHBoxLayout *privilegesLayout;
-    // Additional private members for the privilege widgets, if needed
 };
 
 
