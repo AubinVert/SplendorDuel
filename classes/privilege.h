@@ -22,17 +22,20 @@ public:
     }
 
     // Méthode statique pour obtenir une instance de la classe
-    static Privilege* GetInstance() {
+    static const Privilege* GetInstance() {
         if (instanceCount < maxInstances) {
             ++instanceCount;
             return new Privilege();
         }
-        throw SplendorException("Nombres d'instances de privileges depasse");
+        throw SplendorException("Nombres d'instances de privileges depassé");
     }
     static int get_max_instance(){return maxInstances;}
 };
 
-
+inline std::ostream& operator<<(std::ostream& f,const Privilege& p){
+    f<<"Id : "<<p.get_id();
+    return f;
+}
 std::vector<const Privilege*> initPrivileges();
 
 #endif //LO21_SPLENDOR_DUEL_PRIVILEGE_H

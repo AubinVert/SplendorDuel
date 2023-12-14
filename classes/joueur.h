@@ -79,6 +79,7 @@ public:
     const int getNbCartesRoyales() const {return nb_cartes_r;}
     vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
+    vector<const Privilege*>& get_privilege(){return privileges;}
 
     //méthode utilitaires aux classes filles
 

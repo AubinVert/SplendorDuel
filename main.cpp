@@ -6,6 +6,11 @@ int main(){
     cout<<"Bienvenue dans le jeu splendor duel ! "<<endl;
 
     Jeu::getJeu();
+    cout<<"Privilèges dans le jeu:"<<endl;
+    vector<const Privilege*> pr4 = Jeu::getJeu().get_privileges();
+    for(int i = 0; i<pr4.size();i++){
+        cout<<*pr4[i]<<endl;
+    }
     Jeu::getJeu().setPlayers();
 
     cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
@@ -61,10 +66,11 @@ int main(){
         }
 
     }
-    //Jeu::libereJeu();
+
     cout<<"=================== Partie temrinée ==================="<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
 
+    Jeu::libereJeu();
     return 0;
 }

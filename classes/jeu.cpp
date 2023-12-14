@@ -115,19 +115,19 @@ Jeu::Handler Jeu::handler;
 Jeu::~Jeu(){
 
     // Déstruction jetons
-    for (auto & jeton : jetons){
+    for (auto  jeton : jetons){
         delete jeton;
     }
     jetons.clear();
 
     // Déstruction cartes royales
-    for (auto & cartes_royale : cartes_royales){
+    for (auto cartes_royale : cartes_royales){
         delete cartes_royale;
     }
     cartes_royales.clear();
 
     // Déstruction cartes joaillerie
-    for (auto & it : cartes_joiallerie){
+    for (auto it : cartes_joiallerie){
         delete it;
     }
     cartes_joiallerie.clear();

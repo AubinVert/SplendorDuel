@@ -77,13 +77,13 @@ public:
          return privileges.size();
     }
 
-    const Privilege& getPrivilege() {
+    const Privilege* getPrivilege() {
         if(privileges.size() <= 0){
             throw SplendorException("Plus de privilège disponible");
         }
         const Privilege* tmp = privileges[0];
         privileges.erase(privileges.begin());
-        return *tmp;
+        return tmp;
     }
 
     Pioche* getPioche(int num) const {
@@ -95,7 +95,7 @@ public:
     }
 
     void setPrivilege(const Privilege& p){
-         if(privileges.size()==3){
+         if(privileges.size()>=3){
              throw SplendorException("Nombre de privilège max dans le jeu déjà atteint");
          }
          privileges.push_back(&p);
@@ -117,6 +117,8 @@ public:
     const Jeton* getJeton(int i) { return jetons[i];}
     void setJoueurNames(const string& s1, const string& s2);
 
+
+    vector<const Privilege*>& get_privileges(){return privileges;}
 
 
 };

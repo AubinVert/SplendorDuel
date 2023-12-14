@@ -180,8 +180,10 @@ void Strategy_player::obtainPrivilege() {
             Jeu::getJeu().getCurrentPlayer().retirerPrivilege();
         }
     }
-
-    privileges.push_back(&Jeu::getJeu().getPrivilege());
+    if(Jeu::getJeu().getNbPrivilege()==0) {
+        throw SplendorException("Plus de privilège!");
+    }
+    privileges.push_back(Jeu::getJeu().getPrivilege());
     nb_privileges++;
 
 
@@ -191,9 +193,11 @@ void Strategy_player::retirerPrivilege(){
     if(nb_privileges==0){
         throw SplendorException("Vous ne pouvez pas retirer de privilège au joueur");
     }
+    Jeu::getJeu().setPrivilege(*privileges[0]);
     privileges.erase(privileges.begin());
     nb_privileges--;
-    Jeu::getJeu().setPrivilege(*privileges[0]);
+
+
 
 }
 
@@ -289,13 +293,13 @@ Joueur::Joueur(const string & nom) : Strategy_player(nom){}
 
 Joueur::~Joueur(){
     // Déstruction cartes royales
-    for (auto & cartes_royale : cartes_royale){
+    for (auto cartes_royale : cartes_royale){
         delete cartes_royale;
     }
     cartes_royale.clear();
 
     // Déstruction privilèges
-    for (auto & privilege : privileges){
+    for (auto privilege : privileges){
         delete privilege;
     }
     privileges.clear();
@@ -1020,13 +1024,13 @@ IA::IA(const string & nom) : Strategy_player(nom){}
 
 IA::~IA(){
     // Déstruction cartes royales
-    for (auto & cartes_royale : cartes_royale){
+    for (auto cartes_royale : cartes_royale){
         delete cartes_royale;
     }
     cartes_royale.clear();
 
     // Déstruction privilèges
-    for (auto & privilege : privileges){
+    for (auto privilege : privileges){
         delete privilege;
     }
     privileges.clear();
