@@ -14,6 +14,11 @@ add_executable(Qt_cmake
     main.cpp
     main.cpp mainwindow.cpp mainwindow.h qt_plateau.cpp qt_plateau.h qt_tirages.cpp qt_tirages.h vuepartie.h
     ../classes/carte.cpp ../classes/carte.h ../classes/Exception.h ../classes/jetons.cpp ../classes/jetons.h ../classes/jeu.cpp ../classes/jeu.h ../classes/joueur.cpp ../classes/joueur.h ../classes/pioche.cpp ../classes/pioche.h ../classes/plateau.cpp ../classes/plateau.h ../classes/privilege.cpp ../classes/privilege.h ../classes/sac.cpp ../classes/sac.h ../classes/tirage.cpp ../classes/tirage.h
+    qt_jetons_main.h
+    qt_jetons_main.cpp
+    qt_labelclick.h
+    qt_labelclick.cpp
+
 )
 
 include(GNUInstallDirs)

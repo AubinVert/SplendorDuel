@@ -10,11 +10,21 @@ class Qt_Plateau : public QWidget {
     Q_OBJECT;
 
 public:
-    explicit Qt_Plateau(QWidget *parent = nullptr);
+    Qt_Plateau(QWidget *parent = nullptr);
 
 private:
     QGridLayout *layout;
     QHBoxLayout *privilegesLayout;
+
+signals:
+    void clicked();
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override {
+        emit clicked();
+    }
+
+
 };
 
 
