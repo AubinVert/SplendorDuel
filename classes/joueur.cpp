@@ -604,8 +604,7 @@ void Joueur::reservation_carte() {
     }
 }
 
-void Joueur::applicationCapacite(Tirage *t, const int indice, Strategy_player& adversaire) {
-    const JewelryCard carte =  t->getCarteSansSupr(indice);
+void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) {
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
@@ -851,8 +850,6 @@ void Joueur::achat_carte(){
                     cout<<"choix : ";
                     cin>>indice;
                     Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
-                    Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_1(), indice,
-                                                                         Jeu::getJeu().getOpponent());
                     break;
                 }case 2:{
                     unsigned int indice = 0;
@@ -860,8 +857,6 @@ void Joueur::achat_carte(){
                     cout<<"choix : ";
                     cin>>indice;
                     Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_2(), indice);
-                    Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_2(), indice,
-                                                                         Jeu::getJeu().getOpponent());
                     break;
                 }
                 case 3:{
@@ -870,8 +865,6 @@ void Joueur::achat_carte(){
                     cout<<"choix : ";
                     cin>>indice;
                     Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_3(), indice);
-                    Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_3(), indice,
-                                                                         Jeu::getJeu().getOpponent());
                     break;
                 }
             }
@@ -897,8 +890,6 @@ void Joueur::achat_carte(){
                 cout<<"choix : ";
                 cin>>indice;
                 Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
-                Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_1(), indice,
-                                                                     Jeu::getJeu().getOpponent());
                 break;
             }case 2:{
                 unsigned int indice = 0;
@@ -906,8 +897,6 @@ void Joueur::achat_carte(){
                 cout<<"choix : ";
                 cin>>indice;
                 Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_2(), indice);
-                Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_2(), indice,
-                                                                     Jeu::getJeu().getOpponent());
                 break;
             }
             case 3:{
@@ -916,8 +905,6 @@ void Joueur::achat_carte(){
                 cout<<"choix : ";
                 cin>>indice;
                 Jeu::getJeu().getCurrentPlayer().buyCard(Jeu::getJeu().get_tirage_1(), indice);
-                Jeu::getJeu().getCurrentPlayer().applicationCapacite(Jeu::getJeu().get_tirage_3(), indice,
-                                                                     Jeu::getJeu().getOpponent());
                 break;
             }
 
@@ -1005,6 +992,8 @@ void Joueur::buyCard(Tirage *t, const int indice){
     nb_points += carte.getPrestige();
     nb_cartes_j++;
     // Dans le main tester si eligible pour carte royale et appeler get carte royale
+
+    Jeu::getJeu().getCurrentPlayer().applicationCapacite(carte, Jeu::getJeu().getOpponent());
 
 }
 
@@ -1668,6 +1657,8 @@ void IA::selectionRoyalCard(){
     int tmp = rand()%nb_carte_r_dans_jeu;
     obtainRoyaleCard(tmp);
 }
+
+void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire){}
 
 
 /******************** IA ********************/
