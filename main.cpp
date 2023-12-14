@@ -67,7 +67,7 @@ int main(){
 
     }
 
-    cout<<"=================== Partie temrinée ==================="<<endl;
+    cout<<"=================== Partie terminée ==================="<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
 
