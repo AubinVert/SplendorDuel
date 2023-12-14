@@ -120,7 +120,7 @@ class JewelryCard: public Card{
     const int cout_perle;
     const int niveau;
     const int nb_couronnes;
-    const optional<enum colorBonus> bonus;
+    optional<enum colorBonus> bonus;
     const int bonus_nombre;
 
     static const int max_carte_j = 67;
@@ -164,6 +164,7 @@ public:
     const int getNbCrown()const {return nb_couronnes;}
     const optional<enum colorBonus>& getBonus()const{return bonus;}
     const int getNbBonus() const {return bonus_nombre;}
+    void changerCouleurBonus(colorBonus b) {bonus=b;}
 
 
 };

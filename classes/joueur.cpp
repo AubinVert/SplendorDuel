@@ -640,7 +640,6 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
             else{
                 int verif_blanc = 0;
                 int verif_perle = 0;
-                int compteur = 0;
                 vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
                 for (size_t i = 0; i<jetons_adversaire.size(); ++i){
                     if (jetons_adversaire[i]->getColor() == Color::perle){
@@ -741,7 +740,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                     }
                 }
             }
-        }/*
+        }
         else if (capa == Capacity::joker){
             cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
                   "une de vos carte dotée d'au moins un bonus.\n";
@@ -783,23 +782,12 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                                                 " sans effet\n");
                     } else {
                         int choix;
-                        int tmp_prestige = carte.getPrestige();
-                        int tmp_blanc = carte.getCostWhite();
-                        int tmp_bleu = carte.getCostBlue();
-                        int tmp_rouge = carte.getCostRed();
-                        int tmp_vert  = carte.getCostGreen();
-                        int tmp_noir = carte.getCostBlack();
-                        int tmp_perle = carte.getCostPerl();
-                        int tmp_niveau = carte.getNiveau();
-                        int tmp_couronnes = carte.getNbCrown();
-                        int tmp_bonus_nombre = carte.getNbBonus();
-                        optional<enum colorBonus> tmp_bonus = carte.getBonus();
-                        optional<Capacity> tmp_capacite = carte.getCapacite();
                         cin >> choix;
                         switch (choix) {
                             case 1:
-                                delete carte;
-                                bonus_blanc;
+                                colorBonus b = colorBonus::blanc;
+                                JewelryCard& carte_pas_const = const_cast<JewelryCard&>(carte);
+                                carte_pas_const.changerCouleurBonus(b);
                                 verif_choix = true;
                             case 2:
                                 bonus_bleu;
@@ -825,7 +813,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
         }
         else{
             //rejouer
-        }*/
+        }
     }
 }
 
@@ -1099,6 +1087,8 @@ void Joueur::buyCardFromReserve( const int indice){
     nb_cartes_j++;
     nb_courones += carte->getNbCrown();
     nb_points += carte->getPrestige();
+
+    Jeu::getJeu().getCurrentPlayer().applicationCapacite(*carte, Jeu::getJeu().getOpponent());
 
 }
 

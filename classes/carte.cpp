@@ -170,6 +170,7 @@ vector<const JewelryCard*> initCartesJoaillerie(){
     return cartes_joailleries_instances;
 }
 
+
 // Tests unitaires de la classe Card :
 
 
