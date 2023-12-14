@@ -178,9 +178,7 @@ inline std::ostream& operator<<(std::ostream& os, const RoyalCard& c){
 }
 inline std::ostream& operator<<(std::ostream& os, const JewelryCard& c){
     
-    if(c.getCapacite() != nullopt){
-        os<<"Capacity : "<< c.getCapacite();
-    }
+    os<<"Capacity : "<< c.getCapacite();
     if(c.getPrestige() > 0){
         os<<", points prestiges : "<<c.getPrestige();
     }

@@ -31,7 +31,7 @@ private:
 
 
     struct Handler {
-        Jeu *instance = nullptr;
+        Jeu * instance = nullptr;
         ~Handler() {
             delete instance;
             instance = nullptr;

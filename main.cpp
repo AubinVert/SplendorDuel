@@ -6,7 +6,6 @@ int main(){
     cout<<"Bienvenue dans le jeu splendor duel ! "<<endl;
 
     Jeu::getJeu();
-
     Jeu::getJeu().setPlayers();
 
     cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
@@ -48,6 +47,7 @@ int main(){
         try{
 
             Jeu::getJeu().getCurrentPlayer().choice();
+            Jeu::getJeu().getCurrentPlayer().verifJetons();
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
                 Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
             }

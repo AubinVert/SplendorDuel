@@ -9,14 +9,14 @@
 
 
 void Jeu::tour_suivant() {
-    Strategy_player* temp = qui_joue;
-    qui_joue = adversaire;
-    adversaire = temp;
-    manche++;
     if(qui_joue->victoryConditions()){
         est_termine = true;
+    }else{
+        Strategy_player* temp = qui_joue;
+        qui_joue = adversaire;
+        adversaire = temp;
+        manche++;
     }
-
 }
 
 // condition d'arrêt
@@ -130,7 +130,7 @@ Jeu::~Jeu(){
     cartes_joiallerie.clear();
 
     // Déstruction privilèges
-    for (auto & privilege : privileges){
+    for (auto privilege : privileges){
         delete privilege;
     }
     privileges.clear();

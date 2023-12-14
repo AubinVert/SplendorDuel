@@ -55,7 +55,10 @@ std ::string toString(optional<enum colorBonus> bonus){
         return "Null";}
 }
 
-std::ostream& operator<<(std::ostream& f, optional<Capacity> c) { return  f << toString(c) ;}
+std::ostream& operator<<(std::ostream& f, optional<Capacity> c) {
+    if(c == nullopt) return f<<" Null ";
+    return  f << toString(c) ;
+}
 
 std::ostream& operator<<(std::ostream& f, Color c) { f << toString(c); return f; }
 
