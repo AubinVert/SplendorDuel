@@ -120,8 +120,6 @@ public:
     void selectionRoyalCard();
     void verifJetons();
 
-
-
 };
 
 
@@ -141,8 +139,8 @@ public:
     void selectionRoyalCard();
     void verifJetons();
 
-
 };
+
 
 
 

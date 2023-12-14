@@ -199,26 +199,26 @@ void Jeu::setPlayers(){
         if (choix1 == "J") {
             qui_joue = new Joueur(name1);
         } else {
-            qui_joue = new IA();
+            qui_joue = new IA(name1);
         }
 
         if (choix2 == "J") {
             adversaire = new Joueur(name2);
 
         } else {
-            adversaire = new IA();
+            adversaire = new IA(name2);
         }
     }else{
         if (choix1 == "J") {
             adversaire = new Joueur(name1);
         } else {
-            adversaire = new IA();
+            adversaire = new IA(name1);
         }
 
         if (choix2 == "J") {
             qui_joue = new Joueur(name2);
         } else {
-            qui_joue = new IA();
+            qui_joue = new IA(name2);
         }
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
