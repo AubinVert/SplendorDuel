@@ -143,7 +143,7 @@ void Strategy_player::obtainRoyaleCard(unsigned int i) {
         throw SplendorException("Carte non disponible");
     }
     //if (royaleCardEligibility() == false) throw SplendorException("Pas eligible.");
-    const RoyalCard tmp = Jeu::getJeu().pullCarteRoyale(i);
+    const RoyalCard& tmp = Jeu::getJeu().pullCarteRoyale(i);
     cartes_royale.push_back(&tmp);
     // ENLEVER DU jeu
     nb_cartes_r++;

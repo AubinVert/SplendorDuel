@@ -17,6 +17,9 @@ void Jeu::tour_suivant() {
         adversaire = temp;
         manche++;
     }
+
+
+
 }
 
 // condition d'arrêt
