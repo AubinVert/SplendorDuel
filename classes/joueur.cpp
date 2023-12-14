@@ -222,6 +222,29 @@ int Strategy_player::getOptionalChoices(){
     return nb_choices;
 }
 
+void Strategy_player::retirerJetonBlanc() {
+    int compteur = 0;
+    for (size_t i = 0; i<jetons.size(); ++i){
+        if (jetons[i]->getColor() == Color::blanc){
+            jetons.erase(jetons.begin() + compteur);
+            break;
+        }
+        compteur++;
+    }
+    nb_jetons--;
+}
+
+void Strategy_player::retirerJetonPerle() {
+    int compteur = 0;
+    for (size_t i = 0; i<jetons.size(); ++i){
+        if (jetons[i]->getColor() == Color::perle){
+            jetons.erase(jetons.begin() + compteur);
+            break;
+        }
+        compteur++;
+    }
+    nb_jetons--;
+}
 
 
 
@@ -635,10 +658,10 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                     for (size_t i = 0; i<jetons_adversaire.size(); ++i){
                         if (jetons_adversaire[i]->getColor() == Color::blanc){
                             jetons.push_back(jetons_adversaire[i]);
-                            jetons_adversaire.erase(jetons_adversaire.begin() + compteur);
+                            nb_jetons++;
+                            adversaire.retirerJetonBlanc();
                             break;
                         }
-                        compteur++;
                     }
                 }
                 else if (verif_blanc==0 && verif_perle!=0){
@@ -646,10 +669,10 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                     for (size_t i = 0; i<jetons_adversaire.size(); ++i){
                         if (jetons_adversaire[i]->getColor() == Color::perle){
                             jetons.push_back(jetons_adversaire[i]);
-                            jetons_adversaire.erase(jetons_adversaire.begin() + compteur);
+                            nb_jetons++;
+                            adversaire.retirerJetonPerle();
                             break;
                         }
-                        compteur++;
                     }
                 }
                 else if (verif_blanc!=0 && verif_perle!=0){
@@ -661,10 +684,10 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                         for (size_t i = 0; i<jetons_adversaire.size(); ++i){
                             if (jetons_adversaire[i]->getColor() == Color::blanc){
                                 jetons.push_back(jetons_adversaire[i]);
-                                jetons_adversaire.erase(jetons_adversaire.begin() + compteur);
+                                nb_jetons++;
+                                adversaire.retirerJetonBlanc();
                                 break;
                             }
-                            compteur++;
                         }
                     }
                     else if (choix == "P"){
@@ -672,10 +695,10 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                         for (size_t i = 0; i<jetons_adversaire.size(); ++i){
                             if (jetons_adversaire[i]->getColor() == Color::perle){
                                 jetons.push_back(jetons_adversaire[i]);
-                                jetons_adversaire.erase(jetons_adversaire.begin() + compteur);
+                                nb_jetons++;
+                                adversaire.retirerJetonPerle();
                                 break;
                             }
-                            compteur++;
                         }
                     }
                 }

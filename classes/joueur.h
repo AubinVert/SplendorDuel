@@ -99,6 +99,8 @@ public:
     // méthode utilitaire pour le main
     void print_player();
     int getOptionalChoices();
+    void retirerJetonBlanc();
+    void retirerJetonPerle();
 };
 
 
