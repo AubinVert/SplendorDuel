@@ -758,7 +758,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                 }
             }
         }
-        else if (capa == Capacity::joker){
+        if (carte.getBonus() == colorBonus::joker){
             cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
                   "une de vos carte dotée d'au moins un bonus.\n";
             int bonus_blanc = calculateBonus(colorBonus::blanc);
@@ -1798,7 +1798,6 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
         if (capa == Capacity::voler_pion_adverse){
             if (capa == Capacity::voler_pion_adverse){
                 cout<<"L'IA peut voler un pion!\n";
-
                 if (adversaire.getJeton().empty()){
                     cout<<"Dommage vous n'avez pas de jeton gemme ou perle!"<<endl;
                 }
@@ -1808,6 +1807,7 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
                     do{
                         choice=rand()%jetons_adversaire.size();
                     }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                    cout<<"Pion volé :"<<*jetons_adversaire[choice]<<endl;
                     jetons.push_back(jetons_adversaire[choice]);
                     nb_jetons++;
                     jetons_adversaire.erase(jetons_adversaire.begin()+choice);
@@ -1817,10 +1817,11 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
             }
         }
         else if (capa == Capacity::prendre_privilege){
+            cout<<"Utilisation de capacité : l'IA gagne un privilège\n";
             Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
         }
         else if (capa == Capacity::prendre_sur_plateau){
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte\n";
+            cout<<"Utilisation de capacité : l'IA peut piocher un jeton de la couleur bonus de la carte\n";
             const optional<enum colorBonus>& couleur = carte.getBonus();
             if (Plateau::get_plateau().colorInPlateau(couleur)){
                 vector<int> indices_viables = Plateau::get_plateau().getIndicesJetonsCouleur(couleur);
@@ -1841,8 +1842,8 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
                 cout<<"Dommage, il n'y a plus de jetons de cette couleur sur le plateau."<<endl;
             }
         }
-        else if (capa == Capacity::joker){
-            cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
+        if (carte.getBonus() == colorBonus::joker){
+            cout<<"Utilisation de capacité : l'IA transforme le joker en un bonus de couleur en l'associant à"
                   "une de vos carte dotée d'au moins un bonus.\n";
             int bonus_blanc = calculateBonus(colorBonus::blanc);
             int bonus_bleu = calculateBonus(colorBonus::bleu);
