@@ -168,8 +168,19 @@ bool Strategy_player::royaleCardEligibility() {
     }
 }
 
+bool Strategy_player::jokerCardEligibility() {
+    unsigned int test = 0;
+    for(auto card: cartes_joaillerie_achetees){
+        // on test sur toutes les cartes, à partir du moment où le joueur possède une carte d'une couleur (bonus != nullopt) il peut acheter une carte avec un bonus couleur
+        if((*card).getBonus() != nullopt){
+            return true;
+        }
+    }
+    return false;
+}
+
 void Strategy_player::obtainPrivilege() {
-    // on va chercher dans le tirage des privilège un privilège. (du plateau ou alors de ton adversaire ? )
+    // on va chercher dans le tirage des privilèges un privilège. (du plateau ou alors de ton adversaire ? )
     // d'abord je regarde s'il y a des privilèges dans le jeu :
 
     if(nb_privileges==Privilege::get_max_instance()) {
@@ -994,7 +1005,11 @@ void Joueur::buyCard(Tirage *t, const int indice){
 
     // la carte qu'il veut supp c'est la ième du tirage t
 
-    const JewelryCard&carte =  t->getCarteSansSupr(indice);
+    const JewelryCard& carte =  t->getCarteSansSupr(indice);
+    if(carte.getBonus() == colorBonus::joker and jokerCardEligibility() == false){
+        throw SplendorException("Vous n'avez pas le droit d'acheter une carte avec un bonus joker car vous ne pouvez pas assigner le bonus!");
+    }
+
 
 
     // ici calculer bonus permet de retirer du cout total des cartes le bonus des cartes déjà possédées.
@@ -1095,6 +1110,10 @@ void Joueur::buyCardFromReserve( const int indice){
     // on doit vérifier que l'achat peut se faire
 
     const JewelryCard* carte = cartes_joaiellerie_reservees[indice];
+
+    if(carte->getBonus() == colorBonus::joker and jokerCardEligibility() == false){
+        throw SplendorException("Vous n'avez pas le droit d'acheter une carte avec un bonus joker car vous ne pouvez pas assigner le bonus!");
+    }
 
     int cout_blanc = positiveOrNull(carte->getCostWhite() - calculateBonus(colorBonus::blanc));
     int cout_bleu = positiveOrNull(carte->getCostBlue() - calculateBonus(colorBonus::bleu));
@@ -1655,6 +1674,9 @@ void IA::achat_carte(){
 void IA::buyCard(Tirage *t, const int indice){
     const JewelryCard& carte =  t->getCarteSansSupr(indice);
 
+    if(carte.getBonus() == colorBonus::joker and jokerCardEligibility() == false){
+        throw SplendorException("Vous n'avez pas le droit d'acheter une carte avec un bonus joker car vous ne pouvez pas assigner le bonus!");
+    }
 
     // ici calculer bonus permet de retirer du cout total des cartes le bonus des cartes déjà possédées.
     int cout_blanc = positiveOrNull(carte.getCostWhite() - calculateBonus(colorBonus::blanc));
@@ -1733,6 +1755,10 @@ void IA::buyCardFromReserve(const int indice) {
     // on doit vérifier que l'achat peut se faire
 
     const JewelryCard* carte = cartes_joaiellerie_reservees[indice];
+
+    if(carte->getBonus() == colorBonus::joker and jokerCardEligibility() == false){
+        throw SplendorException("Vous n'avez pas le droit d'acheter une carte avec un bonus joker car vous ne pouvez pas assigner le bonus!");
+    }
 
     int cout_blanc = positiveOrNull(carte->getCostWhite() - calculateBonus(colorBonus::blanc));
     int cout_bleu = positiveOrNull(carte->getCostBlue() - calculateBonus(colorBonus::bleu));

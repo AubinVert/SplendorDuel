@@ -100,6 +100,7 @@ public:
     void piocher_jeton( int i);
     void obtainRoyaleCard(unsigned int i);
     bool royaleCardEligibility();
+    bool jokerCardEligibility();
     void obtainPrivilege();
     void retirerPrivilege();
     void remplissagePlateau();
