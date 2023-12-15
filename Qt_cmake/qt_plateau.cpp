@@ -1,5 +1,6 @@
 #include "qt_plateau.h"
 #include "qt_labelclick.h"
+#include "qt_vue_jeton.h"
 
 Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     layout = new QGridLayout(this);
@@ -7,9 +8,11 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
 
     // Setup the card grid
     for (int i = 0; i < 25; ++i) {
-        Qt_LabelClick *label = new Qt_LabelClick(QString("Jeton %1").arg(i + 1), this);
-        label->setFixedSize(100, 100); // Set minimum size to 100x100 pixels
-        layout->addWidget(label, i / 5, i % 5);
+        Qt_jeton *jeton = new Qt_jeton();
+        jeton->setMinimumSize(100, 100);  // Set minimum size to 100x100
+        // Uncomment this after adding the images
+        // jeton->setStyleSheet("background-color: transparent;");
+        layout->addWidget(jeton, i / 5, i % 5);
     }
 
     // Setup for privileges

@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QVector>
+#include "qt_vue_carte.h"
 
 class Qt_Tirages : public QWidget {
     Q_OBJECT
@@ -17,16 +18,25 @@ private:
     QHBoxLayout *tier2Layout;
     QHBoxLayout *tier3Layout;
     QHBoxLayout *royalLayout;
-    QVector<QLabel*> tier1Cards;
-    QVector<QLabel*> tier2Cards;
-    QVector<QLabel*> tier3Cards;
-    QVector<QLabel*> royalCards;
+    QVector<Qt_carte*> tier1Cards;
+    QVector<Qt_carte*> tier2Cards;
+    QVector<Qt_carte*> tier3Cards;
+    QVector<Qt_carte*> royalCards;
     QLabel *deckImage1;
     QLabel *deckImage2;
     QLabel *deckImage3;
     QLabel *royalCardsImage;
 
-    void setupTierLayout(QHBoxLayout *&layout, QVector<QLabel*> &cards, int cardCount, QLabel *&deckImage);
+    void setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards, int cardCount, QLabel *&deckImage);
+
+signals:
+    void clicked();
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override {
+        emit clicked();
+    }
+
 };
 
 #endif // QT_TIRAGES_H

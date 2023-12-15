@@ -18,6 +18,12 @@ add_executable(Qt_cmake
     qt_jetons_main.cpp
     qt_labelclick.h
     qt_labelclick.cpp
+    qt_vue_jeton.h
+    qt_vue_carte.h
+    qt_vue_carte.cpp
+    qt_vue_jeton.cpp
+    qt_cards_main.h
+    qt_cards_main.cpp
 
 )
 

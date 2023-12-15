@@ -7,31 +7,27 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     // ######## SCORE LABELS ########
 
-    // Create score labels
-    QLabel *topScoreLabel = new QLabel("X score: 0"); // Initially set to 0
-    QLabel *bottomScoreLabel = new QLabel("Y score: 0"); // Initially set to 0
+    // ######## SCORE DISPLAYS ########
 
-    // Set a name to the labels for future reference
-    topScoreLabel->setObjectName("topScoreLabel");
-    bottomScoreLabel->setObjectName("bottomScoreLabel");
+    // Create score displays using QLCDNumber
+    QLCDNumber *topScoreDisplay = new QLCDNumber(2); // Display with 2 digits
+    QLCDNumber *bottomScoreDisplay = new QLCDNumber(2); // Display with 2 digits
+    topScoreDisplay->display(0);
+    bottomScoreDisplay->display(0);
 
-    // Configure labels (font size, color, etc.)
-    topScoreLabel->setStyleSheet("font-size: 24px; color: black;");
-    bottomScoreLabel->setStyleSheet("font-size: 24px; color: black;");
+    // Add score displays to the main layout
+    mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Align center at the top
 
-    // Add top score label to the main layout
-    mainLayout->addWidget(topScoreLabel, 0, Qt::AlignCenter); // Align center at the top
+    // Add top buttons
+    QPushButton *viewCardsButtonTop = new QPushButton("View Cards");
+    QPushButton *viewJetonsButtonTop = new QPushButton("View Jetons");
+    connect(viewCardsButtonTop, &QPushButton::clicked, this, &MainWindow::showCards);
+    connect(viewJetonsButtonTop, &QPushButton::clicked, this, &MainWindow::showJetons);
 
-    // Wrap each component in a separate QWidget if needed
-
-    // ######## JETONS HAUT ########
-
-    // Top jetons
-    QWidget *topJetonsContainer = new QWidget;
-    QVBoxLayout *topJetonsLayout = new QVBoxLayout(topJetonsContainer);
-    Qt_Jetons_Main *jet_haut = new Qt_Jetons_Main;
-    topJetonsLayout->addWidget(jet_haut);
-    mainLayout->addWidget(topJetonsContainer);
+    QHBoxLayout *topButtonLayout = new QHBoxLayout;
+    topButtonLayout->addWidget(viewCardsButtonTop);
+    topButtonLayout->addWidget(viewJetonsButtonTop);
+    mainLayout->addLayout(topButtonLayout);
 
     // ######## PLATEAU ET TIRAGES ########
 
@@ -48,18 +44,46 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     mainLayout->addWidget(middleContainer);
 
-    // ######## JETONS BAS ########
-
-    // Bottom jetons
-    QWidget *bottomJetonsContainer = new QWidget;
-    QVBoxLayout *bottomJetonsLayout = new QVBoxLayout(bottomJetonsContainer);
-    Qt_Jetons_Main *jet_bas = new Qt_Jetons_Main;
-    bottomJetonsLayout->addWidget(jet_bas);
-    mainLayout->addWidget(bottomJetonsContainer);
 
     // Add bottom score label to the main layout
-    mainLayout->addWidget(bottomScoreLabel, 0, Qt::AlignCenter); // Align center at the bottom
+    mainLayout->addWidget(bottomScoreDisplay, 0, Qt::AlignCenter); // Align center at the bottom
+
+    // Add bottom buttons
+    QPushButton *viewCardsButtonBottom = new QPushButton("View Cards");
+    QPushButton *viewJetonsButtonBottom = new QPushButton("View Jetons");
+    connect(viewCardsButtonBottom, &QPushButton::clicked, this, &MainWindow::showCards);
+    connect(viewJetonsButtonBottom, &QPushButton::clicked, this, &MainWindow::showJetons);
+
+    QHBoxLayout *bottomButtonLayout = new QHBoxLayout;
+    bottomButtonLayout->addWidget(viewCardsButtonBottom);
+    bottomButtonLayout->addWidget(viewJetonsButtonBottom);
+    mainLayout->addLayout(bottomButtonLayout);
 
     // Set the central widget and margins
     setCentralWidget(centralWidget);
 }
+
+void MainWindow::showCards() {
+    QDialog *cardsDialog = new QDialog(this);
+
+    cardsDialog->exec(); // Show the dialog
+}
+
+void MainWindow::showJetons() {
+    QDialog *jetonsDialog = new QDialog(this);
+    QVBoxLayout *dialogLayout = new QVBoxLayout(jetonsDialog);
+
+    Qt_Jetons_Main *jet_bas = new Qt_Jetons_Main(jetonsDialog);
+    dialogLayout->addWidget(jet_bas);
+
+    jetonsDialog->exec();
+}
+
+
+/*void MainWindow::updateTopScore(int score) {
+    topScoreDisplay->display(score);
+}
+
+void MainWindow::updateBottomScore(int score) {
+    bottomScoreDisplay->display(score);
+}*/
