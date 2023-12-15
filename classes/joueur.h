@@ -116,7 +116,6 @@ public:
     void utilisationPrivilege();
     void selection_jetons();
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
-    void applicationCapacite(const int indice, const Joueur& adversaire);
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);

@@ -8,13 +8,15 @@
 // condition pour savoir si le jeu est terminé à chaque tour on check ?
 
 
-void Jeu::tour_suivant() {
+void Jeu::tour_suivant(bool rejouer) {
     Strategy_player* temp = qui_joue;
     qui_joue = adversaire;
     adversaire = temp;
-    manche++;
     if(qui_joue->getNbCouronnes() == 10 || qui_joue->getNbPoints() == 20 ){
         est_termine = true;
+    }
+    if (!rejouer) {
+        manche++;
     }
 
 }

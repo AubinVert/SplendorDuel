@@ -134,3 +134,15 @@ bool Plateau::colorInPlateau(const optional<enum colorBonus> &couleur) {
         if(jet != nullptr and (s + toString(jet->getColor()) != toString(couleur))) return true;
     }
 }
+
+vector<int> Plateau::getIndicesJetonsCouleur(const optional<enum colorBonus> &couleur){
+    if (getCurrentNb()==0) throw SplendorException("Plateau vide!");
+    vector<int> result;
+    string s = "Bonus ";
+    for (auto jet:jetons){
+        if (jet != nullptr and (s + toString(jet->getColor()) != toString(couleur))){
+            result.push_back(Plateau::get_plateau().getIndice(jet->get_id()));
+        }
+    }
+    return result;
+}
