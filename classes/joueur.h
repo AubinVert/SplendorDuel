@@ -69,6 +69,7 @@ public:
     //getters setters
     const int getNbCartesJoaillerie() const {return nb_cartes_j;}
     const int getNbJetons() const {return nb_jetons;}
+    void setNbJetons(unsigned int nb){nb_jetons = nb;}
     const string getName() const {return nom;}
     void setName(string& s) {nom = s;}
     const int getNbCartesAchetees() const { return cartes_joaillerie_achetees.size();}

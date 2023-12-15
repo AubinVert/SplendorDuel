@@ -78,9 +78,8 @@ public:
     }
 
      unsigned int getIndice(const unsigned int uid){
-
         for (int i = 0; i < jetons.size(); ++i) {
-            if(jetons[i]->get_id() == uid){
+            if(jetons[i]!= nullptr and jetons[i]->get_id() == uid){
                 return i;
             }
         }

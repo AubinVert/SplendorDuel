@@ -693,76 +693,32 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton blanc ou perle à votre"
-                  " adversaire\n";
+            cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
 
             if (adversaire.getJeton().empty()){
-                throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
+                cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
             }
             else{
-                int verif_blanc = 0;
-                int verif_perle = 0;
                 vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
-                for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                    if (jetons_adversaire[i]->getColor() == Color::perle){
-                        verif_perle++;
-                    }
-                    else if (jetons_adversaire[i]->getColor() == Color::blanc){
-                        verif_blanc++;
-                    }
+                cout<<"Voici les jetons de votre adversaire: "<<endl;
+                int i = 0;
+                for (auto jet : jetons_adversaire){
+                    cout<<"Indice : "<<i++<<", "<<*jet<<endl;
                 }
-                if (verif_blanc==0 && verif_perle==0){
-                    throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
-                }
-                else if (verif_blanc!=0 && verif_perle==0){
-                    cout<<"L'adversaire possède un jeton blanc mais pas de jeton perle, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::blanc){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonBlanc();
-                            break;
-                        }
+                int choice = -1;
+                do{
+                    if(choice != -1){
+                        cout<<"Vous ne pouvez pas prendre un jeton or!"<<endl;
                     }
-                }
-                else if (verif_blanc==0 && verif_perle!=0){
-                    cout<<"L'adversaire possède un jeton perle mais pas de jeton blanc, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::perle){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonPerle();
-                            break;
-                        }
-                    }
-                }
-                else if (verif_blanc!=0 && verif_perle!=0){
-                    string choix;
-                    cout<<"Jeton blanc ou jeton perle [B/P]? \nChoix: "<<endl;
-                    cin>>choix;
-                    if (choix == "B"){
-                        cout<<"Jeton blanc pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::blanc){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonBlanc();
-                                break;
-                            }
-                        }
-                    }
-                    else if (choix == "P"){
-                        cout<<"Jeton perle pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::perle){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonPerle();
-                                break;
-                            }
-                        }
-                    }
-                }
+                    cout<<"Quel jeton souhaitez vous lui voler?"<<endl;
+                    cout<<"Choix : ";
+                    cin>>choice;
+                }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                jetons.push_back(jetons_adversaire[choice]);
+                nb_jetons++;
+                jetons_adversaire.erase(jetons_adversaire.begin()+choice);
+                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
             }
         }
         else if (capa == Capacity::prendre_privilege){
@@ -770,7 +726,6 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
         }
         else if (capa == Capacity::prendre_sur_plateau){
             cout<<"Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte\n";
-            if(nb_jetons >= 10) throw SplendorException("Vous avez déjà 10 jetons, vous ne pouvez pas en piocher plus!");
             const optional<enum colorBonus>& couleur = carte.getBonus();
             if (Plateau::get_plateau().colorInPlateau(couleur)){
                 bool choix_ok = 0;
@@ -780,11 +735,11 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                         cout << "Veuillez renseigner l'indice du jeton que vous voulez prendre\n ";
                         cout << "choix :"<<endl;
                         cin >> indice;
-                        if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                        if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {
                             indice = 0;
                             throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
                         }
-                        if (indice >Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                        if (indice < 0 or indice >= Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
                             indice = 0;
                             throw SplendorException("Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau\n");
                         }
@@ -887,76 +842,32 @@ void Joueur::applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& 
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton blanc ou perle à votre"
-                  " adversaire\n";
+            cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
 
             if (adversaire.getJeton().empty()){
-                throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
+                cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
             }
             else{
-                int verif_blanc = 0;
-                int verif_perle = 0;
                 vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
-                for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                    if (jetons_adversaire[i]->getColor() == Color::perle){
-                        verif_perle++;
-                    }
-                    else if (jetons_adversaire[i]->getColor() == Color::blanc){
-                        verif_blanc++;
-                    }
+                cout<<"Voici les jetons de votre adversaire: "<<endl;
+                int i = 0;
+                for (auto jet : jetons_adversaire){
+                    cout<<"Indice : "<<i++<<", "<<*jet<<endl;
                 }
-                if (verif_blanc==0 && verif_perle==0){
-                    throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
-                }
-                else if (verif_blanc!=0 && verif_perle==0){
-                    cout<<"L'adversaire possède un jeton blanc mais pas de jeton perle, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::blanc){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonBlanc();
-                            break;
-                        }
+                int choice = -1;
+                do{
+                    if(choice != -1){
+                        cout<<"Vous ne pouvez pas prendre un jeton or!"<<endl;
                     }
-                }
-                else if (verif_blanc==0 && verif_perle!=0){
-                    cout<<"L'adversaire possède un jeton perle mais pas de jeton blanc, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::perle){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonPerle();
-                            break;
-                        }
-                    }
-                }
-                else if (verif_blanc!=0 && verif_perle!=0){
-                    string choix;
-                    cout<<"Jeton blanc ou jeton perle [B/P]? \nChoix: "<<endl;
-                    cin>>choix;
-                    if (choix == "B"){
-                        cout<<"Jeton blanc pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::blanc){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonBlanc();
-                                break;
-                            }
-                        }
-                    }
-                    else if (choix == "P"){
-                        cout<<"Jeton perle pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::perle){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonPerle();
-                                break;
-                            }
-                        }
-                    }
-                }
+                    cout<<"Quel jeton souhaitez vous lui voler?"<<endl;
+                    cout<<"Choix : ";
+                    cin>>choice;
+                }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                jetons.push_back(jetons_adversaire[choice]);
+                nb_jetons++;
+                jetons_adversaire.erase(jetons_adversaire.begin()+choice);
+                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
             }
         }
         else if (capa == Capacity::prendre_privilege){
@@ -1885,72 +1796,23 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton blanc ou perle à votre"
-                  " adversaire\n";
+            if (capa == Capacity::voler_pion_adverse){
+                cout<<"L'IA peut voler un pion!\n";
 
-            if (adversaire.getJeton().empty()){
-                throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
-            }
-            else{
-                int verif_blanc = 0;
-                int verif_perle = 0;
-                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
-                for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                    if (jetons_adversaire[i]->getColor() == Color::perle){
-                        verif_perle++;
-                    }
-                    else if (jetons_adversaire[i]->getColor() == Color::blanc){
-                        verif_blanc++;
-                    }
+                if (adversaire.getJeton().empty()){
+                    cout<<"Dommage vous n'avez pas de jeton gemme ou perle!"<<endl;
                 }
-                if (verif_blanc==0 && verif_perle==0){
-                    throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
-                }
-                else if (verif_blanc!=0 && verif_perle==0){
-                    cout<<"L'adversaire possède un jeton blanc mais pas de jeton perle, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::blanc){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonBlanc();
-                            break;
-                        }
-                    }
-                }
-                else if (verif_blanc==0 && verif_perle!=0){
-                    cout<<"L'adversaire possède un jeton perle mais pas de jeton blanc, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::perle){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonPerle();
-                            break;
-                        }
-                    }
-                }
-                else if (verif_blanc!=0 && verif_perle!=0){
-                    if (rand()%2 == 1){
-                        cout<<"Jeton blanc pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::blanc){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonBlanc();
-                                break;
-                            }
-                        }
-                    }
-                    else{
-                        cout<<"Jeton perle pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::perle){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonPerle();
-                                break;
-                            }
-                        }
-                    }
+                else{
+                    vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+                    int choice;
+                    do{
+                        choice=rand()%jetons_adversaire.size();
+                    }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                    jetons.push_back(jetons_adversaire[choice]);
+                    nb_jetons++;
+                    jetons_adversaire.erase(jetons_adversaire.begin()+choice);
+                    adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
                 }
             }
         }
@@ -1959,7 +1821,6 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
         }
         else if (capa == Capacity::prendre_sur_plateau){
             cout<<"Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte\n";
-            if(nb_jetons >= 10) throw SplendorException("Vous avez déjà 10 jetons, vous ne pouvez pas en piocher plus!");
             const optional<enum colorBonus>& couleur = carte.getBonus();
             if (Plateau::get_plateau().colorInPlateau(couleur)){
                 vector<int> indices_viables = Plateau::get_plateau().getIndicesJetonsCouleur(couleur);
@@ -1976,6 +1837,8 @@ void IA::applicationCapacite(const JewelryCard& carte, Strategy_player& adversai
                 catch(SplendorException& e){
                     cout<<e.getInfos()<<"\n";
                 }
+            }else{
+                cout<<"Dommage, il n'y a plus de jetons de cette couleur sur le plateau."<<endl;
             }
         }
         else if (capa == Capacity::joker){
@@ -2057,72 +1920,23 @@ void IA::applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adve
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton blanc ou perle à votre"
-                  " adversaire\n";
+            if (capa == Capacity::voler_pion_adverse){
+                cout<<"L'IA peut voler un pion!\n";
 
-            if (adversaire.getJeton().empty()){
-                throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
-            }
-            else{
-                int verif_blanc = 0;
-                int verif_perle = 0;
-                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
-                for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                    if (jetons_adversaire[i]->getColor() == Color::perle){
-                        verif_perle++;
-                    }
-                    else if (jetons_adversaire[i]->getColor() == Color::blanc){
-                        verif_blanc++;
-                    }
+                if (adversaire.getJeton().empty()){
+                    cout<<"Dommage vous n'avez pas de jeton gemme ou perle!"<<endl;
                 }
-                if (verif_blanc==0 && verif_perle==0){
-                    throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
-                }
-                else if (verif_blanc!=0 && verif_perle==0){
-                    cout<<"L'adversaire possède un jeton blanc mais pas de jeton perle, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::blanc){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonBlanc();
-                            break;
-                        }
-                    }
-                }
-                else if (verif_blanc==0 && verif_perle!=0){
-                    cout<<"L'adversaire possède un jeton perle mais pas de jeton blanc, vous venez de lui prendre\n";
-                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                        if (jetons_adversaire[i]->getColor() == Color::perle){
-                            jetons.push_back(jetons_adversaire[i]);
-                            nb_jetons++;
-                            adversaire.retirerJetonPerle();
-                            break;
-                        }
-                    }
-                }
-                else if (verif_blanc!=0 && verif_perle!=0){
-                    if (rand()%2 == 1){
-                        cout<<"Jeton blanc pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::blanc){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonBlanc();
-                                break;
-                            }
-                        }
-                    }
-                    else{
-                        cout<<"Jeton perle pris!\n"<<endl;
-                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
-                            if (jetons_adversaire[i]->getColor() == Color::perle){
-                                jetons.push_back(jetons_adversaire[i]);
-                                nb_jetons++;
-                                adversaire.retirerJetonPerle();
-                                break;
-                            }
-                        }
-                    }
+                else{
+                    vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+                    int choice;
+                    do{
+                        choice=rand()%jetons_adversaire.size();
+                    }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                    jetons.push_back(jetons_adversaire[choice]);
+                    nb_jetons++;
+                    jetons_adversaire.erase(jetons_adversaire.begin()+choice);
+                    adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
                 }
             }
         }
@@ -2175,3 +1989,69 @@ void IA::verifJetons(){
 }
 
 /******************** IA ********************/
+
+
+
+//                int verif_blanc = 0;
+//                int verif_perle = 0;
+//                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+//                for (size_t i = 0; i<jetons_adversaire.size(); ++i){
+//                    if (jetons_adversaire[i]->getColor() == Color::perle){
+//                        verif_perle++;
+//                    }
+//                    else if (jetons_adversaire[i]->getColor() == Color::blanc){
+//                        verif_blanc++;
+//                    }
+//                }
+//                if (verif_blanc==0 && verif_perle==0){
+//                    throw SplendorException("aïe! L'adversaire ne possède pas de jeton blanc ou perle\n");
+//                }
+//                else if (verif_blanc!=0 && verif_perle==0){
+//                    cout<<"L'adversaire possède un jeton blanc mais pas de jeton perle, vous venez de lui prendre\n";
+//                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
+//                        if (jetons_adversaire[i]->getColor() == Color::blanc){
+//                            jetons.push_back(jetons_adversaire[i]);
+//                            nb_jetons++;
+//                            adversaire.retirerJetonBlanc();
+//                            break;
+//                        }
+//                    }
+//                }
+//                else if (verif_blanc==0 && verif_perle!=0){
+//                    cout<<"L'adversaire possède un jeton perle mais pas de jeton blanc, vous venez de lui prendre\n";
+//                    for (size_t i = 0; i<jetons_adversaire.size(); ++i){
+//                        if (jetons_adversaire[i]->getColor() == Color::perle){
+//                            jetons.push_back(jetons_adversaire[i]);
+//                            nb_jetons++;
+//                            adversaire.retirerJetonPerle();
+//                            break;
+//                        }
+//                    }
+//                }
+//                else if (verif_blanc!=0 && verif_perle!=0){
+//                    string choix;
+//                    cout<<"Jeton blanc ou jeton perle [B/P]? \nChoix: "<<endl;
+//                    cin>>choix;
+//                    if (choix == "B"){
+//                        cout<<"Jeton blanc pris!\n"<<endl;
+//                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
+//                            if (jetons_adversaire[i]->getColor() == Color::blanc){
+//                                jetons.push_back(jetons_adversaire[i]);
+//                                nb_jetons++;
+//                                adversaire.retirerJetonBlanc();
+//                                break;
+//                            }
+//                        }
+//                    }
+//                    else if (choix == "P"){
+//                        cout<<"Jeton perle pris!\n"<<endl;
+//                        for (size_t i = 0; i<jetons_adversaire.size(); ++i){
+//                            if (jetons_adversaire[i]->getColor() == Color::perle){
+//                                jetons.push_back(jetons_adversaire[i]);
+//                                nb_jetons++;
+//                                adversaire.retirerJetonPerle();
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
