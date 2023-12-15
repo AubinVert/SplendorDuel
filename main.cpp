@@ -6,6 +6,7 @@ int main(){
     cout<<"Bienvenue dans le jeu splendor duel ! "<<endl;
 
     Jeu::getJeu();
+    cout<<"Privilèges dans le jeu:"<<endl;
 
     Jeu::getJeu().setPlayers();
 
@@ -48,6 +49,7 @@ int main(){
         try{
 
             Jeu::getJeu().getCurrentPlayer().choice();
+            Jeu::getJeu().getCurrentPlayer().verifJetons();
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
                 Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
             }
@@ -61,10 +63,12 @@ int main(){
         }
 
     }
-    //Jeu::libereJeu();
-    cout<<"=================== Partie temrinée ==================="<<endl;
-    cout<<"Stats du gagnant:"<<endl;
-    Jeu::getJeu().getOpponent().print_player();
 
+    cout<<"=================== Partie terminée ==================="<<endl;
+    cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
+    cout<<"Stats du gagnant:"<<endl;
+    Jeu::getJeu().getCurrentPlayer().print_player();
+
+    Jeu::libereJeu();
     return 0;
 }

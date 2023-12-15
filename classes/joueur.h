@@ -64,6 +64,7 @@ public:
 
     virtual void reservation_carte()=0;
     virtual void selectionRoyalCard() = 0;
+    virtual void verifJetons()=0;
 
     //getters setters
     const int getNbCartesJoaillerie() const {return nb_cartes_j;}
@@ -81,7 +82,11 @@ public:
     const int getNbCartesRoyales() const {return nb_cartes_r;}
     vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
+
     vector<const Jeton*>& getJeton() {return jetons;}
+
+
+    vector<const Privilege*>& get_privilege(){return privileges;}
 
 
     //méthode utilitaires aux classes filles
@@ -99,6 +104,7 @@ public:
     void remplissagePlateau();
 
     // méthode utilitaire pour le main
+    bool victoryConditions(); // si le joueur rempli une des trois conditions de victoire, renvoie true
     void print_player();
     int getOptionalChoices();
     void retirerJetonBlanc();
@@ -125,6 +131,9 @@ public:
     void reservation_carte();
     void selectionRoyalCard();
 
+    void verifJetons();
+
+
 };
 
 class IA: public Strategy_player {
@@ -141,9 +150,14 @@ public:
     void buyCardFromReserve( const int indice);
     void reservation_carte();
     void selectionRoyalCard();
+
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
+
+    void verifJetons();
+
 };
+
 
 
 

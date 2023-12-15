@@ -14,11 +14,9 @@ class Jeu {
 private:
 
     bool est_termine = false;
-    bool contre_IA = false;
     Strategy_player* qui_joue;
     unsigned int manche = 0;
     Strategy_player* adversaire;
-    // Plateau* plateau; // Plateau singleton ?
     vector<const JewelryCard*>  cartes_joiallerie; // Contient toutes les cartes du jeu
     vector<const Jeton*> jetons; // Contient tous les jetons
     vector<const RoyalCard*>  cartes_royales;
@@ -33,7 +31,7 @@ private:
 
 
     struct Handler {
-        Jeu *instance = nullptr;
+        Jeu * instance = nullptr;
         ~Handler() {
             delete instance;
             instance = nullptr;
@@ -79,13 +77,13 @@ public:
          return privileges.size();
     }
 
-    const Privilege& getPrivilege() {
+    const Privilege* getPrivilege() {
         if(privileges.size() <= 0){
             throw SplendorException("Plus de privilège disponible");
         }
         const Privilege* tmp = privileges[0];
         privileges.erase(privileges.begin());
-        return *tmp;
+        return tmp;
     }
 
     Pioche* getPioche(int num) const {
@@ -97,7 +95,7 @@ public:
     }
 
     void setPrivilege(const Privilege& p){
-         if(privileges.size()==3){
+         if(privileges.size()>=3){
              throw SplendorException("Nombre de privilège max dans le jeu déjà atteint");
          }
          privileges.push_back(&p);
@@ -111,7 +109,7 @@ public:
     Tirage* get_tirage_1()  {return tirage_1;}
     Tirage* get_tirage_2()  {return tirage_2;}
     Tirage* get_tirage_3()  {return tirage_3;}
-    void tour_suivant(bool rejouer = 0);
+    void tour_suivant(bool replay = 0);
     static Jeu& getJeu();
     static void libereJeu();
     static void test();
@@ -120,7 +118,8 @@ public:
     void setJoueurNames(const string& s1, const string& s2);
 
 
-
+    vector<const Privilege*>& get_privileges(){return privileges;}
+    unsigned int getManche(){return manche;}
 };
 
 #endif //LO21_SPLENDOR_DUEL_JEU_H

@@ -8,16 +8,21 @@
 // condition pour savoir si le jeu est terminé à chaque tour on check ?
 
 
-void Jeu::tour_suivant(bool rejouer) {
-    Strategy_player* temp = qui_joue;
-    qui_joue = adversaire;
-    adversaire = temp;
-    if(qui_joue->getNbCouronnes() == 10 || qui_joue->getNbPoints() == 20 ){
+void Jeu::tour_suivant(bool replay) {
+    if(qui_joue->victoryConditions()){
         est_termine = true;
+    }else{
+        Strategy_player* temp = qui_joue;
+        qui_joue = adversaire;
+        adversaire = temp;
+        if (!replay)
+            manche++;
     }
     if (!rejouer) {
         manche++;
     }
+
+
 
 }
 
@@ -114,25 +119,25 @@ Jeu::Handler Jeu::handler;
 Jeu::~Jeu(){
 
     // Déstruction jetons
-    for (auto & jeton : jetons){
+    for (auto  jeton : jetons){
         delete jeton;
     }
     jetons.clear();
 
     // Déstruction cartes royales
-    for (auto & cartes_royale : cartes_royales){
+    for (auto cartes_royale : cartes_royales){
         delete cartes_royale;
     }
     cartes_royales.clear();
 
     // Déstruction cartes joaillerie
-    for (auto & it : cartes_joiallerie){
+    for (auto it : cartes_joiallerie){
         delete it;
     }
     cartes_joiallerie.clear();
 
     // Déstruction privilèges
-    for (auto & privilege : privileges){
+    for (auto privilege : privileges){
         delete privilege;
     }
     privileges.clear();
@@ -198,26 +203,26 @@ void Jeu::setPlayers(){
         if (choix1 == "J") {
             qui_joue = new Joueur(name1);
         } else {
-            qui_joue = new IA();
+            qui_joue = new IA(name1);
         }
 
         if (choix2 == "J") {
             adversaire = new Joueur(name2);
 
         } else {
-            adversaire = new IA();
+            adversaire = new IA(name2);
         }
     }else{
         if (choix1 == "J") {
             adversaire = new Joueur(name1);
         } else {
-            adversaire = new IA();
+            adversaire = new IA(name1);
         }
 
         if (choix2 == "J") {
             qui_joue = new Joueur(name2);
         } else {
-            qui_joue = new IA();
+            qui_joue = new IA(name2);
         }
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
