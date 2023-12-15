@@ -1,4 +1,5 @@
 #include "qt_tirages.h"
+#include "qt_vue_carte.h"
 #include <QVBoxLayout>
 
 Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
@@ -26,7 +27,7 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     mainLayout->addLayout(verticalLayout);
 }
 
-void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<QLabel*> &cards, int cardCount, QLabel *&deckImage) {
+void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards, int cardCount, QLabel *&deckImage) {
     layout = new QHBoxLayout();
 
     layout->setSpacing(0);
@@ -34,9 +35,9 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<QLabel*> &cards, 
     layout->setSpacing(0); // Set spacing between widgets to 0
 
     for (int i = 0; i < cardCount; ++i) {
-        QLabel *card = new QLabel(QString("Card %1").arg(i + 1));
+        Qt_carte *card = new Qt_carte();
         card->setFixedSize(100, 140);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
-        card->setStyleSheet("border: 1px solid black;");
+        // card->setStyleSheet("border: 1px solid black;");
         cards.push_back(card);
         layout->addWidget(card);
     }

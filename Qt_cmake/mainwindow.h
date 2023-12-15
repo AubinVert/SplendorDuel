@@ -8,11 +8,30 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QPushButton>
+#include <QDialog>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QLCDNumber>
 
 
 class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
+    void updateTopScore(int score);  // Method to update top score
+    void updateBottomScore(int score);  // Method to update bottom score
+
+private slots:
+    void showCards();
+    void showJetons();
+    void renamePlayerX();
+    void renamePlayerY();
+
+private:
+    QLabel *topScoreLabel;
+    QLabel *bottomScoreLabel;
+    QLCDNumber *topScoreDisplay;  // Top score display
+    QLCDNumber *bottomScoreDisplay;  // Bottom score display
 };
 
 #endif // MAINWINDOW_H

@@ -10,5 +10,7 @@ int main(int argc, char *argv[]) {
     MainWindow mainWindow;
     mainWindow.show();
 
+    // mainWindow.updateTopScore(10);
+
     return app.exec();
 }
