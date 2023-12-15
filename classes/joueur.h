@@ -127,7 +127,6 @@ public:
 
 };
 
-
 class IA: public Strategy_player {
 public:
     IA(const string & nom = "IA");
