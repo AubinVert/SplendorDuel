@@ -41,7 +41,7 @@ protected:
     vector<const JewelryCard*> cartes_joaiellerie_reservees; // 3 au max
     vector<const RoyalCard*> cartes_royale; // ok pour agrégation?
 
-    vector<const Jeton*> jetons; // tableau de jetons ? or ?
+    vector<const Jeton*> jetons;// tableau de jetons ? or ?
 
     vector<const Privilege*> privileges;
 
@@ -59,6 +59,9 @@ public:
     virtual void achat_carte()=0;
     virtual void buyCard(Tirage *t, const int indice) = 0;
     virtual void buyCardFromReserve( const int indice) = 0;
+    virtual void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) = 0;
+    virtual void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) = 0;
+
     virtual void reservation_carte()=0;
     virtual void selectionRoyalCard() = 0;
     virtual void verifJetons()=0;
@@ -79,7 +82,12 @@ public:
     const int getNbCartesRoyales() const {return nb_cartes_r;}
     vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
+
+    vector<const Jeton*>& getJeton() {return jetons;}
+
+
     vector<const Privilege*>& get_privilege(){return privileges;}
+
 
     //méthode utilitaires aux classes filles
 
@@ -99,6 +107,8 @@ public:
     bool victoryConditions(); // si le joueur rempli une des trois conditions de victoire, renvoie true
     void print_player();
     int getOptionalChoices();
+    void retirerJetonBlanc();
+    void retirerJetonPerle();
 };
 
 
@@ -113,15 +123,18 @@ public:
     void choice();
     void utilisationPrivilege();
     void selection_jetons();
+    void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
+    void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
     void selectionRoyalCard();
+
     void verifJetons();
 
-};
 
+};
 
 class IA: public Strategy_player {
 public:
@@ -137,6 +150,10 @@ public:
     void buyCardFromReserve( const int indice);
     void reservation_carte();
     void selectionRoyalCard();
+
+    void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
+    void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
+
     void verifJetons();
 
 };

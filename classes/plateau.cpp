@@ -126,3 +126,26 @@ bool Plateau::onlyGold(){
     }
     return true;
 }
+
+bool Plateau::colorInPlateau(const optional<enum colorBonus> &couleur) {
+    if (getCurrentNb()==0) throw SplendorException("Plateau vide!");
+    string s = "Bonus ";
+    for (auto jet:jetons){
+        if(jet != nullptr and (s + toString(jet->getColor()) == toString(couleur))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<int> Plateau::getIndicesJetonsCouleur(const optional<enum colorBonus> &couleur){
+    if (getCurrentNb()==0) throw SplendorException("Plateau vide!");
+    vector<int> result;
+    string s = "Bonus ";
+    for (auto jet:jetons){
+        if (jet != nullptr and (s + toString(jet->getColor()) != toString(couleur))){
+            result.push_back(Plateau::get_plateau().getIndice(jet->get_id()));
+        }
+    }
+    return result;
+}

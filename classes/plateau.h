@@ -59,6 +59,7 @@ public:
     const int getCurrentNb() const {
         return current_nb;
     }
+    const int getNb() const {return nb;}
 
     void setCurrentNb(const int value){
         current_nb = value;
@@ -158,6 +159,9 @@ public:
     void remplir_plateau(Sac& sac);
     void printTab() const;
     bool onlyGold();
+    bool colorInPlateau(const optional<enum colorBonus>& couleur);
+
+    vector<int> getIndicesJetonsCouleur(const optional<enum colorBonus> &couleur);
 };
 
 
