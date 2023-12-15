@@ -109,7 +109,7 @@ public:
     Tirage* get_tirage_1()  {return tirage_1;}
     Tirage* get_tirage_2()  {return tirage_2;}
     Tirage* get_tirage_3()  {return tirage_3;}
-    void tour_suivant();
+    void tour_suivant(bool replay = 0);
     static Jeu& getJeu();
     static void libereJeu();
     static void test();
@@ -119,8 +119,7 @@ public:
 
 
     vector<const Privilege*>& get_privileges(){return privileges;}
-
-
+    unsigned int getManche(){return manche;}
 };
 
 #endif //LO21_SPLENDOR_DUEL_JEU_H

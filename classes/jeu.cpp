@@ -8,14 +8,15 @@
 // condition pour savoir si le jeu est terminé à chaque tour on check ?
 
 
-void Jeu::tour_suivant() {
+void Jeu::tour_suivant(bool replay) {
     if(qui_joue->victoryConditions()){
         est_termine = true;
     }else{
         Strategy_player* temp = qui_joue;
         qui_joue = adversaire;
         adversaire = temp;
-        manche++;
+        if (!replay)
+            manche++;
     }
 
 

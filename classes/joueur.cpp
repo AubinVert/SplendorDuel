@@ -1579,7 +1579,7 @@ void IA::verifJetons(){
         int curNb = nb;
         while(curNb>0){
             int tmp = rand()%nb_jetons;
-            cout<<tmp<<endl;
+            //cout<<tmp<<endl;
             bool inTab = 0;
             for(int j = 0 ; j<tab.size(); j++){ // vérification qu'on a pas déjà essayé de l'enlever
                 if(tab[j]==tmp){
