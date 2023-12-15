@@ -18,12 +18,7 @@ void Jeu::tour_suivant(bool replay) {
         if (!replay)
             manche++;
     }
-    if (!rejouer) {
-        manche++;
-    }
-
-
-
+    
 }
 
 // condition d'arrêt
