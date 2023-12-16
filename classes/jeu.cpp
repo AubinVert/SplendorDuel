@@ -165,6 +165,7 @@ Jeu::Jeu(json data){
     // volontaire de pas init
     //cartes_joiallerie = fromJsonJewelryCard(data["cartes_joiallerie"]);
     //jetons = fromJsonJetons(data["jetons"]);
+
     cartes_royales = fromJsonRoyalCard(data["cartes_royales"]);
     privileges = fromJsonPrivileges(data["privileges"], data["nb_privileges"]);
 

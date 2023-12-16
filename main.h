@@ -12,8 +12,6 @@ void toJson(){
 }
 
 
-
-
 void gameFromScratch(){
     srand(static_cast<unsigned>(std::time(nullptr)));
 
