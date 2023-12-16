@@ -23,7 +23,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
 
     // Setup for privileges
     privilegesLayout = new QGridLayout();
-    privilegesLayout->setHorizontalSpacing(3);  // Set the spacing between the privileges
+    privilegesLayout->setHorizontalSpacing(4);  // Set the spacing between the privileges
 
     Qt_jeton *privilege1 = new Qt_jeton();
     Qt_jeton *privilege2 = new Qt_jeton();
