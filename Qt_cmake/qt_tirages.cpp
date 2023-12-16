@@ -9,7 +9,7 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *verticalLayout = new QVBoxLayout;
 
     // Setting up the images with resizing to fit the label
-    const QSize imageSize(100, 140); // Set your desired size here
+    const QSize imageSize(75, 105); // Set your desired size here
 
     // Setting up the deck images with Qt_carte
     deckImage1 = new Qt_carte(this);
@@ -47,13 +47,13 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards
 
     for (int i = 0; i < cardCount; ++i) {
         Qt_carte *card = new Qt_carte();
-        card->setFixedSize(100, 140);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        card->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
         cards.push_back(card);
         layout->addWidget(card);
     }
 
     if (deckImage != nullptr) {
-        deckImage->setFixedSize(100, 140);  // Same size as cards
+        deckImage->setFixedSize(75, 105);  // Same size as cards
         layout->addWidget(deckImage);
     }
 }

@@ -6,7 +6,7 @@
 #include "../classes/joueur.h"
 
 
-int main1(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     MainWindow mainWindow;
@@ -19,7 +19,7 @@ int main1(int argc, char *argv[]) {
 
 
 
-int main(int argc, char *argv[]){
+int main1(int argc, char *argv[]){
     QApplication app(argc, argv);
 
     MainWindow mainWindow;

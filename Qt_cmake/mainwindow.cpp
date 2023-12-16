@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // Conditions de victoire et son image
     QLabel *conditionsVictoire = new QLabel(this);
     QPixmap originalPixmap("../src/Reste_detoure/Conditions_victoire.png");
-    QPixmap scaledPixmap = originalPixmap.scaled(397 / 2, 330 / 2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap scaledPixmap = originalPixmap.scaled(397 / 2.5, 330 / 2.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     conditionsVictoire->setPixmap(scaledPixmap);
     conditionsVictoire->setFixedSize(scaledPixmap.size());
 
