@@ -148,9 +148,9 @@ public:
         cartes_joaillerie_achetees = j;
     }
     void setJetons(vector<const Jeton*> j){
-        if(j.size() > max_nb_jetons){
+        /*if(j.size() > max_nb_jetons){
             throw SplendorException("Fichier de sauvegarde corrompu -4");
-        }
+        }*/
         jetons = j;
     }
     void setRoyalCard(vector<const RoyalCard*> r){
@@ -176,6 +176,7 @@ public:
     }
 
     void setNbJCardsReserved(unsigned int nb){
+
         if(nb>max_nb_cartes_reservees){
             throw SplendorException("Fichier de chargement corrompu 8");
         }
