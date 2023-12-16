@@ -6,12 +6,12 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     layout = new QGridLayout(this);
 
     // Set the spacing to 8 pixels
-    layout->setHorizontalSpacing(8);
-    layout->setVerticalSpacing(20);
+    layout->setHorizontalSpacing(7);
+    layout->setVerticalSpacing(18);
 
     // Calculate jeton size, taking into account the spacing
-    const int jetonWidth = 64; // 4 gaps, 5 jetons
-    const int jetonHeight = 64; // 4 gaps, 5 jetons
+    const int jetonWidth = 64 * 0.75; // 4 gaps, 5 jetons
+    const int jetonHeight = 64 * 0.75; // 4 gaps, 5 jetons
 
     // Setup the card grid
     for (int i = 0; i < 25; ++i) {
@@ -23,14 +23,14 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
 
     // Setup for privileges
     privilegesLayout = new QGridLayout();
-    privilegesLayout->setHorizontalSpacing(3);  // Set the spacing between the privileges
+    privilegesLayout->setHorizontalSpacing(4);  // Set the spacing between the privileges
 
     Qt_jeton *privilege1 = new Qt_jeton();
     Qt_jeton *privilege2 = new Qt_jeton();
     Qt_jeton *privilege3 = new Qt_jeton();
 
     // Set fixed size and style for privileges
-    const int privilegeSize = 54;
+    const int privilegeSize = 60 * 0.75;
     privilege1->setFixedSize(privilegeSize, privilegeSize);
     privilege1->setStyleSheet("background: transparent;");
     privilege2->setFixedSize(privilegeSize, privilegeSize);
@@ -54,7 +54,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     }
 
     // Set fixed size for the Qt_Plateau based on the grid
-    setFixedSize(371, 446);  // Adjust size based on number of rows, columns, and jeton size
+    setFixedSize(371 * 0.75, 446 * 0.75);  // Adjust size based on number of rows, columns, and jeton size
 }
 
 void Qt_Plateau::paintEvent(QPaintEvent *event) {
@@ -65,7 +65,7 @@ void Qt_Plateau::paintEvent(QPaintEvent *event) {
     QPixmap backgroundPixmap("../src/Reste_detoure/Plateau.png");  // Load the background image
 
     // Stretch the pixmap to cover the area occupied by the jetons including the spacing
-    QPixmap stretchedPixmap = backgroundPixmap.scaled(371, 446, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QPixmap stretchedPixmap = backgroundPixmap.scaled(371 * 0.75, 446 * 0.75, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     // Calculate the position to start drawing the background image to center it within the widget
     int x = (this->width() - stretchedPixmap.width()) / 2;

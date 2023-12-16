@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     centralWidget->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
-
+    mainLayout->setSpacing(16);
 
     // ######## SCORE EN HAUT ET BOUTONS ########
 
@@ -45,29 +45,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     mainLayout->addLayout(topButtonLayout);
 
 
-    // ######## CONDITION DE VICTOIRE ET REGLES ########
-
-
-    QGridLayout *regles = new QGridLayout;
-
-    // Ajouter le bouton de règles
-    QPushButton *viewRegles = new QPushButton("Voir règles");
-    viewRegles->setStyleSheet("color: rgba(255, 255, 255, 255);");
-    viewRegles->setFixedWidth(100);
-    connect(viewRegles, &QPushButton::clicked, this, &MainWindow::openWebLink);
-
-    // Conditions de victoire et son image
-    QLabel *conditionsVictoire = new QLabel(this);
-    QPixmap originalPixmap("../src/Reste_detoure/Conditions_victoire.png");
-    QPixmap scaledPixmap = originalPixmap.scaled(397 / 2, 330 / 2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    conditionsVictoire->setPixmap(scaledPixmap);
-    conditionsVictoire->setFixedSize(scaledPixmap.size());
-
-    // Les rajouter au layout
-    regles->addWidget(viewRegles, 0, 0, Qt::AlignCenter);
-    regles->addWidget(conditionsVictoire, 0 ,1, Qt::AlignCenter);
-
-    mainLayout->addLayout(regles);
 
 
     // ######## PLATEAU ET TIRAGES ########
@@ -96,6 +73,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     middleLayout->addWidget(tirages);
     mainLayout->addWidget(middleContainer);
     mainLayout->addWidget(remplirPlateauButton);
+
+
+    // ######## CONDITION DE VICTOIRE ET REGLES ########
+
+
+    QVBoxLayout *regles = new QVBoxLayout;
+
+    // Ajouter le bouton de règles
+    QPushButton *viewRegles = new QPushButton("Voir règles");
+    viewRegles->setStyleSheet("color: rgba(255, 255, 255, 255);");
+    viewRegles->setFixedWidth(397 / 3);
+    connect(viewRegles, &QPushButton::clicked, this, &MainWindow::openWebLink);
+
+    // Conditions de victoire et son image
+    QLabel *conditionsVictoire = new QLabel(this);
+    QPixmap originalPixmap("../src/Reste_detoure/Conditions_victoire.png");
+    QPixmap scaledPixmap = originalPixmap.scaled(397 / 3, 330 / 3, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    conditionsVictoire->setPixmap(scaledPixmap);
+    conditionsVictoire->setFixedSize(scaledPixmap.size());
+
+    // Les rajouter au layout
+    regles->addWidget(conditionsVictoire, Qt::AlignCenter);
+    regles->addWidget(viewRegles, Qt::AlignCenter);
+    regles->addStretch(1);
+
+    middleLayout->addLayout(regles, Qt::AlignCenter);
+
 
 
     // ######## SCORE EN BAS ET BOUTONS ########

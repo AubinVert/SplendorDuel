@@ -15,37 +15,37 @@ vector<const Jeton*> initJetons(){
     int id = 1;
 
     for (int i = 0; i < 3; ++i) {
-        Jeton* tmp = new Jeton(id, Color::gold);
+        Jeton* tmp = new Jeton(id, Color::gold, "../src/Reste_detoure/Jeton_or.png");
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 2; ++i) {
-        Jeton* tmp = new Jeton(id, Color::perle);
+        Jeton* tmp = new Jeton(id, Color::perle, "../src/Reste_detoure/Jeton_perle.png");
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id, Color::rouge);
+        Jeton* tmp = new Jeton(id, Color::rouge, "../src/Reste_detoure/Jeton_rouge.png");
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id, Color::bleu);
+        Jeton* tmp = new Jeton(id, Color::bleu, "../src/Reste_detoure/Jeton_bleu.png");
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id, Color::vert);
+        Jeton* tmp = new Jeton(id, Color::vert, "../src/Reste_detoure/Jeton_vert.png");
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id, Color::noir);
+        Jeton* tmp = new Jeton(id, Color::noir, "../src/Reste_detoure/Jeton_noir.png");
         tab.push_back(tmp);
         id++;
     }
     for (int i = 0; i < 4; ++i) {
-        Jeton* tmp = new Jeton(id, Color::blanc);
+        Jeton* tmp = new Jeton(id, Color::blanc, "../src/Reste_detoure/Jeton_blanc.png");
         tab.push_back(tmp);
         id++;
     }
