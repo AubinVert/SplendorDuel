@@ -339,21 +339,21 @@ void Jeu::setPlayers(){
 
         if (choix2 == "J") {
             adversaire = new Joueur(name2);
-            qui_joue->setIa(0);
+            adversaire->setIa(0);
 
         } else {
             adversaire = new IA(name2);
-            qui_joue->setIa(1);
+            adversaire->setIa(1);
 
         }
     }else{
         if (choix1 == "J") {
             adversaire = new Joueur(name1);
-            qui_joue->setIa(0);
+            adversaire->setIa(0);
 
         } else {
             adversaire = new IA(name1);
-            qui_joue->setIa(1);
+            adversaire->setIa(1);
 
         }
 
