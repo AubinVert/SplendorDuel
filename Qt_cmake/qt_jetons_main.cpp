@@ -10,7 +10,7 @@ Qt_Jetons_Main::Qt_Jetons_Main(QWidget *parent) : QWidget(parent) {
         label->setMinimumSize(100, 100);  // Set minimum size to 50x50
         label->setDisabled(true);
         // label->setStyleSheet("border: 1px solid black;");
-        layout->addWidget(label, i / 5, i % 5);
+        layout->addWidget(label, i / 4, i % 4);
     }
 
     // Disable stretching and set fixed size for the layout

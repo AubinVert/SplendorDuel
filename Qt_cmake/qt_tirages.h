@@ -22,12 +22,12 @@ private:
     QVector<Qt_carte*> tier2Cards;
     QVector<Qt_carte*> tier3Cards;
     QVector<Qt_carte*> royalCards;
-    QLabel *deckImage1;
-    QLabel *deckImage2;
-    QLabel *deckImage3;
-    QLabel *royalCardsImage;
+    Qt_carte *deckImage1;
+    Qt_carte *deckImage2;
+    Qt_carte *deckImage3;
+    Qt_carte *royalCardsImage;
 
-    void setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards, int cardCount, QLabel *&deckImage);
+    void setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards, int cardCount, Qt_carte *deckImage);
 
 signals:
     void clicked();

@@ -13,25 +13,36 @@
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QLCDNumber>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 class MainWindow : public QMainWindow {
+    Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
-    void updateTopScore(int score);  // Method to update top score
-    void updateBottomScore(int score);  // Method to update bottom score
+    void updateTopScore(int score);  // Méthode de mise à jour du score du haut
+    void updateBottomScore(int score);  //  -- du bas
 
 private slots:
     void showCards();
     void showJetons();
-    void renamePlayerX();
-    void renamePlayerY();
+    //void renamePlayerX();
+    //void renamePlayerY();
+    void remplirPlateau();
+    void openWebLink();
+
 
 private:
     QLabel *topScoreLabel;
     QLabel *bottomScoreLabel;
     QLCDNumber *topScoreDisplay;  // Top score display
     QLCDNumber *bottomScoreDisplay;  // Bottom score display
+    QPushButton *remplirPlateauButton; // Remplir plateau
+    QPushButton *viewCardsButtonBottom;
+    QPushButton *viewJetonsButtonBottom;
+    QPushButton *viewCardsButtonTop;
+    QPushButton *viewJetonsButtonTop;
 };
 
 #endif // MAINWINDOW_H

@@ -17,14 +17,15 @@ class Qt_carte : public QPushButton {
     Q_OBJECT
 
 private:
-    Card* m_carte;  // Assuming Carte is a class representing the card data
+    Card* m_carte;
+    QPixmap m_image;  // Image
 
 public:
-    // explicit Qt_carte(const Card& carte, QWidget *parent = nullptr);
     explicit Qt_carte(QWidget *parent = nullptr);
+    void setImage(const QString &imagePath);  // Méthode pour mettre l'image
 
 protected:
-    //void paintEvent(QPaintEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
 signals:
     void carteClicked();

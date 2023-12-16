@@ -4,35 +4,48 @@
 
 Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     layout = new QGridLayout(this);
-    layout->setSpacing(0);
+
+    // Set the spacing to 8 pixels
+    layout->setHorizontalSpacing(8);
+    layout->setVerticalSpacing(20);
+
+    // Calculate jeton size, taking into account the spacing
+    const int jetonWidth = 64; // 4 gaps, 5 jetons
+    const int jetonHeight = 64; // 4 gaps, 5 jetons
 
     // Setup the card grid
     for (int i = 0; i < 25; ++i) {
         Qt_jeton *jeton = new Qt_jeton();
-        jeton->setMinimumSize(100, 100);  // Set minimum size to 100x100
-        // Uncomment this after adding the images
-        // jeton->setStyleSheet("background-color: transparent;");
+        jeton->setStyleSheet("background: transparent;");
+        jeton->setFixedSize(jetonWidth, jetonHeight); // Set fixed size to ensure they fit the grid
         layout->addWidget(jeton, i / 5, i % 5);
     }
 
     // Setup for privileges
-    privilegesLayout = new QHBoxLayout();
-    Qt_LabelClick *privilege1 = new Qt_LabelClick("Privilege 1", this);
-    Qt_LabelClick *privilege2 = new Qt_LabelClick("Privilege 2", this);
-    Qt_LabelClick *privilege3 = new Qt_LabelClick("Privilege 3", this);
+    privilegesLayout = new QGridLayout();
+    privilegesLayout->setHorizontalSpacing(3);  // Set the spacing between the privileges
 
-    // Set minimum size for privileges
-    privilege1->setMinimumSize(100, 100);
-    privilege2->setMinimumSize(100, 100);
-    privilege3->setMinimumSize(100, 100);
+    Qt_jeton *privilege1 = new Qt_jeton();
+    Qt_jeton *privilege2 = new Qt_jeton();
+    Qt_jeton *privilege3 = new Qt_jeton();
 
-    // Add the privileges to the layout
-    privilegesLayout->addWidget(privilege1);
-    privilegesLayout->addWidget(privilege2);
-    privilegesLayout->addWidget(privilege3);
+    // Set fixed size and style for privileges
+    const int privilegeSize = 54;
+    privilege1->setFixedSize(privilegeSize, privilegeSize);
+    privilege1->setStyleSheet("background: transparent;");
+    privilege2->setFixedSize(privilegeSize, privilegeSize);
+    privilege2->setStyleSheet("background: transparent;");
+    privilege3->setFixedSize(privilegeSize, privilegeSize);
+    privilege3->setStyleSheet("background: transparent;");
 
-    // Ensure the privileges layout is at the bottom center
-    layout->addLayout(privilegesLayout, 5, 1, 1, 3); // Adjust grid position as needed
+    // Add the privileges to the layout in the same row but different columns
+    privilegesLayout->addWidget(privilege1, 0, 0); // Row 0, Column 0
+    privilegesLayout->addWidget(privilege2, 0, 1); // Row 0, Column 1
+    privilegesLayout->addWidget(privilege3, 0, 2); // Row 0, Column 2
+
+    // Now you need to add this layout to the main layout of the Qt_Plateau
+    // Assuming 'layout' is the main layout of Qt_Plateau
+    layout->addLayout(privilegesLayout, 5, 1, 1, 3); // Add the privilegesLayout to the bottom of the main grid
 
     // Disable stretching and set fixed size for the layout
     for (int i = 0; i < 5; ++i) {
@@ -41,5 +54,28 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     }
 
     // Set fixed size for the Qt_Plateau based on the grid
-    setFixedSize(5 * 100, 6 * 100);  // Adjust size based on number of rows, columns, and jeton size
+    setFixedSize(371, 446);  // Adjust size based on number of rows, columns, and jeton size
 }
+
+void Qt_Plateau::paintEvent(QPaintEvent *event) {
+    QPainter painter(this);
+
+    // Calculate the total size including jetons and spacing
+
+    QPixmap backgroundPixmap("../src/Reste_detoure/Plateau.png");  // Load the background image
+
+    // Stretch the pixmap to cover the area occupied by the jetons including the spacing
+    QPixmap stretchedPixmap = backgroundPixmap.scaled(371, 446, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+    // Calculate the position to start drawing the background image to center it within the widget
+    int x = (this->width() - stretchedPixmap.width()) / 2;
+    int y = (this->height() - stretchedPixmap.height()) / 2;
+
+    // Draw the stretched pixmap at the calculated position
+    painter.drawPixmap(x, y, stretchedPixmap);
+
+    QWidget::paintEvent(event); // Call the base class paint event
+}
+
+
+
