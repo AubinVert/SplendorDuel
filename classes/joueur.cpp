@@ -1088,7 +1088,10 @@ void Joueur::buyCard(Tirage *t, const int indice){
 
     // Mettre la carte dans la main du joueur et la supprimer du tirage
     cartes_joaillerie_achetees.push_back(&(t->getCarte(indice)));
-    t->remplirTirage();
+    try{
+        t->remplirTirage();
+    }
+    catch(SplendorException& e){}
 
 
 
@@ -1734,7 +1737,11 @@ void IA::buyCard(Tirage *t, const int indice){
 
     // Mettre la carte dans la main du joueur et la supprimer du tirage
     cartes_joaillerie_achetees.push_back(&(t->getCarte(indice)));
-    t->remplirTirage();
+    try{
+        t->remplirTirage();
+    }
+    catch(SplendorException& e){}
+
 
 
     // Rajouter le nb de couronnes
