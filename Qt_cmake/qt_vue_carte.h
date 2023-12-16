@@ -18,11 +18,11 @@ class Qt_carte : public QPushButton {
 
 private:
     Card* m_carte;
-    QPixmap m_image;  // Add a QPixmap member to hold the image
+    QPixmap m_image;  // Image
 
 public:
     explicit Qt_carte(QWidget *parent = nullptr);
-    void setImage(const QString &imagePath);  // Method to set the image
+    void setImage(const QString &imagePath);  // Méthode pour mettre l'image
 
 protected:
     void paintEvent(QPaintEvent *event) override;

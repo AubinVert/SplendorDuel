@@ -11,7 +11,7 @@ class Qt_LabelClick : public QLabel {
 public:
     explicit Qt_LabelClick(const QString &text, QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags())
         : QLabel(text, parent, f) {
-        // Your initialization code (if any)
+        // Ajouter une initialisation si besoin
     }
 
 signals:

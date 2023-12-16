@@ -2,31 +2,43 @@
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+
     QWidget *centralWidget = new QWidget(this);
 
+    // Background pour toute la fenêtre
     centralWidget->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
 
+
     // ######## SCORE EN HAUT ET BOUTONS ########
 
-    // Create score displays using QLCDNumber
-    QLCDNumber *topScoreDisplay = new QLCDNumber(2); // Display with 2 digits
-    QLCDNumber *bottomScoreDisplay = new QLCDNumber(2); // Display with 2 digits
+
+    // Scores sur QLCD Display
+    QLCDNumber *topScoreDisplay = new QLCDNumber(2); // Display avec 2 digits
+    QLCDNumber *bottomScoreDisplay = new QLCDNumber(2); // Display avec 2 digits
+
+    // Afficher 0 pour l'instant
     topScoreDisplay->display(0);
     bottomScoreDisplay->display(0);
 
-    // Add score displays to the main layout
-    mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Align center at the top
+    // Les rajouter sur le layout principal
+    mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Alligner au centre
 
-    // Add top buttons
-    viewCardsButtonTop = new QPushButton("View Cards");
-    viewJetonsButtonTop = new QPushButton("View Jetons");
+    // Boutons du haut (cartes et jetons)
+    viewCardsButtonTop = new QPushButton("Voir cartes");
+    viewJetonsButtonTop = new QPushButton("Voir jetons");
+
+    // Faire le texte blanc
     viewCardsButtonTop->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewJetonsButtonTop->setStyleSheet("color: rgba(255, 255, 255, 255);");
+
+    // Connecter aux fonctionnalités
     connect(viewCardsButtonTop, &QPushButton::clicked, this, &MainWindow::showCards);
     connect(viewJetonsButtonTop, &QPushButton::clicked, this, &MainWindow::showJetons);
 
+
+    // Ajouter un layout et les mettre dedans
     QHBoxLayout *topButtonLayout = new QHBoxLayout;
     topButtonLayout->addWidget(viewCardsButtonTop);
     topButtonLayout->addWidget(viewJetonsButtonTop);
@@ -38,26 +50,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QGridLayout *regles = new QGridLayout;
 
-    // Add top buttons
-    QPushButton *viewRegles = new QPushButton("View Regles");
+    // Ajouter le bouton de règles
+    QPushButton *viewRegles = new QPushButton("Voir règles");
     viewRegles->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewRegles->setFixedWidth(100);
     connect(viewRegles, &QPushButton::clicked, this, &MainWindow::openWebLink);
 
+    // Conditions de victoire et son image
     QLabel *conditionsVictoire = new QLabel(this);
-
-    // Load the image
     QPixmap originalPixmap("../src/Reste_detoure/Conditions_victoire.png");
-
-    // Scale the image while maintaining aspect ratio
     QPixmap scaledPixmap = originalPixmap.scaled(397 / 2, 330 / 2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-    // Set the pixmap to the label
     conditionsVictoire->setPixmap(scaledPixmap);
-
-    // Set the label size to the size of the scaled pixmap
     conditionsVictoire->setFixedSize(scaledPixmap.size());
 
+    // Les rajouter au layout
     regles->addWidget(viewRegles, 0, 0, Qt::AlignCenter);
     regles->addWidget(conditionsVictoire, 0 ,1, Qt::AlignCenter);
 
@@ -67,41 +73,40 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // ######## PLATEAU ET TIRAGES ########
 
 
-    // Plateau and tirages
+    // Plateau et tirages
     QWidget *middleContainer = new QWidget;
     QHBoxLayout *middleLayout = new QHBoxLayout(middleContainer);
 
-    // Create the 'remplir plateau' button and connect it to a slot
+    // Créer 'remplir plateau' et le connecter à un slot
     remplirPlateauButton = new QPushButton("Remplir Plateau", this);
     remplirPlateauButton->setStyleSheet("color: rgba(255, 255, 255, 255);");
     connect(remplirPlateauButton, &QPushButton::clicked, this, &MainWindow::remplirPlateau);
 
+    // Créer le plateau et les tirages
     Qt_Plateau *plateau = new Qt_Plateau;
     Qt_Tirages *tirages = new Qt_Tirages;
 
     QVBoxLayout *plateauLayout = new QVBoxLayout();
     plateauLayout->addWidget(plateau);
-    plateauLayout->addWidget(remplirPlateauButton); // Add the 'remplir plateau' button below the plateau
+    plateauLayout->addWidget(remplirPlateauButton); // Ajouter 'remplir plateau' en dessous plateau
 
-    middleLayout->addLayout(plateauLayout); // Add the plateau and button layout to the middle layout
-    middleLayout->addStretch(); // Add a stretch to push tirages to the right
+    middleLayout->addLayout(plateauLayout); // Rajouter le plateau et le bouton au middle layout
+    middleLayout->addStretch(); // Stretch pour mettre les tirages à droite
     tirages->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
     middleLayout->addWidget(tirages);
-
     mainLayout->addWidget(middleContainer);
-
     mainLayout->addWidget(remplirPlateauButton);
 
 
     // ######## SCORE EN BAS ET BOUTONS ########
 
 
-    // Add bottom score label to the main layout
+    // Ajouter le score en bas
     mainLayout->addWidget(bottomScoreDisplay, 0, Qt::AlignCenter); // Align center at the bottom
 
-    // Add bottom buttons
-    viewCardsButtonBottom = new QPushButton("View Cards");
-    viewJetonsButtonBottom = new QPushButton("View Jetons");
+    // Boutons du bas
+    viewCardsButtonBottom = new QPushButton("Voir cartes");
+    viewJetonsButtonBottom = new QPushButton("Voir jetons");
     viewCardsButtonBottom->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewJetonsButtonBottom->setStyleSheet("color: rgba(255, 255, 255, 255);");
     connect(viewCardsButtonBottom, &QPushButton::clicked, this, &MainWindow::showCards);
@@ -112,14 +117,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     bottomButtonLayout->addWidget(viewJetonsButtonBottom);
     mainLayout->addLayout(bottomButtonLayout);
 
-    // Set the central widget and margins
+    // Set le widget central
     setCentralWidget(centralWidget);
 }
 
 void MainWindow::showCards() {
     QDialog *cardsDialog = new QDialog(this);
     cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
-    cardsDialog->exec(); // Show the dialog
+    cardsDialog->exec(); // L'afficher
 }
 
 void MainWindow::showJetons() {
@@ -143,7 +148,7 @@ void MainWindow::updateBottomScore(int score) {
 }*/
 
 void MainWindow::remplirPlateau() {
-    // Placeholder for action when 'remplir plateau' is clicked
+    // Mettre l'action ici
 }
 
 void MainWindow::openWebLink() {

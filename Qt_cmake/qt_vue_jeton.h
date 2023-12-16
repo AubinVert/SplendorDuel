@@ -17,7 +17,7 @@ class Qt_jeton : public QPushButton {
     Q_OBJECT
 
 private:
-    bool isClicked; // Track whether the jeton has been clicked
+    bool isClicked; // Track si le jeton a été click
 
 public:
     explicit Qt_jeton(QWidget *parent = nullptr);
@@ -28,10 +28,10 @@ protected:
     void mousePressEvent(QMouseEvent *event) override; // Handle mouse press events
 
 signals:
-    void jetonClicked(); // Signal to emit when the jeton is clicked
+    void jetonClicked(); // Signal à émettre si le jeton a été click
 
 public slots:
-              // void onJetonClicked(); // Slot to handle jeton clicks
+    // void onJetonClicked(); // Slot to handle jeton clicks
 };
 
 

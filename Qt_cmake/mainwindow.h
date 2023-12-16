@@ -21,8 +21,8 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
-    void updateTopScore(int score);  // Method to update top score
-    void updateBottomScore(int score);  // Method to update bottom score
+    void updateTopScore(int score);  // Méthode de mise à jour du score du haut
+    void updateBottomScore(int score);  //  -- du bas
 
 private slots:
     void showCards();
