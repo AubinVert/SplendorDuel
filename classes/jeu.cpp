@@ -42,37 +42,37 @@ Jeu::Jeu() {
 
 
     for (int i = 0; i<4; i++) {
-        auto* temp = new Jeton(j++, Color::bleu);
+        auto* temp = new Jeton(j++, Color::bleu, "../src/Reste_detoure/Jeton_bleu.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
     for (int i = 0; i<4; i++){
-        auto* temp = new Jeton(j++, Color::rouge);
+        auto* temp = new Jeton(j++, Color::rouge, "../src/Reste_detoure/Jeton_rouge.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
     for (int i = 0; i<4; i++){
-        auto* temp = new Jeton(j++, Color::vert);
+        auto* temp = new Jeton(j++, Color::vert, "../src/Reste_detoure/Jeton_vert.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
     for (int i = 0; i<4; i++){
-        auto* temp = new Jeton(j++, Color::blanc);
+        auto* temp = new Jeton(j++, Color::blanc, "../src/Reste_detoure/Jeton_blanc.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
     for (int i = 0; i<4; i++){
-        auto* temp = new Jeton(j++, Color::noir);
+        auto* temp = new Jeton(j++, Color::noir, "../src/Reste_detoure/Jeton_noir.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
     for (int i = 0; i<2; i++){
-        auto* temp = new Jeton(j++, Color::perle);
+        auto* temp = new Jeton(j++, Color::perle, "../src/Reste_detoure/Jeton_perle.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }
     for (int i = 0; i<3; i++){
-        auto* temp = new Jeton(j++, Color::gold);
+        auto* temp = new Jeton(j++, Color::gold, "../src/Reste_detoure/Jeton_or.png");
         jetons.push_back(temp);
         Sac::get_sac().mettre_jeton_sac(temp);
     }

@@ -57,6 +57,7 @@ private:
     const optional<Capacity> capacite;
     const int points_prestige;
 
+    const std::string visuel;
 
 public:
 
@@ -69,7 +70,7 @@ public:
         nb_cartes--;
     }
 
-    explicit Card(int points_prestige=0, std::optional<Capacity> capacite = std::nullopt) : capacite(capacite), points_prestige(points_prestige){
+    explicit Card(int points_prestige=0, std::optional<Capacity> capacite = std::nullopt, std::string visuel = "") : capacite(capacite), points_prestige(points_prestige), visuel(visuel){
         if(nb_cartes > MAX){
             throw SplendorException("Maximum de cartes atteint");
         }
@@ -82,7 +83,7 @@ public:
 
     const optional<Capacity>& getCapacite() const{return capacite;}
 
-
+    const std::string getVisuel() const { return visuel; }
 
     const int getPrestige() const {return points_prestige;}
 
@@ -97,8 +98,8 @@ public:
 
     static const int getMaxCarteR(){return max_royal_card;}
 
-    RoyalCard(int points_prestige=0, std::optional<Capacity> capacite = nullopt)
-            : Card(points_prestige, capacite){
+    RoyalCard(int points_prestige=0, std::optional<Capacity> capacite = nullopt, std::string visuel = "")
+            : Card(points_prestige, capacite, visuel){
         if(points_prestige<0 || points_prestige>10){
             throw SplendorException("Valeur non autorisée");
         }
@@ -142,8 +143,8 @@ public:
 
 
 
-    JewelryCard(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0, int bonus_nombre = 0, optional<enum colorBonus> bonus = nullopt, optional<Capacity> capacite = nullopt)
-            : Card(points_prestiges, capacite), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
+    JewelryCard(int points_prestiges =0, int cout_blanc = 0, int cout_bleu = 0, int cout_rouge = 0, int cout_vert = 0, int cout_noir = 0, int cout_perle = 0, int niveau = 1, int nb_couronnes = 0, int bonus_nombre = 0, optional<enum colorBonus> bonus = nullopt, optional<Capacity> capacite = nullopt, std::string visuel = "")
+            : Card(points_prestiges, capacite, visuel), cout_blanc(cout_blanc), cout_bleu(cout_bleu), cout_rouge(cout_rouge), cout_vert(cout_vert), cout_noir(cout_noir), cout_perle(cout_perle), niveau(niveau), nb_couronnes(nb_couronnes), bonus(bonus), bonus_nombre(bonus_nombre)
     {
         if(nb_cartes > MAX){
 

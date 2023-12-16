@@ -2,19 +2,23 @@
   "cartes_royales":[
     {
       "capacite":"rejouer",
-      "points_prestige":2
+      "points_prestige":2,
+      "lien":"Carte_1.png"
     },
     {
       "capacite":null,
-      "points_prestige":3
+      "points_prestige":3,
+      "lien":"Carte_2.png"
     },
     {
       "capacite":"prendre_privilege",
-      "points_prestige":2
+      "points_prestige":2,
+      "lien":"Carte_3.png"
     },
     {
       "capacite":"voler_pion_adverse",
-      "points_prestige":2
+      "points_prestige":2,
+      "lien":"Carte_4.png"
     }
   ],
   "cartes_joailleries": [
@@ -30,7 +34,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 2,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_5.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -43,7 +48,8 @@
       "cout_vert": 1,
       "cout_rouge": 0,
       "cout_noir": 1,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_6.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -56,7 +62,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_7.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -69,7 +76,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 3,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_8.png"
     },{
       "capacite":"prendre_sur_plateau",
       "points_prestige":0,
@@ -82,7 +90,8 @@
       "cout_vert": 2,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_9.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -95,7 +104,8 @@
       "cout_vert": 0,
       "cout_rouge": 1,
       "cout_noir": 1,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_10.png"
     },{
       "capacite":"rejouer",
       "points_prestige":0,
@@ -108,7 +118,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 2,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_11.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -121,7 +132,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 2,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_12.png"
     },{
       "capacite":"prendre_sur_plateau",
       "points_prestige":0,
@@ -134,7 +146,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_13.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -147,7 +160,8 @@
       "cout_vert": 0,
       "cout_rouge": 3,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_14.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -160,7 +174,8 @@
       "cout_vert": 1,
       "cout_rouge": 1,
       "cout_noir": 1,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_15.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -173,7 +188,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_16.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -186,7 +202,8 @@
       "cout_vert": 2,
       "cout_rouge": 3,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_17.png"
     },{
       "capacite":"prendre_sur_plateau",
       "points_prestige":0,
@@ -199,7 +216,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 2,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_18.png"
     },{
       "capacite":"rejouer",
       "points_prestige":0,
@@ -212,7 +230,8 @@
       "cout_vert": 2,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_19.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -225,7 +244,8 @@
       "cout_vert": 1,
       "cout_rouge": 1,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_20.png"
     },{
       "capacite":"prendre_sur_plateau",
       "points_prestige":0,
@@ -238,7 +258,8 @@
       "cout_vert": 2,
       "cout_rouge": 2,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_21.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -251,7 +272,8 @@
       "cout_vert": 3,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_22.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -264,7 +286,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_23.png"
     },{
       "capacite":"rejouer",
       "points_prestige":0,
@@ -277,7 +300,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_24.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -290,7 +314,8 @@
       "cout_vert": 3,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_25.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -303,7 +328,8 @@
       "cout_vert": 1,
       "cout_rouge": 1,
       "cout_noir": 1,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_26.png"
     },{
       "capacite":"rejouer",
       "points_prestige":0,
@@ -316,7 +342,8 @@
       "cout_vert": 2,
       "cout_rouge": 2,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_27.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -329,7 +356,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 3,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_28.png"
     },{
       "capacite":"prendre_sur_plateau",
       "points_prestige":0,
@@ -342,7 +370,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 2,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_29.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -355,7 +384,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 1,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_30.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -368,7 +398,8 @@
       "cout_vert": 2,
       "cout_rouge": 0,
       "cout_noir": 1,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_31.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -381,7 +412,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_32.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -394,7 +426,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 4,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_33.png"
     },{
       "capacite":null,
       "points_prestige":3,
@@ -407,7 +440,8 @@
       "cout_vert": 0,
       "cout_rouge": 4,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_34.png"
     },{
       "capacite":null,
       "points_prestige":5,
@@ -420,7 +454,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_58.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -433,7 +468,8 @@
       "cout_vert": 5,
       "cout_rouge": 2,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_35.png"
     },{
       "capacite":"prendre_privilege",
       "points_prestige":2,
@@ -446,7 +482,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_36.png"
     },{
       "capacite":"voler_pion_adverse",
       "points_prestige":1,
@@ -459,7 +496,8 @@
       "cout_vert": 4,
       "cout_rouge":0,
       "cout_noir": 3,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_37.png"
     },{
       "capacite":null,
       "points_prestige":2,
@@ -472,7 +510,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 2,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_38.png"
     },{
       "capacite":null,
       "points_prestige":2,
@@ -485,7 +524,8 @@
       "cout_vert": 2,
       "cout_rouge": 2,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_39.png"
     },{
       "capacite":"prendre_privilege",
       "points_prestige":2,
@@ -498,7 +538,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 4,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_40.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -511,7 +552,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_41.png"
     },{
       "capacite":"voler_pion_adverse",
       "points_prestige":1,
@@ -524,7 +566,8 @@
       "cout_vert": 3,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_42.png"
     },{
       "capacite":"voler_pion_adverse",
       "points_prestige":1,
@@ -537,7 +580,8 @@
       "cout_vert": 0,
       "cout_rouge": 4,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_43.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -550,7 +594,8 @@
       "cout_vert": 0,
       "cout_rouge": 5,
       "cout_noir": 2,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_46.png"
     },{
       "capacite":"prendre_privilege",
       "points_prestige":2,
@@ -563,7 +608,8 @@
       "cout_vert": 4,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_44.png"
     },{
       "capacite":null,
       "points_prestige":2,
@@ -576,7 +622,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 2,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_45.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -589,7 +636,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 5,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_47.png"
     },{
       "capacite":null,
       "points_prestige":2,
@@ -602,7 +650,8 @@
       "cout_vert": 2,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 2
+      "cout_perle": 1,
+      "lien":"Carte_48.png"
     },{
       "capacite":"prendre_privilege",
       "points_prestige":2,
@@ -615,7 +664,8 @@
       "cout_vert": 2,
       "cout_rouge": 4,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_50.png"
     },{
       "capacite":"voler_pion_adverse",
       "points_prestige":1,
@@ -628,7 +678,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 4,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_49.png"
     },{
       "capacite":"voler_pion_adverse",
       "points_prestige":1,
@@ -641,7 +692,8 @@
       "cout_vert": 0,
       "cout_rouge": 3,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_51.png"
     },{
       "capacite":"prendre_privilege",
       "points_prestige":2,
@@ -654,7 +706,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 2,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_52.png"
     },{
       "capacite":null,
       "points_prestige":2,
@@ -667,7 +720,8 @@
       "cout_vert": 2,
       "cout_rouge": 2,
       "cout_noir": 2,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_53.png"
     },{
       "capacite":null,
       "points_prestige":1,
@@ -680,7 +734,8 @@
       "cout_vert": 2,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_54.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -693,7 +748,8 @@
       "cout_vert": 6,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_55.png"
     },{
       "capacite":null,
       "points_prestige":2,
@@ -706,20 +762,22 @@
       "cout_vert": 6,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_56.png"
     },{
       "capacite":null,
       "points_prestige":0,
       "niveau": 2,
       "bonus_couleur": "joker",
-      "bonus_nombre": 2,
+      "bonus_nombre": 1,
       "nb_couronne": 2,
       "cout_blanc": 0,
       "cout_bleu": 6,
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_57.png"
     },{
       "capacite":null,
       "points_prestige":6,
@@ -732,7 +790,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_59.png"
     },{
       "capacite":null,
       "points_prestige":3,
@@ -745,7 +804,8 @@
       "cout_vert": 3,
       "cout_rouge": 0,
       "cout_noir": 5,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_60.png"
     },{
       "capacite":null,
       "points_prestige":4,
@@ -758,7 +818,8 @@
       "cout_vert": 2,
       "cout_rouge": 0,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_61.png"
     },{
       "capacite":null,
       "points_prestige":4,
@@ -771,7 +832,8 @@
       "cout_vert": 2,
       "cout_rouge": 6,
       "cout_noir": 2,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_62.png"
     },{
       "capacite":null,
       "points_prestige":3,
@@ -784,7 +846,8 @@
       "cout_vert": 3,
       "cout_rouge": 0,
       "cout_noir": 3,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_63.png"
     },{
       "capacite":null,
       "points_prestige":4,
@@ -797,7 +860,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 2,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_64.png"
     },{
       "capacite":null,
       "points_prestige":3,
@@ -810,7 +874,8 @@
       "cout_vert": 0,
       "cout_rouge": 5,
       "cout_noir": 3,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_65.png"
     },{
       "capacite":null,
       "points_prestige":3,
@@ -823,7 +888,8 @@
       "cout_vert": 0,
       "cout_rouge": 3,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_66.png"
     },{
       "capacite":null,
       "points_prestige":4,
@@ -836,7 +902,8 @@
       "cout_vert": 6,
       "cout_rouge": 2,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_67.png"
     },{
       "capacite":null,
       "points_prestige":3,
@@ -849,7 +916,8 @@
       "cout_vert": 5,
       "cout_rouge": 3,
       "cout_noir": 0,
-      "cout_perle": 1
+      "cout_perle": 1,
+      "lien":"Carte_68.png"
     },{
       "capacite":null,
       "points_prestige":4,
@@ -862,7 +930,8 @@
       "cout_vert": 0,
       "cout_rouge": 2,
       "cout_noir": 6,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_69.png"
     },{
       "capacite":null,
       "points_prestige":0,
@@ -875,7 +944,8 @@
       "cout_vert": 0,
       "cout_rouge": 0,
       "cout_noir": 8,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_70.png"
     },{
       "capacite":"rejouer",
       "points_prestige":3,
@@ -888,7 +958,8 @@
       "cout_vert": 0,
       "cout_rouge": 8,
       "cout_noir": 0,
-      "cout_perle": 0
+      "cout_perle": 0,
+      "lien":"Carte_71.png"
     }
   ]
 }

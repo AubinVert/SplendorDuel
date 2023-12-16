@@ -12,6 +12,7 @@ class Jeton{
     // il faut garantir l'unicité de chaque jeton
     const int id;
     const Color couleur;
+    const std::string visuel;
 
     static int nb_perle;
     static const int max_perle = 2;
@@ -31,7 +32,7 @@ class Jeton{
 
 public:
 
-    Jeton(int id,const Color& coul): id(id), couleur(coul){
+    Jeton(int id,const Color& coul, std::string visuel): id(id), couleur(coul), visuel(visuel){
         if((id<1)||(id> Jeton::getNbMaxJetons())){
             throw SplendorException("Mauvais id de jetons!");
         }
@@ -169,6 +170,7 @@ public:
     const int get_id()const{return id;}
     static int getNbMaxJetons(){return max_bleu + max_blanc + max_or + max_noir + max_perle + max_rouge + max_vert;}
 
+    const std::string getVisuel() const { return visuel; }
 };
 
 
