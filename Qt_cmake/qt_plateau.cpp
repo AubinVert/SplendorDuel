@@ -7,7 +7,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
 
     // Set the spacing to 8 pixels
     layout->setHorizontalSpacing(7);
-    layout->setVerticalSpacing(17);
+    layout->setVerticalSpacing(18);
 
     // Calculate jeton size, taking into account the spacing
     const int jetonWidth = 64 * 0.75; // 4 gaps, 5 jetons
@@ -30,7 +30,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     Qt_jeton *privilege3 = new Qt_jeton();
 
     // Set fixed size and style for privileges
-    const int privilegeSize = 54 * 0.75;
+    const int privilegeSize = 60 * 0.75;
     privilege1->setFixedSize(privilegeSize, privilegeSize);
     privilege1->setStyleSheet("background: transparent;");
     privilege2->setFixedSize(privilegeSize, privilegeSize);

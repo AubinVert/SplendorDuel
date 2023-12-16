@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     centralWidget->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
-    mainLayout->setSpacing(10);
+    mainLayout->setSpacing(16);
 
     // ######## SCORE EN HAUT ET BOUTONS ########
 
