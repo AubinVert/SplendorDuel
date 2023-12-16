@@ -30,7 +30,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     Qt_jeton *privilege3 = new Qt_jeton();
 
     // Set fixed size and style for privileges
-    const int privilegeSize = 53;  // Assuming you want the privileges to be 53x53 pixels
+    const int privilegeSize = 54;
     privilege1->setFixedSize(privilegeSize, privilegeSize);
     privilege1->setStyleSheet("background: transparent;");
     privilege2->setFixedSize(privilegeSize, privilegeSize);
