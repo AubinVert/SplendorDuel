@@ -8,9 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
 
-    // ######## SCORE LABELS ########
-
-    // ######## SCORE DISPLAYS ########
+    // ######## SCORE EN HAUT ET BOUTONS ########
 
     // Create score displays using QLCDNumber
     QLCDNumber *topScoreDisplay = new QLCDNumber(2); // Display with 2 digits
@@ -34,7 +32,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     topButtonLayout->addWidget(viewJetonsButtonTop);
     mainLayout->addLayout(topButtonLayout);
 
+
     // ######## CONDITION DE VICTOIRE ET REGLES ########
+
 
     QGridLayout *regles = new QGridLayout;
 
@@ -63,7 +63,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     mainLayout->addLayout(regles);
 
+
     // ######## PLATEAU ET TIRAGES ########
+
 
     // Plateau and tirages
     QWidget *middleContainer = new QWidget;
@@ -83,11 +85,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     middleLayout->addLayout(plateauLayout); // Add the plateau and button layout to the middle layout
     middleLayout->addStretch(); // Add a stretch to push tirages to the right
+    tirages->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
     middleLayout->addWidget(tirages);
 
     mainLayout->addWidget(middleContainer);
 
     mainLayout->addWidget(remplirPlateauButton);
+
+
+    // ######## SCORE EN BAS ET BOUTONS ########
 
 
     // Add bottom score label to the main layout
@@ -112,7 +118,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 void MainWindow::showCards() {
     QDialog *cardsDialog = new QDialog(this);
-
+    cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
     cardsDialog->exec(); // Show the dialog
 }
 
@@ -121,6 +127,7 @@ void MainWindow::showJetons() {
     QVBoxLayout *dialogLayout = new QVBoxLayout(jetonsDialog);
 
     Qt_Jetons_Main *jet_bas = new Qt_Jetons_Main(jetonsDialog);
+    jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
     dialogLayout->addWidget(jet_bas);
 
     jetonsDialog->exec();
