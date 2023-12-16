@@ -18,11 +18,23 @@ Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent) {
     setText(m_jeton.getName()); // Assuming Jeton has a getName() method
 }*/
 
-/*void Qt_jeton::paintEvent(QPaintEvent *event) {
-    QPushButton::paintEvent(event);
-    // Add any custom painting here if needed
-}*/
+void Qt_jeton::toggleClicked() {
+    isClicked = !isClicked;
+    update(); // Repaint the jeton
+}
 
-/*void Qt_jeton::onJetonClicked() {
-    emit jetonClicked(m_jeton); // Emit the signal with the jeton data
-}*/
+void Qt_jeton::paintEvent(QPaintEvent *event) {
+    QPushButton::paintEvent(event); // Call base class paint event
+
+    QPainter painter(this);
+    if (isDown()) {
+        painter.fillRect(rect(), QColor(128, 128, 128, 128)); // Grey out the jeton
+    }
+    // Add any custom painting here if needed
+}
+
+void Qt_jeton::mousePressEvent(QMouseEvent *event) {
+    QPushButton::mousePressEvent(event); // Call base class handler
+    toggleClicked();
+    emit jetonClicked(); // Emit the clicked signal
+}

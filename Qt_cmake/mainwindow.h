@@ -16,6 +16,7 @@
 
 
 class MainWindow : public QMainWindow {
+    Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
     void updateTopScore(int score);  // Method to update top score
@@ -24,14 +25,21 @@ public:
 private slots:
     void showCards();
     void showJetons();
-    void renamePlayerX();
-    void renamePlayerY();
+    //void renamePlayerX();
+    //void renamePlayerY();
+    void remplirPlateau();
+
 
 private:
     QLabel *topScoreLabel;
     QLabel *bottomScoreLabel;
     QLCDNumber *topScoreDisplay;  // Top score display
     QLCDNumber *bottomScoreDisplay;  // Bottom score display
+    QPushButton *remplirPlateauButton; // Remplir plateau
+    QPushButton *viewCardsButtonBottom;
+    QPushButton *viewJetonsButtonBottom;
+    QPushButton *viewCardsButtonTop;
+    QPushButton *viewJetonsButtonTop;
 };
 
 #endif // MAINWINDOW_H

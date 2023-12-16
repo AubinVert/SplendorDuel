@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Align center at the top
 
     // Add top buttons
-    QPushButton *viewCardsButtonTop = new QPushButton("View Cards");
-    QPushButton *viewJetonsButtonTop = new QPushButton("View Jetons");
+    viewCardsButtonTop = new QPushButton("View Cards");
+    viewJetonsButtonTop = new QPushButton("View Jetons");
     connect(viewCardsButtonTop, &QPushButton::clicked, this, &MainWindow::showCards);
     connect(viewJetonsButtonTop, &QPushButton::clicked, this, &MainWindow::showJetons);
 
@@ -34,23 +34,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // Plateau and tirages
     QWidget *middleContainer = new QWidget;
     QHBoxLayout *middleLayout = new QHBoxLayout(middleContainer);
+
+    // Create the 'remplir plateau' button and connect it to a slot
+    remplirPlateauButton = new QPushButton("Remplir Plateau", this);
+    connect(remplirPlateauButton, &QPushButton::clicked, this, &MainWindow::remplirPlateau);
+
     Qt_Plateau *plateau = new Qt_Plateau;
     Qt_Tirages *tirages = new Qt_Tirages;
 
-    // Align tirages to the right
-    middleLayout->addWidget(plateau);
+    QVBoxLayout *plateauLayout = new QVBoxLayout();
+    plateauLayout->addWidget(plateau);
+    plateauLayout->addWidget(remplirPlateauButton); // Add the 'remplir plateau' button below the plateau
+
+    middleLayout->addLayout(plateauLayout); // Add the plateau and button layout to the middle layout
     middleLayout->addStretch(); // Add a stretch to push tirages to the right
     middleLayout->addWidget(tirages);
 
     mainLayout->addWidget(middleContainer);
+
+    mainLayout->addWidget(remplirPlateauButton);
 
 
     // Add bottom score label to the main layout
     mainLayout->addWidget(bottomScoreDisplay, 0, Qt::AlignCenter); // Align center at the bottom
 
     // Add bottom buttons
-    QPushButton *viewCardsButtonBottom = new QPushButton("View Cards");
-    QPushButton *viewJetonsButtonBottom = new QPushButton("View Jetons");
+    viewCardsButtonBottom = new QPushButton("View Cards");
+    viewJetonsButtonBottom = new QPushButton("View Jetons");
     connect(viewCardsButtonBottom, &QPushButton::clicked, this, &MainWindow::showCards);
     connect(viewJetonsButtonBottom, &QPushButton::clicked, this, &MainWindow::showJetons);
 
@@ -87,3 +97,8 @@ void MainWindow::showJetons() {
 void MainWindow::updateBottomScore(int score) {
     bottomScoreDisplay->display(score);
 }*/
+
+void MainWindow::remplirPlateau() {
+    // Placeholder for action when 'remplir plateau' is clicked
+}
+
