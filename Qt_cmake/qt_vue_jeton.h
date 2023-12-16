@@ -17,22 +17,21 @@ class Qt_jeton : public QPushButton {
     Q_OBJECT
 
 private:
-    // Jeton m_jeton; // Assuming Jeton is a class representing the jeton data
+    bool isClicked; // Track si le jeton a été click
 
 public:
-    // explicit Qt_jeton(const Jeton& j, QWidget *parent = nullptr);
     explicit Qt_jeton(QWidget *parent = nullptr);
-
-    //void updateAppearance(); // Function to update the appearance based on the jeton's state
+    void toggleClicked(); // Method to change the clicked state
 
 protected:
-    //void paintEvent(QPaintEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override; // Handle mouse press events
 
 signals:
-    //void jetonClicked(const Jeton& j); // Signal to emit when the jeton is clicked
+    void jetonClicked(); // Signal à émettre si le jeton a été click
 
 public slots:
-    //void onJetonClicked(); // Slot to handle jeton clicks
+    // void onJetonClicked(); // Slot to handle jeton clicks
 };
 
 
