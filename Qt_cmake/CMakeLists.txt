@@ -24,6 +24,8 @@ add_executable(Qt_cmake
     qt_vue_jeton.cpp
     qt_cards_main.h
     qt_cards_main.cpp
+    popup_text.h
+    popup_text.cpp
 
 )
 

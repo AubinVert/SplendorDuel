@@ -3,6 +3,12 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
+    // Initialize player name labels
+    topPlayerNameLabel = new QLabel("Player 1");
+    bottomPlayerNameLabel = new QLabel("Player 2");
+    topPlayerNameLabel->setStyleSheet("color: white;");
+    bottomPlayerNameLabel->setStyleSheet("color: white;");
+
     QWidget *centralWidget = new QWidget(this);
 
     // Background pour toute la fenêtre
@@ -23,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     bottomScoreDisplay->display(0);
 
     // Les rajouter sur le layout principal
+    mainLayout->addWidget(topPlayerNameLabel, 0, Qt::AlignCenter);
     mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Alligner au centre
 
     // Boutons du haut (cartes et jetons)
@@ -106,7 +113,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
     // Ajouter le score en bas
+    mainLayout->addWidget(bottomPlayerNameLabel, 0, Qt::AlignCenter);
     mainLayout->addWidget(bottomScoreDisplay, 0, Qt::AlignCenter); // Align center at the bottom
+
 
     // Boutons du bas
     viewCardsButtonBottom = new QPushButton("Voir cartes");
@@ -157,4 +166,12 @@ void MainWindow::remplirPlateau() {
 
 void MainWindow::openWebLink() {
     QDesktopServices::openUrl(QUrl("https://cdn.1j1ju.com/medias/da/39/6a-splendor-duel-regle.pdf"));
+}
+
+void MainWindow::setTopPlayerName(const QString &name) {
+    topPlayerNameLabel->setText(name);
+}
+
+void MainWindow::setBottomPlayerName(const QString &name) {
+    bottomPlayerNameLabel->setText(name);
 }
