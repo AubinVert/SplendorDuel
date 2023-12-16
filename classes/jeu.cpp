@@ -174,6 +174,7 @@ void Jeu::test() {
 
 
 void Jeu::setPlayers(){
+
     string choix1;
     cout<<"Le premier joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
     cin>>choix1;
@@ -191,6 +192,58 @@ void Jeu::setPlayers(){
     cout << "Veuillez entrer son nom : ";
     cin >> name2;
 
+
+
+    srand(static_cast<unsigned>(std::time(nullptr)));
+    if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement
+        if (choix1 == "J") {
+            qui_joue = new Joueur(name1);
+        } else {
+            qui_joue = new IA(name1);
+        }
+
+        if (choix2 == "J") {
+            adversaire = new Joueur(name2);
+
+        } else {
+            adversaire = new IA(name2);
+        }
+    }else{
+        if (choix1 == "J") {
+            adversaire = new Joueur(name1);
+        } else {
+            adversaire = new IA(name1);
+        }
+
+        if (choix2 == "J") {
+            qui_joue = new Joueur(name2);
+        } else {
+            qui_joue = new IA(name2);
+        }
+    }
+    adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
+}
+
+void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
+
+    /*
+    string choix1;
+    cout<<"Le premier joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
+    cin>>choix1;
+
+    string name1;
+    cout << "Veuillez entrer son nom : ";
+    cin >> name1;
+
+
+    string choix2;
+    cout<<"Le second joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
+    cin>>choix2;
+
+    string name2;
+    cout << "Veuillez entrer son nom : ";
+    cin >> name2;
+    */
 
 
     srand(static_cast<unsigned>(std::time(nullptr)));

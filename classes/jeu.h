@@ -47,6 +47,7 @@ private:
 
 public:
     // Initialiser les noms des joueurs
+    void setPlayers(string& name1, string& name2, string& choix1, string& choix2); // version Qt
     void setPlayers();
 
 
