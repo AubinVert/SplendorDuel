@@ -28,13 +28,16 @@ class Jeton{
     static int nb_noir;
     static const int max_noir = 4;
 
+    const std::string visuel;
+
 
 public:
 
-    Jeton(int id,const Color& coul): id(id), couleur(coul){
+    Jeton(int id,const Color& coul, std::string visuel): id(id), couleur(coul), visuel(visuel){
         if((id<1)||(id> Jeton::getNbMaxJetons())){
             throw SplendorException("Mauvais id de jetons!");
         }
+
         switch (coul){
             case Color::rouge:{
                 if(nb_rouge<max_rouge){
@@ -165,6 +168,9 @@ public:
     Jeton& operator=(const Jeton& jet)=delete;
     Jeton(const Jeton& jet)=delete;
 
+    const std::string getVisuel() const { return visuel; }
+
+
     const Color& getColor() const {return couleur;}
     const int get_id()const{return id;}
     static int getNbMaxJetons(){return max_bleu + max_blanc + max_or + max_noir + max_perle + max_rouge + max_vert;}
@@ -173,6 +179,7 @@ public:
         json j;
         j["id"] = get_id();
         j["color"] = getColor();
+        j["visuel"] = getVisuel();
         return j;
     }
 
