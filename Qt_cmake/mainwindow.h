@@ -13,6 +13,8 @@
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QLCDNumber>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 class MainWindow : public QMainWindow {
@@ -28,6 +30,7 @@ private slots:
     //void renamePlayerX();
     //void renamePlayerY();
     void remplirPlateau();
+    void openWebLink();
 
 
 private:
