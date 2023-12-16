@@ -55,6 +55,16 @@ class Plateau{
     Plateau& operator=(const Plateau& p)=delete;
     Plateau(const Plateau& p)=delete;
 public:
+    json toJson() const{
+        json j;
+        j["jetons"] ={};
+        j["nb"] = nb;
+        j["current_nb"] = current_nb;
+        for (int i = 0; i < jetons.size(); ++i) {
+            j["jetons"].push_back(jetons[i]->toJson());
+        }
+        return j;
+    }
 
     const int getCurrentNb() const {
         return current_nb;
@@ -85,6 +95,13 @@ public:
         }
         throw SplendorException("Jeton non présent sur le plateau");
     }
+
+    void setJetons(vector<const Jeton*> j){
+        if(jetons.size()>nb){throw SplendorException("Trop de jetons dans le tableau");}
+        jetons = j;
+    }
+
+    void setNb(unsigned int n){nb = n;}
 
 
 

@@ -1,7 +1,6 @@
 #include "joueur.h"
-#include <random>
-#include <ctime>
-#include <algorithm>
+#include "jeu.h"
+
 using namespace std;
 /******************** Fonctions utilitaires ********************/
 int positiveOrNull(int x) {

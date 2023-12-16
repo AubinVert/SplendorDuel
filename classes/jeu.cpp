@@ -5,6 +5,50 @@
 
 
 
+Strategy_player& fromJsonStrategyPLayer(json data){
+    if (data["is_ia"] == 1){
+        IA *player = new IA;
+
+        player->setNbCouronnes(data["nb_courones"]);
+        player->setPoints(data["nb_points"]);
+        player->setNbPrivileges(data["nb_privileges"]);
+        player->setIa(data["is_ia"]);
+        player->setNbJetons(data["nb_jetons"]);
+        player->setNbRCards(data["nb_cartes_r"]);
+        player->setNbJCards(data["nb_cartes_j"]);
+        player->setNbJCardsReserved(data["nb_cartes_j_reservees"]);
+
+        player->setJetons(fromJsonJetons(data["jetons"]));
+        player->setJewellryCard(fromJsonJewelryCard(data["cartes_joaillerie_achetees"]));
+        player->setJewellryCardReserved(fromJsonJewelryCard(data["cartes_joaiellerie_reservees"]));
+        player->setRoyalCard(fromJsonRoyalCard(data["cartes_royale"]));
+        player->setPrivileges(fromJsonPrivileges(data["privileges"],data["nb_privileges"]));
+        return *player;
+
+    }else{
+        Joueur *player = new Joueur(data["nom"]);
+
+        player->setNbCouronnes(data["nb_courones"]);
+        player->setPoints(data["nb_points"]);
+        player->setNbPrivileges(data["nb_privileges"]);
+        player->setIa(data["is_ia"]);
+        player->setNbJetons(data["nb_jetons"]);
+        player->setNbRCards(data["nb_cartes_r"]);
+        player->setNbJCards(data["nb_cartes_j"]);
+        player->setNbJCardsReserved(data["nb_cartes_j_reservees"]);
+
+        player->setJetons(fromJsonJetons(data["jetons"]));
+        player->setJewellryCard(fromJsonJewelryCard(data["cartes_joaillerie_achetees"]));
+        player->setJewellryCardReserved(fromJsonJewelryCard(data["cartes_joaiellerie_reservees"]));
+        player->setRoyalCard(fromJsonRoyalCard(data["cartes_royale"]));
+        player->setPrivileges(fromJsonPrivileges(data["privileges"],data["nb_privileges"]));
+
+        return *player;
+    }
+
+
+}
+
 // condition pour savoir si le jeu est terminé à chaque tour on check ?
 
 
@@ -109,6 +153,91 @@ Jeu::Jeu() {
 
 }
 
+Jeu::Jeu(json data){
+    //on veut init le jeu avec tout ce dont on a besoin
+    est_termine = data["est_termine"];
+    cout<<"init j1\n"<<endl;
+    qui_joue = &fromJsonStrategyPLayer(data["qui_joue"]);
+    manche = data["manche"];
+    cout<<"init j2\n"<<endl;
+    adversaire = &fromJsonStrategyPLayer(data["adversaire"]);
+
+    // volontaire de pas init
+    //cartes_joiallerie = fromJsonJewelryCard(data["cartes_joiallerie"]);
+    //jetons = fromJsonJetons(data["jetons"]);
+    cartes_royales = fromJsonRoyalCard(data["cartes_royales"]);
+    privileges = fromJsonPrivileges(data["privileges"], data["nb_privileges"]);
+
+    cout<<"init pioche1\n"<<endl;
+    p1 = &fromJsonPioche(data["pioche1"]);
+    cout<<"init pioche2\n"<<endl;
+    p2 = &fromJsonPioche(data["pioche2"]);
+    cout<<"init pioche3\n"<<endl;
+    p3 = &fromJsonPioche(data["pioche3"]);
+
+
+    tirage_1 = &fromJsonTirage(data["tirage1"], *p1);
+
+    tirage_2 = &fromJsonTirage(data["tirage2"], *p2);
+
+    tirage_3 = &fromJsonTirage(data["tirage3"], *p3);
+
+
+    fromJsonSac(data["sac"]);
+
+    fromJsonPlateau(data["plateau"]);
+
+
+}
+
+json Jeu::toJson() const{
+    json j;
+
+
+    j["est_termine"] = est_termine;
+    j["manche"] = manche;
+
+
+    j["pioche1"] = p1->toJson();
+
+    j["pioche2"] = p2->toJson();
+
+    j["pioche3"] = p3->toJson();
+
+    j["tirage1"] = tirage_1->toJson();
+
+    j["tirage2"] = tirage_2->toJson();
+
+    j["tirage3"] = tirage_3->toJson();
+
+    j["sac"] = Sac::get_sac().toJson();
+
+
+    j["qui_joue"] = Jeu::getJeu().getCurrentPlayer().toJson();
+
+    j["adversaire"] = Jeu::getJeu().getOpponent().toJson();
+
+
+    j["privileges"] = {};
+    for (int i = 0; i < privileges.size(); ++i) {
+        j["privileges"].push_back(privileges[i]->toJson());
+    }
+    j["nb_privileges"] = privileges.size();
+
+
+    j["cartes_royales"] = {};
+    for (int i = 0; i < cartes_royales.size(); ++i) {
+        j["cartes_royales"].push_back(cartes_royales[i]->toJson());
+    }
+
+
+    j["plateau"] = Plateau::get_plateau().toJson();
+
+
+
+    return j;
+}
+
 Jeu::Handler Jeu::handler;
 
 Jeu::~Jeu(){
@@ -162,6 +291,11 @@ Jeu& Jeu::getJeu(){
     if (handler.instance == nullptr)  handler.instance = new Jeu;
     return *handler.instance;
 }
+Jeu& Jeu::getJeu(json data){
+    if (handler.instance == nullptr)  handler.instance = new Jeu(data);
+    return *handler.instance;
+}
+
 
 void Jeu::libereJeu(){
     delete handler.instance;
@@ -197,27 +331,40 @@ void Jeu::setPlayers(){
     if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement
         if (choix1 == "J") {
             qui_joue = new Joueur(name1);
+            qui_joue->setIa(0);
         } else {
             qui_joue = new IA(name1);
+            qui_joue->setIa(1);
         }
 
         if (choix2 == "J") {
             adversaire = new Joueur(name2);
+            qui_joue->setIa(0);
 
         } else {
             adversaire = new IA(name2);
+            qui_joue->setIa(1);
+
         }
     }else{
         if (choix1 == "J") {
             adversaire = new Joueur(name1);
+            qui_joue->setIa(0);
+
         } else {
             adversaire = new IA(name1);
+            qui_joue->setIa(1);
+
         }
 
         if (choix2 == "J") {
             qui_joue = new Joueur(name2);
+            qui_joue->setIa(0);
+
         } else {
             qui_joue = new IA(name2);
+            qui_joue->setIa(1);
+
         }
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège

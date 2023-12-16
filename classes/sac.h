@@ -27,6 +27,16 @@ class Sac{
     void init_sac();
 
 public:
+    json toJson() const{
+        json j;
+        j["nb"] = get_nb_sac();
+        j["jetons"] = {};
+        for (int i = 0; i < jetons.size(); ++i) {
+            j["jetons"].push_back(jetons[i]->toJson());
+        }
+
+        return j;
+    }
 
     void print_sac() ;
         static Sac& get_sac();

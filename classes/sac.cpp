@@ -1,5 +1,4 @@
 #include "sac.h"
-#include "jeu.h"
 
 Sac::Handler_Sac Sac::handler_sac;
 

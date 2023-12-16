@@ -1,12 +1,7 @@
 #ifndef LO21_SPLENDOR_DUEL_JEU_H
 #define LO21_SPLENDOR_DUEL_JEU_H
 #include <iostream>
-#include "sac.h"
-#include "plateau.h"
-#include "privilege.h"
-#include "tirage.h"
-#include "pioche.h"
-#include "jetons.h"
+#include "json.h"
 
 class Strategy_player;
 
@@ -40,12 +35,16 @@ private:
 
     static Handler handler;
     Jeu();
+    Jeu(json data);
     ~Jeu();
 
     Jeu (const Jeu&) = delete;
     Jeu& operator=(const Jeu&) = delete;
 
 public:
+
+    json toJson() const;
+
     // Initialiser les noms des joueurs
     void setPlayers();
 
@@ -111,6 +110,7 @@ public:
     Tirage* get_tirage_3()  {return tirage_3;}
     void tour_suivant(bool replay = 0);
     static Jeu& getJeu();
+    static Jeu& getJeu(json data);
     static void libereJeu();
     static void test();
 

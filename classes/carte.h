@@ -12,6 +12,8 @@
 #include <fstream>
 #include <optional>
 
+#include <nlohmann/json.hpp>
+
 using json = nlohmann::json;
 
 using namespace std;
@@ -33,6 +35,10 @@ optional<colorBonus> getBonusFromString(const std::string& str);
 std::string toString(Color c);
 std::string toString(Capacity c);
 std ::string toString(optional<enum colorBonus> bonus);
+
+std::string toStringJson(Color c);
+std::string toStringJson(Capacity c);
+std ::string toStringJson(optional<enum colorBonus> bonus);
 
 std::ostream& operator<<(std::ostream& f, Color c);
 std::ostream& operator<<(std::ostream& f, optional<Capacity> c);
@@ -94,6 +100,7 @@ class RoyalCard: public Card{
 
     static const int max_royal_card = 4;
 public:
+    json toJson() const;
 
     static const int getMaxCarteR(){return max_royal_card;}
 
@@ -130,9 +137,10 @@ class JewelryCard: public Card{
 
 public:
 
+    json toJson() const;
 
 
-    const int getCostWhite()const{return cout_blanc;}
+        const int getCostWhite()const{return cout_blanc;}
     const int getCostBlue()const{return cout_bleu;}
     const int getCostRed()const{return cout_rouge;}
     const int getCostGreen()const{return cout_vert;}

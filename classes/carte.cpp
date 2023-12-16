@@ -55,6 +55,55 @@ std ::string toString(optional<enum colorBonus> bonus){
         return "Null";}
 }
 
+
+std::string toStringJson(Color c) {
+    switch (c) {
+        case Color::rouge: return "rouge";
+        case Color::bleu: return "rouge";
+        case Color::vert: return "vert";
+        case Color::blanc: return "blanc";
+        case Color::noir: return "noir";
+        case Color::perle: return "perle";
+        case Color::gold: return "gold";
+        default: throw SplendorException("Color inconnue");
+    }
+}
+std::string toStringJson(optional<Capacity> c) {
+    if(c != nullopt){
+        if(c == Capacity::rejouer){
+            return "rejouer";
+        }else if(c == Capacity::voler_pion_adverse){
+            return "voler_pion_adverse";
+        }else if(c == Capacity::prendre_privilege){
+            return "prendre_privilege";
+        }else if(c == Capacity::prendre_sur_plateau){
+            return "prendre_sur_plateau";
+        }else if(c == Capacity::joker){
+            return "joker";
+        }
+    }else{
+        return "null";
+    }
+}
+std ::string toStringJson(optional<enum colorBonus> bonus){
+    if(bonus != nullopt) {
+        if (bonus == colorBonus::bleu) {
+            return "bleu";
+        } else if (bonus == colorBonus::red) {
+            return "rouge";
+        } else if (bonus == colorBonus::vert) {
+            return "vert";
+        } else if (bonus == colorBonus::blanc) {
+            return "blanc";
+        } else if (bonus == colorBonus::noir) {
+            return "noir";
+        } else if (bonus == colorBonus::joker) {
+            return "joker";
+        }
+    }else{
+        return "null";}
+}
+
 std::ostream& operator<<(std::ostream& f, optional<Capacity> c) {
     if(c == nullopt) return f<<" Null ";
     return  f << toString(c) ;
@@ -174,10 +223,52 @@ vector<const JewelryCard*> initCartesJoaillerie(){
 }
 
 
+
+// Json
+
+json JewelryCard::toJson() const {
+    json j;
+    if(getCapacite() != nullopt){
+        j["capacite"] = toString(getCapacite());
+    }else{
+        j["capacite"] = NULL;
+    }
+    j["points_prestige"] = getPrestige();
+    j["niveau"] = getNiveau();
+    if(getBonus() != nullopt){
+        j["bonus_couleur"] = toStringJson(getBonus());
+    }else{
+        j["bonus_couleur"] = NULL;
+    }
+    j["bonus_nombre"] = getNbBonus();
+    j["nb_couronne"] = getNbCrown();
+    j["cout_blanc"] = getCostWhite();
+    j["cout_bleu"] = getCostBlue();
+    j["cout_vert"] = getCostGreen();
+    j["cout_rouge"] = getCostRed();
+    j["cout_noir"] = getCostBlack();
+    j["cout_perle"] = getCostPerl();
+
+    return j;
+}
+json RoyalCard::toJson() const {
+    json j;
+    if(getCapacite() != nullopt){
+        j["capacite"] = toStringJson(getCapacite());
+    }else{
+        j["capacite"] = NULL;
+    }
+    j["points_prestige"] = getPrestige();
+
+    return j;
+}
+
+
+
+
+
+
 // Tests unitaires de la classe Card :
-
-
-
 
 
 void testInitCartes(){
