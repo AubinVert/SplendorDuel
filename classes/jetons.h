@@ -34,6 +34,7 @@ class Jeton{
 public:
 
     Jeton(int id,const Color& coul, std::string visuel): id(id), couleur(coul), visuel(visuel){
+
         if((id<1)||(id> Jeton::getNbMaxJetons())){
             throw SplendorException("Mauvais id de jetons!");
         }

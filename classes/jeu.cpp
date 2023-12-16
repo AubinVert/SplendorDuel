@@ -210,8 +210,6 @@ json Jeu::toJson() const{
 
     j["tirage3"] = tirage_3->toJson();
 
-    j["sac"] = Sac::get_sac().toJson();
-
 
     j["qui_joue"] = Jeu::getJeu().getCurrentPlayer().toJson();
 
@@ -230,7 +228,7 @@ json Jeu::toJson() const{
         j["cartes_royales"].push_back(cartes_royales[i]->toJson());
     }
 
-
+    j["sac"] = Sac::get_sac().toJson();
     j["plateau"] = Plateau::get_plateau().toJson();
 
 
