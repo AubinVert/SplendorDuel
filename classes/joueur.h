@@ -117,7 +117,7 @@ public:
     const int getNbPrivileges()const{return nb_privileges;}
     void setNbPrivileges(int nb){
         if(nb_privileges>max_nb_privileges){
-            throw SplendorException("fichier de chargement corrompu");
+            throw SplendorException("fichier de chargement corrompu -1");
         }
         nb_privileges = nb;
     }
@@ -137,52 +137,54 @@ public:
     // setters rajoutés pour les besoins du JSON
     void setJewellryCardReserved(vector<const JewelryCard*> j){
         if(nb_cartes_j_reservees<j.size()){
-            throw SplendorException("Fichier de sauvegarde corrompu");
+            throw SplendorException("Fichier de sauvegarde corrompu -2");
         }
         cartes_joaiellerie_reservees = j;
     }
     void setJewellryCard(vector<const JewelryCard*> j){
         if(nb_cartes_j<j.size()){
-            throw SplendorException("Fichier de sauvegarde corrompu");
+            throw SplendorException("Fichier de sauvegarde corrompu -3");
         }
         cartes_joaillerie_achetees = j;
     }
     void setJetons(vector<const Jeton*> j){
         if(j.size() > max_nb_jetons){
-            throw SplendorException("Fichier de sauvegarde corrompu");
+            throw SplendorException("Fichier de sauvegarde corrompu -4");
         }
         jetons = j;
     }
     void setRoyalCard(vector<const RoyalCard*> r){
         if(nb_cartes_r<r.size()){
-            throw SplendorException("Fichier de sauvegarde corrompu");
+            throw SplendorException("Fichier de sauvegarde corrompu 5");
         }
         cartes_royale = r;
     }
     void setPrivileges(vector<const Privilege*> p){
         if(nb_privileges<p.size()){
-            throw SplendorException("Fichier de sauvegarde corrompu");
+            throw SplendorException("Fichier de sauvegarde corrompu 6");
         }
         privileges = p;
     }
     void setNbJetons(unsigned int nb){
         if(nb>max_nb_jetons){
-            throw SplendorException("fichier de chargement corrompu");
+            throw SplendorException("fichier de chargement corrompu 7");
         }
         nb_jetons = nb;
     }
     void setNbJCards(unsigned int nb){
         nb_cartes_j = nb;
     }
+
     void setNbJCardsReserved(unsigned int nb){
         if(nb>max_nb_cartes_reservees){
-            throw SplendorException("Fichier de chargement corrompu");
+            throw SplendorException("Fichier de chargement corrompu 8");
         }
         nb_cartes_j_reservees = nb;
     }
+
     void setNbRCards(unsigned int nb){
         if(nb>max_nb_cartes_r){
-            throw SplendorException("Fichier de chargement corrompu");
+            throw SplendorException("Fichier de chargement corrompu 9");
         }
         nb_cartes_r = nb;
     }
