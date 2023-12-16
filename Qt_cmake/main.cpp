@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QString>
 #include "mainwindow.h"
 #include "../classes/jeu.h"
 #include "../classes/joueur.h"
@@ -9,10 +10,16 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+
+    // Init le jeu
+    Jeu::getJeu();
+
     MainWindow mainWindow;
     mainWindow.show();
 
-    // mainWindow.updateTopScore(10);
+    mainWindow.demanderNoms();
+    mainWindow.setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
+    mainWindow.setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
 
     return app.exec();
 }
@@ -35,9 +42,12 @@ int main1(int argc, char *argv[]){
     Jeu::getJeu();
     cout<<"Privilèges dans le jeu:"<<endl;
 
-                                         Jeu::getJeu().setPlayers();
+    // Jeu::getJeu().setPlayers();
 
     cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
+
+
+    // #### ON EST ICI les jetons sont sur le plateau, les cartes dans les pioches et tirages
 
     unsigned int from_error =0;
 
