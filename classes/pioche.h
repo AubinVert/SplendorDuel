@@ -37,10 +37,23 @@ public:
 
     static int getNbPioches() { return nb_pioches; }
 
+    const void setPioche(vector<const JewelryCard* > p ){
+        pioche = p;
+    }
+
     static void InitPioches(Pioche *p1, Pioche *p2, Pioche *p3, vector<const JewelryCard *> &cartes);
 
     const JewelryCard& getCarte();
 
+    const json toJson(){
+        json j;
+        j["niveau"] = getNiveau();
+        j["cartes_joailleries"] = {};
+        for (int i = 0; i < pioche.size(); ++i) {
+            j["cartes_joailleries"].push_back(pioche[i]->toJson());
+        }
+        return j;
+    }
 };
 
 

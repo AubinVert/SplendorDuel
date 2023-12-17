@@ -10,6 +10,8 @@ using namespace std;
 
 class Tirage{
 
+
+
     static const int nb_max_tirages = 3; // limite de tirage
     static int nb_tirages; // compteur
     Pioche& pioche;
@@ -19,6 +21,14 @@ class Tirage{
     vector<const JewelryCard*> cartes;
 
 public:
+    const json toJson(){
+        json j;
+        j["niveau"] = getNiveau();
+        j["nb_cartes"] = nb_cartes;
+        j["max_cartes"] = max_cartes;
+        j["cartes_joailleries"] = {};
+        return j;
+    }
 
     //constructeur du tirage
     Tirage(int niv, int max, Pioche& p) : niveau(niv), max_cartes(max), pioche(p){
@@ -38,8 +48,14 @@ public:
     // définition des getters
     const int getNiveau() const { return niveau; }
     const int getNbCartes() const { return nb_cartes; }
+    void setNbCartes(int nb) {nb_cartes=nb;}
+
     Pioche& getPioche() const { return pioche; }
     vector<const JewelryCard*>& getTirage() { return cartes; }
+
+    void setTirage(vector<const JewelryCard*> t){
+        cartes = t;
+    }
 
     // déclaration de la méthode qui permet de remplir le Tirage avec les cartes (voir tirage.cpp)
     void remplirTirage();

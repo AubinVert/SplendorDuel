@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include "carte.h"
 #include "Exception.h"
 
 
@@ -14,8 +15,25 @@ private:
     Privilege(const Privilege&) = delete;
     Privilege& operator=(const Privilege&) = delete;
     Privilege(): id(instanceCount) {}
+    Privilege(int id): id(id) {}
+
 
 public:
+
+    json toJson() const{
+        json j;
+        j["id"] = id;
+        return j;
+    }
+
+    static Privilege* getForJson(int id) {
+        if (instanceCount < maxInstances) {
+            ++instanceCount;
+            return new Privilege(id);
+        }
+        throw SplendorException("Nombres d'instances de privileges depasse");
+    }
+
     const int get_id()const{return id;}
     static int getCount(){
         return instanceCount;

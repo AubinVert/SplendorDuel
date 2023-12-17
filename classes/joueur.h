@@ -5,13 +5,10 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "carte.h"
-#include "jetons.h"
-#include "privilege.h"
 #include "sac.h"
+#include "privilege.h"
 #include "plateau.h"
 #include "tirage.h"
-#include "jeu.h"
 
 
 // tâches à réaliser : constructeur destructeur Joueur (jeu?)
@@ -24,7 +21,7 @@ using namespace std;
 class Strategy_player{ // Utilisation Design Pattern Strategy
 protected:
     std::string nom;
-    //int is_ia = 0;
+    int is_ia = 0;
     int nb_points;
     int nb_courones;
     int nb_cartes_j;
@@ -48,6 +45,44 @@ protected:
     Strategy_player& operator=(const Strategy_player&) = delete;
     Strategy_player(const Strategy_player&) = delete;
 public:
+
+
+    json toJson() const {
+        json j;
+        j["nom"] = nom;
+        j["is_ia"] = is_ia;
+        j["nb_points"] = nb_points;
+        j["nb_courones"] = nb_courones;
+        j["nb_cartes_j"] = nb_cartes_j;
+        j["nb_cartes_j_reservees"] = nb_cartes_j_reservees;
+        j["nb_cartes_r"] = nb_cartes_r;
+        j["nb_privileges"] = nb_privileges;
+        j["nb_jetons"] = nb_jetons;
+        j["cartes_joaillerie_achetees"] = {};
+        j["cartes_joaiellerie_reservees"] = {};
+        j["cartes_royale"] = {};
+        j["jetons"] = {};
+        j["privileges"] = {};
+
+        for (int i = 0; i < cartes_joaillerie_achetees.size(); ++i) {
+            j["cartes_joaillerie_achetees"].push_back(cartes_joaillerie_achetees[i]->toJson());
+        }
+        for (int i = 0; i < cartes_joaiellerie_reservees.size(); ++i) {
+            j["cartes_joaiellerie_reservees"].push_back(cartes_joaiellerie_reservees[i]->toJson());
+        }
+        for (int i = 0; i < cartes_royale.size(); ++i) {
+            j["cartes_royale"].push_back(cartes_royale[i]->toJson());
+        }
+        for (int i = 0; i < jetons.size(); ++i) {
+            j["jetons"].push_back(jetons[i]->toJson());
+        }
+        for (int i = 0; i < privileges.size(); ++i) {
+            j["privileges"].push_back(privileges[i]->toJson());
+        }
+
+        return j;
+    }
+
     //constructeur destructeur
     Strategy_player(const string &nom);
     virtual ~Strategy_player();
@@ -69,7 +104,6 @@ public:
     //getters setters
     const int getNbCartesJoaillerie() const {return nb_cartes_j;}
     const int getNbJetons() const {return nb_jetons;}
-    void setNbJetons(unsigned int nb){nb_jetons = nb;}
     const string getName() const {return nom;}
     void setName(string& s) {nom = s;}
     const int getNbCartesAchetees() const { return cartes_joaillerie_achetees.size();}
@@ -77,12 +111,84 @@ public:
     const int getNbPoints()const{return nb_points;}
     void setPoints(int nb){nb_points = nb;}
     const int getNbCouronnes()const{return nb_courones;}
-    void setNbCouronnes(int nb){nb_courones = nb;}
+    void setNbCouronnes(int nb){
+        nb_courones = nb;
+    }
     const int getNbPrivileges()const{return nb_privileges;}
-    void setNbPrivileges(int nb){nb_privileges = nb;}
+    void setNbPrivileges(int nb){
+        if(nb_privileges>max_nb_privileges){
+            throw SplendorException("fichier de chargement corrompu -1");
+        }
+        nb_privileges = nb;
+    }
     const int getNbCartesRoyales() const {return nb_cartes_r;}
     vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
+
+    void setIa(unsigned int nb){
+        if(nb==0){
+            is_ia = 0;
+        }else{
+            is_ia = 1;
+        }
+    }
+
+
+    // setters rajoutés pour les besoins du JSON
+    void setJewellryCardReserved(vector<const JewelryCard*> j){
+        if(nb_cartes_j_reservees<j.size()){
+            throw SplendorException("Fichier de sauvegarde corrompu -2");
+        }
+        cartes_joaiellerie_reservees = j;
+    }
+    void setJewellryCard(vector<const JewelryCard*> j){
+        if(nb_cartes_j<j.size()){
+            throw SplendorException("Fichier de sauvegarde corrompu -3");
+        }
+        cartes_joaillerie_achetees = j;
+    }
+    void setJetons(vector<const Jeton*> j){
+        /*if(j.size() > max_nb_jetons){
+            throw SplendorException("Fichier de sauvegarde corrompu -4");
+        }*/
+        jetons = j;
+    }
+    void setRoyalCard(vector<const RoyalCard*> r){
+        if(nb_cartes_r<r.size()){
+            throw SplendorException("Fichier de sauvegarde corrompu 5");
+        }
+        cartes_royale = r;
+    }
+    void setPrivileges(vector<const Privilege*> p){
+        if(nb_privileges<p.size()){
+            throw SplendorException("Fichier de sauvegarde corrompu 6");
+        }
+        privileges = p;
+    }
+    void setNbJetons(unsigned int nb){
+        if(nb>max_nb_jetons){
+            throw SplendorException("fichier de chargement corrompu 7");
+        }
+        nb_jetons = nb;
+    }
+    void setNbJCards(unsigned int nb){
+        nb_cartes_j = nb;
+    }
+
+    void setNbJCardsReserved(unsigned int nb){
+
+        if(nb>max_nb_cartes_reservees){
+            throw SplendorException("Fichier de chargement corrompu 8");
+        }
+        nb_cartes_j_reservees = nb;
+    }
+
+    void setNbRCards(unsigned int nb){
+        if(nb>max_nb_cartes_r){
+            throw SplendorException("Fichier de chargement corrompu 9");
+        }
+        nb_cartes_r = nb;
+    }
 
     vector<const Jeton*>& getJeton() {return jetons;}
 
@@ -117,6 +223,8 @@ public:
 class Joueur : public Strategy_player {
 
 public:
+
+
     // Constructeur et destructeur
     Joueur(const string &nom);
     ~Joueur();

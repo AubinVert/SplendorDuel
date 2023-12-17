@@ -15,6 +15,7 @@ set(SOURCE_FILES
         classes/tirage.cpp
         classes/pioche.cpp
         classes/sac.cpp
+        classes/json.cpp
 )
 
 include(FetchContent)
@@ -22,6 +23,7 @@ include(FetchContent)
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
 FetchContent_MakeAvailable(json)
 
-add_executable(lo21-splendor-duel ${SOURCE_FILES})
+add_executable(lo21-splendor-duel ${SOURCE_FILES}
+        classes/json.cpp)
 
 target_link_libraries(lo21-splendor-duel PRIVATE nlohmann_json::nlohmann_json)
