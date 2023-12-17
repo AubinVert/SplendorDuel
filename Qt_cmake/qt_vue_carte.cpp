@@ -1,4 +1,5 @@
 #include "qt_vue_carte.h"
+#include <QDebug>
 
 /*Qt_carte::Qt_carte(const Card& carte, QWidget *parent)
     : QPushButton(parent), m_carte(carte) {
@@ -10,29 +11,50 @@ Qt_carte::Qt_carte(QWidget *parent) : QPushButton(parent) {
 }
 
 void Qt_carte::paintEvent(QPaintEvent *event) {
-    // Q_UNUSED(event); // This macro marks the parameter as used to prevent a compiler warning
+    QPushButton::paintEvent(event); // Call base class paint event
 
     QPainter painter(this);
-
-    // Check if the button is down (clicked) and if yes, set the background to a darker color
     if (isDown()) {
-        painter.fillRect(rect(), QColor(0, 0, 0, 50)); // Semi-transparent overlay when clicked
+        painter.fillRect(rect(), QColor(128, 128, 128, 128)); // Grey out
     }
 
-    // Draw the image, ensuring we keep the alpha channel (transparency)
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    // Set the brush to transparent
+    painter.setBrush(Qt::transparent);
+
+    /*// Draw the image, ensuring we keep the alpha channel (transparency)
     if (!m_image.isNull()) {
         QPixmap scaledPixmap = m_image.scaled(size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
         QRect pixmapRect((width() - scaledPixmap.width()) / 2, (height() - scaledPixmap.height()) / 2,
                          scaledPixmap.width(), scaledPixmap.height());
         painter.drawPixmap(pixmapRect.topLeft(), scaledPixmap);
-    }
+    }*/
 }
+
 
 void Qt_carte::onCarteClicked() {
     emit carteClicked();
 }
 
-void Qt_carte::setImage(const QString &imagePath) {
-    m_image.load(imagePath);
-    update();  // Update the widget to trigger a repaint
+void Qt_carte::updateAppearance() {
+    if (card != nullptr) {
+        qDebug() << card->getVisuel();
+        QIcon icon(QPixmap(QString::fromStdString(card->getVisuel())));
+        this->setIcon(icon);
+        this->setIconSize(this->size()); // Adjust the size of the icon to fit the button
+    }
+
+    else {
+        qDebug() << "prblm";
+    }
+    // Additional appearance updates...
+}
+
+
+void Qt_carte::updateAppearance(const std::string& string) {
+    m_image = QPixmap(QString::fromStdString(string));
+    setIcon(QIcon(m_image));
+    setIconSize(size());
+    update(); // Refresh the widget
 }

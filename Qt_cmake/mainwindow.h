@@ -5,6 +5,7 @@
 #include "qt_plateau.h"
 #include "qt_jetons_bas.h"
 #include "qt_jetons_main.h"
+#include "../classes/jetons.h"
 #include <QApplication>
 #include <QMainWindow>
 #include <QVBoxLayout>
@@ -21,6 +22,13 @@
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
+
+private:
+    Qt_Plateau* plateau;
+    Qt_Tirages* tirages;
+
+    Jeu* jeu;
+
 public:
     MainWindow(QWidget *parent = nullptr);
     void updateTopScore(int score);  // Méthode de mise à jour du score du haut
@@ -41,6 +49,9 @@ public:
 
     void setTopPlayerName(const QString &name);
     void setBottomPlayerName(const QString &name);
+
+    void updatePlateau();
+    void updateTirages();
 
 private slots:
     void showCards();

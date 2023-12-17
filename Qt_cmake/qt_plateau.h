@@ -5,16 +5,21 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include "qt_vue_jeton.h"
+
+#define NJETONS 25
 
 class Qt_Plateau : public QWidget {
     Q_OBJECT;
 
 public:
     Qt_Plateau(QWidget *parent = nullptr);
+    const std::vector<Qt_jeton*>& getJetons() const {return jetons;}
 
 private:
     QGridLayout *layout;
     QGridLayout *privilegesLayout;
+    std::vector<Qt_jeton*> jetons;
 
 signals:
     void clicked();
@@ -25,7 +30,6 @@ protected:
     }
 
     void paintEvent(QPaintEvent *event) override;
-
 
 };
 

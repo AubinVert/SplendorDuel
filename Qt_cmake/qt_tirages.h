@@ -12,22 +12,33 @@ class Qt_Tirages : public QWidget {
 
 public:
     explicit Qt_Tirages(QWidget *parent = nullptr);
+    std::vector<Qt_carte*>& getTier1() {return tier1Cards;}
+    std::vector<Qt_carte*>& getTier2() {return tier2Cards;}
+    std::vector<Qt_carte*>& getTier3() {return tier3Cards;}
+    std::vector<Qt_carte*>& getRoyalCards() {return royalCards;}
+
+    Qt_carte* getDeckImage1() {return deck1;}
+    Qt_carte* getDeckImage2() {return deck2;}
+    Qt_carte* getDeckImage3() {return deck3;}
 
 private:
     QHBoxLayout *tier1Layout;
     QHBoxLayout *tier2Layout;
     QHBoxLayout *tier3Layout;
     QHBoxLayout *royalLayout;
-    QVector<Qt_carte*> tier1Cards;
-    QVector<Qt_carte*> tier2Cards;
-    QVector<Qt_carte*> tier3Cards;
-    QVector<Qt_carte*> royalCards;
-    Qt_carte *deckImage1;
-    Qt_carte *deckImage2;
-    Qt_carte *deckImage3;
+
+    std::vector<Qt_carte*> tier1Cards;
+    std::vector<Qt_carte*> tier2Cards;
+    std::vector<Qt_carte*> tier3Cards;
+    std::vector<Qt_carte*> royalCards;
+
+    Qt_carte *deck1;
+    Qt_carte *deck2;
+    Qt_carte *deck3;
+
     Qt_carte *royalCardsImage;
 
-    void setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards, int cardCount, Qt_carte *deckImage);
+    void setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &cards, int cardCount, Qt_carte *deckImage);
 
 signals:
     void clicked();

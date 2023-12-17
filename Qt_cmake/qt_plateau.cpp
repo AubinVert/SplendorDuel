@@ -14,11 +14,12 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     const int jetonHeight = 64 * 0.75; // 4 gaps, 5 jetons
 
     // Setup the card grid
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < NJETONS; ++i) {
         Qt_jeton *jeton = new Qt_jeton();
         jeton->setStyleSheet("background: transparent;");
         jeton->setFixedSize(jetonWidth, jetonHeight); // Set fixed size to ensure they fit the grid
         layout->addWidget(jeton, i / 5, i % 5);
+        jetons.push_back(jeton);
     }
 
     // Setup for privileges
@@ -76,6 +77,3 @@ void Qt_Plateau::paintEvent(QPaintEvent *event) {
 
     QWidget::paintEvent(event); // Call the base class paint event
 }
-
-
-

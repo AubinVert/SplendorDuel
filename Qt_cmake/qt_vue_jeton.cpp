@@ -1,22 +1,11 @@
 #include "qt_vue_jeton.h"
 
-/*Qt_jeton::Qt_jeton(const Jeton& j, QWidget *parent)
-    : QPushButton(parent), m_jeton(j) {
-    updateAppearance();
-    connect(this, &QPushButton::clicked, this, &Qt_jeton::onJetonClicked);
-}*/
-
-Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent) {
+Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent), jeton(nullptr) {
     // Default initialization
     // updateAppearance();
     // connect(this, &QPushButton::clicked, this, &Qt_jeton::onJetonClicked);
 }
 
-/*void Qt_jeton::updateAppearance() {
-    // Update the appearance of the jeton
-    // For example, set the text or icon based on the jeton's properties
-    setText(m_jeton.getName()); // Assuming Jeton has a getName() method
-}*/
 
 void Qt_jeton::toggleClicked() {
     isClicked = !isClicked;
@@ -37,4 +26,14 @@ void Qt_jeton::mousePressEvent(QMouseEvent *event) {
     QPushButton::mousePressEvent(event); // Call base class handler
     toggleClicked();
     emit jetonClicked(); // Emit the clicked signal
+}
+
+void Qt_jeton::updateAppearance() {
+    if (jeton != nullptr) {
+        qDebug() << jeton->getVisuel();
+        QIcon icon(QPixmap(QString::fromStdString(jeton->getVisuel())));
+        this->setIcon(icon);
+        this->setIconSize(this->size()); // Adjust the size of the icon to fit the button
+    }
+    // Additional appearance updates...
 }

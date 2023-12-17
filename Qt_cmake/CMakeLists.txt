@@ -87,7 +87,7 @@ set(HEADERS
     tirages.h
 )
 
-target_link_libraries(Qt_cmake PRIVATE Qt6::Widgets)
+target_link_libraries(Qt_cmake PRIVATE Qt6::Widgets Qt6::Core)
 
 include(FetchContent)
 

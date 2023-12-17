@@ -18,10 +18,15 @@ class Qt_jeton : public QPushButton {
 
 private:
     bool isClicked; // Track si le jeton a été click
+    const Jeton* jeton;
 
 public:
     explicit Qt_jeton(QWidget *parent = nullptr);
     void toggleClicked(); // Method to change the clicked state
+    void updateAppearance(); // Mise à jour image
+
+    const Jeton* getJeton() const {return jeton;}
+    void setJeton(const Jeton* j) {jeton = j;}
 
 protected:
     void paintEvent(QPaintEvent *event) override;

@@ -3,6 +3,8 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
+    jeu = &Jeu::getJeu();
+
     // Initialize player name labels
     topPlayerNameLabel = new QLabel("Player 1");
     bottomPlayerNameLabel = new QLabel("Player 2");
@@ -67,8 +69,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(remplirPlateauButton, &QPushButton::clicked, this, &MainWindow::remplirPlateau);
 
     // Créer le plateau et les tirages
-    Qt_Plateau *plateau = new Qt_Plateau;
-    Qt_Tirages *tirages = new Qt_Tirages;
+    plateau = new Qt_Plateau;
+    tirages = new Qt_Tirages;
 
     QVBoxLayout *plateauLayout = new QVBoxLayout();
     plateauLayout->addWidget(plateau);
@@ -174,4 +176,73 @@ void MainWindow::setTopPlayerName(const QString &name) {
 
 void MainWindow::setBottomPlayerName(const QString &name) {
     bottomPlayerNameLabel->setText(name);
+}
+
+void MainWindow::updateTirages(){
+
+    // Update des pointeurs carte
+
+    // Tirage 1
+    qDebug() << "Tirage1";
+    for (int i = 0; i < Jeu::getJeu().get_tirage_1()->getNbCartes(); i++){
+        tirages->getTier1()[i]->setCard(Jeu::getJeu().get_tirage_1()->getTirage()[i]);
+
+        // Update des visuels
+        tirages->getTier1()[i]->updateAppearance();
+    }
+
+
+    // Tirage 2
+    qDebug() << "Tirage2";
+    for (int i = 0; i < Jeu::getJeu().get_tirage_2()->getNbCartes(); i++){
+        tirages->getTier2()[i]->setCard(Jeu::getJeu().get_tirage_2()->getTirage()[i]);
+
+        // Update des visuels
+        tirages->getTier2()[i]->updateAppearance();
+    }
+
+
+    // Tirage 3
+    qDebug() << "Tirage3";
+    for (int i = 0; i < Jeu::getJeu().get_tirage_3()->getNbCartes(); i++){
+        tirages->getTier3()[i]->setCard(Jeu::getJeu().get_tirage_3()->getTirage()[i]);
+
+        // Update des visuels
+        tirages->getTier3()[i]->updateAppearance();
+    }
+
+
+    // Cartes royales
+    qDebug() << "CartesRoyales";
+    for (int i = 0; i < Jeu::getJeu().getCartesRoyales().size(); i++){
+        tirages->getRoyalCards()[i]->setCard(Jeu::getJeu().getCartesRoyales()[i]);
+
+        // Update des visuels
+        tirages->getRoyalCards()[i]->updateAppearance();
+    }
+
+    if (tirages->getDeckImage1() != nullptr) tirages->getDeckImage1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
+    if (tirages->getDeckImage2() != nullptr) tirages->getDeckImage2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
+    if (tirages->getDeckImage3() != nullptr) tirages->getDeckImage3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
+
+
+
+}
+
+void MainWindow::updatePlateau(){
+
+    // Update des pointeurs jeton
+
+    for (int i = 0; i < NJETONS; i++){
+        plateau->getJetons()[i]->setJeton(Plateau::get_plateau().get_plateau_i(i));
+    }
+
+    // Update des visuels
+
+    for (int i = 0; i < NJETONS; i++){
+        // Mise à jour jetons
+
+        if (plateau->getJetons()[i]->getJeton() != nullptr) qDebug() << toString(plateau->getJetons()[i]->getJeton()->getColor());
+        plateau->getJetons()[i]->updateAppearance();
+    }
 }

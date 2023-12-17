@@ -17,9 +17,16 @@ int main(int argc, char *argv[]) {
     MainWindow mainWindow;
     mainWindow.show();
 
+
+    // Setup des noms
     mainWindow.demanderNoms();
     mainWindow.setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
     mainWindow.setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
+
+    // Setup du plateau
+    Jeu::getJeu().get_tour();
+    mainWindow.updatePlateau();
+    mainWindow.updateTirages();
 
     return app.exec();
 }

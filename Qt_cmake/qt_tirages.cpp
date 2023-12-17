@@ -1,6 +1,7 @@
 #include "qt_tirages.h"
 #include "qt_vue_carte.h"
 #include <QVBoxLayout>
+#include <QPixmap>
 
 Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -11,19 +12,16 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     // Setting up the images with resizing to fit the label
     const QSize imageSize(75, 105); // Set your desired size here
 
-    // Setting up the deck images with Qt_carte
-    deckImage1 = new Qt_carte(this);
-    deckImage1->setImage("../src/Reste_detoure/Pioche_niveau_1.png");
-    deckImage2 = new Qt_carte(this);
-    deckImage2->setImage("../src/Reste_detoure/Pioche_niveau_2.png");
-    deckImage3 = new Qt_carte(this);
-    deckImage3->setImage("../src/Reste_detoure/Pioche_niveau_3.png");
+    deck1 = new Qt_carte();
+    deck2 = new Qt_carte();
+    deck3 = new Qt_carte();
+
     royalCardsImage = nullptr; // Keep as nullptr if you don't want an image for royal cards
 
     // Setup each tier with the decks on the right
-    setupTierLayout(tier1Layout, tier1Cards, 5, deckImage1);
-    setupTierLayout(tier2Layout, tier2Cards, 4, deckImage2);
-    setupTierLayout(tier3Layout, tier3Cards, 3, deckImage3);
+    setupTierLayout(tier1Layout, tier1Cards, 5, deck1);
+    setupTierLayout(tier2Layout, tier2Cards, 4, deck2);
+    setupTierLayout(tier3Layout, tier3Cards, 3, deck3);
     setupTierLayout(royalLayout, royalCards, 4, royalCardsImage); // Modified line
 
     // Add the tier layouts to the left side of the horizontal layout
@@ -39,7 +37,7 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     mainLayout->addLayout(verticalLayout);
 }
 
-void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards, int cardCount, Qt_carte *deckImage) {
+void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &cards, int cardCount, Qt_carte *deck) {
     layout = new QHBoxLayout();
 
     layout->setSpacing(0);
@@ -47,14 +45,16 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, QVector<Qt_carte*> &cards
 
     for (int i = 0; i < cardCount; ++i) {
         Qt_carte *card = new Qt_carte();
+        card->setStyleSheet("background: transparent;");
         card->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
         cards.push_back(card);
         layout->addWidget(card);
     }
 
-    if (deckImage != nullptr) {
-        deckImage->setFixedSize(75, 105);  // Same size as cards
-        layout->addWidget(deckImage);
+   if (deck != nullptr) {
+        deck->setFixedSize(75, 105);  // Same size as cards
+        deck->setStyleSheet("background: transparent;");
+        layout->addWidget(deck);
     }
 }
 
