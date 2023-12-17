@@ -16,6 +16,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 
+#include "popup_text.h"
+
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -24,11 +26,25 @@ public:
     void updateTopScore(int score);  // Méthode de mise à jour du score du haut
     void updateBottomScore(int score);  //  -- du bas
 
+    void demanderNoms() {
+        InputPopup *popup = new InputPopup(this);
+
+        // Connect signals and slots if needed
+        // For example, if you want to do something with the input after it's submitted
+
+        popup->setModal(true); // Set the dialog to be modal
+        popup->exec();         // Show the dialog modally
+
+        // Code here will execute after the dialog is closed
+        // You can process the input here if needed
+    }
+
+    void setTopPlayerName(const QString &name);
+    void setBottomPlayerName(const QString &name);
+
 private slots:
     void showCards();
     void showJetons();
-    //void renamePlayerX();
-    //void renamePlayerY();
     void remplirPlateau();
     void openWebLink();
 
@@ -43,6 +59,9 @@ private:
     QPushButton *viewJetonsButtonBottom;
     QPushButton *viewCardsButtonTop;
     QPushButton *viewJetonsButtonTop;
+
+    QLabel *topPlayerNameLabel;
+    QLabel *bottomPlayerNameLabel;
 };
 
 #endif // MAINWINDOW_H
