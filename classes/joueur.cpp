@@ -14,7 +14,7 @@ int positiveOrNull(int x) {
 /******************** Strategy_player ********************/
 
 // constructeur destructeur
-Strategy_player::Strategy_player(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0){}
+Strategy_player::Strategy_player(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0), nb_cartes_j_reservees(0){}
 
 Strategy_player::~Strategy_player(){
     // Déstruction cartes royales

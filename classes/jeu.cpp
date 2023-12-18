@@ -198,24 +198,15 @@ json Jeu::toJson() const{
     j["est_termine"] = est_termine;
     j["manche"] = manche;
 
-
     j["pioche1"] = p1->toJson();
-
     j["pioche2"] = p2->toJson();
-
     j["pioche3"] = p3->toJson();
-
     j["tirage1"] = tirage_1->toJson();
-
     j["tirage2"] = tirage_2->toJson();
-
     j["tirage3"] = tirage_3->toJson();
 
-
     j["qui_joue"] = Jeu::getJeu().getCurrentPlayer().toJson();
-
     j["adversaire"] = Jeu::getJeu().getOpponent().toJson();
-
 
     j["privileges"] = {};
     for (int i = 0; i < privileges.size(); ++i) {
@@ -228,10 +219,8 @@ json Jeu::toJson() const{
     for (int i = 0; i < cartes_royales.size(); ++i) {
         j["cartes_royales"].push_back(cartes_royales[i]->toJson());
     }
-
     j["sac"] = Sac::get_sac().toJson();
     j["plateau"] = Plateau::get_plateau().toJson();
-
 
 
     return j;

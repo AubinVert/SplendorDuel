@@ -89,6 +89,12 @@ void gameFromScratch(){
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
 
+    try{
+        toJson();
+    }catch (SplendorException &e){
+        cout<<e.getInfos()<<endl;
+    }
+
     Jeu::libereJeu();
 }
 
@@ -190,6 +196,12 @@ void gameFromJson(){
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+
+    try{
+        toJson();
+    }catch (SplendorException &e){
+        cout<<e.getInfos()<<endl;
+    }
 
     Jeu::libereJeu();
 
