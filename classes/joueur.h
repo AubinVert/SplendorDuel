@@ -165,6 +165,10 @@ public:
         return is_ia;
     }
 
+    void setWins(unsigned int nb) {games_won = nb;}
+    void setPlayed(unsigned int nb){games = nb;}
+
+
     // setters rajoutés pour les besoins du JSON
     void setJewellryCardReserved(vector<const JewelryCard*> j){
         if(nb_cartes_j_reservees<j.size()){

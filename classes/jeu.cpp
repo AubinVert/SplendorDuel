@@ -320,6 +320,7 @@ void Jeu::setPlayers(){
     srand(static_cast<unsigned>(std::time(nullptr)));
     if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement
         if (choix1 == "J") {
+
             qui_joue = new Joueur(name1);
             qui_joue->setIa(0);
         } else {
@@ -360,7 +361,7 @@ void Jeu::setPlayers(){
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
 
- */
+*/
 
 void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
 
