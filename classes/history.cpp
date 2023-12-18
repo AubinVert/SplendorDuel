@@ -25,8 +25,9 @@ std::ostream& operator<<(std::ostream& f, History h){
     vector< Strategy_player*> tab =  h.getPlayers();
     f<<"Nombre de joueurs dans l'historique : "<<tab.size()<<" joueurs dans l'historique :"<<endl;
     for (int i = 0; i < tab.size(); ++i) {
-        f<<tab[i]<<endl;
+        tab[i]->print_player();
     }
+    return f;
 }
 
 
@@ -57,6 +58,7 @@ void Jeu::setPlayers() {
 
             if(History::getHistory().inHistory(name1,0)) {
                 qui_joue = History::getHistory().pullPlayer(name1,0);
+                qui_joue->print_player();
             }else {
                 qui_joue = new Joueur(name1);
                 qui_joue->setIa(0);

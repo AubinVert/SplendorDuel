@@ -24,13 +24,22 @@ void gameFromScratch(){
         }
         json hist;
         file >> hist;
+
+
         file.close();
 
         // si maximum de cartes atteint alors cartes générées en trop.
         // mauvaise gestion des cartes
 
-        History::getHistory().initHistory(hist);
-        cout<<History::getHistory<<endl;
+
+        if(!hist.empty()){
+            History::getHistory().initHistory(hist);
+        }
+
+
+
+
+
 
     }catch (SplendorException &e){
         cout<< " Historique non ouvert "<<endl;

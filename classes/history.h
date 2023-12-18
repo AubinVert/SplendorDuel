@@ -43,8 +43,8 @@ public:
 
      Strategy_player* pullPlayer(const string nom, unsigned int is_ia) {
         for (int i = 0; i < players.size(); ++i) {
-            if(players[i]->getName() == nom && players[i]->getIa()){
-                 Strategy_player* tmp = players[i];
+            if(players[i]->getName() == nom && players[i]->getIa() == is_ia){
+                Strategy_player* tmp = players[i];
                 players.erase(players.begin()+i);
                 return tmp;
             }
@@ -66,7 +66,6 @@ public:
     }
 
     void initHistory(json data){
-        cout<<data["nb_players"]<<endl;
         for (int i = 0; i < data["nb_players"]; ++i) {
             if(data["players"][i]["is_ia"] == 1){
                 players.push_back(new IA(data["players"][i]));
