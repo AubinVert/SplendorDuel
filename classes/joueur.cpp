@@ -329,6 +329,8 @@ void Strategy_player::retirerJetonPerle() {
 
 //constructeur et destructeur
 Joueur::Joueur(const string & nom) : Strategy_player(nom){}
+Joueur::Joueur(const json data) : Strategy_player(data){}
+
 
 Joueur::~Joueur(){
     // Déstruction cartes royales
@@ -1274,6 +1276,9 @@ void Joueur::verifJetons(){
 /******************** IA ********************/
 
 IA::IA(const string & nom) : Strategy_player(nom){}
+
+IA::IA(const json data) : Strategy_player(data){}
+
 
 IA::~IA(){
     // Déstruction cartes royales

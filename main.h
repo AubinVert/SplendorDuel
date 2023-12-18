@@ -2,7 +2,7 @@
 #define LO21_SPLENDOR_DUEL_MAIN_H
 
 #include <iostream>
-#include "classes/jeu.h"
+#include "classes/history.h"
 
 void toJson(){
     json j = Jeu::getJeu().toJson();
@@ -14,6 +14,29 @@ void toJson(){
 
 void gameFromScratch(){
     srand(static_cast<unsigned>(std::time(nullptr)));
+
+    try{
+        std::ifstream file("../src/history.json");
+
+        if (!file.is_open()) {
+            std::cerr << "Failed to open the JSON file." << std::endl;
+            throw SplendorException("Fichier non ouvert");
+        }
+        json hist;
+        file >> hist;
+        file.close();
+
+        // si maximum de cartes atteint alors cartes générées en trop.
+        // mauvaise gestion des cartes
+
+        History::getHistory().initHistory(hist);
+        cout<<History::getHistory<<endl;
+
+    }catch (SplendorException &e){
+        cout<< " Historique non ouvert "<<endl;
+    }
+
+
 
 
     Jeu::getJeu();
@@ -88,9 +111,14 @@ void gameFromScratch(){
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+    // attention si won != 0 alors il a gagné sinon non
+    Jeu::getJeu().getCurrentPlayer().game_ended(1);
+    Jeu::getJeu().getOpponent().game_ended(0);
+
 
     try{
 
+        Hist();
         toJson();
     }catch (SplendorException &e){
         cout<<e.getInfos()<<endl;

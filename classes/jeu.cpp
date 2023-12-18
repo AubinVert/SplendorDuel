@@ -81,9 +81,6 @@ Jeu::Jeu() {
     // Création sac
     Sac::get_sac();
 
-    // Création de l'historique
-
-
 
     // Création jetons. Ils sont mis dans le sac aussi
     int j = 1;
@@ -422,3 +419,6 @@ void Jeu::printCarteRoyale(){
         cout<<"Indice : "<<i++<<", "<<*c<<endl;
     }
 }
+
+
+

@@ -50,6 +50,12 @@ protected:
     Strategy_player(const Strategy_player&) = delete;
 public:
 
+    void game_ended(unsigned int won){
+        if(won != 0){
+            games_won++;
+        }
+        games++;
+    }
 
     json toJson() const {
         json j;
@@ -98,12 +104,14 @@ public:
     }
 
 
+
+
     //constructeur destructeur
-    Strategy_player(const string &nom);
-    Strategy_player(const json data) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0), nb_cartes_j_reservees(0){
-        games_won = data["games_won"];
-        games = data["games"];
-    }
+     Strategy_player(const string &nom);
+     Strategy_player(const json data) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0),
+     nb_privileges(0),nom(data["nom"]), nb_jetons(0), nb_cartes_j_reservees(0), games_won(data["games_won"]),games(data["games"])
+    {
+     }
 
     virtual ~Strategy_player();
 
@@ -246,6 +254,7 @@ public:
 
     // Constructeur et destructeur
     Joueur(const string &nom);
+    Joueur(const json data);
     ~Joueur();
 
     // Méthodes polymorphiques adaptées pour un joueur
@@ -268,6 +277,7 @@ public:
 class IA: public Strategy_player {
 public:
     IA(const string & nom = "IA");
+    IA(const json data);
     ~IA();
 
     // Méthodes polymorphiques adaptées pour une IA
@@ -317,6 +327,11 @@ inline std::ostream& operator<<(std::ostream& os, const Strategy_player& j){
 int positiveOrNull(int x);
 
 void testJoueurs();
+
+
+
+
+
 
 #endif //LO21_SPLENDOR_DUEL_JOUEUR_H
 

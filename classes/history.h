@@ -7,12 +7,6 @@
 
 #include "jeu.h"
 
- json toHistoryCurrent()  {
-    json j;
-    j.push_back(Jeu::getJeu().getCurrentPlayer().toHistory());
-    j.push_back(Jeu::getJeu().getOpponent().toHistory());
-    return j;
-}
 
 class History{
 
@@ -34,10 +28,47 @@ private:
 
     //méthodes
 
-    History(json data){
 
+    History()  = default;
+
+    ~History() = default;
+    History (const History&) = delete;
+    History& operator=(const History&) = delete;
+
+public:
+
+    vector<const Strategy_player*> getPlayers() const{
+        return players;
+    }
+
+    const Strategy_player& pullPlayer(const string nom) {
+        for (int i = 0; i < players.size(); ++i) {
+            if(players[i]->getName()== nom){
+                const Strategy_player* tmp = players[i];
+                players.erase(players.begin()+i);
+                return *tmp;
+            }
+        }
+    }
+
+    const bool inHistory(const string nom) const {
+        for (int i = 0; i < players.size(); ++i) {
+            if(players[i]->getName()== nom){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+     unsigned int getSize() const{
+        return nb_players;
+    }
+
+    void initHistory(json data){
+        cout<<data["nb_players"]<<endl;
         for (int i = 0; i < data["nb_players"]; ++i) {
-            if(data["players"][i]["is_ia"]){
+            if(data["players"][i]["is_ia"] == 1){
                 players.push_back(new IA(data["players"][i]));
                 nb_players++;
             }
@@ -48,34 +79,26 @@ private:
         }
     }
 
-    ~History() = default;
-    History (const History&) = delete;
-    History& operator=(const History&) = delete;
-
-public:
-
-
-    void toHistory(){
+    json toHistory(){
         json j;
         j["players"] = {};
         for (int i = 0; i < nb_players; ++i) {
             j["players"].push_back(players[i]->toHistory());
         }
-        // on ajoute les deux derniers joueurs à la fin.
-        j["players"].push_back(toHistoryCurrent()[0]);
-        j["players"].push_back(toHistoryCurrent()[1]);
-
+        return j;
     }
 
-    History& getHistory(json data){
-        if (handler.instance == nullptr)  handler.instance = new History(data);
+    static History& getHistory(){
+        if (handler.instance == nullptr)  handler.instance = new History;
         return *handler.instance;
     }
 
 
 };
 
+void Hist();
 
+std::ostream& operator<<(std::ostream& f, History h);
 
 
 #endif //LO21_SPLENDOR_DUEL_HISTORY_H
