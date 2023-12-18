@@ -7,7 +7,7 @@
 
 #include "jeu.h"
 
-const json toHistoryCurrent()  {
+ json toHistoryCurrent()  {
     json j;
     j.push_back(Jeu::getJeu().getCurrentPlayer().toHistory());
     j.push_back(Jeu::getJeu().getOpponent().toHistory());
@@ -35,6 +35,7 @@ private:
     //méthodes
 
     History(json data){
+
         for (int i = 0; i < data["nb_players"]; ++i) {
             if(data["players"][i]["is_ia"]){
                 players.push_back(new IA(data["players"][i]));
@@ -47,12 +48,11 @@ private:
         }
     }
 
-    ~History();
+    ~History() = default;
     History (const History&) = delete;
     History& operator=(const History&) = delete;
 
 public:
-
 
 
     void toHistory(){

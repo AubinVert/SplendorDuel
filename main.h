@@ -90,6 +90,7 @@ void gameFromScratch(){
     Jeu::getJeu().getCurrentPlayer().print_player();
 
     try{
+
         toJson();
     }catch (SplendorException &e){
         cout<<e.getInfos()<<endl;
