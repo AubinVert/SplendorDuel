@@ -134,5 +134,9 @@ void Jeu::setPlayers() {
 
         }
     }
-        adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
+    json j = History::getHistory().toHistory();
+    cout<<j.dump(2)<<endl;
+
+
+    adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
     }

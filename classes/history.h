@@ -46,6 +46,7 @@ public:
             if(players[i]->getName() == nom && players[i]->getIa() == is_ia){
                 Strategy_player* tmp = players[i];
                 players.erase(players.begin()+i);
+                nb_players--;
                 return tmp;
             }
         }
@@ -81,7 +82,7 @@ public:
     json toHistory(){
         json j;
         j["players"] = {};
-        for (int i = 0; i < nb_players; ++i) {
+        for (int i = 0; i < players.size(); ++i) {
             j["players"].push_back(players[i]->toHistory());
         }
         return j;

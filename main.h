@@ -39,8 +39,6 @@ void gameFromScratch(){
 
 
 
-
-
     }catch (SplendorException &e){
         cout<< " Historique non ouvert "<<endl;
     }

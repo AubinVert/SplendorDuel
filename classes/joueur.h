@@ -50,7 +50,7 @@ protected:
     Strategy_player(const Strategy_player&) = delete;
 public:
 
-    void game_ended(unsigned int won){
+    void game_ended(const unsigned int won) {
         if(won != 0){
             games_won++;
         }
