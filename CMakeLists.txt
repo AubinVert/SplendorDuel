@@ -16,6 +16,9 @@ set(SOURCE_FILES
         classes/pioche.cpp
         classes/sac.cpp
         classes/json.cpp
+        classes/history.cpp
+        classes/history.h
+        classes/history.h
 )
 
 include(FetchContent)

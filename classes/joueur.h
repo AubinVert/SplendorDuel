@@ -29,6 +29,10 @@ protected:
     int nb_cartes_r;
     int nb_privileges;
     int nb_jetons;
+
+    unsigned int games_won;
+    unsigned int games;
+
     static int const max_nb_jetons = 10;
     static int const max_nb_cartes_r = 2;
     static int const max_nb_privileges = 3;
@@ -83,8 +87,24 @@ public:
         return j;
     }
 
+
+    json toHistory() const {
+        json j;
+        j["nom"] = nom;
+        j["is_ia"] = is_ia;
+        j["games"] = games;
+        j["games_won"] = games_won;
+        return j;
+    }
+
+
     //constructeur destructeur
     Strategy_player(const string &nom);
+    Strategy_player(const json data) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0), nb_cartes_j_reservees(0){
+        games_won = data["games_won"];
+        games = data["games"];
+    }
+
     virtual ~Strategy_player();
 
     //méthodes virtuelles pures
