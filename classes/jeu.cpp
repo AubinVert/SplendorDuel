@@ -295,7 +295,7 @@ void Jeu::test() {
     if (handler.instance == nullptr) std::cout << "Test";
 }
 
-
+/*
 void Jeu::setPlayers(){
 
     string choix1;
@@ -360,6 +360,8 @@ void Jeu::setPlayers(){
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
 
+ */
+
 void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
 
     /*
@@ -411,6 +413,7 @@ void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
+
 
 
 void Jeu::printCarteRoyale(){

@@ -161,6 +161,9 @@ public:
         }
     }
 
+    unsigned int getIa()  const{
+        return is_ia;
+    }
 
     // setters rajoutés pour les besoins du JSON
     void setJewellryCardReserved(vector<const JewelryCard*> j){

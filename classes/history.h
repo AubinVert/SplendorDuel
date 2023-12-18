@@ -23,7 +23,7 @@ private:
     static Handler handler;
 
     //attributs
-    vector<const Strategy_player*> players;
+    vector<Strategy_player*> players;
     unsigned int nb_players = 0;
 
     //méthodes
@@ -37,23 +37,23 @@ private:
 
 public:
 
-    vector<const Strategy_player*> getPlayers() const{
+    vector<Strategy_player*> getPlayers() const {
         return players;
     }
 
-    const Strategy_player& pullPlayer(const string nom) {
+     Strategy_player* pullPlayer(const string nom, unsigned int is_ia) {
         for (int i = 0; i < players.size(); ++i) {
-            if(players[i]->getName()== nom){
-                const Strategy_player* tmp = players[i];
+            if(players[i]->getName() == nom && players[i]->getIa()){
+                 Strategy_player* tmp = players[i];
                 players.erase(players.begin()+i);
-                return *tmp;
+                return tmp;
             }
         }
     }
 
-    const bool inHistory(const string nom) const {
+    const bool inHistory(const string nom, const int is_ia) const {
         for (int i = 0; i < players.size(); ++i) {
-            if(players[i]->getName()== nom){
+            if(players[i]->getName()== nom && players[i]->getIa() == is_ia){
                 return true;
             }
         }
