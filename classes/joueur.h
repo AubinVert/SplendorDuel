@@ -176,8 +176,6 @@ public:
     }
 
     void setNbJCardsReserved(unsigned int nb){
-        cout<<max_nb_cartes_reservees<<endl;
-        cout<<nb<<endl;
         if(nb>max_nb_cartes_reservees){
             throw SplendorException("Fichier de chargement corrompu 8");
         }
