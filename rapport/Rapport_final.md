@@ -17,13 +17,14 @@ Dans ce dernier rapport, vous trouverez :
 
 ## Les possibilités de l'application
 
-Notre application possède plusieurs modes de jeu, grâce à deux types de joueurs : IA ou joueur humain. L'application permet des parties aussi bien en joueur contre joueur, IA contre joueur ou IA contre IA. Au début d'une partie, les noms des joueurs, aussi bien IA qu'humain sont paramétrables.
+- Notre application possède plusieurs modes de jeu, grâce à deux types de joueurs : IA ou humain. L'application permet des parties aussi bien en humain contre humain, IA contre humain ou IA contre IA. Au début d'une partie, les noms des joueurs (humain/IA) sont paramétrables. Cependant faute de temps, nous avons simplement implémenté une IA aléatoire, il n'y a donc pas de paramétrage possible pour le niveau d'adversité de l'IA. A noter qu'il est tout à fait possible et simple d'implémenter une nouvelle IA plus développée grâce au Design Pattern Strategy_Player (détaillé plus loin dans ce rapport) et donc de paramétrer un niveau d'adversité de l'IA au début du jeu.
 
+- Il est possible de procéder à une reprise ou à l'abandon d'une éventuelle partie en cours. La reprise d'une partie est proposée au début du jeu et permet de reprendre la dernière partie jouée si elle n'a pas été finie. Pour abandonner une partie en cours, il suffit de stopper le programme.
 
+- Durant la partie, il est demandé à l'utilisateur (si c'est un humain) de valider ou non son choix d'action et ce à chaque étape du tour. Si le choix n'est pas validé, l'action s'annule.
 
-Annulation d'un coup si non validé
-Sauvegarde du contexte
-Visuels scannés
+- Un historique des scores est disponible et permet de sauvegarder pour chaque partie les caractéristiques suivantes : le score des deux joueurs, le joueur perdant et le joueur gagnant avec pour chacun le type de joueur, son nom, son nombre de parties jouées et son nombre de parties gagnées. Le nombre de matchs disputés est également sauvegardé.
+
 
 ## Architecture
 
@@ -124,8 +125,8 @@ Pourcentage de contribution sur l'ensemble du projet :
 - Quentin : 15%
 
 Temps consacré au projet :
-- Alexandru :
-- Aubin :
-- Gaspard :
-- Léopold :
-- Quentin :
+- Alexandru : ~
+- Aubin : ~
+- Gaspard : ~
+- Léopold : ~
+- Quentin : ~
