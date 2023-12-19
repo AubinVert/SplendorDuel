@@ -220,6 +220,7 @@ void gameFromJson(){
     Jeu::getJeu().getCurrentPlayer().print_player();
 
     try{
+        Hist();
         toJson();
     }catch (SplendorException &e){
         cout<<e.getInfos()<<endl;
