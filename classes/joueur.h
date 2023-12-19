@@ -68,6 +68,8 @@ public:
         j["nb_cartes_r"] = nb_cartes_r;
         j["nb_privileges"] = nb_privileges;
         j["nb_jetons"] = nb_jetons;
+        j["games"] = games;
+        j["games_won"] = games_won;
         j["cartes_joaillerie_achetees"] = {};
         j["cartes_joaiellerie_reservees"] = {};
         j["cartes_royale"] = {};

@@ -189,4 +189,6 @@ void Jeu::setPlayers(){
         }
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
+
+
 }

@@ -26,7 +26,8 @@ Strategy_player& fromJsonStrategyPLayer(json data){
         return *player;
 
     }else{
-        Joueur *player = new Joueur(data["nom"]);
+        string tmp = data["nom"];
+        Joueur *player = new Joueur(tmp);
 
         player->setNbCouronnes(data["nb_courones"]);
         player->setPoints(data["nb_points"]);
@@ -155,10 +156,14 @@ Jeu::Jeu() {
 }
 
 Jeu::Jeu(json data){
+
     //on veut init le jeu avec tout ce dont on a besoin
+
     est_termine = data["est_termine"];
     cout<<"init j1\n"<<endl;
+
     qui_joue = &fromJsonStrategyPLayer(data["qui_joue"]);
+
     manche = data["manche"];
     cout<<"init j2\n"<<endl;
     adversaire = &fromJsonStrategyPLayer(data["adversaire"]);
