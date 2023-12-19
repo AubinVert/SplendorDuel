@@ -476,9 +476,11 @@ void MainWindow::showInfo(const string& string){
 
 void MainWindow::jetonClicked(Qt_jeton* j){
 
-    if (j->getJeton() != nullptr && j != nullptr) {
+    if (j != nullptr && j->getJeton() != nullptr ) {
         qDebug() << "Jeton cliqué : " << j->getJeton()->getVisuel();
         setIndiceJetonClick(j->getIndice());
+    }else{
+        setIndiceJetonClick(-1);
     }
 
     MainWindow::getMainWindow().jetonActionDone();

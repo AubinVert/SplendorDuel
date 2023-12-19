@@ -811,31 +811,24 @@ void Joueur::selection_jetons_qt() {
     }
     while(!choix_ok){
         try{
+            qDebug() << "Try selection";
             std::vector<int> tmp_tab(0);
             optional<Position> pos = nullopt;
             int nb_or = 0;
             int nb_perle = 0;
             string validation;
-            char choice_valid;
+            char choice_valid = 'a';
             while(choice_valid != 'Y'){
+                qDebug() << "While choice_valid";
                 while(tmp_tab.size()<3) {
+                    qDebug() << "While size()";
                     unsigned int indice = 0;
 
-                    // cout << "Veuillez renseigner l'indice du jeton " << tmp_tab.size() << " que vous voulez prendre ";
-                    //  (tmp_tab.size()>0){ // ajout de la possibilité de s'arrêter
-                    //     cout<<"-1 pour arrêter la sélection de jetons";
-                    // }
-                    // cout<<" :"<<endl;
-                    // cout << "choix :";
-                    // cin >> indice;
-
-                    // Recevoir indice du signal MainWindow
-
-                    // Wait for a click
                     MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
                     indice = MainWindow::getMainWindow().getIndiceJetonClick();
                     qDebug() << indice;
+                    if(indice == -1) throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
 
                     if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
                         nb_or = 0;
@@ -943,6 +936,7 @@ void Joueur::selection_jetons_qt() {
                 optional<Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1], jet2);
 
                 if ((pos1 != pos2) || (pos1 == nullopt) || (pos2 == nullopt)) {
+                    tmp_tab.clear();
                     throw SplendorException("Jetons non-alignés\n");
                 }
             }
@@ -967,7 +961,7 @@ void Joueur::selection_jetons_qt() {
             }
             choix_ok = 1;
         }catch(SplendorException& e){
-            MainWindow::getMainWindow().triggerInfo(e.getInfos());
+            MainWindow::getMainWindow().triggerInfo(e.getInfos() + "Veuillez recommencer: ");
             cout<<e.getInfos()<<"\n";
         }
     }
