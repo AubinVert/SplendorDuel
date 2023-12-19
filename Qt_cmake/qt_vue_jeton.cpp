@@ -2,12 +2,11 @@
 #include "mainwindow.h"
 #include <QCoreApplication>
 
-Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent), jeton(nullptr) {
+Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent), jeton(nullptr), isClicked(false) {
     // Default initialization
     // updateAppearance();
     connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
 }
-
 
 void Qt_jeton::toggleClicked() {
     isClicked = !isClicked;

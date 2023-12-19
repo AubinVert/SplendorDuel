@@ -104,6 +104,7 @@ public:
     virtual void verifJetons()=0;
 
     //getters setters
+    const vector<const JewelryCard*>& getCartesBought() const {return cartes_joaillerie_achetees;}
     const int getNbCartesJoaillerie() const {return nb_cartes_j;}
     const int getNbJetons() const {return nb_jetons;}
     const string getName() const {return nom;}
@@ -124,7 +125,7 @@ public:
         nb_privileges = nb;
     }
     const int getNbCartesRoyales() const {return nb_cartes_r;}
-    vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
+    vector<const JewelryCard*>& getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
 
     void setIa(unsigned int nb){

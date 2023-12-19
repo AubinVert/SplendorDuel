@@ -22,6 +22,7 @@ private:
     int indice;
 
 public:
+
     explicit Qt_jeton(QWidget *parent = nullptr);
     void toggleClicked(); // Method to change the clicked state
     void updateAppearance(); // Mise à jour image
@@ -29,7 +30,7 @@ public:
     const Jeton* getJeton() const {return jeton;}
     void setJeton(const Jeton* j) {jeton = j;}
 
-    const int getIndice() {return indice;}
+    const int getIndice() const {return indice;}
     void setIndice(int x) {indice = x;}
 
 

@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // Initialize player name labels
     topPlayerNameLabel = new QLabel("Player 1");
     bottomPlayerNameLabel = new QLabel("Player 2");
-    topPlayerNameLabel->setStyleSheet("color: white;");
-    bottomPlayerNameLabel->setStyleSheet("color: white;");
+    topPlayerNameLabel->setStyleSheet("QLabel { color: white; background-color: white; border: 1px solid white; }");
+    bottomPlayerNameLabel->setStyleSheet("QLabel { color: white; background-color: white; border: 1px solid white; }");
 
     QWidget *centralWidget = new QWidget(this);
 
@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setSpacing(16);
+
+    quijoue = new QLabel("Qui joue");
+    quijoue->setStyleSheet("QLabel { color: white; background-color: white; border: 1px solid white; }");
+    mainLayout->addWidget(quijoue, 0, Qt::AlignLeft);
 
     // ######## SCORE EN HAUT ET BOUTONS ########
 
@@ -36,26 +40,27 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Alligner au centre
 
     // Boutons du haut (cartes et jetons)
-    viewCardsButtonTop = new QPushButton("Voir cartes");
+    viewCardsButtonTop = new QPushButton("Voir cartes achetées");
     viewJetonsButtonTop = new QPushButton("Voir jetons");
+    viewReservedCardsButtonTop = new QPushButton("Voir cartes réservées");
 
     // Faire le texte blanc
     viewCardsButtonTop->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewJetonsButtonTop->setStyleSheet("color: rgba(255, 255, 255, 255);");
+    viewReservedCardsButtonTop->setStyleSheet("color: rgba(255, 255, 255, 255);");
 
     // Connecter aux fonctionnalités
-    connect(viewCardsButtonTop, &QPushButton::clicked, this, &MainWindow::showCards);
-    connect(viewJetonsButtonTop, &QPushButton::clicked, this, &MainWindow::showJetons);
+    connect(viewCardsButtonTop, &QPushButton::clicked, this, &MainWindow::showBoughtCardsTop);
+    connect(viewJetonsButtonTop, &QPushButton::clicked, this, &MainWindow::showJetonsTop);
+    connect(viewReservedCardsButtonTop, &QPushButton::clicked, this, &MainWindow::showReservedCardsTop);
 
 
     // Ajouter un layout et les mettre dedans
     QHBoxLayout *topButtonLayout = new QHBoxLayout;
     topButtonLayout->addWidget(viewCardsButtonTop);
     topButtonLayout->addWidget(viewJetonsButtonTop);
+    topButtonLayout->addWidget(viewReservedCardsButtonTop);
     mainLayout->addLayout(topButtonLayout);
-
-
-
 
     // ######## PLATEAU ET TIRAGES ########
 
@@ -64,26 +69,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QWidget *middleContainer = new QWidget;
     QHBoxLayout *middleLayout = new QHBoxLayout(middleContainer);
 
-    // Créer 'remplir plateau' et le connecter à un slot
-    remplirPlateauButton = new QPushButton("Remplir Plateau", this);
-    remplirPlateauButton->setStyleSheet("color: rgba(255, 255, 255, 255);");
-    connect(remplirPlateauButton, &QPushButton::clicked, this, &MainWindow::remplirPlateau);
-
     // Créer le plateau et les tirages
     plateau = &Qt_Plateau::getPlateau();
     tirages = new Qt_Tirages;
 
     QVBoxLayout *plateauLayout = new QVBoxLayout();
     plateauLayout->addWidget(plateau);
-    plateauLayout->addWidget(remplirPlateauButton); // Ajouter 'remplir plateau' en dessous plateau
 
     middleLayout->addLayout(plateauLayout); // Rajouter le plateau et le bouton au middle layout
     middleLayout->addStretch(); // Stretch pour mettre les tirages à droite
     tirages->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
     middleLayout->addWidget(tirages);
     mainLayout->addWidget(middleContainer);
-    mainLayout->addWidget(remplirPlateauButton);
-
 
     // ######## CONDITION DE VICTOIRE ET REGLES ########
 
@@ -121,16 +118,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
     // Boutons du bas
-    viewCardsButtonBottom = new QPushButton("Voir cartes");
+    viewCardsButtonBottom = new QPushButton("Voir cartes achetées");
     viewJetonsButtonBottom = new QPushButton("Voir jetons");
+    viewReservedCardsButtonBottom = new QPushButton("Voir cartes réservées");
+
     viewCardsButtonBottom->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewJetonsButtonBottom->setStyleSheet("color: rgba(255, 255, 255, 255);");
-    connect(viewCardsButtonBottom, &QPushButton::clicked, this, &MainWindow::showCards);
-    connect(viewJetonsButtonBottom, &QPushButton::clicked, this, &MainWindow::showJetons);
+    viewReservedCardsButtonBottom->setStyleSheet("color: rgba(255, 255, 255, 255);");
+    connect(viewCardsButtonBottom, &QPushButton::clicked, this, &MainWindow::showBoughtCardsBottom);
+    connect(viewJetonsButtonBottom, &QPushButton::clicked, this, &MainWindow::showJetonsBottom);
+    connect(viewReservedCardsButtonBottom, &QPushButton::clicked, this, &MainWindow::showReservedCardsBottom);
 
     QHBoxLayout *bottomButtonLayout = new QHBoxLayout;
     bottomButtonLayout->addWidget(viewCardsButtonBottom);
     bottomButtonLayout->addWidget(viewJetonsButtonBottom);
+    bottomButtonLayout->addWidget(viewReservedCardsButtonBottom);
     mainLayout->addLayout(bottomButtonLayout);
 
     // Set le widget central
@@ -140,7 +142,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(this, &MainWindow::triggerNextAction, this, &MainWindow::nextAction);
     connect(this, &MainWindow::triggerYesNo, this, &MainWindow::YesNo);
     connect(this, &MainWindow::triggerInfo, this, &MainWindow::showInfo);
-    connect(this, &MainWindow::actionDone, &wait_for_action, &QEventLoop::quit);
+    connect(this, &MainWindow::jetonActionDone, &wait_for_action_jeton, &QEventLoop::quit);
+    connect(this, &MainWindow::carteActionDone, &wait_for_action_carte, &QEventLoop::quit);
     connect(this, &MainWindow::triggerTiragePioche, this, &MainWindow::popTiragePioche);
 
 }
@@ -149,13 +152,140 @@ MainWindow::~MainWindow() {
     // Rien
 }
 
-void MainWindow::showCards() {
+void MainWindow::showBoughtCardsBottom() {
     QDialog *cardsDialog = new QDialog(this);
     cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    QGridLayout* layout = new QGridLayout(this);
+
+    int nb = Jeu::getJeu().getCurrentPlayer().getNbCartesJoaillerie();
+    for (int i = 0; i < nb; i++){
+        Qt_carte* c = new Qt_carte();
+        c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesBought()[i]);
+        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setDisabled(true);
+        // label->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(c, i / 4, i % 4);
+
+    }
+
     cardsDialog->exec(); // L'afficher
 }
 
-void MainWindow::showJetons() {
+void MainWindow::showJetonsBottom() {
+    QDialog *jetonsDialog = new QDialog();
+    jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+
+
+    QVBoxLayout* verticallayout = new QVBoxLayout();
+
+    QLabel* name = new QLabel();
+    name->setText("Jetons de " + QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
+    name->setStyleSheet("QLabel { color: white; }");
+
+
+    verticallayout->addWidget(name, Qt::AlignCenter);
+
+    QGridLayout* layout = new QGridLayout();
+    QWidget *gridWidget = new QWidget();
+
+    gridWidget->setLayout(layout);
+
+    int nb = Jeu::getJeu().getCurrentPlayer().getNbJetons();
+
+    for (int i = 0; i < 16; i++){
+        Qt_jeton* j = new Qt_jeton();
+        if (i < nb) j->setJeton(Jeu::getJeu().getCurrentPlayer().getJeton()[i]);
+        j->setFixedSize(60, 60);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        j->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(j, i / 4, i % 4);
+        j->updateAppearance();
+    }
+
+    // Disable stretching and set fixed size for the layout
+    for (int i = 0; i < 4; ++i) {
+        layout->setRowStretch(i, 0);
+        layout->setColumnStretch(i, 0);
+    }
+
+    verticallayout->addWidget(gridWidget);
+    jetonsDialog->setLayout(verticallayout);
+
+    jetonsDialog->exec();
+}
+
+void MainWindow::showReservedCardsBottom() {
+    QDialog *jetonsDialog = new QDialog(this);
+    QVBoxLayout *dialogLayout = new QVBoxLayout(jetonsDialog);
+
+    Qt_Jetons_Main *jet_bas = new Qt_Jetons_Main(jetonsDialog);
+    jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    dialogLayout->addWidget(jet_bas);
+
+    jetonsDialog->exec();
+}
+
+void MainWindow::showBoughtCardsTop() {
+    QDialog *cardsDialog = new QDialog(this);
+    cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    QGridLayout* layout = new QGridLayout(this);
+
+    int nb = Jeu::getJeu().getOpponent().getNbCartesJoaillerie();
+    for (int i = 0; i < nb; i++){
+        Qt_carte* c = new Qt_carte();
+        c->setCard(Jeu::getJeu().getOpponent().getCartesBought()[i]);
+        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setDisabled(true);
+        // label->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(c, i / 4, i % 4);
+
+    }
+
+    cardsDialog->exec(); // L'afficher
+}
+
+void MainWindow::showJetonsTop() {
+    QDialog *jetonsDialog = new QDialog();
+    jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+
+
+    QVBoxLayout* verticallayout = new QVBoxLayout();
+
+    QLabel* name = new QLabel();
+    name->setText("Jetons de " + QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
+    name->setStyleSheet("QLabel { color: white; }");
+
+
+    verticallayout->addWidget(name, Qt::AlignCenter);
+
+    QGridLayout* layout = new QGridLayout();
+    QWidget *gridWidget = new QWidget();
+
+    gridWidget->setLayout(layout);
+
+    int nb = Jeu::getJeu().getOpponent().getNbJetons();
+
+    for (int i = 0; i < 16; i++){
+        Qt_jeton* j = new Qt_jeton();
+        if (i < nb) j->setJeton(Jeu::getJeu().getOpponent().getJeton()[i]);
+        j->setFixedSize(60, 60);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        j->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(j, i / 4, i % 4);
+        j->updateAppearance();
+    }
+
+    // Disable stretching and set fixed size for the layout
+    for (int i = 0; i < 4; ++i) {
+        layout->setRowStretch(i, 0);
+        layout->setColumnStretch(i, 0);
+    }
+
+    verticallayout->addWidget(gridWidget);
+    jetonsDialog->setLayout(verticallayout);
+
+    jetonsDialog->exec();
+}
+
+void MainWindow::showReservedCardsTop() {
     QDialog *jetonsDialog = new QDialog(this);
     QVBoxLayout *dialogLayout = new QVBoxLayout(jetonsDialog);
 
@@ -345,8 +475,67 @@ void MainWindow::showInfo(const string& string){
 }
 
 void MainWindow::jetonClicked(Qt_jeton* j){
-    if (j != nullptr) qDebug() << "Jeton cliqué : " << j->getJeton()->getVisuel();
-    else qDebug() << "nullptr jeton";
-    setIndiceJetonClick(j->getIndice());
-    MainWindow::getMainWindow().actionDone();
+
+    if (j->getJeton() != nullptr && j != nullptr) {
+        qDebug() << "Jeton cliqué : " << j->getJeton()->getVisuel();
+        setIndiceJetonClick(j->getIndice());
+    }
+
+    MainWindow::getMainWindow().jetonActionDone();
+}
+
+
+void MainWindow::carteClicked(Qt_carte* c){
+    if (c != nullptr) qDebug() << "Carte cliquée : " << c->getCard()->getVisuel();
+    else qDebug() << "nullptr carte";
+    setDerniereCarteClick(c);
+    MainWindow::getMainWindow().carteActionDone();
+}
+
+
+void MainWindow::deactivateButtons(){
+    // Jetons
+    int nbmax = Jeton::getNbMaxJetons();
+    for(int i = 0; i < nbmax; i++){
+        plateau->getPlateau().getJetons()[i]->setEnabled(false);
+    }
+
+    // Tirage 1
+    for (int i = 0; i < 5; i++){
+        getTirages()->getTier1()[i]->setEnabled(false);
+    }
+
+    // Tirage 2
+    for (int i = 0; i < 4; i++){
+        getTirages()->getTier2()[i]->setEnabled(false);
+    }
+
+    // Tirage 3
+    for (int i = 0; i < 3; i++){
+        getTirages()->getTier3()[i]->setEnabled(false);
+    }
+
+    // Tirage cartes royales
+    for (int i = 0; i < 4; i++){
+        getTirages()->getRoyalCards()[i]->setEnabled(false);
+    }
+
+    // Les 3 pioches
+
+    getTirages()->getDeckImage1()->setEnabled(false);
+    getTirages()->getDeckImage2()->setEnabled(false);
+    getTirages()->getDeckImage3()->setEnabled(false);
+
+}
+
+void MainWindow::activateJetons(){
+    // Jetons
+    int nbmax = Jeton::getNbMaxJetons();
+    for(int i = 0; i < nbmax; i++){
+        plateau->getPlateau().getJetons()[i]->setEnabled(true);
+    }
+}
+
+void MainWindow::updateQuiJoue(){
+    quijoue->setText(QString::fromStdString("C'est à " + Jeu::getJeu().getCurrentPlayer().getName()) + " de jouer");
 }

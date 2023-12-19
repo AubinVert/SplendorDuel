@@ -45,6 +45,7 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &c
 
     for (int i = 0; i < cardCount; ++i) {
         Qt_carte *card = new Qt_carte();
+        card->setIndice(i);
         card->setStyleSheet("background: transparent;");
         card->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
         cards.push_back(card);

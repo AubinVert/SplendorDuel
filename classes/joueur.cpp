@@ -500,35 +500,23 @@ void Joueur::choice(){
 
 // Surcharge Qt
 void Joueur::choice_qt(){
+    // Désactiver tous les boutons
+
+
+
     int tmp = 0;
     bool fin_choix = 0;
     int nb_choice = 0;
     char info;
     while (!fin_choix){
         try{
-
+            MainWindow::getMainWindow().deactivateButtons();
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
-
-            /*
-            int i = 1;
-            cout<<"Actions optionnelles disponibles:"<<endl;
-            if(nb_choice%2 == 1){
-                cout<<"Utiliser un privilège-> "<<i++<<endl;
-            }
-            if(nb_choice>=2){
-                cout<<"Remplir le plateau -> "<<i++<<endl;
-            }
-            cout<<"Actions obligatoire:"<<endl;
-            cout<<"Pour prendre des jetons appuyez sur -> "<<i++<<endl;
-            cout<<"Pour acheter une carte appuyez sur -> "<<i++<<endl;
-            cout<<"choix :";
-            cin>>tmp;
-            */
 
             MainWindow::getMainWindow().triggerNextAction(&tmp, this);
             // qDebug() << tmp;
 
-            MainWindow::getMainWindow().triggerYesNo(&info);
+            // MainWindow::getMainWindow().triggerYesNo(&info);
             // qDebug() << info;
 
             if(info=='N'){
@@ -541,33 +529,17 @@ void Joueur::choice_qt(){
                 switch (tmp) {
                 case 1: {
                     selection_jetons_qt();
-                    fin_choix = 1;
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
-                    MainWindow::getMainWindow().update();
 
+                    fin_choix = 1;
                     break;
                 }
                 case 2: {
                     achat_carte();
 
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
-
                     fin_choix = 1;
 
                     break;
                 }
-                    //                        case 3: {
-                    //                            // affichage des jetons du jouer !
-                    //                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-                    //                            // afficher pour chaque type
-                    //                            break;
-                    //                        }
                 default: // on continue jusqu'à ce que l'utilisateur choisisse une entrée valide!
                     break;
                 }
@@ -577,27 +549,18 @@ void Joueur::choice_qt(){
                 switch (tmp) {
                 case 1: {
                     utilisationPrivilege();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     break;
                 }
                 case 2: {
                     selection_jetons_qt();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     fin_choix = 1;
                     break;
                 }
                 case 3: {
                     achat_carte();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     fin_choix = 1;
                     break;
                 }
@@ -616,27 +579,18 @@ void Joueur::choice_qt(){
                 switch (tmp) {
                 case 1: { // remplissage plateau
                     remplissagePlateau();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     break;
                 }
                 case 2: {
                     selection_jetons_qt();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     fin_choix = 1;
                     break;
                 }
                 case 3: {
                     achat_carte();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     fin_choix = 1;
                     break;
                 }
@@ -655,35 +609,23 @@ void Joueur::choice_qt(){
                 switch (tmp) {
                 case 1: {
                     utilisationPrivilege();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     break;
                 }
                 case 2: { // remplissage plateau
                     remplissagePlateau();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     break;
                 }
                 case 3: {
                     selection_jetons_qt();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     fin_choix = 1;
                     break;
                 }
                 case 4: {
                     achat_carte();
-                    MainWindow::getMainWindow().updatePlateau();
-                    MainWindow::getMainWindow().updateTirages();
-                    MainWindow::getMainWindow().updateScores();
-                    MainWindow::getMainWindow().updatePrivileges();
+
                     fin_choix = 1;
                     break;
                 }
@@ -699,7 +641,11 @@ void Joueur::choice_qt(){
                 break;
             }default: break;
             }
-
+            MainWindow::getMainWindow().updatePlateau();
+            MainWindow::getMainWindow().updateTirages();
+            MainWindow::getMainWindow().updateScores();
+            MainWindow::getMainWindow().updatePrivileges();
+            MainWindow::getMainWindow().update();
         }catch(SplendorException& e){
             cout<<e.getInfos()<<"\n";
         }
@@ -855,11 +801,12 @@ void Joueur::selection_jetons() {
 }
 
 void Joueur::selection_jetons_qt() {
+    MainWindow::getMainWindow().activateJetons();
+
     // qDebug() << "SELECTION JETONS QT";
     bool nb_ok=0;
     bool choix_ok = 0;
     if(Plateau::get_plateau().onlyGold() and Jeu::getJeu().get_tour().getNbCartesReservees() >= 3) {
-        MainWindow::getMainWindow().triggerInfo("Pas possible de piocher: il ne reste que des jetons or et vous ne pouvez plus réserver de carte!");
         throw SplendorException("Pas possible de piocher: il ne reste que des jetons or et vous ne pouvez plus réserver de carte!");
     }
     while(!choix_ok){
@@ -884,18 +831,8 @@ void Joueur::selection_jetons_qt() {
 
                     // Recevoir indice du signal MainWindow
 
-                    MainWindow::getMainWindow().triggerYesNo(&choice_valid, "Sélectionner encore un jeton ");
-
-
-                    if (choice_valid == 'Y') qDebug() << "Yes choice";
-                    else qDebug() << "No choice";
-
-                    if (choice_valid == 'N'){
-                        break;
-                    }
-
                     // Wait for a click
-                    MainWindow::getMainWindow().getWaitLoop()->exec();
+                    MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
                     indice = MainWindow::getMainWindow().getIndiceJetonClick();
                     qDebug() << indice;
@@ -904,14 +841,12 @@ void Joueur::selection_jetons_qt() {
                         nb_or = 0;
                         nb_perle = 0;
                         tmp_tab.clear();
-                        MainWindow::getMainWindow().triggerInfo("Il n'y a pas de jeton à cet indice!");
                         throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
                     }
                     if (indice >Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
                         nb_or = 0;
                         nb_perle = 0;
                         tmp_tab.clear();
-                        MainWindow::getMainWindow().triggerInfo("Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau");
                         throw SplendorException("Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau\n");
                     }
                     if (Plateau::get_plateau().get_plateau_i(indice)->getColor() == Color::gold) {
@@ -925,21 +860,31 @@ void Joueur::selection_jetons_qt() {
                         nb_or = 0;
                         nb_perle = 0;
                         tmp_tab.clear();
-                        MainWindow::getMainWindow().triggerInfo("Vous n'avez pas le droit de réserver une carte supplémentaire!");
                         throw SplendorException("Vous n'avez pas le droit de réserver une carte supplémentaire!");
                     }
                     if (nb_or == 1 and tmp_tab.size() > 1) {
                         nb_or = 0;
                         nb_perle = 0;
                         tmp_tab.clear();
-                        MainWindow::getMainWindow().triggerInfo("Attention, on ne peut prendre un jeton or seulement tout seul!");
                         throw SplendorException("Attention, on ne peut prendre un jeton or seulement tout seul!");
                     }
                     tmp_tab.push_back(indice);
+
+                    if (tmp_tab.size() < 3) {
+                        MainWindow::getMainWindow().triggerYesNo(&choice_valid, "Sélectionner encore un jeton ");
+
+
+                        if (choice_valid == 'Y') qDebug() << "Yes choice";
+                        else qDebug() << "No choice";
+
+                        if (choice_valid == 'N'){
+                            break;
+                        }
+                    }
+
                 }
 
                 MainWindow::getMainWindow().triggerYesNo(&choice_valid, "Validez-vous votre sélection ?");
-
                 /*
                 cout<<"Validez-vous votre sélection? [Y/N] ";
                 cin>>validation;
@@ -959,7 +904,7 @@ void Joueur::selection_jetons_qt() {
 
             }
 
-            // qDebug() << "DONE selection";
+            qDebug() << "DONE selection";
 
             //tri du vecteur par selection
             int min = 0;
@@ -979,13 +924,13 @@ void Joueur::selection_jetons_qt() {
             // vecteur trié
             // cout<<"vecteur trié\n";
 
+            // ### GESTION NON ALLIGNEMENT
 
             if (tmp_tab.size() == 2) { // vérification de l'alignement pour 2 jetons
                 //cout<<"vérification pour 2 jetons\n";
                 const Jeton *jet1 = Plateau::get_plateau().get_plateau_i(tmp_tab[0]);
                 optional<Position> pos1 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1], jet1);
                 if (pos1 == nullopt) {
-                    MainWindow::getMainWindow().triggerInfo("Jetons non-alignés");
                     throw SplendorException("Jetons non-alignés\n");
                 }
             }
@@ -998,7 +943,6 @@ void Joueur::selection_jetons_qt() {
                 optional<Position> pos2 = Plateau::get_plateau().jeton_i_est_a_cote(tmp_tab[1], jet2);
 
                 if ((pos1 != pos2) || (pos1 == nullopt) || (pos2 == nullopt)) {
-                    MainWindow::getMainWindow().triggerInfo("Jetons non-alignés");
                     throw SplendorException("Jetons non-alignés\n");
                 }
             }
@@ -1023,6 +967,7 @@ void Joueur::selection_jetons_qt() {
             }
             choix_ok = 1;
         }catch(SplendorException& e){
+            MainWindow::getMainWindow().triggerInfo(e.getInfos());
             cout<<e.getInfos()<<"\n";
         }
     }
@@ -1353,7 +1298,7 @@ void Joueur::achat_carte(){
         }
         if(choice==1){
             //alors on doit lui print les cartes qu'il peut acheter (celles qu'il a déjà reservé)
-            vector<const JewelryCard*> reserved = Jeu::getJeu().getCurrentPlayer().getCartesReserved();
+            vector<const JewelryCard*>& reserved = Jeu::getJeu().getCurrentPlayer().getCartesReserved();
             for (int i = 0; i < reserved.size(); ++i) {
                 cout<<"indice : "<<i<<" "<<*reserved[i]<<endl;
             }

@@ -34,19 +34,25 @@ private:
     QLabel *bottomScoreLabel;
     QLCDNumber *topScoreDisplay;  // Top score display
     QLCDNumber *bottomScoreDisplay;  // Bottom score display
-    QPushButton *remplirPlateauButton; // Remplir plateau
+
     QPushButton *viewCardsButtonBottom;
     QPushButton *viewJetonsButtonBottom;
+    QPushButton *viewReservedCardsButtonBottom;
+
     QPushButton *viewCardsButtonTop;
     QPushButton *viewJetonsButtonTop;
+    QPushButton *viewReservedCardsButtonTop;
 
     QLabel *topPlayerNameLabel;
     QLabel *bottomPlayerNameLabel;
 
-    QEventLoop wait_for_action;
+    QEventLoop wait_for_action_jeton;
+    QEventLoop wait_for_action_carte;
 
     Qt_Plateau* plateau;
     Qt_Tirages* tirages;
+
+    QLabel* quijoue;
 
     Jeu* jeu;
 
@@ -66,13 +72,20 @@ private:
     MainWindow& operator=(const MainWindow&) = delete;
 
     int indice_jeton_click;
+    Qt_carte* derniere_carte_click;
 
 public:
 
-    QEventLoop* getWaitLoop() {return &wait_for_action;}
+    void updateQuiJoue();
+
+    QEventLoop* getCarteWaitLoop() {return &wait_for_action_carte;}
+    QEventLoop* getJetonWaitLoop() {return &wait_for_action_jeton;}
 
     int getIndiceJetonClick() const {return indice_jeton_click;}
     void setIndiceJetonClick(int x) {indice_jeton_click = x;}
+
+    Qt_carte* getDerniereCarteClick() const {return derniere_carte_click;}
+    void setDerniereCarteClick(Qt_carte* c) {derniere_carte_click = c;}
 
     void updateTopScore(int score);  // Méthode de mise à jour du score du haut
     void updateBottomScore(int score);  //  -- du bas
@@ -114,10 +127,22 @@ public:
         handler.instance = nullptr;
     }
 
+    void deactivateButtons();
+    void activateJetons();
+
+    Qt_Tirages* getTirages() const {return tirages;}
+
 
 private slots:
-    void showCards();
-    void showJetons();
+    void showBoughtCardsTop();
+    void showReservedCardsTop();
+    void showJetonsTop();
+
+    void showBoughtCardsBottom();
+    void showReservedCardsBottom();
+    void showJetonsBottom();
+
+
     void remplirPlateau();
     void openWebLink();
     void nextAction(int* tmp, Joueur* j);
@@ -132,6 +157,7 @@ private slots:
 
 public slots:
     void jetonClicked(Qt_jeton*);
+    void carteClicked(Qt_carte*);
 
 
 signals:
@@ -139,7 +165,8 @@ signals:
     void triggerYesNo(char* choice, const std::string& string = "");
     void triggerInfo(const string& string);
     void triggerTiragePioche(string* choice);
-    void actionDone();
+    void jetonActionDone();
+    void carteActionDone();
 
 };
 

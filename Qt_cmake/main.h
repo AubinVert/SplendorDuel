@@ -47,6 +47,10 @@ void gameFromScratch(int argc, char *argv[]){
 
         if(from_error == 0){
             Jeu::getJeu().get_tour();
+            MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
+            MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
+            // qDebug() << Jeu::getJeu().getCurrentPlayer().getName();
+            MainWindow::getMainWindow().updateQuiJoue();
 
             /*
             cout<<"Etat des joueurs : "<<endl;
@@ -96,8 +100,9 @@ void gameFromScratch(int argc, char *argv[]){
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
                 Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
             }
-            Jeu::getJeu().tour_suivant();
             */
+            Jeu::getJeu().tour_suivant();
+
             from_error = 0;
 
         }catch(SplendorException& e){

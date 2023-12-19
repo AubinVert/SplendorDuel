@@ -6,8 +6,8 @@
     connect(this, &QPushButton::clicked, this, &Qt_carte::onCarteClicked);
 }*/
 
-Qt_carte::Qt_carte(QWidget *parent) : QPushButton(parent) {
-    connect(this, &QPushButton::clicked, this, &Qt_carte::onCarteClicked);
+Qt_carte::Qt_carte(QWidget *parent) : QPushButton(parent), isClicked(false), card(nullptr) {
+    connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
 }
 
 void Qt_carte::paintEvent(QPaintEvent *event) {
@@ -32,11 +32,6 @@ void Qt_carte::paintEvent(QPaintEvent *event) {
     }*/
 }
 
-
-void Qt_carte::onCarteClicked() {
-    emit carteClicked();
-}
-
 void Qt_carte::updateAppearance() {
     if (card != nullptr) {
         qDebug() << card->getVisuel();
@@ -57,4 +52,9 @@ void Qt_carte::updateAppearance(const std::string& string) {
     setIcon(QIcon(m_image));
     setIconSize(size());
     update(); // Refresh the widget
+}
+
+void Qt_carte::toggleClicked() {
+    isClicked = !isClicked;
+    update();
 }

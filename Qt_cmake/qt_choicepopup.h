@@ -38,12 +38,12 @@ public:
         }
 
         // Mandatory actions
-        QPushButton *takeTokensBtn = new QPushButton("Pour prendre des jetons", this);
+        QPushButton *takeTokensBtn = new QPushButton("Prendre des jetons", this);
         connect(takeTokensBtn, &QPushButton::clicked, this, [this, i]() { onChoiceMade(i); });
         layout->addWidget(takeTokensBtn);
         i++;
 
-        QPushButton *buyCardBtn = new QPushButton("Pour acheter une carte", this);
+        QPushButton *buyCardBtn = new QPushButton("Acheter une carte", this);
         connect(buyCardBtn, &QPushButton::clicked, this, [this, i]() { onChoiceMade(i); });
         layout->addWidget(buyCardBtn);
     }
