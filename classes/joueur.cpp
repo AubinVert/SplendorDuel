@@ -548,7 +548,7 @@ void Joueur::choice_qt(){
             case (1): { // seulement possible d'utiliser un privilège
                 switch (tmp) {
                 case 1: {
-                    utilisationPrivilege();
+                    utilisationPrivilege_qt();
 
                     break;
                 }
@@ -608,7 +608,7 @@ void Joueur::choice_qt(){
             case (3): { // deux choix optionnels possibles
                 switch (tmp) {
                 case 1: {
-                    utilisationPrivilege();
+                    utilisationPrivilege_qt();
 
                     break;
                 }
@@ -661,6 +661,27 @@ void Joueur::utilisationPrivilege(){
     cout << "Quel jeton voulez-vous piocher ? " << endl;
     cout << "indice : ";
     cin >> indice;
+    Jeu::getJeu().get_tour().piocher_jeton(indice);
+    retirerPrivilege();
+}
+
+void Joueur::utilisationPrivilege_qt(){
+    if (nb_privileges<=0)
+        throw SplendorException("Vous n'avez pas de privilège!");
+    int indice = -1;
+
+    MainWindow::getMainWindow().triggerInfo("Veuillez piocher un jeton");
+    // Activer les jetons
+    MainWindow::getMainWindow().activateJetons();
+
+    while (indice == -1){
+        MainWindow::getMainWindow().getJetonWaitLoop()->exec();
+        indice = MainWindow::getMainWindow().getIndiceJetonClick();
+    }
+
+    // cout << "Quel jeton voulez-vous piocher ? " << endl;
+    // cout << "indice : ";
+    // cin >> indice;
     Jeu::getJeu().get_tour().piocher_jeton(indice);
     retirerPrivilege();
 }
@@ -1670,12 +1691,6 @@ IA::~IA(){
 }
 
 // Méthodes polymorphiques adaptées pour une IA
-
-// Surcharge qt (revient à faire juste choice())
-void IA::choice_qt() {
-    choice();
-}
-
 void IA::choice() {
     cout<<"choix IA:"<<endl;
     bool fin_choix = 0;

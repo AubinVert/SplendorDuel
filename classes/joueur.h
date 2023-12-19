@@ -236,6 +236,7 @@ public:
     void choice();
     void choice_qt();
     void utilisationPrivilege();
+    void utilisationPrivilege_qt();
     void selection_jetons();
     void selection_jetons_qt();
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
@@ -259,8 +260,9 @@ public:
 
     // Méthodes polymorphiques adaptées pour une IA
     void choice();
-    void choice_qt();
+    void choice_qt() {choice();}
     void utilisationPrivilege();
+    void utilisationPrivilege_qt() {utilisationPrivilege();}
     void selection_jetons();
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
