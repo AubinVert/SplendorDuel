@@ -4,54 +4,6 @@
 #include <time.h>
 
 
-
-Strategy_player& fromJsonStrategyPLayer(json data){
-    if (data["is_ia"] == 1){
-        string tmp = data["nom"];
-        IA *player = new IA(tmp);
-
-        player->setNbCouronnes(data["nb_courones"]);
-        player->setPoints(data["nb_points"]);
-        player->setNbPrivileges(data["nb_privileges"]);
-        player->setIa(data["is_ia"]);
-        player->setNbJetons(data["nb_jetons"]);
-        player->setNbRCards(data["nb_cartes_r"]);
-        player->setNbJCards(data["nb_cartes_j"]);
-        player->setNbJCardsReserved(data["nb_cartes_j_reservees"]);
-
-        player->setJetons(fromJsonJetons(data["jetons"]));
-        player->setJewellryCard(fromJsonJewelryCard(data["cartes_joaillerie_achetees"]));
-        player->setJewellryCardReserved(fromJsonJewelryCard(data["cartes_joaiellerie_reservees"]));
-        player->setRoyalCard(fromJsonRoyalCard(data["cartes_royale"]));
-        player->setPrivileges(fromJsonPrivileges(data["privileges"],data["nb_privileges"]));
-        return *player;
-
-    }else{
-        string tmp = data["nom"];
-        Joueur *player = new Joueur(tmp);
-
-        player->setNbCouronnes(data["nb_courones"]);
-        player->setPoints(data["nb_points"]);
-        player->setNbPrivileges(data["nb_privileges"]);
-        player->setIa(data["is_ia"]);
-        player->setNbJetons(data["nb_jetons"]);
-        player->setNbRCards(data["nb_cartes_r"]);
-        player->setNbJCards(data["nb_cartes_j"]);
-        player->setNbJCardsReserved(data["nb_cartes_j_reservees"]);
-
-        player->setJetons(fromJsonJetons(data["jetons"]));
-        player->setJewellryCard(fromJsonJewelryCard(data["cartes_joaillerie_achetees"]));
-        player->setJewellryCardReserved(fromJsonJewelryCard(data["cartes_joaiellerie_reservees"]));
-        player->setRoyalCard(fromJsonRoyalCard(data["cartes_royale"]));
-        player->setPrivileges(fromJsonPrivileges(data["privileges"],data["nb_privileges"]));
-
-
-        return *player;
-    }
-
-
-}
-
 // condition pour savoir si le jeu est terminé à chaque tour on check ?
 
 
@@ -157,47 +109,7 @@ Jeu::Jeu() {
 
 }
 
-Jeu::Jeu(json data){
 
-    //on veut init le jeu avec tout ce dont on a besoin
-
-    est_termine = data["est_termine"];
-    cout<<"init j1\n"<<endl;
-
-    qui_joue = &fromJsonStrategyPLayer(data["qui_joue"]);
-
-    manche = data["manche"];
-    cout<<"init j2\n"<<endl;
-    adversaire = &fromJsonStrategyPLayer(data["adversaire"]);
-
-    // volontaire de pas init
-    //cartes_joiallerie = fromJsonJewelryCard(data["cartes_joiallerie"]);
-    //jetons = fromJsonJetons(data["jetons"]);
-
-    cartes_royales = fromJsonRoyalCard(data["cartes_royales"]);
-    privileges = fromJsonPrivileges(data["privileges"], data["nb_privileges"]);
-
-    cout<<"init pioche1\n"<<endl;
-    p1 = &fromJsonPioche(data["pioche1"]);
-    cout<<"init pioche2\n"<<endl;
-    p2 = &fromJsonPioche(data["pioche2"]);
-    cout<<"init pioche3\n"<<endl;
-    p3 = &fromJsonPioche(data["pioche3"]);
-
-
-    tirage_1 = &fromJsonTirage(data["tirage1"], *p1);
-
-    tirage_2 = &fromJsonTirage(data["tirage2"], *p2);
-
-    tirage_3 = &fromJsonTirage(data["tirage3"], *p3);
-
-
-    fromJsonSac(data["sac"]);
-
-    fromJsonPlateau(data["plateau"]);
-
-
-}
 
 json Jeu::toJson() const{
     json j;

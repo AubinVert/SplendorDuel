@@ -2,20 +2,68 @@
   "matches": [
     {
       "adversaire": {
-        "games": 1,
-        "games_won": 0,
+        "games": 2,
+        "games_won": 1,
         "is_ia": 1,
         "nom": "leo"
       },
       "gagnant": {
-        "games": 1,
-        "games_won": 1,
+        "games": 3,
+        "games_won": 2,
         "is_ia": 1,
         "nom": "gaspard"
       },
       "score_adversaire": 13,
       "score_gagnant": 21
+    },
+    {
+      "adversaire": {
+        "games": 2,
+        "games_won": 1,
+        "is_ia": 1,
+        "nom": "leo"
+      },
+      "gagnant": {
+        "games": 3,
+        "games_won": 2,
+        "is_ia": 1,
+        "nom": "gaspard"
+      },
+      "score_adversaire": 3,
+      "score_gagnant": 20
+    },
+    {
+      "adversaire": {
+        "games": 3,
+        "games_won": 2,
+        "is_ia": 1,
+        "nom": "gaspard"
+      },
+      "gagnant": {
+        "games": 2,
+        "games_won": 1,
+        "is_ia": 1,
+        "nom": "leo"
+      },
+      "score_adversaire": 3,
+      "score_gagnant": 23
+    },
+    {
+      "adversaire": {
+        "games": 1,
+        "games_won": 0,
+        "is_ia": 1,
+        "nom": "randomonsenfou"
+      },
+      "gagnant": {
+        "games": 3,
+        "games_won": 2,
+        "is_ia": 1,
+        "nom": "gaspard"
+      },
+      "score_adversaire": 1,
+      "score_gagnant": 18
     }
   ],
-  "nb_matches": 1
+  "nb_matches": 4
 }

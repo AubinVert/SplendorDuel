@@ -122,7 +122,20 @@ void gameFromScratch(){
 
 void gameFromJson(){
 
+    try{
+        std::ifstream file("../src/history.json");
 
+        if (!file.is_open()) {
+            std::cerr << "Failed to open the JSON file." << std::endl;
+            throw SplendorException("Fichier non ouvert");
+        }
+        json hist;
+        file >> hist;
+        file.close();
+        History::getHistory().initHistory(hist);
+    }catch (SplendorException &e){
+        cout<< " Historique non ouvert "<<endl;
+    }
 
     try{
         std::ifstream file("../src/backup.json");
