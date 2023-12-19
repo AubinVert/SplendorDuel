@@ -1,1 +1,21 @@
-{}
+{
+  "matches": [
+    {
+      "adversaire": {
+        "games": 1,
+        "games_won": 0,
+        "is_ia": 1,
+        "nom": "leo"
+      },
+      "gagnant": {
+        "games": 1,
+        "games_won": 1,
+        "is_ia": 1,
+        "nom": "gaspard"
+      },
+      "score_adversaire": 13,
+      "score_gagnant": 21
+    }
+  ],
+  "nb_matches": 1
+}

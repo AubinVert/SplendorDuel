@@ -7,7 +7,8 @@
 
 Strategy_player& fromJsonStrategyPLayer(json data){
     if (data["is_ia"] == 1){
-        IA *player = new IA;
+        string tmp = data["nom"];
+        IA *player = new IA(tmp);
 
         player->setNbCouronnes(data["nb_courones"]);
         player->setPoints(data["nb_points"]);

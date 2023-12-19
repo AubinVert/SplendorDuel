@@ -218,6 +218,8 @@ void gameFromJson(){
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+    Jeu::getJeu().getCurrentPlayer().game_ended(1);
+    Jeu::getJeu().getOpponent().game_ended(0);
 
     try{
         Hist();
