@@ -391,6 +391,12 @@ void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix
     cin >> name2;
     */
 
+    if (choix1 == "IA") choix1 = "I";
+    else choix1 = "J";
+
+    if (choix2 == "IA") choix2 = "I";
+    else choix2 = "J";
+
 
     srand(static_cast<unsigned>(std::time(nullptr)));
     if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement

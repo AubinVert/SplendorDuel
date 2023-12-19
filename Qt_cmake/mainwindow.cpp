@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+MainWindow::Handler MainWindow::handler;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
@@ -23,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
     // Scores sur QLCD Display
-    QLCDNumber *topScoreDisplay = new QLCDNumber(2); // Display avec 2 digits
-    QLCDNumber *bottomScoreDisplay = new QLCDNumber(2); // Display avec 2 digits
+    topScoreDisplay = new QLCDNumber(); // Display avec 2 digits
+    bottomScoreDisplay = new QLCDNumber(); // Display avec 2 digits
 
     // Afficher 0 pour l'instant
     topScoreDisplay->display(0);
@@ -69,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(remplirPlateauButton, &QPushButton::clicked, this, &MainWindow::remplirPlateau);
 
     // Créer le plateau et les tirages
-    plateau = new Qt_Plateau;
+    plateau = &Qt_Plateau::getPlateau();
     tirages = new Qt_Tirages;
 
     QVBoxLayout *plateauLayout = new QVBoxLayout();
@@ -134,6 +135,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     // Set le widget central
     setCentralWidget(centralWidget);
+
+    // Connexions
+    connect(this, &MainWindow::triggerNextAction, this, &MainWindow::nextAction);
+    connect(this, &MainWindow::triggerYesNo, this, &MainWindow::YesNo);
+    connect(this, &MainWindow::triggerInfo, this, &MainWindow::showInfo);
+    connect(this, &MainWindow::actionDone, &wait_for_action, &QEventLoop::quit);
+    connect(this, &MainWindow::triggerTiragePioche, this, &MainWindow::popTiragePioche);
+
+}
+
+MainWindow::~MainWindow() {
+    // Rien
 }
 
 void MainWindow::showCards() {
@@ -154,13 +167,13 @@ void MainWindow::showJetons() {
 }
 
 
-/*void MainWindow::updateTopScore(int score) {
+void MainWindow::updateTopScore(int score) {
     topScoreDisplay->display(score);
 }
 
 void MainWindow::updateBottomScore(int score) {
     bottomScoreDisplay->display(score);
-}*/
+}
 
 void MainWindow::remplirPlateau() {
     // Mettre l'action ici
@@ -172,10 +185,12 @@ void MainWindow::openWebLink() {
 
 void MainWindow::setTopPlayerName(const QString &name) {
     topPlayerNameLabel->setText(name);
+    topPlayerNameLabel->update();
 }
 
 void MainWindow::setBottomPlayerName(const QString &name) {
     bottomPlayerNameLabel->setText(name);
+    bottomPlayerNameLabel->update();
 }
 
 void MainWindow::updateTirages(){
@@ -231,6 +246,8 @@ void MainWindow::updateTirages(){
 
 void MainWindow::updatePlateau(){
 
+    Plateau::get_plateau().printTab();
+
     // Update des pointeurs jeton
 
     for (int i = 0; i < NJETONS; i++){
@@ -242,7 +259,94 @@ void MainWindow::updatePlateau(){
     for (int i = 0; i < NJETONS; i++){
         // Mise à jour jetons
 
-        if (plateau->getJetons()[i]->getJeton() != nullptr) qDebug() << toString(plateau->getJetons()[i]->getJeton()->getColor());
+        // if (plateau->getJetons()[i]->getJeton() != nullptr) qDebug() << toString(plateau->getJetons()[i]->getJeton()->getColor());
         plateau->getJetons()[i]->updateAppearance();
     }
+
+
+}
+
+void MainWindow::updatePrivileges(){
+    int nb_privileges = Jeu::getJeu().getNbPrivilege();
+    QIcon icon(QPixmap(QString::fromStdString("../src/Reste_detoure/Privilege.png")));
+    switch(nb_privileges){
+    case 0:
+        plateau->getPrivilege1()->setIcon(QIcon());
+        plateau->getPrivilege1()->setIconSize(plateau->getPrivilege1()->size());
+        plateau->getPrivilege2()->setIcon(QIcon());
+        plateau->getPrivilege2()->setIconSize(plateau->getPrivilege2()->size());
+        plateau->getPrivilege3()->setIcon(QIcon());
+        plateau->getPrivilege3()->setIconSize(plateau->getPrivilege3()->size());
+        break;
+    case 1:
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege1()->setIcon(icon);
+        plateau->getPrivilege1()->setIconSize(plateau->getPrivilege1()->size());
+        plateau->getPrivilege2()->setIcon(QIcon());
+        plateau->getPrivilege2()->setIconSize(plateau->getPrivilege2()->size());
+        plateau->getPrivilege3()->setIcon(QIcon());
+        plateau->getPrivilege3()->setIconSize(plateau->getPrivilege3()->size());
+        break;
+    case 2:
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege1()->setIcon(icon);
+        plateau->getPrivilege1()->setIconSize(plateau->getPrivilege1()->size());
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege2()->setIcon(icon);
+        plateau->getPrivilege2()->setIconSize(plateau->getPrivilege2()->size());
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege3()->setIcon(QIcon());
+        plateau->getPrivilege3()->setIconSize(plateau->getPrivilege3()->size());
+        break;
+    case 3:
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege1()->setIcon(icon);
+        plateau->getPrivilege1()->setIconSize(plateau->getPrivilege1()->size());
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege2()->setIcon(icon);
+        plateau->getPrivilege2()->setIconSize(plateau->getPrivilege2()->size());
+        // qDebug() << jeton->getVisuel();
+        plateau->getPrivilege3()->setIcon(icon);
+        plateau->getPrivilege3()->setIconSize(plateau->getPrivilege3()->size());
+        break;
+    }
+    plateau->getPrivilege1()->update();
+    plateau->getPrivilege2()->update();
+    plateau->getPrivilege3()->update();
+}
+
+void MainWindow::nextAction(int* tmp, Joueur* j){
+
+    // qDebug() << "IN NEXT ACTION";
+    int nb_choice = j->getOptionalChoices();
+
+    ChoiceDialog dialog(nb_choice, this);
+    if (dialog.exec() == QDialog::Accepted) {
+        *tmp = dialog.getUserChoice();
+
+    }
+
+}
+
+void MainWindow::YesNo(char* choice, const std::string& string){
+
+    popupYesNo dialog(this, string);
+    if (dialog.exec() == QDialog::Accepted) {
+        *choice = dialog.getUserChoice();
+    }
+
+}
+
+void MainWindow::showInfo(const string& string){
+
+    InfoDialog dialog(QString::fromStdString(string), this);
+    dialog.exec();
+
+}
+
+void MainWindow::jetonClicked(Qt_jeton* j){
+    if (j != nullptr) qDebug() << "Jeton cliqué : " << j->getJeton()->getVisuel();
+    else qDebug() << "nullptr jeton";
+    setIndiceJetonClick(j->getIndice());
+    MainWindow::getMainWindow().actionDone();
 }

@@ -46,6 +46,12 @@ add_executable(Qt_cmake
     qt_cards_main.cpp
     popup_text.h
     popup_text.cpp
+    main.h
+    qt_choicepopup.h
+    qt_popup_yesno.h
+    qt_popup_info.h
+    qt_popup_tirageoupioche.h
+
 
 )
 

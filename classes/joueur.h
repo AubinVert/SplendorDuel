@@ -89,6 +89,7 @@ public:
 
     //méthodes virtuelles pures
     virtual void choice()=0;
+    virtual void choice_qt()=0;
     virtual void utilisationPrivilege() = 0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
@@ -98,6 +99,7 @@ public:
     virtual void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) = 0;
 
     virtual void reservation_carte()=0;
+    virtual void reservation_carte_qt() = 0;
     virtual void selectionRoyalCard() = 0;
     virtual void verifJetons()=0;
 
@@ -231,14 +233,17 @@ public:
 
     // Méthodes polymorphiques adaptées pour un joueur
     void choice();
+    void choice_qt();
     void utilisationPrivilege();
     void selection_jetons();
+    void selection_jetons_qt();
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
+    void reservation_carte_qt();
     void selectionRoyalCard();
 
     void verifJetons();
@@ -253,12 +258,14 @@ public:
 
     // Méthodes polymorphiques adaptées pour une IA
     void choice();
+    void choice_qt();
     void utilisationPrivilege();
     void selection_jetons();
     void achat_carte();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
+    void reservation_carte_qt() {reservation_carte();}
     void selectionRoyalCard();
 
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);

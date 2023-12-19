@@ -6,6 +6,7 @@
 #include "qt_jetons_bas.h"
 #include "qt_jetons_main.h"
 #include "../classes/jetons.h"
+#include "qt_choicepopup.h"
 #include <QApplication>
 #include <QMainWindow>
 #include <QVBoxLayout>
@@ -18,21 +19,70 @@
 #include <QUrl>
 
 #include "popup_text.h"
+#include "qt_popup_yesno.h"
+#include "qt_popup_info.h"
+#include "qt_popup_tirageoupioche.h"
+
+#define RIEN "../src/rien.png"
 
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private:
+    QLabel *topScoreLabel;
+    QLabel *bottomScoreLabel;
+    QLCDNumber *topScoreDisplay;  // Top score display
+    QLCDNumber *bottomScoreDisplay;  // Bottom score display
+    QPushButton *remplirPlateauButton; // Remplir plateau
+    QPushButton *viewCardsButtonBottom;
+    QPushButton *viewJetonsButtonBottom;
+    QPushButton *viewCardsButtonTop;
+    QPushButton *viewJetonsButtonTop;
+
+    QLabel *topPlayerNameLabel;
+    QLabel *bottomPlayerNameLabel;
+
+    QEventLoop wait_for_action;
+
     Qt_Plateau* plateau;
     Qt_Tirages* tirages;
 
     Jeu* jeu;
 
-public:
+    struct Handler {
+        MainWindow * instance = nullptr;
+        ~Handler() {
+            delete instance;
+            instance = nullptr;
+        }
+    };
+
+    static Handler handler;
     MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+    MainWindow (const MainWindow&) = delete;
+    MainWindow& operator=(const MainWindow&) = delete;
+
+    int indice_jeton_click;
+
+public:
+
+    QEventLoop* getWaitLoop() {return &wait_for_action;}
+
+    int getIndiceJetonClick() const {return indice_jeton_click;}
+    void setIndiceJetonClick(int x) {indice_jeton_click = x;}
+
     void updateTopScore(int score);  // Méthode de mise à jour du score du haut
     void updateBottomScore(int score);  //  -- du bas
+
+    void updateScores(){
+        int s1 = Jeu::getJeu().getCurrentPlayer().getNbPoints();
+        int s2 = Jeu::getJeu().getOpponent().getNbPoints();
+        topScoreDisplay->display(s1);
+        bottomScoreDisplay->display(s2);
+    }
 
     void demanderNoms() {
         InputPopup *popup = new InputPopup(this);
@@ -52,27 +102,45 @@ public:
 
     void updatePlateau();
     void updateTirages();
+    void updatePrivileges();
+
+    static MainWindow& getMainWindow(){
+        if (handler.instance == nullptr)  handler.instance = new MainWindow();
+        return *handler.instance;
+    }
+
+    void freeMainWindow(){
+        delete handler.instance;
+        handler.instance = nullptr;
+    }
+
 
 private slots:
     void showCards();
     void showJetons();
     void remplirPlateau();
     void openWebLink();
+    void nextAction(int* tmp, Joueur* j);
+    void YesNo(char* choice, const std::string& string);
+    void showInfo(const string& string);
+    void popTiragePioche(string* choice) {
+        popupTiragePioche dialog(this);
+        if (dialog.exec() == QDialog::Accepted) {
+            *choice = dialog.getUserChoice();
+        }
+    }
+
+public slots:
+    void jetonClicked(Qt_jeton*);
 
 
-private:
-    QLabel *topScoreLabel;
-    QLabel *bottomScoreLabel;
-    QLCDNumber *topScoreDisplay;  // Top score display
-    QLCDNumber *bottomScoreDisplay;  // Bottom score display
-    QPushButton *remplirPlateauButton; // Remplir plateau
-    QPushButton *viewCardsButtonBottom;
-    QPushButton *viewJetonsButtonBottom;
-    QPushButton *viewCardsButtonTop;
-    QPushButton *viewJetonsButtonTop;
+signals:
+    void triggerNextAction(int* tmp, Joueur* j);
+    void triggerYesNo(char* choice, const std::string& string = "");
+    void triggerInfo(const string& string);
+    void triggerTiragePioche(string* choice);
+    void actionDone();
 
-    QLabel *topPlayerNameLabel;
-    QLabel *bottomPlayerNameLabel;
 };
 
 #endif // MAINWINDOW_H
