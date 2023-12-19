@@ -1,53 +1,21 @@
 {
   "matches": [
     {
-      "adversaire": {
-        "games": 5,
-        "games_won": 2,
-        "is_ia": 1,
-        "nom": "a"
-      },
       "gagnant": {
-        "games": 3,
-        "games_won": 2,
+        "games": 1,
+        "games_won": 1,
+        "is_ia": 0,
+        "nom": "leo"
+      },
+      "adversaire": {
+        "games": 1,
+        "games_won": 0,
         "is_ia": 1,
         "nom": "b"
       },
       "score_adversaire": 7,
       "score_gagnant": 22
-    },
-    {
-      "adversaire": {
-        "games": 5,
-        "games_won": 2,
-        "is_ia": 1,
-        "nom": "a"
-      },
-      "gagnant": {
-        "games": 1,
-        "games_won": 1,
-        "is_ia": 1,
-        "nom": "kjabd"
-      },
-      "score_adversaire": 2,
-      "score_gagnant": 24
-    },
-    {
-      "adversaire": {
-        "games": 3,
-        "games_won": 2,
-        "is_ia": 1,
-        "nom": "b"
-      },
-      "gagnant": {
-        "games": 1,
-        "games_won": 1,
-        "is_ia": 1,
-        "nom": "kjazdb"
-      },
-      "score_adversaire": 19,
-      "score_gagnant": 20
     }
   ],
-  "nb_matches": 3
+  "nb_matches": 1
 }

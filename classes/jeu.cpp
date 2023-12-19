@@ -44,6 +44,7 @@ Strategy_player& fromJsonStrategyPLayer(json data){
         player->setRoyalCard(fromJsonRoyalCard(data["cartes_royale"]));
         player->setPrivileges(fromJsonPrivileges(data["privileges"],data["nb_privileges"]));
 
+
         return *player;
     }
 
