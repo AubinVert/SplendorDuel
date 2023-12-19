@@ -822,13 +822,13 @@ void Joueur::selection_jetons_qt() {
                 qDebug() << "While choice_valid";
                 while(tmp_tab.size()<3) {
                     qDebug() << "While size()";
-                    unsigned int indice = 0;
+                    int indice = 0;
 
                     MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
                     indice = MainWindow::getMainWindow().getIndiceJetonClick();
                     qDebug() << indice;
-                    if(indice == -1) throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+                    if(indice == -1) continue;
 
                     if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
                         nb_or = 0;

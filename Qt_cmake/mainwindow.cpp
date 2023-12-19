@@ -538,6 +538,35 @@ void MainWindow::activateJetons(){
     }
 }
 
+void MainWindow::activateForReserve(){
+    // Jetons
+    // Tirage 1
+    for (int i = 0; i < 5; i++){
+        getTirages()->getTier1()[i]->setEnabled(true);
+    }
+
+    // Tirage 2
+    for (int i = 0; i < 4; i++){
+        getTirages()->getTier2()[i]->setEnabled(true);
+    }
+
+    // Tirage 3
+    for (int i = 0; i < 3; i++){
+        getTirages()->getTier3()[i]->setEnabled(true);
+    }
+
+    // Tirage cartes royales
+    for (int i = 0; i < 4; i++){
+        getTirages()->getRoyalCards()[i]->setEnabled(true);
+    }
+
+    // Les 3 pioches
+
+    getTirages()->getDeckImage1()->setEnabled(true);
+    getTirages()->getDeckImage2()->setEnabled(true);
+    getTirages()->getDeckImage3()->setEnabled(true);
+}
+
 void MainWindow::updateQuiJoue(){
     quijoue->setText(QString::fromStdString("C'est à " + Jeu::getJeu().getCurrentPlayer().getName()) + " de jouer");
 }
