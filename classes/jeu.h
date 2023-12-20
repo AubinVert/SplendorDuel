@@ -109,6 +109,14 @@ public:
     Tirage* get_tirage_1()  {return tirage_1;}
     Tirage* get_tirage_2()  {return tirage_2;}
     Tirage* get_tirage_3()  {return tirage_3;}
+    Tirage* get_tirage(int i){
+        switch (i){
+            case(1): return tirage_1; break;
+            case(2): return tirage_2; break;
+            case(3): return tirage_3; break;
+            default : throw SplendorException("Le tirage demandé n'existe pas!");
+        }
+    }
     void tour_suivant(bool replay = 0);
     static Jeu& getJeu();
     static Jeu& getJeu(json data);

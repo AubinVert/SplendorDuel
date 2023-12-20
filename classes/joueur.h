@@ -93,6 +93,7 @@ public:
     virtual void utilisationPrivilege() = 0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
+    virtual void achat_carte_qt()=0;
     virtual void buyCard(Tirage *t, const int indice) = 0;
     virtual void buyCardFromReserve( const int indice) = 0;
     virtual void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) = 0;
@@ -242,6 +243,7 @@ public:
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
     void achat_carte();
+    void achat_carte_qt();
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();
@@ -265,6 +267,7 @@ public:
     void utilisationPrivilege_qt() {utilisationPrivilege();}
     void selection_jetons();
     void achat_carte();
+    void achat_carte_qt() {achat_carte();}
     void buyCard(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
     void reservation_carte();

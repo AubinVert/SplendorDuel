@@ -152,24 +152,7 @@ MainWindow::~MainWindow() {
     // Rien
 }
 
-void MainWindow::showBoughtCardsBottom() {
-    QDialog *cardsDialog = new QDialog(this);
-    cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
-    QGridLayout* layout = new QGridLayout(this);
 
-    int nb = Jeu::getJeu().getCurrentPlayer().getNbCartesJoaillerie();
-    for (int i = 0; i < nb; i++){
-        Qt_carte* c = new Qt_carte();
-        c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesBought()[i]);
-        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
-        c->setDisabled(true);
-        // label->setStyleSheet("border: 1px solid black;");
-        layout->addWidget(c, i / 4, i % 4);
-
-    }
-
-    cardsDialog->exec(); // L'afficher
-}
 
 void MainWindow::showJetonsBottom() {
     QDialog *jetonsDialog = new QDialog();
@@ -224,22 +207,49 @@ void MainWindow::showReservedCardsBottom() {
     jetonsDialog->exec();
 }
 
-void MainWindow::showBoughtCardsTop() {
-    QDialog *cardsDialog = new QDialog(this);
+void MainWindow::showBoughtCardsBottom() {
+    QDialog *cardsDialog = new QDialog();
     cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
-    QGridLayout* layout = new QGridLayout(this);
+    QGridLayout* layout = new QGridLayout();
+
+    int nb = Jeu::getJeu().getCurrentPlayer().getNbCartesJoaillerie();
+    for (int i = 0; i < nb; i++){
+        qDebug() << "CARTES ACHETEES";
+        Qt_carte* c = new Qt_carte();
+        c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesBought()[i]);
+        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setDisabled(true);
+        // label->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(c, i / 4, i % 4);
+        c->updateAppearance();
+        qDebug() << c->getCard()->getVisuel();
+
+    }
+
+    cardsDialog->setLayout(layout);
+    cardsDialog->exec(); // L'afficher
+}
+
+void MainWindow::showBoughtCardsTop() {
+    QDialog *cardsDialog = new QDialog();
+    cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    QGridLayout* layout = new QGridLayout();
 
     int nb = Jeu::getJeu().getOpponent().getNbCartesJoaillerie();
     for (int i = 0; i < nb; i++){
+        qDebug() << "CARTES ACHETEES";
         Qt_carte* c = new Qt_carte();
         c->setCard(Jeu::getJeu().getOpponent().getCartesBought()[i]);
         c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
         c->setDisabled(true);
         // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
+        c->updateAppearance();
+        qDebug() << c->getCard()->getVisuel();
 
     }
 
+    cardsDialog->setLayout(layout);
     cardsDialog->exec(); // L'afficher
 }
 
@@ -488,9 +498,10 @@ void MainWindow::jetonClicked(Qt_jeton* j){
 
 
 void MainWindow::carteClicked(Qt_carte* c){
-    if (c != nullptr) qDebug() << "Carte cliquée : " << c->getCard()->getVisuel();
+    if (c != nullptr) qDebug() << "Carte cliquée : " << c->getIndice() << c->getReservee();
     else qDebug() << "nullptr carte";
     setDerniereCarteClick(c);
+
     MainWindow::getMainWindow().carteActionDone();
 }
 
@@ -527,6 +538,8 @@ void MainWindow::deactivateButtons(){
     getTirages()->getDeckImage1()->setEnabled(false);
     getTirages()->getDeckImage2()->setEnabled(false);
     getTirages()->getDeckImage3()->setEnabled(false);
+
+    // Déactiver les cartes reservées des 2 joueurs
 
 }
 
@@ -567,6 +580,7 @@ void MainWindow::activateForReserve(){
 }
 
 void MainWindow::activateForBuy(){
+    qDebug() << "ACtiate for buy";
     // Tirage 1
     for (int i = 0; i < 5; i++){
         getTirages()->getTier1()[i]->setEnabled(true);
@@ -582,11 +596,7 @@ void MainWindow::activateForBuy(){
         getTirages()->getTier3()[i]->setEnabled(true);
     }
 
-    // Tirage cartes royales
-    for (int i = 0; i < 4; i++){
-        getTirages()->getRoyalCards()[i]->setEnabled(true);
-    }
-    // Cartes reservées
+    // Cartes reservées par le joueur en question
 }
 
 void MainWindow::updateQuiJoue(){

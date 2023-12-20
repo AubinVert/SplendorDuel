@@ -1,5 +1,6 @@
 #include "qt_tirages.h"
 #include "qt_vue_carte.h"
+#include "mainwindow.h"
 #include <QVBoxLayout>
 #include <QPixmap>
 
@@ -45,6 +46,7 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &c
 
     for (int i = 0; i < cardCount; ++i) {
         Qt_carte *card = new Qt_carte();
+        card->setReservee(false);
         card->setIndice(i);
         card->setStyleSheet("background: transparent;");
         card->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
@@ -59,4 +61,28 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &c
     }
 }
 
+void Qt_Tirages::connectCartes(){
+    qDebug() << "ACtiate for buy";
+    // Tirage 1
+    for (int i = 0; i < 5; i++){
+        connect(this->getTier1()[i], &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
+    }
+
+    // Tirage 2
+    for (int i = 0; i < 4; i++){
+        connect(this->getTier2()[i], &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
+    }
+
+    // Tirage 3
+    for (int i = 0; i < 3; i++){
+        connect(this->getTier3()[i], &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
+    }
+
+    // Tirage cartes royales
+    for (int i = 0; i < 4; i++){
+        connect(this->getRoyalCards()[i], &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
+
+    }
+    // Cartes reservées
+}
 

@@ -12,7 +12,7 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_executable(Qt_cmake
     main.cpp
-    main.cpp mainwindow.cpp mainwindow.h qt_plateau.cpp qt_plateau.h qt_tirages.cpp qt_tirages.h vuepartie.h
+    main.cpp mainwindow.cpp mainwindow.h qt_plateau.cpp qt_plateau.h qt_tirages.cpp qt_tirages.h
     ../classes/carte.cpp
     ../classes/carte.h
     ../classes/Exception.h

@@ -21,6 +21,8 @@ public:
     Qt_carte* getDeckImage2() {return deck2;}
     Qt_carte* getDeckImage3() {return deck3;}
 
+    void connectCartes();
+
 private:
     QHBoxLayout *tier1Layout;
     QHBoxLayout *tier2Layout;

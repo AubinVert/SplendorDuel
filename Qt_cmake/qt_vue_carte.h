@@ -21,15 +21,17 @@ private:
     const Card* card;
     QPixmap m_image;
     int indice_dans_tirage;
+    bool est_reservee;
 
 public:
 
     const int getIndice() const {return indice_dans_tirage;}
     void setIndice(int x) {indice_dans_tirage = x;}
 
-    explicit Qt_carte(QWidget *parent = nullptr);
+    const bool getReservee() const {return est_reservee;}
+    void setReservee(bool x) {est_reservee = x;}
 
-    const int getIndiceTirage() const {return indice_dans_tirage;}
+    explicit Qt_carte(QWidget *parent = nullptr);
 
     void toggleClicked(); // Method to change the clicked state
     void updateAppearance();

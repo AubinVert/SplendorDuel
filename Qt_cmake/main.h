@@ -7,6 +7,7 @@
 #include <iostream>
 #include "../classes/jeu.h"
 #include "mainwindow.h"
+#include <QThread>
 #include <QApplication>
 
 void toJson(){
@@ -27,6 +28,7 @@ void gameFromScratch(int argc, char *argv[]){
 
     MainWindow::getMainWindow().show();
     Qt_Plateau::getPlateau().connectJetons();
+    MainWindow::getMainWindow().getTirages()->connectCartes();
 
 
     // Setup des noms
@@ -86,6 +88,7 @@ void gameFromScratch(int argc, char *argv[]){
                 toJson();
             }catch (SplendorException &e){
                 cout<<e.getInfos()<<endl;
+                MainWindow::getMainWindow().triggerInfo(e.getInfos());
             }
 
 
@@ -101,7 +104,15 @@ void gameFromScratch(int argc, char *argv[]){
                 Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
             }
             */
+            cout << Jeu::getJeu().getCurrentPlayer().getName();
             Jeu::getJeu().tour_suivant();
+            cout << Jeu::getJeu().getCurrentPlayer().getName();
+
+            MainWindow::getMainWindow().updatePlateau();
+            MainWindow::getMainWindow().updateTirages();
+            MainWindow::getMainWindow().updateScores();
+            MainWindow::getMainWindow().updatePrivileges();
+            MainWindow::getMainWindow().update();
 
             from_error = 0;
 

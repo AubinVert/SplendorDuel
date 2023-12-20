@@ -1,6 +1,8 @@
 #include "joueur.h"
 #include "jeu.h"
 #include "../Qt_cmake/mainwindow.h"
+#include "carte.h"
+
 #include <QInputDialog>
 #include <QMessageBox>
 
@@ -514,7 +516,7 @@ void Joueur::choice_qt(){
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
 
             MainWindow::getMainWindow().triggerNextAction(&tmp, this);
-            // qDebug() << tmp;
+
 
             // MainWindow::getMainWindow().triggerYesNo(&info);
             // qDebug() << info;
@@ -534,7 +536,7 @@ void Joueur::choice_qt(){
                     break;
                 }
                 case 2: {
-                    achat_carte();
+                    achat_carte_qt();
 
                     fin_choix = 1;
 
@@ -559,7 +561,7 @@ void Joueur::choice_qt(){
                     break;
                 }
                 case 3: {
-                    achat_carte();
+                    achat_carte_qt();
 
                     fin_choix = 1;
                     break;
@@ -589,7 +591,7 @@ void Joueur::choice_qt(){
                     break;
                 }
                 case 3: {
-                    achat_carte();
+                    achat_carte_qt();
 
                     fin_choix = 1;
                     break;
@@ -624,7 +626,7 @@ void Joueur::choice_qt(){
                     break;
                 }
                 case 4: {
-                    achat_carte();
+                    achat_carte_qt();
 
                     fin_choix = 1;
                     break;
@@ -641,12 +643,14 @@ void Joueur::choice_qt(){
                 break;
             }default: break;
             }
+            qDebug() << "Sorti";
             MainWindow::getMainWindow().updatePlateau();
             MainWindow::getMainWindow().updateTirages();
             MainWindow::getMainWindow().updateScores();
             MainWindow::getMainWindow().updatePrivileges();
             MainWindow::getMainWindow().update();
         }catch(SplendorException& e){
+            MainWindow::getMainWindow().triggerInfo(e.getInfos());
             cout<<e.getInfos()<<"\n";
         }
     }
@@ -1170,6 +1174,8 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                     }
                 }
             }
+        }else{
+            Jeu::getJeu().tour_suivant(1);
         }
 
     }
@@ -1253,9 +1259,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
             cout<<e.getInfos()<<"\n";
         }
     }
-    else{
-        Jeu::getJeu().tour_suivant(1);
-    }
+
 }
 
 void Joueur::applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) {
@@ -1401,6 +1405,32 @@ void Joueur::achat_carte(){
 
         }
     }
+}
+
+// Surcharge Qt
+void Joueur::achat_carte_qt(){
+    // qDebug() << "Carte qt";
+    MainWindow::getMainWindow().activateForBuy();
+    MainWindow::getMainWindow().getCarteWaitLoop()->exec();
+
+    // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
+
+    Qt_carte* carte_click = MainWindow::getMainWindow().getDerniereCarteClick();
+    qDebug() << carte_click->getIndice() << carte_click->getReservee() << carte_click->getCard()->getVisuel();
+
+    // Carte reservées
+    if (carte_click->getReservee() == true) {
+        Jeu::getJeu().getCurrentPlayer().buyCardFromReserve(carte_click->getIndice());
+    }
+
+    // Carte dans tirage
+    else {
+        const JewelryCard* c = dynamic_cast<const JewelryCard*>(carte_click->getCard());
+        int niveau_tirage = c->getNiveau();
+        Tirage* tirage = Jeu::getJeu().get_tirage(niveau_tirage);
+        Jeu::getJeu().getCurrentPlayer().buyCard(tirage, carte_click->getIndice());
+    }
+
 }
 
 void Joueur::buyCard(Tirage *t, const int indice){
