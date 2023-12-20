@@ -17,9 +17,9 @@ public:
     std::vector<Qt_carte*>& getTier3() {return tier3Cards;}
     std::vector<Qt_carte*>& getRoyalCards() {return royalCards;}
 
-    Qt_carte* getDeckImage1() {return deck1;}
-    Qt_carte* getDeckImage2() {return deck2;}
-    Qt_carte* getDeckImage3() {return deck3;}
+    Qt_carte* getDeck1() {return deck1;}
+    Qt_carte* getDeck2() {return deck2;}
+    Qt_carte* getDeck3() {return deck3;}
 
     void connectCartes();
 

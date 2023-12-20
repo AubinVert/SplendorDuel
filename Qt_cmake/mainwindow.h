@@ -56,6 +56,8 @@ private:
 
     Jeu* jeu;
 
+    bool buyingCard;
+
     struct Handler {
         MainWindow * instance = nullptr;
         ~Handler() {
@@ -75,6 +77,9 @@ private:
     Qt_carte* derniere_carte_click;
 
 public:
+
+    void setBuyingCard(bool x) {buyingCard = x;}
+    const bool getBuyingCard() {return buyingCard;}
 
     void updateQuiJoue();
 
@@ -144,29 +149,22 @@ private slots:
     void showReservedCardsBottom();
     void showJetonsBottom();
 
-
+    void YesNo(char* choice, const std::string& string);
     void remplirPlateau();
     void openWebLink();
     void nextAction(int* tmp, Joueur* j);
-    void YesNo(char* choice, const std::string& string);
     void showInfo(const string& string);
-    void popTiragePioche(string* choice) {
-        popupTiragePioche dialog(this);
-        if (dialog.exec() == QDialog::Accepted) {
-            *choice = dialog.getUserChoice();
-        }
-    }
+    void colorChoice(Color *c, int *nb);
 
 public slots:
     void jetonClicked(Qt_jeton*);
     void carteClicked(Qt_carte*);
 
-
 signals:
     void triggerNextAction(int* tmp, Joueur* j);
     void triggerYesNo(char* choice, const std::string& string = "");
     void triggerInfo(const string& string);
-    void triggerTiragePioche(string* choice);
+    void triggercolorChoice(Color* c, int *nb);
     void jetonActionDone();
     void carteActionDone();
 

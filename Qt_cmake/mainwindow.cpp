@@ -1,8 +1,9 @@
 #include "mainwindow.h"
+#include "qt_popup_couleur.h"
 
 MainWindow::Handler MainWindow::handler;
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false) {
 
     jeu = &Jeu::getJeu();
 
@@ -142,9 +143,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(this, &MainWindow::triggerNextAction, this, &MainWindow::nextAction);
     connect(this, &MainWindow::triggerYesNo, this, &MainWindow::YesNo);
     connect(this, &MainWindow::triggerInfo, this, &MainWindow::showInfo);
+    connect(this, &MainWindow::triggercolorChoice, this, &MainWindow::colorChoice);
     connect(this, &MainWindow::jetonActionDone, &wait_for_action_jeton, &QEventLoop::quit);
     connect(this, &MainWindow::carteActionDone, &wait_for_action_carte, &QEventLoop::quit);
-    connect(this, &MainWindow::triggerTiragePioche, this, &MainWindow::popTiragePioche);
 
 }
 
@@ -197,14 +198,29 @@ void MainWindow::showJetonsBottom() {
 }
 
 void MainWindow::showReservedCardsBottom() {
-    QDialog *jetonsDialog = new QDialog(this);
-    QVBoxLayout *dialogLayout = new QVBoxLayout(jetonsDialog);
+    QDialog *cardsDialog = new QDialog();
+    cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    QGridLayout* layout = new QGridLayout();
 
-    Qt_Jetons_Main *jet_bas = new Qt_Jetons_Main(jetonsDialog);
-    jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
-    dialogLayout->addWidget(jet_bas);
+    int nb = Jeu::getJeu().getCurrentPlayer().getNbCartesReservees();
+    for (int i = 0; i < nb; i++){
+        qDebug() << "CARTES RESERVEES";
+        Qt_carte* c = new Qt_carte();
+        c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesReserved()[i]);
+        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        if (getBuyingCard() == true) c->setDisabled(false);
+        else c->setDisabled(true);
+        c->setIndice(i);
+        connect(c, &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
+        // label->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(c, i / 4, i % 4);
+        c->updateAppearance();
+        qDebug() << c->getCard()->getVisuel();
 
-    jetonsDialog->exec();
+    }
+
+    cardsDialog->setLayout(layout);
+    cardsDialog->exec(); // L'afficher
 }
 
 void MainWindow::showBoughtCardsBottom() {
@@ -296,14 +312,27 @@ void MainWindow::showJetonsTop() {
 }
 
 void MainWindow::showReservedCardsTop() {
-    QDialog *jetonsDialog = new QDialog(this);
-    QVBoxLayout *dialogLayout = new QVBoxLayout(jetonsDialog);
+    QDialog *cardsDialog = new QDialog();
+    cardsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    QGridLayout* layout = new QGridLayout();
 
-    Qt_Jetons_Main *jet_bas = new Qt_Jetons_Main(jetonsDialog);
-    jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
-    dialogLayout->addWidget(jet_bas);
+    int nb = Jeu::getJeu().getOpponent().getNbCartesReservees();
+    for (int i = 0; i < nb; i++){
+        qDebug() << "CARTES RESERVEES";
+        Qt_carte* c = new Qt_carte();
+        c->setCard(Jeu::getJeu().getOpponent().getCartesReserved()[i]);
+        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setDisabled(true);
+        c->setIndice(i);
+        // label->setStyleSheet("border: 1px solid black;");
+        layout->addWidget(c, i / 4, i % 4);
+        c->updateAppearance();
+        qDebug() << c->getCard()->getVisuel();
 
-    jetonsDialog->exec();
+    }
+
+    cardsDialog->setLayout(layout);
+    cardsDialog->exec(); // L'afficher
 }
 
 
@@ -376,9 +405,9 @@ void MainWindow::updateTirages(){
         tirages->getRoyalCards()[i]->updateAppearance();
     }
 
-    if (tirages->getDeckImage1() != nullptr) tirages->getDeckImage1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
-    if (tirages->getDeckImage2() != nullptr) tirages->getDeckImage2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
-    if (tirages->getDeckImage3() != nullptr) tirages->getDeckImage3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
+    if (tirages->getDeck1() != nullptr) tirages->getDeck1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
+    if (tirages->getDeck2() != nullptr) tirages->getDeck2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
+    if (tirages->getDeck3() != nullptr) tirages->getDeck3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
 
 
 
@@ -535,9 +564,9 @@ void MainWindow::deactivateButtons(){
 
     // Les 3 pioches
 
-    getTirages()->getDeckImage1()->setEnabled(false);
-    getTirages()->getDeckImage2()->setEnabled(false);
-    getTirages()->getDeckImage3()->setEnabled(false);
+    getTirages()->getDeck1()->setEnabled(false);
+    getTirages()->getDeck2()->setEnabled(false);
+    getTirages()->getDeck3()->setEnabled(false);
 
     // Déactiver les cartes reservées des 2 joueurs
 
@@ -567,16 +596,11 @@ void MainWindow::activateForReserve(){
         getTirages()->getTier3()[i]->setEnabled(true);
     }
 
-    // Tirage cartes royales
-    for (int i = 0; i < 4; i++){
-        getTirages()->getRoyalCards()[i]->setEnabled(true);
-    }
-
     // Les 3 pioches
 
-    getTirages()->getDeckImage1()->setEnabled(true);
-    getTirages()->getDeckImage2()->setEnabled(true);
-    getTirages()->getDeckImage3()->setEnabled(true);
+    getTirages()->getDeck1()->setEnabled(true);
+    getTirages()->getDeck2()->setEnabled(true);
+    getTirages()->getDeck3()->setEnabled(true);
 }
 
 void MainWindow::activateForBuy(){
@@ -601,4 +625,13 @@ void MainWindow::activateForBuy(){
 
 void MainWindow::updateQuiJoue(){
     quijoue->setText(QString::fromStdString("C'est à " + Jeu::getJeu().getCurrentPlayer().getName()) + " de jouer");
+}
+
+void MainWindow::colorChoice(Color *c, int* nb){
+    // Créer la fenêtre color choice et recup c et nb
+    popupCouleur dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        *c = dialog.getColor();
+        *nb = dialog.getNb();
+    }
 }

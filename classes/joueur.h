@@ -95,7 +95,9 @@ public:
     virtual void achat_carte()=0;
     virtual void achat_carte_qt()=0;
     virtual void buyCard(Tirage *t, const int indice) = 0;
+    virtual void buyCard_qt(Tirage *t, const int indice) = 0;
     virtual void buyCardFromReserve( const int indice) = 0;
+    virtual void buyCardFromReserve_qt( const int indice) = 0;
     virtual void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) = 0;
     virtual void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) = 0;
 
@@ -245,7 +247,9 @@ public:
     void achat_carte();
     void achat_carte_qt();
     void buyCard(Tirage *t, const int indice);
+    void buyCard_qt(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
+    void buyCardFromReserve_qt( const int indice);
     void reservation_carte();
     void reservation_carte_qt();
     void selectionRoyalCard();
@@ -269,7 +273,9 @@ public:
     void achat_carte();
     void achat_carte_qt() {achat_carte();}
     void buyCard(Tirage *t, const int indice);
+    void buyCard_qt(Tirage *t, const int indice) { buyCard(t, indice); }
     void buyCardFromReserve( const int indice);
+    void buyCardFromReserve_qt( const int indice) { buyCardFromReserve(indice);}
     void reservation_carte();
     void reservation_carte_qt() {reservation_carte();}
     void selectionRoyalCard();

@@ -51,6 +51,8 @@ add_executable(Qt_cmake
     qt_popup_yesno.h
     qt_popup_info.h
     qt_popup_tirageoupioche.h
+    qt_popup_couleur.h
+    qt_popup_couleur.cpp
 
 
 )
