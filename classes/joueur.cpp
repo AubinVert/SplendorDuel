@@ -1057,6 +1057,8 @@ void Joueur::reservation_carte_qt() {
 
     MainWindow::getMainWindow().activateForBuy();
     MainWindow::getMainWindow().getCarteWaitLoop()->exec();
+    
+    // pour bon fonctionnement, il faut faire en sorte que si on prend une carte re
 
     // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
 
@@ -1075,7 +1077,6 @@ void Joueur::reservation_carte_qt() {
         Tirage* tirage = Jeu::getJeu().get_tirage(niveau_tirage);
         Jeu::getJeu().getCurrentPlayer().reserver_carte(tirage, carte_click->getIndice());
     }
-    carte_click->setReservee(true);
 }
 
 void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) {
@@ -1387,6 +1388,7 @@ void Joueur::achat_carte_qt(){
     MainWindow::getMainWindow().getCarteWaitLoop()->exec();
 
     // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
+    // Pour bon fonctionnement, vérifier que la fenetre d'affichage des cartes reservées soit bien refermée
 
     Qt_carte* carte_click = MainWindow::getMainWindow().getDerniereCarteClick();
     qDebug() << carte_click->getIndice() << carte_click->getReservee() << carte_click->getCard()->getVisuel();
@@ -1399,6 +1401,7 @@ void Joueur::achat_carte_qt(){
 
     // Carte dans tirage
     else {
+        qDebug() << "CARTE PAS EFFECTIVEMENT R";
         const JewelryCard* c = dynamic_cast<const JewelryCard*>(carte_click->getCard());
         int niveau_tirage = c->getNiveau();
         Tirage* tirage = Jeu::getJeu().get_tirage(niveau_tirage);
@@ -1449,6 +1452,7 @@ void Joueur::buyCard(Tirage *t, const int indice){
                     std::cin >> nb;
                 } while (nb > nbJeton(Color::gold));
                 try{
+                    if(nb>nbJeton(Color::gold) - nb_gold) throw SplendorException("Vous n'avez pas asseez de jetons or pour en dépenser autant!");
                     if ((choix == "blanc" || "Blanc") && (nb>cout_blanc)) throw SplendorException("Le cout blanc est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                     if ((choix == "bleu" || "Bleu") && (nb>cout_bleu)) throw SplendorException("Le cout bleu est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                     if ((choix == "rouge" || "Rouge") && (nb>cout_rouge)) throw SplendorException("Le cout rouge est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
@@ -1559,6 +1563,7 @@ void Joueur::buyCard_qt(Tirage *t, const int indice){
 
 
             try{
+                if(nb>nbJeton(Color::gold) - nb_gold) throw SplendorException("Vous n'avez pas asseez de jetons or pour en dépenser autant!");
                 if ((couleur == Color::blanc) && (nb>cout_blanc)) throw SplendorException("Le cout blanc est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::bleu) && (nb>cout_bleu)) throw SplendorException("Le cout bleu est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::rouge) && (nb>cout_rouge)) throw SplendorException("Le cout rouge est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
@@ -1675,6 +1680,7 @@ void Joueur::buyCardFromReserve( const int indice){
                     std::cin >> nb;
                 } while (nb > nbJeton(Color::gold));
                 try{
+                    if(nb>nbJeton(Color::gold) - nb_gold) throw SplendorException("Vous n'avez pas asseez de jetons or pour en dépenser autant!");
                     if ((choix == "blanc" || "Blanc") && (nb>cout_blanc)) throw SplendorException("Le cout blanc est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                     if ((choix == "bleu" || "Bleu") && (nb>cout_bleu)) throw SplendorException("Le cout bleu est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                     if ((choix == "rouge" || "Rouge") && (nb>cout_rouge)) throw SplendorException("Le cout rouge est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
@@ -1780,6 +1786,7 @@ void Joueur::buyCardFromReserve_qt( const int indice){
             qDebug() << nb;
 
             try{
+                if(nb>nbJeton(Color::gold) - nb_gold) throw SplendorException("Vous n'avez pas asseez de jetons or pour en dépenser autant!");
                 if ((couleur == Color::blanc) && (nb>cout_blanc)) throw SplendorException("Le cout blanc est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::bleu) && (nb>cout_bleu)) throw SplendorException("Le cout bleu est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::rouge) && (nb>cout_rouge)) throw SplendorException("Le cout rouge est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
@@ -2338,8 +2345,7 @@ void IA::buyCard(Tirage *t, const int indice){
             }
 
             //choix du nombre de jetons or utilisé pour la couleur en question
-            int nb = rand()%nbJeton(Color::gold);
-
+            int nb = rand()%nbJeton(Color::gold)-nb_gold;
             int choix = rand()%6;
             if (choix == 0 and cout_blanc>=nb) cout_blanc -= nb; nb_gold+=nb;
             if (choix == 1 and cout_bleu>=nb) cout_bleu -= nb; nb_gold+=nb;
@@ -2420,7 +2426,7 @@ void IA::buyCardFromReserve(const int indice) {
             }
 
             //choix du nombre de jetons or utilisé pour la couleur en question
-            int nb = rand()%nbJeton(Color::gold);
+            int nb = rand()%nbJeton(Color::gold)-nb_gold;
 
             int choix = rand()%6;
             if (choix == 0 and cout_blanc>=nb) cout_blanc -= nb; nb_gold+=nb;

@@ -211,6 +211,7 @@ void MainWindow::showReservedCardsBottom() {
         if (getBuyingCard() == true) c->setDisabled(false);
         else c->setDisabled(true);
         c->setIndice(i);
+        c->setReservee(true);
         connect(c, &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
         // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
