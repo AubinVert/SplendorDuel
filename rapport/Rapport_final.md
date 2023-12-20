@@ -28,13 +28,13 @@ Dans ce dernier rapport, vous trouverez :
 
 ## Architecture
 
-L’architecture a été pensée, dans un premier temps, après une analyse générale du jeu Splendor Duel. Nous nous sommes mis d’accord sur les classes, puis nous avons attaqué le développement de ces dernères après une répartition des tâches. Cependant, nous nous sommes vite rendu compte de certains problèmes. Par exemple, au début, nous avons pensé de faire une classe mère *Jeton* puis de faire hériter chaque type de jeton de cette classe, avec sa couleur. Après le début du développement nous avons décidé de créer juste une seule classe qui aura comme attribut le type de jeton (une énumération), cela a rendu le développement beaucoup plus simple. De plus, après avoir été familiarisé sur la partie du cours sur le transtypage, nous avons compris que rester avec la première idée aurait imposé à un moment donné l’utilisation des dynamic cast afin de faire la différence entre les jetons. Ce problème a été évité avec la nouvelle solution. Un autre aspect est la maintenabilité du code: nous avons essayé de faire un maximum afin de le rendre le plus maintenable possible. Notamment, aux endroits où cela a été possible, nous avons ajouté des attributs de type ‘max’, comme par exemple le nombre maximal de jetons ou de cartes afin de rendre possible des éventuelles mises à jour dans le futur.
+L’architecture a été pensée, dans un premier temps, après une analyse générale du jeu Splendor Duel. Nous nous sommes mis d’accord sur les classes, puis nous avons attaqué le développement de ces dernères après une répartition des tâches. Cependant, nous nous sommes vite rendu compte de certains problèmes. Par exemple, au début, nous avons pensé de faire une classe mère *Jeton* puis de faire hériter chaque type de jeton de cette classe, avec sa couleur. Après le début du développement nous avons décidé de créer juste une seule classe qui aura comme attribut le type de jeton (une énumération), cela a rendu le développement beaucoup plus simple. De plus, après avoir été familiarisé sur la partie du cours sur le transtypage, nous avons compris que rester avec la première idée aurait imposé à un moment donné l’utilisation des dynamic cast afin de faire la différence entre les jetons. Ce problème a été évité avec la nouvelle solution. Un autre aspect est la maintenabilité du code: nous avons essayé de faire le maximum afin de le rendre le plus maintenable possible. Notamment, aux endroits où cela a été possible, nous avons ajouté des attributs de type ‘max’, comme par exemple le nombre maximal de jetons ou de cartes afin de rendre possible des éventuelles mises à jour dans le futur.
 
 La création d’une classe dédiée à chaque objet dans notre projet, accompagnée de l’utilisation intensive de vecteurs pour stocker les données, a été une décision stratégique visant à simplifier le développement et à rendre le code plus robuste. En exploitant les fonctionnalités intégrées des vecteurs, telles que les itérateurs, l’ajout et la suppression d’éléments, ainsi que la recherche, nous avons pu bénéficier d’une flexibilité accrue dans la manipulation des données au sein de chaque classe.
 
 Cependant, la création de classes individuelles ne représentait qu’une partie du défi. La véritable difficulté résidait dans l’établissement de liens cohérents entre ces classes pour assurer un fonctionnement harmonieux du jeu. Cette interconnexion a exigé une réflexion approfondie sur les dépendances entre les objets du jeu, garantissant que chaque action effectuée dans une classe impacte de manière appropriée les autres composants du système. La coordination de ces interactions a demandé une attention particulière pour éviter les erreurs potentielles et garantir la cohérence globale du jeu.
 
-Nous allons détailler, pour chaque classe, certaines décisions des architectures et les éventuelles difficultés dans la prochaine partie.
+Nous allons à présent détailler, pour chaque classe, certaines décisions d'architecture.
 
 ### Les modules (classes)
 
@@ -62,7 +62,7 @@ L’utilisation du Design Pattern strategy permet de garantir un ajout ultérieu
 
 **Remarque**:
 
-Après avoir développé l’IA, nous avons pu tester le programme principal (main) en faisant jouer une IA contre une autre IA. L’intérêt de cette manipulation a été de vérifier le bon fonctionnement d’une partie dans son intégralité et d’assurer que le programme ne tombe pas dans des états particuliers que nous n’aurions pas suspecté en ayant joué nous mêmes. Par exemple, nous nous sommes rendus compte que nous n’avions pas géré le cas dans lequel un joueur ou une IA voulait piocher un jeton sur le plateau alors qu’il ne restait plus que des jetons or: le joueur ne pouvait plus réserver de carte (donc ne peut pas piocher de jetons or), ce qui provoquait une boucle infinie. De nombreux cas similaires à celui-ci ont pu être identifiés grâce à cette ‘simulation’. Ainsi, le développement de l’IA nous a permis d’apporter plus de robustesse à notre programme principal.
+Après avoir développé l’IA, nous avons pu tester le programme principal (main) en faisant jouer une IA contre une autre IA. L’intérêt de cette manipulation a été de vérifier le bon fonctionnement d’une partie dans son intégralité et d’assurer que le programme ne tombe pas dans des états particuliers que nous n’aurions pas suspecté en ayant joué nous mêmes. Par exemple, nous nous sommes rendus compte que nous n’avions pas géré le cas dans lequel un joueur ou une IA voulait piocher un jeton sur le plateau alors qu’il ne restait plus que des jetons or et que le joueur ne pouvait plus réserver de carte (donc ne peut pas piocher de jetons or), ce qui provoquait une boucle infinie. De nombreux cas similaires à celui-ci ont pu être identifiés grâce à cette ‘simulation’. Ainsi, le développement de l’IA nous a permis d’apporter plus de robustesse à notre programme principal.
 
 #### Carte
 
@@ -104,9 +104,10 @@ Le programme principal (main) assure le bon déroulement d’une partie. C’est
 
 Tout au long de la conception du projet, il nous a tenu à coeur de faire attention à ce que notre structure soit facilement modifiable, et ce dès le commencement. 
 
-Par exemple, utilisation du design pattern Strategy pour les classes de joueurs -> il suffit de rajouter une classe pour ajouter un nouveau type de joueur. 
+Par exemple, utilisation du design pattern Strategy pour les classes de joueurs. Il suffit de rajouter une nouvelle classe qui hérite de Strategy_player pour ajouter un nouveau type de joueur ou d'IA, par exemple une IA avec un niveau de difficulté plus élevé. En utilisant le principe de polymorphisme, les classes filles (Joueur et IA) peuvent hériter du comportement de la classe mère, et grâce aux méthodes virtuelles, on peut facilement surcharger des méthodes, ou réutiliser les méthodes de la classe mère sur un objet d'une classe fille.
+<img src="UML_Strategy_player.png" alt="drawing" width="200"/>
 
-Seulement un ou deux attributs à changer pour rajouter des tirages, des pioches, des jetons... Capacités et couleurs gérés dans des enums class -> suffit de rajouter le nom dans l'enum 
+Nous avons seulement un ou deux attributs à changer pour rajouter des tirages, des pioches, des jetons... Capacités et couleurs gérés dans des enums class -> suffit de rajouter le nom dans l'enum 
 
 ## Planning
 
