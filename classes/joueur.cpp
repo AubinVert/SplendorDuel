@@ -1057,8 +1057,7 @@ void Joueur::reservation_carte_qt() {
 
     MainWindow::getMainWindow().activateForBuy();
     MainWindow::getMainWindow().getCarteWaitLoop()->exec();
-    
-    // pour bon fonctionnement, il faut faire en sorte que si on prend une carte re
+
 
     // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
 
@@ -1389,6 +1388,7 @@ void Joueur::achat_carte_qt(){
 
     // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
     // Pour bon fonctionnement, vérifier que la fenetre d'affichage des cartes reservées soit bien refermée
+    // @Alex stp sauve moi j'y arrive pas
 
     Qt_carte* carte_click = MainWindow::getMainWindow().getDerniereCarteClick();
     qDebug() << carte_click->getIndice() << carte_click->getReservee() << carte_click->getCard()->getVisuel();
