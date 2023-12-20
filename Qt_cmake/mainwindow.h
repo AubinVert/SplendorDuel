@@ -130,6 +130,7 @@ public:
     void deactivateButtons();
     void activateJetons();
     void activateForReserve();
+    void activateForBuy();
 
     Qt_Tirages* getTirages() const {return tirages;}
 
