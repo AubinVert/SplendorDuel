@@ -207,12 +207,13 @@ void MainWindow::showReservedCardsBottom() {
         qDebug() << "CARTES RESERVEES";
         Qt_carte* c = new Qt_carte();
         c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesReserved()[i]);
-        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setFixedSize(75, 105);  // Width: 100px, Height:x 140px based on 1:1.4 aspect ratio
         if (getBuyingCard() == true) c->setDisabled(false);
         else c->setDisabled(true);
         c->setIndice(i);
         c->setReservee(true);
         connect(c, &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
+        connect(c, &Qt_carte::carteClicked, cardsDialog, &QDialog::accept);
         // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
         c->updateAppearance();
@@ -583,62 +584,43 @@ void MainWindow::activateJetons(){
 
 void MainWindow::activateForReserve(){
     // Tirage 1
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < Jeu::getJeu().get_tirage_1()->getTirage().size(); i++){
         getTirages()->getTier1()[i]->setEnabled(true);
     }
 
     // Tirage 2
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < Jeu::getJeu().get_tirage_2()->getTirage().size(); i++){
         getTirages()->getTier2()[i]->setEnabled(true);
     }
 
-    // Tirage 3
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < Jeu::getJeu().get_tirage_3()->getTirage().size(); i++){
         getTirages()->getTier3()[i]->setEnabled(true);
     }
 
     // Les 3 pioches
 
-    getTirages()->getDeck1()->setEnabled(true);
-    getTirages()->getDeck2()->setEnabled(true);
-    getTirages()->getDeck3()->setEnabled(true);
+    if(!Jeu::getJeu().getPioche(1)->est_vide()) getTirages()->getDeck1()->setEnabled(true);
+    if(!Jeu::getJeu().getPioche(2)->est_vide()) getTirages()->getDeck2()->setEnabled(true);
+    if(!Jeu::getJeu().getPioche(3)->est_vide()) getTirages()->getDeck3()->setEnabled(true);
 }
 
 void MainWindow::activateForBuy(){
     qDebug() << "ACtiate for buy";
     // Tirage 1
-    if(Jeu::getJeu().get_tirage_1()->getTirage().size() > 5){
-        for (int i = 0; i < 5; i++){
-            getTirages()->getTier1()[i]->setEnabled(true);
-        }
-    }else{ //  Activation uniquement des boutons dont il y a bien une carte!
-        for (int i = 0; i < Jeu::getJeu().get_tirage_1()->getTirage().size(); i++){
-            getTirages()->getTier1()[i]->setEnabled(true);
-        }
+    for (int i = 0; i < Jeu::getJeu().get_tirage_1()->getTirage().size(); i++){
+        getTirages()->getTier1()[i]->setEnabled(true);
     }
 
 
     // Tirage 2
-    if(Jeu::getJeu().get_tirage_2()->getTirage().size() > 4){
-        for (int i = 0; i < 4; i++){
-            getTirages()->getTier2()[i]->setEnabled(true);
-        }
-    }else{ //  Activation uniquement des boutons dont il y a bien une carte!
-        for (int i = 0; i < Jeu::getJeu().get_tirage_2()->getTirage().size(); i++){
-            getTirages()->getTier2()[i]->setEnabled(true);
-        }
+    for (int i = 0; i < Jeu::getJeu().get_tirage_2()->getTirage().size(); i++){
+        getTirages()->getTier2()[i]->setEnabled(true);
     }
 
 
     // Tirage 3
-    if(Jeu::getJeu().get_tirage_3()->getTirage().size() > 3){
-        for (int i = 0; i < 4; i++){
-            getTirages()->getTier3()[i]->setEnabled(true);
-        }
-    }else{ //  Activation uniquement des boutons dont il y a bien une carte!
-        for (int i = 0; i < Jeu::getJeu().get_tirage_3()->getTirage().size(); i++){
-            getTirages()->getTier3()[i]->setEnabled(true);
-        }
+    for (int i = 0; i < Jeu::getJeu().get_tirage_3()->getTirage().size(); i++){
+        getTirages()->getTier3()[i]->setEnabled(true);
     }
 
     // Cartes reservées par le joueur en question activées dans le constructeur de la popup
