@@ -2118,6 +2118,7 @@ void Joueur::selectionRoyalCard(){
 // Surcharge Qt
 
 void Joueur::selectionRoyalCard_qt(){
+    MainWindow::getMainWindow().activateForRoyalCard(); // !!! À vérifier !!!
     /*
     cout<<"Votre nombre de couronne vous donne le droit de piocher une carte royale!"<<endl;
     Jeu::getJeu().printCarteRoyale();
@@ -2182,6 +2183,24 @@ void Joueur::verifJetons(){
             Sac::get_sac().mettre_jeton_sac(jetons[tab[k]]);
             jetons.erase(jetons.begin()+tab[k]);
             nb_jetons--;
+        }
+    }
+}
+
+void Joueur::verifJetons_qt(){
+    if(nb_jetons>10){
+        // Affichage d'une popup ici avec titre : "Vous avez trop de jetons, vous devez en remettre dans le sac."
+        // Affichage des jetons du joueur en boutons clickable
+        // Affichage dynamique du nombre restant de jetons à dégager (nb)
+        int nb_restant = nb_jetons-10;
+
+        while (nb_restant > 0){
+            int indice_clic; // indice du jeton clické
+            Sac::get_sac().mettre_jeton_sac(jetons[indice_clic]);
+            jetons.erase(jetons.begin()+indice_clic);
+            nb_jetons--;
+            nb_restant--;
+            // update du popup (pour que les indices des jetons et que les jetons match le bon id !!! Bien vérifier que ca fonctionne !!!
         }
     }
 }

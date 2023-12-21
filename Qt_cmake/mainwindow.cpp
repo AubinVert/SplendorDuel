@@ -607,21 +607,50 @@ void MainWindow::activateForReserve(){
 void MainWindow::activateForBuy(){
     qDebug() << "ACtiate for buy";
     // Tirage 1
-    for (int i = 0; i < 5; i++){
-        getTirages()->getTier1()[i]->setEnabled(true);
+    if(Jeu::getJeu().get_tirage_1()->getTirage().size() > 5){
+        for (int i = 0; i < 5; i++){
+            getTirages()->getTier1()[i]->setEnabled(true);
+        }
+    }else{ //  Activation uniquement des boutons dont il y a bien une carte!
+        for (int i = 0; i < Jeu::getJeu().get_tirage_1()->getTirage().size(); i++){
+            getTirages()->getTier1()[i]->setEnabled(true);
+        }
     }
+
 
     // Tirage 2
-    for (int i = 0; i < 4; i++){
-        getTirages()->getTier2()[i]->setEnabled(true);
+    if(Jeu::getJeu().get_tirage_2()->getTirage().size() > 4){
+        for (int i = 0; i < 4; i++){
+            getTirages()->getTier2()[i]->setEnabled(true);
+        }
+    }else{ //  Activation uniquement des boutons dont il y a bien une carte!
+        for (int i = 0; i < Jeu::getJeu().get_tirage_2()->getTirage().size(); i++){
+            getTirages()->getTier2()[i]->setEnabled(true);
+        }
     }
+
 
     // Tirage 3
-    for (int i = 0; i < 3; i++){
-        getTirages()->getTier3()[i]->setEnabled(true);
+    if(Jeu::getJeu().get_tirage_3()->getTirage().size() > 3){
+        for (int i = 0; i < 4; i++){
+            getTirages()->getTier3()[i]->setEnabled(true);
+        }
+    }else{ //  Activation uniquement des boutons dont il y a bien une carte!
+        for (int i = 0; i < Jeu::getJeu().get_tirage_3()->getTirage().size(); i++){
+            getTirages()->getTier3()[i]->setEnabled(true);
+        }
     }
 
-    // Cartes reservées par le joueur en question
+    // Cartes reservées par le joueur en question activées dans le constructeur de la popup
+
+}
+
+void MainWindow::activateForRoyalCard(){
+    // Seul les boutons des cartes non-nulles sont activés !!! a vérifier !!!
+
+    for (int i = 0; i < Jeu::getJeu().getCartesRoyales().size(); i++){
+        getTirages()->getRoyalCards()[i]->setEnabled(true);
+    }
 }
 
 void MainWindow::updateQuiJoue(){

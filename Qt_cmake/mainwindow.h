@@ -136,6 +136,7 @@ public:
     void activateJetons();
     void activateForReserve();
     void activateForBuy();
+    void activateForRoyalCard();
 
     Qt_Tirages* getTirages() const {return tirages;}
 
