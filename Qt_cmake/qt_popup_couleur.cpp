@@ -8,6 +8,7 @@ popupCouleur::popupCouleur(QWidget *parent) : QDialog(parent) {
 
     QLabel *typeLabel = new QLabel("Couleur :", this);
     comboBox = new QComboBox(this);
+
     comboBox->addItem("Blanc");
     comboBox->addItem("Bleu");
     comboBox->addItem("Noir");

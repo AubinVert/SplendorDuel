@@ -89,5 +89,6 @@ void Qt_Plateau::paintEvent(QPaintEvent *event) {
 void Qt_Plateau::connectJetons() {
     for (int i = 0; i < NJETONS; i++){
         connect(this->jetons[i], &Qt_jeton::jetonClicked, &MainWindow::getMainWindow(), &MainWindow::jetonClicked);
+
     }
 }

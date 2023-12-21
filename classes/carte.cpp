@@ -292,3 +292,21 @@ void testInitCartes(){
 
 }
 
+const Color colorBonusToColor(const optional<colorBonus>& couleur){
+    if(couleur == colorBonus::red) return Color::rouge;
+    if(couleur == colorBonus::vert) return Color::vert;
+    if(couleur == colorBonus::bleu) return Color::bleu;
+    if(couleur == colorBonus::blanc) return Color::blanc;
+    if(couleur == colorBonus::noir) return Color::noir;
+    else throw SplendorException("Bonus couleur inconnu!");
+}
+
+const colorBonus stringToBonus(const std::string& str){
+    if(str == "Rouge") return colorBonus::red;
+    if(str == "Vert") return colorBonus::vert;
+    if(str == "Bleu") return colorBonus::bleu;
+    if(str == "Blanc") return colorBonus::blanc;
+    if(str == "Noir") return colorBonus::noir;
+    else throw SplendorException("Str Bonus couleur inconnu!");
+}
+

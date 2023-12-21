@@ -678,10 +678,11 @@ void Joueur::utilisationPrivilege_qt(){
     // Activer les jetons
     MainWindow::getMainWindow().activateJetons();
 
-    while (indice == -1){
+    while (indice == -1 or (indice!=-1 and Plateau::get_plateau().get_plateau_i(indice)->getColor()==Color::gold)){
         MainWindow::getMainWindow().getJetonWaitLoop()->exec();
         indice = MainWindow::getMainWindow().getIndiceJetonClick();
     }
+
 
     // cout << "Quel jeton voulez-vous piocher ? " << endl;
     // cout << "indice : ";
@@ -844,6 +845,7 @@ void Joueur::selection_jetons_qt() {
             string validation;
             char choice_valid = 'a';
             while(choice_valid != 'Y'){
+                MainWindow::getMainWindow().activateJetons();
                 qDebug() << "While choice_valid";
                 while(tmp_tab.size()<3) {
                     qDebug() << "While size()";
@@ -1233,185 +1235,61 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
     }
 
 }
+
 //Surcharge Qt
 void Joueur::applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire) {
+    MainWindow::getMainWindow().deactivateButtons();
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            /*
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
+            MainWindow::getMainWindow().setStealingJeton(true);
 
-            if ((adversaire.getJeton().empty())&&(!adversaire.onlyGoldInJetons())){
-                cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
-            }
-            else{
-                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
-                cout<<"Voici les jetons de votre adversaire: "<<endl;
-                int i = 0;
-                for (auto jet : jetons_adversaire){
-                    cout<<"Indice : "<<i++<<", "<<*jet<<endl;
-                }
-                int choice = -1;
-                do{
-                    if(choice != -1){
-                            cout<<"Vous ne pouvez pas prendre un jeton or!"<<endl;
-                    }
-                    cout<<"Quel jeton souhaitez vous lui voler?"<<endl;
-                    cout<<"Choix : ";
-                    cin>>choice;
-                }while(jetons_adversaire[choice]->getColor()==Color::gold);
-                jetons.push_back(jetons_adversaire[choice]);
-                nb_jetons++;
-                jetons_adversaire.erase(jetons_adversaire.begin()+choice);
-                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+            MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire");
+            MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
-            }*/
-            // Fenetre d'affichage avec, le titre: "Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire."
-            // Si la condition du if est vérifiée => pas possible de voler un jeton (affichage du cout)
-            // Si on rentre dans le else: affichage des jetons du joueur clickable !!!sauf les jetons or!!!
-            // Il faut être sur que l'affichage se fait bien dans l'ordre du vector de jetons du joueur (normalement c'est ok!)
+            int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
 
-            int indice; // indice à récupérer grace au qt
-            vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+            qDebug() <<indice;
+
+            // Ajout chez le joueur et suppression chez l'adversaire
+            vector<const Jeton*>& jetons_adversaire = adversaire.getJeton();
             jetons.push_back(jetons_adversaire[indice]);
             nb_jetons++;
             jetons_adversaire.erase(jetons_adversaire.begin()+indice);
             adversaire.setNbJetons(adversaire.getNbJetons()-1);
-
+            MainWindow::getMainWindow().setStealingJeton(false);
 
         }
         else if (capa == Capacity::prendre_privilege){
             // ok pas besoin de changer pour le Qt
+            MainWindow::getMainWindow().triggerInfo("Vous allez obtenir un privilège");
             Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
         }
         else if (capa == Capacity::prendre_sur_plateau){
-            /*
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte\n";
-            const optional<enum colorBonus>& couleur = carte.getBonus();
+            const optional<colorBonus>& couleur = carte.getBonus();
             if (Plateau::get_plateau().colorInPlateau(couleur)){
-                bool choix_ok = 0;
-                unsigned int indice = 0;
-                while(!choix_ok){
-                    try{
-                            cout << "Veuillez renseigner l'indice du jeton que vous voulez prendre\n ";
-                            cout << "choix :"<<endl;
-                            cin >> indice;
-                            if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {
-                            indice = 0;
-                            throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
-                            }
-                            if (indice < 0 or indice >= Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
-                            indice = 0;
-                            throw SplendorException("Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau\n");
-                            }
-                            string s = "Bonus ";
-                            if (s + toString(Plateau::get_plateau().get_plateau_i(indice)->getColor()) != toString(couleur)){
-                            indice = 0;
-                            throw SplendorException("il faut choisir un jeton de la couleur du bonus!\n");
-                            }else{
-                            Jeu::getJeu().getCurrentPlayer().piocher_jeton(indice);
-                            choix_ok = 1;
-                            }
-                    }
-                    catch(SplendorException& e){
-                            cout<<e.getInfos()<<"\n";
-                    }
-                }
-            }*/
-            // popup avec titre "Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte"
-            // Si Plateau::get_plateau().colorInPlateau(couleur)
-            //=> le joueur peut cliquer sur le plateau uniquement sur les jetons de la couleur de la variable
-            // Quand clic, on récupère l'indice sur le plateau
-            int indice = 0; // indice du plateau à récuperer à partir du popup
-            Jeu::getJeu().getCurrentPlayer().piocher_jeton(indice);
+                MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous pouvez prendre un jeton " + toString(carte.getBonus()) + " sur le plateau");
+
+                MainWindow::getMainWindow().activateJetonColor(colorBonusToColor(couleur));
+
+                MainWindow::getMainWindow().getJetonWaitLoop()->exec();
+                int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
+
+                Jeu::getJeu().getCurrentPlayer().piocher_jeton(indice);
+            }
 
         }else{// La seule capacité possible est de rejouer
             // Rien à changer pour le Qt
+            MainWindow::getMainWindow().triggerInfo("Vous allez rejouer");
             Jeu::getJeu().tour_suivant(1);
         }
 
     }
     if (carte.getBonus() == colorBonus::joker){
-        cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
-                "une de vos carte dotée d'au moins un bonus.\n";
-            int bonus_blanc = calculateBonus(colorBonus::blanc);
-        int bonus_bleu = calculateBonus(colorBonus::bleu);
-        int bonus_rouge = calculateBonus(colorBonus::red);
-        int bonus_vert = calculateBonus(colorBonus::vert);
-        int bonus_noir = calculateBonus(colorBonus::noir);
-
-        bool verif_choix = false;
-        try {
-            while (!verif_choix) {
-                cout << "Faites votre choix :" << endl;
-                int option = 0;
-                if (bonus_blanc > 0) {
-                    cout << "Bonus blanc [1]" << endl;
-                    option++;
-                }
-                if (bonus_bleu > 0) {
-                    cout << "Bonus bleu [2]" << endl;
-                    option++;
-                }
-                if (bonus_rouge > 0) {
-                    cout << "Bonus rouge [3]" << endl;
-                    option++;
-                }
-                if (bonus_vert > 0) {
-                    cout << "Bonus vert [4]" << endl;
-                    option++;
-                }
-                if (bonus_noir > 0) {
-                    cout << "Bonus noir [5]" << endl;
-                    option++;
-                }
-                // Vérifiez si aucune option n'est disponible
-                if (option == 0) {
-                    verif_choix = true;
-                    throw SplendorException("vous ne possédez aucune carte dotée de bonus.. Capacité"
-                                            " sans effet\n");
-                } else {
-                    int choix;
-                    cin >> choix;
-                    colorBonus b;
-                    switch (choix) {
-                    case 1:
-                            b = colorBonus::blanc;
-                            carte.changerCouleurBonus(b);
-                            verif_choix = true;
-                            break;
-                    case 2:
-                            b = colorBonus::bleu;
-                            carte.changerCouleurBonus(b);
-                            verif_choix = true;
-                            break;
-                    case 3:
-                            b = colorBonus::red;
-                            carte.changerCouleurBonus(b);
-                            verif_choix = true;
-                            break;
-                    case 4:
-                            b = colorBonus::vert;
-                            carte.changerCouleurBonus(b);
-                            verif_choix = true;
-                            break;
-                    case 5:
-                            b = colorBonus::noir;
-                            carte.changerCouleurBonus(b);;
-                            verif_choix = true;
-                            break;
-                    default:
-                            cout << "Choix invalide, veuillez recommencer.\n";
-                            break;
-                    }
-                }
-            }
-        }
-        catch(SplendorException& e){
-            cout<<e.getInfos()<<"\n";
-        }
+        colorBonus b;
+        MainWindow::getMainWindow().triggercolorJoker(&b);
+        carte.changerCouleurBonus(b);
     }
-
 }
 
 void Joueur::applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) {
@@ -1462,54 +1340,32 @@ void Joueur::applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_playe
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            /*
-            cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
+            MainWindow::getMainWindow().setStealingJeton(true);
 
-            if ((adversaire.getJeton().empty())&&(!adversaire.onlyGoldInJetons())){
-                cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
-            }
-            else{
-                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
-                cout<<"Voici les jetons de votre adversaire: "<<endl;
-                int i = 0;
-                for (auto jet : jetons_adversaire){
-                    cout<<"Indice : "<<i++<<", "<<*jet<<endl;
-                }
-                int choice = -1;
-                do{
-                    if(choice != -1){
-                            cout<<"Vous ne pouvez pas prendre un jeton or!"<<endl;
-                    }
-                    cout<<"Quel jeton souhaitez vous lui voler?"<<endl;
-                    cout<<"Choix : ";
-                    cin>>choice;
-                }while(jetons_adversaire[choice]->getColor()==Color::gold);
-                jetons.push_back(jetons_adversaire[choice]);
-                nb_jetons++;
-                jetons_adversaire.erase(jetons_adversaire.begin()+choice);
-                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+            MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire");
+            MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
-            }*/
-            // Fenetre d'affichage avec, le titre: "Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire."
-            // Si la condition du if est vérifiée => pas possible de voler un jeton (affichage du cout)
-            // Si on rentre dans le else: affichage des jetons du joueur clickable !!!sauf les jetons or!!!
-            // Il faut être sur que l'affichage se fait bien dans l'ordre du vector de jetons du joueur (normalement c'est ok!)
+            int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
 
-            int indice; // indice à récupérer grace au qt
-            vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+            qDebug() <<indice;
+
+            // Ajout chez le joueur et suppression chez l'adversaire
+            vector<const Jeton*>& jetons_adversaire = adversaire.getJeton();
             jetons.push_back(jetons_adversaire[indice]);
             nb_jetons++;
             jetons_adversaire.erase(jetons_adversaire.begin()+indice);
             adversaire.setNbJetons(adversaire.getNbJetons()-1);
-
+            MainWindow::getMainWindow().setStealingJeton(false);
 
         }
         else if (capa == Capacity::prendre_privilege){
             // Rien à changer dans la Qt
+            MainWindow::getMainWindow().triggerInfo("Vous obtenez un privilège");
             Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
             cout<<"Capacité de la carte: Vous avez obtenu un privilège!"<<endl;
         }
         else{
+            MainWindow::getMainWindow().triggerInfo("Vous allez rejouer");
             Jeu::getJeu().tour_suivant(1);
             cout<<"Capacité de la carte: Rejouer! Vous allez recommencer"<<endl;
         }
@@ -1624,10 +1480,6 @@ void Joueur::achat_carte_qt(){
     // qDebug() << "Carte qt";
     MainWindow::getMainWindow().activateForBuy();
     MainWindow::getMainWindow().getCarteWaitLoop()->exec();
-
-    // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
-    // Pour bon fonctionnement, vérifier que la fenetre d'affichage des cartes reservées soit bien refermée
-    // @Alex stp sauve moi j'y arrive pas
 
     Qt_carte* carte_click = MainWindow::getMainWindow().getDerniereCarteClick();
     qDebug() << carte_click->getIndice() << carte_click->getReservee() << carte_click->getCard()->getVisuel();
@@ -1875,7 +1727,7 @@ void Joueur::buyCard_qt(Tirage *t, const int indice){
     nb_cartes_j++;
     // Dans le main tester si eligible pour carte royale et appeler get carte royale
 
-    Jeu::getJeu().getCurrentPlayer().applicationCapacite(carte, Jeu::getJeu().getOpponent());
+    Jeu::getJeu().getCurrentPlayer().applicationCapacite_qt(carte, Jeu::getJeu().getOpponent());
 
 }
 
@@ -2084,7 +1936,7 @@ void Joueur::buyCardFromReserve_qt( const int indice){
     nb_courones += carte->getNbCrown();
     nb_points += carte->getPrestige();
 
-    Jeu::getJeu().getCurrentPlayer().applicationCapacite(*carte, Jeu::getJeu().getOpponent());
+    Jeu::getJeu().getCurrentPlayer().applicationCapacite_qt(*carte, Jeu::getJeu().getOpponent());
 
 }
 
@@ -2118,7 +1970,6 @@ void Joueur::selectionRoyalCard(){
 // Surcharge Qt
 
 void Joueur::selectionRoyalCard_qt(){
-    MainWindow::getMainWindow().activateForRoyalCard(); // !!! À vérifier !!!
     /*
     cout<<"Votre nombre de couronne vous donne le droit de piocher une carte royale!"<<endl;
     Jeu::getJeu().printCarteRoyale();
@@ -2145,7 +1996,19 @@ void Joueur::selectionRoyalCard_qt(){
     // Popup avec titre "Votre nombre de couronne vous donne le droit de piocher une carte royale!"
     // Activation des boutons des cartes royales
     // Attention à ce qu'on ne puisse pas cliquer aux emplacement vides
-    int tmp; // Récupération de l'indice à l'aide d'un signal ici
+
+    // qDebug() << "Carte qt";
+    MainWindow::getMainWindow().activateForRoyalCard();
+    MainWindow::getMainWindow().getCarteWaitLoop()->exec();
+
+    // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
+    // Pour bon fonctionnement, vérifier que la fenetre d'affichage des cartes reservées soit bien refermée
+    // @Alex stp sauve moi j'y arrive pas
+
+    Qt_carte* carte_click = MainWindow::getMainWindow().getDerniereCarteClick();
+
+    int tmp = carte_click->getIndice(); // Récupération de l'indice à l'aide d'un signal ici
+
     obtainRoyaleCard(tmp);
 }
 
@@ -2189,20 +2052,42 @@ void Joueur::verifJetons(){
 
 void Joueur::verifJetons_qt(){
     if(nb_jetons>10){
-        // Affichage d'une popup ici avec titre : "Vous avez trop de jetons, vous devez en remettre dans le sac."
-        // Affichage des jetons du joueur en boutons clickable
-        // Affichage dynamique du nombre restant de jetons à dégager (nb)
-        int nb_restant = nb_jetons-10;
+        MainWindow::getMainWindow().setDiscarding(true);
+        MainWindow::getMainWindow().deactivateButtons();
+        int nb = nb_jetons-10;
+        MainWindow::getMainWindow().triggerInfo("Vous devez enlever " + std::to_string(nb) + " jetons");
 
-        while (nb_restant > 0){
-            int indice_clic; // indice du jeton clické
-            Sac::get_sac().mettre_jeton_sac(jetons[indice_clic]);
-            jetons.erase(jetons.begin()+indice_clic);
+        vector<int> tab(0);
+        int i = 0;
+        int curNb = nb;
+        while(curNb>0){
+
+            MainWindow::getMainWindow().getJetonWaitLoop()->exec();
+            int tmp = MainWindow::getMainWindow().getIndiceJetonClick();
+
+            bool inTab = 0;
+            for(int j = 0 ; j<tab.size(); j++){ // vérification qu'on a pas déjà essayé de l'enlever
+                if(tab[j]==tmp){
+                    inTab = 1;
+                }
+            }
+            if(tmp>=0 and tmp < nb_jetons and inTab == false){
+                tab.push_back(tmp);
+                curNb--;
+            }
+        }
+        MainWindow::getMainWindow().acceptCurrentDialog();
+        // tri du tableau
+        std::make_heap(tab.begin(), tab.end());
+        std::sort_heap(tab.begin(), tab.end());
+        for(int k = tab.size()-1; k>=0; k--){ // suppression de la fin vers le début pour ne pas décaler les indices
+            Sac::get_sac().mettre_jeton_sac(jetons[tab[k]]);
+            jetons.erase(jetons.begin()+tab[k]);
             nb_jetons--;
-            nb_restant--;
-            // update du popup (pour que les indices des jetons et que les jetons match le bon id !!! Bien vérifier que ca fonctionne !!!
         }
     }
+
+    MainWindow::getMainWindow().setDiscarding(false);
 }
 /******************** Joueur ********************/
 

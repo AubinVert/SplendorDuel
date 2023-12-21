@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <QThread>
 #include "sac.h"
 #include "privilege.h"
 #include "plateau.h"

@@ -97,22 +97,22 @@ void gameFromScratch(int argc, char *argv[]){
             // qDebug() << "DEBUT TRY";
             Jeu::getJeu().getCurrentPlayer().choice_qt();
             // update affichage
-            /*
-            Jeu::getJeu().getCurrentPlayer().verifJetons();
+
+            Jeu::getJeu().getCurrentPlayer().verifJetons_qt();
 
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
-                Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
+                Jeu::getJeu().getCurrentPlayer().selectionRoyalCard_qt();
             }
-            */
-            cout << Jeu::getJeu().getCurrentPlayer().getName();
-            Jeu::getJeu().tour_suivant();
-            cout << Jeu::getJeu().getCurrentPlayer().getName();
 
+
+            Jeu::getJeu().tour_suivant();
+
+            MainWindow::getMainWindow().updateScores();
             MainWindow::getMainWindow().updatePlateau();
             MainWindow::getMainWindow().updateTirages();
-            MainWindow::getMainWindow().updateScores();
             MainWindow::getMainWindow().updatePrivileges();
             MainWindow::getMainWindow().update();
+            // QThread::msleep(3000);
 
             from_error = 0;
 
@@ -130,7 +130,7 @@ void gameFromScratch(int argc, char *argv[]){
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
 
-    Jeu::libereJeu();
+    // Jeu::libereJeu();
 
     app.exec();
 }

@@ -53,6 +53,8 @@ add_executable(Qt_cmake
     qt_popup_tirageoupioche.h
     qt_popup_couleur.h
     qt_popup_couleur.cpp
+    qt_popup_joker.h
+    qt_popup_joker.cpp
 
 
 )

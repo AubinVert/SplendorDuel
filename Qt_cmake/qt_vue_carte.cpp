@@ -41,6 +41,8 @@ void Qt_carte::updateAppearance() {
     }
 
     else {
+        this->setIcon(QIcon());
+        this->setIconSize(this->size());
         qDebug() << "prblm";
     }
     // Additional appearance updates...

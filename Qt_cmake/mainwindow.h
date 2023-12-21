@@ -22,6 +22,7 @@
 #include "qt_popup_yesno.h"
 #include "qt_popup_info.h"
 #include "qt_popup_tirageoupioche.h"
+#include "qt_vue_jeton.h"
 
 #define RIEN "../src/rien.png"
 
@@ -57,6 +58,7 @@ private:
     Jeu* jeu;
 
     bool buyingCard;
+    bool stealingJeton;
 
     struct Handler {
         MainWindow * instance = nullptr;
@@ -76,10 +78,20 @@ private:
     int indice_jeton_click;
     Qt_carte* derniere_carte_click;
 
+    bool discarding;
+
+    QDialog* current_dialog;
+
 public:
+
+    const bool getDiscarding() const { return discarding;}
+    void setDiscarding(bool x) {discarding = x;}
 
     void setBuyingCard(bool x) {buyingCard = x;}
     const bool getBuyingCard() {return buyingCard;}
+
+    void setStealingJeton(bool x) {stealingJeton = x;}
+    const bool getStealingJeton() {return stealingJeton;}
 
     void updateQuiJoue();
 
@@ -97,9 +109,9 @@ public:
 
     void updateScores(){
         int s1 = Jeu::getJeu().getCurrentPlayer().getNbPoints();
+        bottomScoreDisplay->display(s1);
         int s2 = Jeu::getJeu().getOpponent().getNbPoints();
-        topScoreDisplay->display(s1);
-        bottomScoreDisplay->display(s2);
+        topScoreDisplay->display(s2);
     }
 
     void demanderNoms() {
@@ -140,6 +152,16 @@ public:
 
     Qt_Tirages* getTirages() const {return tirages;}
 
+    void activateJetonColor(const Color& c);
+
+    void acceptCurrentDialog(){
+        if (current_dialog != nullptr){
+            current_dialog->accept();
+            current_dialog = nullptr;
+        }
+    }
+
+    void setCurrentDialog(QDialog* d) {current_dialog = d;}
 
 private slots:
     void showBoughtCardsTop();
@@ -156,6 +178,7 @@ private slots:
     void nextAction(int* tmp, Joueur* j);
     void showInfo(const string& string);
     void colorChoice(Color *c, int *nb);
+    void colorJoker(colorBonus *b);
 
 public slots:
     void jetonClicked(Qt_jeton*);
@@ -166,6 +189,7 @@ signals:
     void triggerYesNo(char* choice, const std::string& string = "");
     void triggerInfo(const string& string);
     void triggercolorChoice(Color* c, int *nb);
+    void triggercolorJoker(colorBonus *b);
     void jetonActionDone();
     void carteActionDone();
 

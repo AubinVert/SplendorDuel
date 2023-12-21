@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "qt_popup_couleur.h"
+#include "qt_popup_joker.h"
 
 MainWindow::Handler MainWindow::handler;
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false), current_dialog(nullptr) {
 
     jeu = &Jeu::getJeu();
 
@@ -144,6 +145,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     connect(this, &MainWindow::triggerYesNo, this, &MainWindow::YesNo);
     connect(this, &MainWindow::triggerInfo, this, &MainWindow::showInfo);
     connect(this, &MainWindow::triggercolorChoice, this, &MainWindow::colorChoice);
+    connect(this, &MainWindow::triggercolorJoker, this, &MainWindow::colorJoker);
     connect(this, &MainWindow::jetonActionDone, &wait_for_action_jeton, &QEventLoop::quit);
     connect(this, &MainWindow::carteActionDone, &wait_for_action_carte, &QEventLoop::quit);
 
@@ -153,10 +155,9 @@ MainWindow::~MainWindow() {
     // Rien
 }
 
-
-
 void MainWindow::showJetonsBottom() {
     QDialog *jetonsDialog = new QDialog();
+    setCurrentDialog(jetonsDialog);
     jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
 
 
@@ -178,10 +179,12 @@ void MainWindow::showJetonsBottom() {
 
     for (int i = 0; i < 16; i++){
         Qt_jeton* j = new Qt_jeton();
+        j->setIndice(i);
         if (i < nb) j->setJeton(Jeu::getJeu().getCurrentPlayer().getJeton()[i]);
         j->setFixedSize(60, 60);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
         j->setStyleSheet("border: 1px solid black;");
         layout->addWidget(j, i / 4, i % 4);
+        if (getDiscarding() == true) connect(j, &Qt_jeton::jetonClicked, &MainWindow::getMainWindow(), &MainWindow::jetonClicked);
         j->updateAppearance();
     }
 
@@ -194,7 +197,7 @@ void MainWindow::showJetonsBottom() {
     verticallayout->addWidget(gridWidget);
     jetonsDialog->setLayout(verticallayout);
 
-    jetonsDialog->exec();
+    jetonsDialog->show();
 }
 
 void MainWindow::showReservedCardsBottom() {
@@ -294,10 +297,17 @@ void MainWindow::showJetonsTop() {
 
     for (int i = 0; i < 16; i++){
         Qt_jeton* j = new Qt_jeton();
+        j->setIndice(i);
         if (i < nb) j->setJeton(Jeu::getJeu().getOpponent().getJeton()[i]);
         j->setFixedSize(60, 60);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
         j->setStyleSheet("border: 1px solid black;");
         layout->addWidget(j, i / 4, i % 4);
+        j->setDisabled(true);
+        if (i < nb && MainWindow::getMainWindow().getStealingJeton() == true && Jeu::getJeu().getOpponent().getJeton()[i]->getColor() != Color::gold) {
+            j->setDisabled(false);
+            // connect(j, &Qt_jeton::jetonClicked, jetonsDialog, &QDialog::accept);
+            connect(j, &Qt_jeton::jetonClicked, &MainWindow::getMainWindow(), &MainWindow::jetonClicked);
+        }
         j->updateAppearance();
     }
 
@@ -370,48 +380,61 @@ void MainWindow::updateTirages(){
 
     // Tirage 1
     qDebug() << "Tirage1";
-    for (int i = 0; i < Jeu::getJeu().get_tirage_1()->getNbCartes(); i++){
+    for (int i = 0; i < 5; i++){
         tirages->getTier1()[i]->setCard(Jeu::getJeu().get_tirage_1()->getTirage()[i]);
 
         // Update des visuels
-        tirages->getTier1()[i]->updateAppearance();
+        if (i < Jeu::getJeu().get_tirage_1()->getNbCartes()) tirages->getTier1()[i]->updateAppearance();
+        else {
+            tirages->getTier1()[i]->setIcon(QIcon());
+            tirages->getTier1()[i]->setIconSize(this->size());
+        }
     }
 
 
     // Tirage 2
     qDebug() << "Tirage2";
-    for (int i = 0; i < Jeu::getJeu().get_tirage_2()->getNbCartes(); i++){
+    for (int i = 0; i < 4; i++){
         tirages->getTier2()[i]->setCard(Jeu::getJeu().get_tirage_2()->getTirage()[i]);
 
         // Update des visuels
-        tirages->getTier2()[i]->updateAppearance();
+        if (i < Jeu::getJeu().get_tirage_2()->getNbCartes()) tirages->getTier2()[i]->updateAppearance();
+        else {
+            tirages->getTier2()[i]->setIcon(QIcon());
+            tirages->getTier2()[i]->setIconSize(this->size());
+        }
     }
 
 
     // Tirage 3
     qDebug() << "Tirage3";
-    for (int i = 0; i < Jeu::getJeu().get_tirage_3()->getNbCartes(); i++){
+    for (int i = 0; i < 3; i++){
         tirages->getTier3()[i]->setCard(Jeu::getJeu().get_tirage_3()->getTirage()[i]);
 
         // Update des visuels
-        tirages->getTier3()[i]->updateAppearance();
+        if (i < Jeu::getJeu().get_tirage_3()->getNbCartes()) tirages->getTier3()[i]->updateAppearance();
+        else {
+            tirages->getTier3()[i]->setIcon(QIcon());
+            tirages->getTier3()[i]->setIconSize(this->size());
+        }
     }
 
 
     // Cartes royales
     qDebug() << "CartesRoyales";
-    for (int i = 0; i < Jeu::getJeu().getCartesRoyales().size(); i++){
+    for (int i = 0; i < 4; i++){
         tirages->getRoyalCards()[i]->setCard(Jeu::getJeu().getCartesRoyales()[i]);
-
         // Update des visuels
-        tirages->getRoyalCards()[i]->updateAppearance();
+        if (i < Jeu::getJeu().getCartesRoyales().size()) tirages->getRoyalCards()[i]->updateAppearance();
+        else {
+            tirages->getRoyalCards()[i]->setIcon(QIcon());
+            tirages->getRoyalCards()[i]->setIconSize(this->size());
+        }
     }
 
     if (tirages->getDeck1() != nullptr) tirages->getDeck1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
     if (tirages->getDeck2() != nullptr) tirages->getDeck2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
     if (tirages->getDeck3() != nullptr) tirages->getDeck3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
-
-
 
 }
 
@@ -523,15 +546,15 @@ void MainWindow::jetonClicked(Qt_jeton* j){
     }else{
         setIndiceJetonClick(-1);
     }
+    j->setDisabled(true);
 
     MainWindow::getMainWindow().jetonActionDone();
 }
 
-
 void MainWindow::carteClicked(Qt_carte* c){
     if (c != nullptr) qDebug() << "Carte cliquée : " << c->getIndice() << c->getReservee();
     else qDebug() << "nullptr carte";
-    setDerniereCarteClick(c);
+    if (c->getCard() != nullptr) setDerniereCarteClick(c);
 
     MainWindow::getMainWindow().carteActionDone();
 }
@@ -645,5 +668,21 @@ void MainWindow::colorChoice(Color *c, int* nb){
     if (dialog.exec() == QDialog::Accepted) {
         *c = dialog.getColor();
         *nb = dialog.getNb();
+    }
+}
+
+void MainWindow::activateJetonColor(const Color& c){
+    // Jetons
+    int nbmax = Jeton::getNbMaxJetons();
+    for(int i = 0; i < nbmax; i++){
+        if (plateau->getPlateau().getJetons()[i]->getJeton() != nullptr && plateau->getPlateau().getJetons()[i]->getJeton()->getColor() == c) plateau->getPlateau().getJetons()[i]->setEnabled(true);
+    }
+}
+
+void MainWindow::colorJoker(colorBonus *b){
+    // Créer la fenêtre color choice et recup c et nb
+    popupJoker dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        *b = dialog.getColor();
     }
 }

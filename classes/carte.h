@@ -232,6 +232,8 @@ inline Color stringToColor(std::string& str){
     if(str == "Gold") return Color::gold;
     else throw SplendorException("La string passé ne correspond à aucune couleur! Attention, fonction sensible à la casse!");
 }
+const Color colorBonusToColor(const optional<enum colorBonus>& couleur);
+const colorBonus stringToBonus(const std::string& str);
 vector<const RoyalCard*> initCartesRoyales();
 vector<const JewelryCard*> initCartesJoaillerie();
 
