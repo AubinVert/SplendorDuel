@@ -91,6 +91,7 @@ public:
     virtual void choice()=0;
     virtual void choice_qt()=0;
     virtual void utilisationPrivilege() = 0;
+    virtual void utilisationPrivilege_qt() = 0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
     virtual void achat_carte_qt()=0;
@@ -106,6 +107,7 @@ public:
     virtual void reservation_carte()=0;
     virtual void reservation_carte_qt() = 0;
     virtual void selectionRoyalCard() = 0;
+    virtual void selectionRoyalCard_qt() = 0;
     virtual void verifJetons()=0;
 
     //getters setters
@@ -264,6 +266,7 @@ public:
     void reservation_carte();
     void reservation_carte_qt();
     void selectionRoyalCard();
+    void selectionRoyalCard_qt();
 
     void verifJetons();
 
@@ -290,11 +293,12 @@ public:
     void reservation_carte();
     void reservation_carte_qt() {reservation_carte();}
     void selectionRoyalCard();
+    void selectionRoyalCard_qt(){selectionRoyalCard();}
 
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
-    void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire){return applicationCapacite(carte,adversaire);}
+    void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire){applicationCapacite(carte,adversaire);}
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
-    void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire){return applicationCapaciteRoyale(carte, adversaire);}
+    void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire){applicationCapaciteRoyale(carte, adversaire);}
 
     void verifJetons();
 

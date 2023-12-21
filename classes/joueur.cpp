@@ -2115,6 +2115,39 @@ void Joueur::selectionRoyalCard(){
     obtainRoyaleCard(tmp);
 }
 
+// Surcharge Qt
+
+void Joueur::selectionRoyalCard_qt(){
+    /*
+    cout<<"Votre nombre de couronne vous donne le droit de piocher une carte royale!"<<endl;
+    Jeu::getJeu().printCarteRoyale();
+    int tmp;
+    bool choix_ok = 0;
+    while(!choix_ok) {
+        cout << "Veuillez entrer l'indice de la carte royale que vous souhaitez prendre:" << endl;
+        cout << "choix: ";
+        cin >> tmp;
+        if (tmp >= 0 and tmp < Jeu::getJeu().getCartesRoyales().size()) {
+            string validate;
+            cout<<"Valider ? [Y/N] :"<<endl;
+            cout<<"choix : ";
+            cin>>validate;
+            if(validate=="Y"){
+                choix_ok = 1; // on peut sortir de la boucle
+            }
+        }
+        else{
+            cout<<"Indice de carte invalide!"<<endl;
+        }
+
+    }*/
+    // Popup avec titre "Votre nombre de couronne vous donne le droit de piocher une carte royale!"
+    // Activation des boutons des cartes royales
+    // Attention à ce qu'on ne puisse pas cliquer aux emplacement vides
+    int tmp; // Récupération de l'indice à l'aide d'un signal ici
+    obtainRoyaleCard(tmp);
+}
+
 void Joueur::verifJetons(){
     if(nb_jetons>10){
         int nb = nb_jetons-10;
