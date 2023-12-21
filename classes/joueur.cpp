@@ -1084,7 +1084,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
         if (capa == Capacity::voler_pion_adverse){
             cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
 
-            if (adversaire.getJeton().empty()){
+            if (adversaire.getJeton().empty())&&(!adversaire.onlyGoldInJetons())){
                 cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
             }
             else{
@@ -1146,7 +1146,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
                     }
                 }
             }
-        }else{
+        }else{// si la capacité est de rejouer
             Jeu::getJeu().tour_suivant(1);
         }
 
@@ -1233,6 +1233,186 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
     }
 
 }
+//Surcharge Qt
+void Joueur::applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire) {
+    if (carte.getCapacite().has_value()){
+        std::optional<Capacity> capa = carte.getCapacite();
+        if (capa == Capacity::voler_pion_adverse){
+            /*
+            cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
+
+            if ((adversaire.getJeton().empty())&&(!adversaire.onlyGoldInJetons())){
+                cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
+            }
+            else{
+                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+                cout<<"Voici les jetons de votre adversaire: "<<endl;
+                int i = 0;
+                for (auto jet : jetons_adversaire){
+                    cout<<"Indice : "<<i++<<", "<<*jet<<endl;
+                }
+                int choice = -1;
+                do{
+                    if(choice != -1){
+                            cout<<"Vous ne pouvez pas prendre un jeton or!"<<endl;
+                    }
+                    cout<<"Quel jeton souhaitez vous lui voler?"<<endl;
+                    cout<<"Choix : ";
+                    cin>>choice;
+                }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                jetons.push_back(jetons_adversaire[choice]);
+                nb_jetons++;
+                jetons_adversaire.erase(jetons_adversaire.begin()+choice);
+                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
+            }*/
+            // Fenetre d'affichage avec, le titre: "Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire."
+            // Si la condition du if est vérifiée => pas possible de voler un jeton (affichage du cout)
+            // Si on rentre dans le else: affichage des jetons du joueur clickable !!!sauf les jetons or!!!
+            // Il faut être sur que l'affichage se fait bien dans l'ordre du vector de jetons du joueur (normalement c'est ok!)
+
+            int indice; // indice à récupérer grace au qt
+            vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+            jetons.push_back(jetons_adversaire[indice]);
+            nb_jetons++;
+            jetons_adversaire.erase(jetons_adversaire.begin()+indice);
+            adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
+
+        }
+        else if (capa == Capacity::prendre_privilege){
+            // ok pas besoin de changer pour le Qt
+            Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
+        }
+        else if (capa == Capacity::prendre_sur_plateau){
+            /*
+            cout<<"Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte\n";
+            const optional<enum colorBonus>& couleur = carte.getBonus();
+            if (Plateau::get_plateau().colorInPlateau(couleur)){
+                bool choix_ok = 0;
+                unsigned int indice = 0;
+                while(!choix_ok){
+                    try{
+                            cout << "Veuillez renseigner l'indice du jeton que vous voulez prendre\n ";
+                            cout << "choix :"<<endl;
+                            cin >> indice;
+                            if (Plateau::get_plateau().get_plateau_i(indice) ==nullptr) {
+                            indice = 0;
+                            throw SplendorException("Il n'y a pas de jeton à cet indice!\n");
+                            }
+                            if (indice < 0 or indice >= Jeton::getNbMaxJetons()) {//le nombre de cases sur le plateau correspond au nombre de jetons dans le jeu
+                            indice = 0;
+                            throw SplendorException("Il n'y a que " + std::to_string(Jeton::getNbMaxJetons()) + " places sur le plateau\n");
+                            }
+                            string s = "Bonus ";
+                            if (s + toString(Plateau::get_plateau().get_plateau_i(indice)->getColor()) != toString(couleur)){
+                            indice = 0;
+                            throw SplendorException("il faut choisir un jeton de la couleur du bonus!\n");
+                            }else{
+                            Jeu::getJeu().getCurrentPlayer().piocher_jeton(indice);
+                            choix_ok = 1;
+                            }
+                    }
+                    catch(SplendorException& e){
+                            cout<<e.getInfos()<<"\n";
+                    }
+                }
+            }*/
+            // popup avec titre "Utilisation de capacité : vous pouvez prendre un jeton de la couleur bonus de la carte"
+            // Si Plateau::get_plateau().colorInPlateau(couleur)
+            //=> le joueur peut cliquer sur le plateau uniquement sur les jetons de la couleur de la variable
+            // Quand clic, on récupère l'indice sur le plateau
+            int indice = 0; // indice du plateau à récuperer à partir du popup
+            Jeu::getJeu().getCurrentPlayer().piocher_jeton(indice);
+
+        }else{// La seule capacité possible est de rejouer
+            // Rien à changer pour le Qt
+            Jeu::getJeu().tour_suivant(1);
+        }
+
+    }
+    if (carte.getBonus() == colorBonus::joker){
+        cout<<"Utilisation de capacité : vous pouvez transformer le joker en un bonus de couleur en l'associant à"
+                "une de vos carte dotée d'au moins un bonus.\n";
+            int bonus_blanc = calculateBonus(colorBonus::blanc);
+        int bonus_bleu = calculateBonus(colorBonus::bleu);
+        int bonus_rouge = calculateBonus(colorBonus::red);
+        int bonus_vert = calculateBonus(colorBonus::vert);
+        int bonus_noir = calculateBonus(colorBonus::noir);
+
+        bool verif_choix = false;
+        try {
+            while (!verif_choix) {
+                cout << "Faites votre choix :" << endl;
+                int option = 0;
+                if (bonus_blanc > 0) {
+                    cout << "Bonus blanc [1]" << endl;
+                    option++;
+                }
+                if (bonus_bleu > 0) {
+                    cout << "Bonus bleu [2]" << endl;
+                    option++;
+                }
+                if (bonus_rouge > 0) {
+                    cout << "Bonus rouge [3]" << endl;
+                    option++;
+                }
+                if (bonus_vert > 0) {
+                    cout << "Bonus vert [4]" << endl;
+                    option++;
+                }
+                if (bonus_noir > 0) {
+                    cout << "Bonus noir [5]" << endl;
+                    option++;
+                }
+                // Vérifiez si aucune option n'est disponible
+                if (option == 0) {
+                    verif_choix = true;
+                    throw SplendorException("vous ne possédez aucune carte dotée de bonus.. Capacité"
+                                            " sans effet\n");
+                } else {
+                    int choix;
+                    cin >> choix;
+                    colorBonus b;
+                    switch (choix) {
+                    case 1:
+                            b = colorBonus::blanc;
+                            carte.changerCouleurBonus(b);
+                            verif_choix = true;
+                            break;
+                    case 2:
+                            b = colorBonus::bleu;
+                            carte.changerCouleurBonus(b);
+                            verif_choix = true;
+                            break;
+                    case 3:
+                            b = colorBonus::red;
+                            carte.changerCouleurBonus(b);
+                            verif_choix = true;
+                            break;
+                    case 4:
+                            b = colorBonus::vert;
+                            carte.changerCouleurBonus(b);
+                            verif_choix = true;
+                            break;
+                    case 5:
+                            b = colorBonus::noir;
+                            carte.changerCouleurBonus(b);;
+                            verif_choix = true;
+                            break;
+                    default:
+                            cout << "Choix invalide, veuillez recommencer.\n";
+                            break;
+                    }
+                }
+            }
+        }
+        catch(SplendorException& e){
+            cout<<e.getInfos()<<"\n";
+        }
+    }
+
+}
 
 void Joueur::applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) {
     if (carte.getCapacite().has_value()){
@@ -1267,6 +1447,65 @@ void Joueur::applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& 
             }
         }
         else if (capa == Capacity::prendre_privilege){
+            Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
+            cout<<"Capacité de la carte: Vous avez obtenu un privilège!"<<endl;
+        }
+        else{
+            Jeu::getJeu().tour_suivant(1);
+            cout<<"Capacité de la carte: Rejouer! Vous allez recommencer"<<endl;
+        }
+    }
+}
+
+// Surcharge Qt
+void Joueur::applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire) {
+    if (carte.getCapacite().has_value()){
+        std::optional<Capacity> capa = carte.getCapacite();
+        if (capa == Capacity::voler_pion_adverse){
+            /*
+            cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
+
+            if ((adversaire.getJeton().empty())&&(!adversaire.onlyGoldInJetons())){
+                cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
+            }
+            else{
+                vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+                cout<<"Voici les jetons de votre adversaire: "<<endl;
+                int i = 0;
+                for (auto jet : jetons_adversaire){
+                    cout<<"Indice : "<<i++<<", "<<*jet<<endl;
+                }
+                int choice = -1;
+                do{
+                    if(choice != -1){
+                            cout<<"Vous ne pouvez pas prendre un jeton or!"<<endl;
+                    }
+                    cout<<"Quel jeton souhaitez vous lui voler?"<<endl;
+                    cout<<"Choix : ";
+                    cin>>choice;
+                }while(jetons_adversaire[choice]->getColor()==Color::gold);
+                jetons.push_back(jetons_adversaire[choice]);
+                nb_jetons++;
+                jetons_adversaire.erase(jetons_adversaire.begin()+choice);
+                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
+            }*/
+            // Fenetre d'affichage avec, le titre: "Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire."
+            // Si la condition du if est vérifiée => pas possible de voler un jeton (affichage du cout)
+            // Si on rentre dans le else: affichage des jetons du joueur clickable !!!sauf les jetons or!!!
+            // Il faut être sur que l'affichage se fait bien dans l'ordre du vector de jetons du joueur (normalement c'est ok!)
+
+            int indice; // indice à récupérer grace au qt
+            vector<const Jeton*> jetons_adversaire = adversaire.getJeton();
+            jetons.push_back(jetons_adversaire[indice]);
+            nb_jetons++;
+            jetons_adversaire.erase(jetons_adversaire.begin()+indice);
+            adversaire.setNbJetons(adversaire.getNbJetons()-1);
+
+
+        }
+        else if (capa == Capacity::prendre_privilege){
+            // Rien à changer dans la Qt
             Jeu::getJeu().getCurrentPlayer().obtainPrivilege();
             cout<<"Capacité de la carte: Vous avez obtenu un privilège!"<<endl;
         }

@@ -99,7 +99,9 @@ public:
     virtual void buyCardFromReserve( const int indice) = 0;
     virtual void buyCardFromReserve_qt( const int indice) = 0;
     virtual void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) = 0;
+    virtual void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire) = 0;
     virtual void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) = 0;
+    virtual void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire) = 0;
 
     virtual void reservation_carte()=0;
     virtual void reservation_carte_qt() = 0;
@@ -216,6 +218,13 @@ public:
     void obtainPrivilege();
     void retirerPrivilege();
     void remplissagePlateau();
+    bool onlyGoldInJetons(){ // true si le joueur n'a que des jetons or, false sinon
+        for(auto jet : jetons){
+            if(jet != nullptr and jet->getColor()!=Color::gold) return false;
+
+        }
+        return true;
+    }
 
     // méthode utilitaire pour le main
     bool victoryConditions(); // si le joueur rempli une des trois conditions de victoire, renvoie true
@@ -243,7 +252,9 @@ public:
     void selection_jetons();
     void selection_jetons_qt();
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
+    void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire);
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
+    void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire);
     void achat_carte();
     void achat_carte_qt();
     void buyCard(Tirage *t, const int indice);
@@ -281,7 +292,9 @@ public:
     void selectionRoyalCard();
 
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
+    void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire){return applicationCapacite(carte,adversaire);}
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
+    void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire){return applicationCapaciteRoyale(carte, adversaire);}
 
     void verifJetons();
 
