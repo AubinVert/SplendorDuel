@@ -1084,7 +1084,7 @@ void Joueur::applicationCapacite(const JewelryCard& carte, Strategy_player& adve
         if (capa == Capacity::voler_pion_adverse){
             cout<<"Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire.\n";
 
-            if (adversaire.getJeton().empty())&&(!adversaire.onlyGoldInJetons())){
+            if ((adversaire.getJeton().empty()) && (!adversaire.onlyGoldInJetons())){
                 cout<<"Dommage votre adversaire ne possède pas de jeton gemme ou perle!"<<endl;
             }
             else{
