@@ -40,8 +40,8 @@ private:
     QLabel* topPrivileges;
     QLabel* bottomPrivileges;
 
-    QLCDNumber *topScoreDisplay;  // Top score display
-    QLCDNumber *bottomScoreDisplay;  // Bottom score display
+    QLCDNumber *topScoreDisplay;
+    QLCDNumber *bottomScoreDisplay;
 
     QPushButton *viewCardsButtonBottom;
     QPushButton *viewJetonsButtonBottom;
@@ -123,15 +123,8 @@ public:
 
     void demanderNoms() {
         InputPopup *popup = new InputPopup(this);
-
-        // Connect signals and slots if needed
-        // For example, if you want to do something with the input after it's submitted
-
-        popup->setModal(true); // Set the dialog to be modal
-        popup->exec();         // Show the dialog modally
-
-        // Code here will execute after the dialog is closed
-        // You can process the input here if needed
+        popup->setModal(true);
+        popup->exec();
     }
 
     void setTopPlayerName(const QString &name);

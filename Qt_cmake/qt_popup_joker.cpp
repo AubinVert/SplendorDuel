@@ -43,10 +43,8 @@ popupJoker::popupJoker(QWidget *parent) : QDialog(parent) {
 }
 
 void popupJoker::onSubmitClicked() {
-    // Convert QStrings to std::string and store them in lvalue strings
     std::string coul = comboBox->currentText().toStdString();
     setColor(stringToBonus(coul));
 
-    // Close the dialog
     accept();
 }

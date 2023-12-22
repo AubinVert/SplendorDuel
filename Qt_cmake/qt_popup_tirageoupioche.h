@@ -10,7 +10,7 @@ class popupTiragePioche : public QDialog {
     Q_OBJECT
 
 private:
-    char userChoice;  // To store the user's choice
+    char userChoice;
 
 public:
     popupTiragePioche(QWidget *parent = nullptr) : QDialog(parent) {
@@ -30,7 +30,7 @@ public:
 private slots:
     void onChoiceMade(char choice) {
         userChoice = choice;
-        accept();  // Close the dialog
+        accept();
     }
 
 };

@@ -6,12 +6,7 @@
 
 Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-
-    // Create a horizontal layout to hold the tier layouts and the spacer
     QVBoxLayout *verticalLayout = new QVBoxLayout(this);
-
-    // Setting up the images with resizing to fit the label
-    const QSize imageSize(75, 105); // Set your desired size here
 
     deck1 = new Qt_carte(this);
     deck2 = new Qt_carte(this);
@@ -19,7 +14,7 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
 
     royalCardsImage = nullptr;
 
-    // Setup each tier with the decks on the right
+    // Setup each tier
     setupTierLayout(tier1Layout, tier1Cards, 5, deck1);
     setupTierLayout(tier2Layout, tier2Cards, 4, deck2);
     setupTierLayout(tier3Layout, tier3Cards, 3, deck3);
@@ -31,10 +26,9 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     verticalLayout->addLayout(tier2Layout);
     verticalLayout->addLayout(tier3Layout);
 
-    // Add a spacer item to justify the cards to the right
+    // Justify the cards to the right
     verticalLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-    // Add the horizontal layout to the main layout
     mainLayout->addLayout(verticalLayout);
 }
 
@@ -49,7 +43,7 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &c
         card->setReservee(false);
         card->setIndice(i);
         card->setStyleSheet("background: transparent;");
-        card->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        card->setFixedSize(75, 105);
         cards.push_back(card);
         layout->addWidget(card);
     }
@@ -64,7 +58,7 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &c
             deck->setIndice(-3);
        }
 
-        deck->setFixedSize(75, 105);  // Same size as cards
+        deck->setFixedSize(75, 105);
         deck->setStyleSheet("background: transparent;");
         layout->addWidget(deck);
     }

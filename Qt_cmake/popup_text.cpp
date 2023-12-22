@@ -42,15 +42,11 @@ InputPopup::InputPopup(QWidget *parent) : QDialog(parent) {
 }
 
 void InputPopup::onSubmitClicked() {
-    // Convert QStrings to std::string and store them in lvalue strings
     std::string stdName1 = lineEdit1->text().toStdString();
     std::string stdName2 = lineEdit2->text().toStdString();
     std::string stdType1 = comboBox1->currentText().toStdString();
     std::string stdType2 = comboBox2->currentText().toStdString();
 
-    // Now pass these std::string objects to the setPlayers method
     jeu->setPlayers(stdName1, stdName2, stdType1, stdType2);
-
-    // Close the dialog
     accept();
 }

@@ -24,7 +24,7 @@ private:
 public:
 
     explicit Qt_jeton(QWidget *parent = nullptr);
-    void toggleClicked(); // Method to change the clicked state
+    void toggleClicked();
     void updateAppearance(); // Mise à jour image
 
     const Jeton* getJeton() const {return jeton;}
@@ -36,7 +36,6 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
-    // void mousePressEvent(QMouseEvent *event) override; // Handle mouse press events
 
 signals:
     void jetonClicked(Qt_jeton *j); // Signal à émettre si le jeton a été click
