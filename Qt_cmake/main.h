@@ -5,7 +5,7 @@
 #define LO21_SPLENDOR_DUEL_MAIN_H
 
 #include <iostream>
-#include "../classes/jeu.h"
+#include "../classes/history.h"
 #include "mainwindow.h"
 #include <QThread>
 #include <QApplication>
@@ -136,6 +136,21 @@ void gameFromScratch(int argc, char *argv[]){
 void gameFromJson(int argc, char* argv[]){
 
     try{
+        std::ifstream file("../src/history.json");
+
+        if (!file.is_open()) {
+            std::cerr << "Failed to open the JSON file." << std::endl;
+            throw SplendorException("Fichier non ouvert");
+        }
+        json hist;
+        file >> hist;
+        file.close();
+        History::getHistory().initHistory(hist);
+    }catch (SplendorException &e){
+        cout<< " Historique non ouvert "<<endl;
+    }
+
+    try{
         std::ifstream file("../src/backup.json");
 
         if (!file.is_open()) {
@@ -156,6 +171,17 @@ void gameFromJson(int argc, char* argv[]){
         }
 
         Jeu::getJeu(data);
+
+
+        cout<<"cartes des joueurs : "<<endl;
+        cout<<Jeu::getJeu().getCurrentPlayer().getNbCartesAchetees()<<endl;
+        cout<<Jeu::getJeu().getOpponent().getNbCartesAchetees()<<endl;
+
+        cout<<"cartes des tirages : "<<endl;
+
+        cout<<Jeu::getJeu().get_tirage_1()->getNbCartes()<<endl<<endl;
+        cout<<Jeu::getJeu().get_tirage_2()->getNbCartes()<<endl<<endl;
+        cout<<Jeu::getJeu().get_tirage_3()->getNbCartes()<<endl<<endl;
 
 
     }catch (SplendorException &e){

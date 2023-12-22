@@ -12,7 +12,7 @@ qt_standard_project_setup()
 
 add_executable(lo21-splendor-duel
 
-        Qt_cmake/main.cpp
+        Qt_cmake/main.h
         Qt_cmake/main.cpp
         Qt_cmake/mainwindow.cpp
         Qt_cmake/mainwindow.h
@@ -66,6 +66,7 @@ add_executable(lo21-splendor-duel
         Qt_cmake/qt_popup_joker.cpp
         Qt_cmake/playerinputdialog.cpp
         Qt_cmake/qt_popup_couleur.cpp
+        main.h
 )
 
 include(GNUInstallDirs)
