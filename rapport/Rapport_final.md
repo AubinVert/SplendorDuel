@@ -7,7 +7,7 @@ Petri Gaspard, Chappuis Léopold, Fouinat--Beal Quentin, Ghitu Alexandru, Vert A
 ## Introduction
 
 Dans le cadre de notre cours de LO21, nous avons été missionnés pour créer une version numérique du jeu Splendor Duel, créé par Marc André et Bruno Cathala, et édité par Space Cowboy. Pour cela, nous devions utiliser le langage C++ et employer une approche orientée objet.
-Pour mener à bien ce projet, nous avons dû mobiliser les différentes connaissances acquises en cours. De plus, un tel projet nous a permis d’apprendre à gérer un projet du début jusqu’à la fin et ce en travaillant en équipe. Ainsi, au cours de cette expérience, nous devions faire preuve d’esprit d’équipe, de rigueur, d’anticipation, d’adaptabilité et de polyvalence face aux différentes tâches que nous devrons traiter.
+Pour mener à bien ce projet, nous avons dû mobiliser les différentes connaissances acquises en cours ainsi qu'en TD. De plus, un tel projet nous a permis d’apprendre à gérer un projet du début jusqu’à la fin et ce en travaillant en équipe. Ainsi, au cours de cette expérience, nous devions faire preuve d’esprit d’équipe, de rigueur, d’anticipation, d’adaptabilité et de polyvalence face aux différentes tâches que nous devrons traiter.
 Dans ce dernier rapport, vous trouverez : 
 - un résumé des possibilités de notre application,
 - une description détaillée et justifiée de notre architecture,
@@ -96,6 +96,16 @@ L’aspect aléatoire des jetons prend place au moment du remplissage du plateau
 
 La classe Privilege représente l’une des classes les plus simples de notre projet. Son design a été pensé de manière à restreindre le nombre d’instances de privilèges à trois, grâce à l’utilisation d’un membre statique. Chaque privilège est identifié par un identificateur distinct, simplifiant ainsi leur manipulation au sein du système. Cette approche minimaliste contribue à la clarté et à l’efficacité de la gestion des privilèges.
 
+### Macth
+
+
+
+### History
+
+La classe History représente l'historique des parties jouées sur notre jeu. Un objet de la classe History est un objet pouvant regrouper tous les matchs de tous les joueurs du jeu (on parle ici des instance de Strategy_player, et pas uniquement de la classe fille Joueur). De ce fait, nous avons convenu que la classe serait implémentée à l'aide du design pattern Singleton, afin d'en garantir l'unicité.
+Cette classe assure l'enregistrement des matchs au sein d'un fichier json, ainsi que la récupération des données de ce fichier pour permettre l'affichage de l'historique aux joueurs. De plus, nous avons choisi pour cette classe qu'un joueur entrant un nom déjà contenu dans l'historique sera alors considéré comme le même joueur.
+Non seulement cette classe permet cela, mais elle permettra en plus au jeu de repartir du même pointeur de joueur.
+
 ### Développement du Main
 
 Le programme principal (main) assure le bon déroulement d’une partie. C’est le développement de celui-ci qui nous a causé le plus de problèmes. En effet, le main doit garantir la bonne interaction entre l’ensemble des classes. De plus, après avoir fait le choix d’utiliser le design pattern ‘Strategy’ pour que le main soit adapté autant pour un joueur humain qu’une IA, nous avons du reprendre le main dans son intégralité car celui-ci n’était pas adapté à l’utilisation de ce design pattern.
@@ -113,7 +123,7 @@ Nous avons seulement un ou deux attributs à changer pour rajouter des tirages, 
 
 Deux premières semaines : Première structure du projet avec définition d'un premier UML et réflexions sur l'implémentation des classes.
 
-Deux dernières semaines : Fin du débug du main, sauvegarde de la partie en cours et Qt.
+Deux dernières semaines : Fin du débug du main, ajout de l'historique et de la sauvegarde de la partie en cours ainsi que Qt.
 
 ## Contribution
 
