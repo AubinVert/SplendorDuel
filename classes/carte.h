@@ -222,7 +222,18 @@ inline std::ostream& operator<<(std::ostream& os, const JewelryCard& c){
 }
 
 
-
+inline Color stringToColor(std::string& str){
+    if(str == "Bleu") return Color::bleu;
+    if(str == "Blanc") return Color::blanc;
+    if(str == "Vert") return Color::vert;
+    if(str == "Rouge") return Color::rouge;
+    if(str == "Noir") return Color::noir;
+    if(str == "Perle") return Color::perle;
+    if(str == "Gold") return Color::gold;
+    else throw SplendorException("La string passé ne correspond à aucune couleur! Attention, fonction sensible à la casse!");
+}
+const Color colorBonusToColor(const optional<enum colorBonus>& couleur);
+const colorBonus stringToBonus(const std::string& str);
 vector<const RoyalCard*> initCartesRoyales();
 vector<const JewelryCard*> initCartesJoaillerie();
 

@@ -1,5 +1,5 @@
-#ifndef QT_VUE_JETON_H
-#define QT_VUE_JETON_H
+#ifndef QT_VUE_PRIVILEGE_H
+#define QT_VUE_PRIVILEGE_H
 
 #include <QWidget>
 #include <QResizeEvent>
@@ -10,19 +10,17 @@
 #include <QPen>
 #include <QBrush>
 #include <QPushButton>
-#include "../classes/jetons.h"
-
+#include "../classes/privilege.h"
 
 class Qt_jeton : public QPushButton {
     Q_OBJECT
 
 private:
     bool isClicked; // Track si le jeton a été click
-    const Jeton* jeton;
+    const Privilege* jeton;
     int indice;
 
 public:
-
     explicit Qt_jeton(QWidget *parent = nullptr);
     void toggleClicked(); // Method to change the clicked state
     void updateAppearance(); // Mise à jour image
@@ -30,7 +28,7 @@ public:
     const Jeton* getJeton() const {return jeton;}
     void setJeton(const Jeton* j) {jeton = j;}
 
-    const int getIndice() const {return indice;}
+    const int getIndice() {return indice;}
     void setIndice(int x) {indice = x;}
 
 
@@ -43,10 +41,9 @@ signals:
 
 private slots:
     void clickedEvent() {
-            emit jetonClicked(this);
+        emit jetonClicked(this);
     }
 
 };
 
-
-#endif // QT_VUE_JETON_H
+#endif // QT_VUE_PRIVILEGE_H

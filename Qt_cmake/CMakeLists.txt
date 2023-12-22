@@ -12,7 +12,7 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_executable(Qt_cmake
     main.cpp
-    main.cpp mainwindow.cpp mainwindow.h qt_plateau.cpp qt_plateau.h qt_tirages.cpp qt_tirages.h vuepartie.h
+    main.cpp mainwindow.cpp mainwindow.h qt_plateau.cpp qt_plateau.h qt_tirages.cpp qt_tirages.h
     ../classes/carte.cpp
     ../classes/carte.h
     ../classes/Exception.h
@@ -46,6 +46,16 @@ add_executable(Qt_cmake
     qt_cards_main.cpp
     popup_text.h
     popup_text.cpp
+    main.h
+    qt_choicepopup.h
+    qt_popup_yesno.h
+    qt_popup_info.h
+    qt_popup_tirageoupioche.h
+    qt_popup_couleur.h
+    qt_popup_couleur.cpp
+    qt_popup_joker.h
+    qt_popup_joker.cpp
+
 
 )
 

@@ -1,11 +1,12 @@
 #include "qt_vue_jeton.h"
+#include "mainwindow.h"
+#include <QCoreApplication>
 
-Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent), jeton(nullptr) {
+Qt_jeton::Qt_jeton(QWidget *parent) : QPushButton(parent), jeton(nullptr), isClicked(false) {
     // Default initialization
     // updateAppearance();
-    // connect(this, &QPushButton::clicked, this, &Qt_jeton::onJetonClicked);
+    connect(this,SIGNAL(clicked()),this,SLOT(clickedEvent()));
 }
-
 
 void Qt_jeton::toggleClicked() {
     isClicked = !isClicked;
@@ -22,18 +23,23 @@ void Qt_jeton::paintEvent(QPaintEvent *event) {
     // Add any custom painting here if needed
 }
 
-void Qt_jeton::mousePressEvent(QMouseEvent *event) {
+/*void Qt_jeton::mousePressEvent(QMouseEvent *event) {
     QPushButton::mousePressEvent(event); // Call base class handler
     toggleClicked();
-    emit jetonClicked(); // Emit the clicked signal
-}
+    emit jetonClicked(this->jeton); // Emit the clicked signal
+}*/
 
 void Qt_jeton::updateAppearance() {
-    if (jeton != nullptr) {
-        qDebug() << jeton->getVisuel();
+    if (jeton) {
+        // qDebug() << jeton->getVisuel();
         QIcon icon(QPixmap(QString::fromStdString(jeton->getVisuel())));
         this->setIcon(icon);
         this->setIconSize(this->size()); // Adjust the size of the icon to fit the button
     }
+    else {
+        this->setIcon(QIcon()); // Set an empty QIcon when jeton is nullptr
+        this->setIconSize(this->size()); // Adjust the size of the icon to fit the button
+    }
+    this->update();
     // Additional appearance updates...
 }

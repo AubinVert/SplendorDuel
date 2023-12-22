@@ -13,13 +13,15 @@ InputPopup::InputPopup(QWidget *parent) : QDialog(parent) {
 
     QLabel *typeLabel1 = new QLabel("Player 1 Type:", this);
     comboBox1 = new QComboBox(this);
-    comboBox1->addItem("IA");
     comboBox1->addItem("Joueur");
+    comboBox1->addItem("IA");
+
 
     QLabel *typeLabel2 = new QLabel("Player 2 Type:", this);
     comboBox2 = new QComboBox(this);
-    comboBox2->addItem("IA");
     comboBox2->addItem("Joueur");
+    comboBox2->addItem("IA");
+
 
     submitButton = new QPushButton("Submit", this);
 

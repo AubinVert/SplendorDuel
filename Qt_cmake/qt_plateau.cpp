@@ -1,6 +1,13 @@
 #include "qt_plateau.h"
 #include "qt_labelclick.h"
 #include "qt_vue_jeton.h"
+#include "mainwindow.h"
+
+Qt_Plateau::Handler Qt_Plateau::handler;
+
+Qt_Plateau::~Qt_Plateau() {
+    // Rien
+}
 
 Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     layout = new QGridLayout(this);
@@ -16,6 +23,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     // Setup the card grid
     for (int i = 0; i < NJETONS; ++i) {
         Qt_jeton *jeton = new Qt_jeton();
+        jeton->setIndice(i);
         jeton->setStyleSheet("background: transparent;");
         jeton->setFixedSize(jetonWidth, jetonHeight); // Set fixed size to ensure they fit the grid
         layout->addWidget(jeton, i / 5, i % 5);
@@ -26,9 +34,9 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     privilegesLayout = new QGridLayout();
     privilegesLayout->setHorizontalSpacing(4);  // Set the spacing between the privileges
 
-    Qt_jeton *privilege1 = new Qt_jeton();
-    Qt_jeton *privilege2 = new Qt_jeton();
-    Qt_jeton *privilege3 = new Qt_jeton();
+    privilege1 = new Qt_jeton();
+    privilege2 = new Qt_jeton();
+    privilege3 = new Qt_jeton();
 
     // Set fixed size and style for privileges
     const int privilegeSize = 60 * 0.75;
@@ -76,4 +84,11 @@ void Qt_Plateau::paintEvent(QPaintEvent *event) {
     painter.drawPixmap(x, y, stretchedPixmap);
 
     QWidget::paintEvent(event); // Call the base class paint event
+}
+
+void Qt_Plateau::connectJetons() {
+    for (int i = 0; i < NJETONS; i++){
+        connect(this->jetons[i], &Qt_jeton::jetonClicked, &MainWindow::getMainWindow(), &MainWindow::jetonClicked);
+
+    }
 }

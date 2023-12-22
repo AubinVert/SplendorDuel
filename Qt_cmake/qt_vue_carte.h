@@ -17,11 +17,23 @@ class Qt_carte : public QPushButton {
     Q_OBJECT
 
 private:
+    bool isClicked; // Track si la carte a été click
     const Card* card;
     QPixmap m_image;
+    int indice_dans_tirage;
+    bool est_reservee;
 
 public:
+
+    const int getIndice() const {return indice_dans_tirage;}
+    void setIndice(int x) {indice_dans_tirage = x;}
+
+    const bool getReservee() const {return est_reservee;}
+    void setReservee(bool x) {est_reservee = x;}
+
     explicit Qt_carte(QWidget *parent = nullptr);
+
+    void toggleClicked(); // Method to change the clicked state
     void updateAppearance();
     void updateAppearance(const std::string& string); // pour les pioches (qui ne changent pas)
 
@@ -32,11 +44,12 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 signals:
-    void carteClicked();
+    void carteClicked(Qt_carte *c);
 
 public slots:
-    void onCarteClicked();
+    void clickedEvent() {
+        emit carteClicked(this);
+    }
 };
-
 
 #endif // QT_VUE_CARTE_H

@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <QThread>
 #include "sac.h"
 #include "privilege.h"
 #include "plateau.h"
@@ -119,19 +120,29 @@ public:
 
     //méthodes virtuelles pures
     virtual void choice()=0;
+    virtual void choice_qt()=0;
     virtual void utilisationPrivilege() = 0;
+    virtual void utilisationPrivilege_qt() = 0;
     virtual void selection_jetons()=0;
     virtual void achat_carte()=0;
+    virtual void achat_carte_qt()=0;
     virtual void buyCard(Tirage *t, const int indice) = 0;
+    virtual void buyCard_qt(Tirage *t, const int indice) = 0;
     virtual void buyCardFromReserve( const int indice) = 0;
+    virtual void buyCardFromReserve_qt( const int indice) = 0;
     virtual void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire) = 0;
+    virtual void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire) = 0;
     virtual void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire) = 0;
-
+    virtual void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire) = 0;
     virtual void reservation_carte()=0;
+    virtual void reservation_carte_qt() = 0;
     virtual void selectionRoyalCard() = 0;
+    virtual void selectionRoyalCard_qt() = 0;
     virtual void verifJetons()=0;
+    virtual void verifJetons_qt()=0;
 
     //getters setters
+    const vector<const JewelryCard*>& getCartesBought() const {return cartes_joaillerie_achetees;}
     const int getNbCartesJoaillerie() const {return nb_cartes_j;}
     const int getNbJetons() const {return nb_jetons;}
     const string getName() const {return nom;}
@@ -152,7 +163,7 @@ public:
         nb_privileges = nb;
     }
     const int getNbCartesRoyales() const {return nb_cartes_r;}
-    vector<const JewelryCard*> getCartesReserved(){return cartes_joaiellerie_reservees;}
+    vector<const JewelryCard*>& getCartesReserved(){return cartes_joaiellerie_reservees;}
     void increment_carte_royale() {nb_cartes_r = nb_cartes_r + 1;}
 
     void setIa(unsigned int nb){
@@ -246,6 +257,13 @@ public:
     void obtainPrivilege();
     void retirerPrivilege();
     void remplissagePlateau();
+    bool onlyGoldInJetons(){ // true si le joueur n'a que des jetons or, false sinon
+        for(auto jet : jetons){
+            if(jet != nullptr and jet->getColor()!=Color::gold) return false;
+
+        }
+        return true;
+    }
 
     // méthode utilitaire pour le main
     bool victoryConditions(); // si le joueur rempli une des trois conditions de victoire, renvoie true
@@ -268,17 +286,27 @@ public:
 
     // Méthodes polymorphiques adaptées pour un joueur
     void choice();
+    void choice_qt();
     void utilisationPrivilege();
+    void utilisationPrivilege_qt();
     void selection_jetons();
+    void selection_jetons_qt();
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
+    void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire);
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
+    void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire);
     void achat_carte();
+    void achat_carte_qt();
     void buyCard(Tirage *t, const int indice);
+    void buyCard_qt(Tirage *t, const int indice);
     void buyCardFromReserve( const int indice);
+    void buyCardFromReserve_qt( const int indice);
     void reservation_carte();
+    void reservation_carte_qt();
     void selectionRoyalCard();
-
+    void selectionRoyalCard_qt();
     void verifJetons();
+    void verifJetons_qt();
 
 
 };
@@ -291,18 +319,26 @@ public:
 
     // Méthodes polymorphiques adaptées pour une IA
     void choice();
+    void choice_qt() {choice();}
     void utilisationPrivilege();
+    void utilisationPrivilege_qt() {utilisationPrivilege();}
     void selection_jetons();
     void achat_carte();
+    void achat_carte_qt() {achat_carte();}
     void buyCard(Tirage *t, const int indice);
+    void buyCard_qt(Tirage *t, const int indice) { buyCard(t, indice); }
     void buyCardFromReserve( const int indice);
+    void buyCardFromReserve_qt( const int indice) { buyCardFromReserve(indice);}
     void reservation_carte();
+    void reservation_carte_qt() {reservation_carte();}
     void selectionRoyalCard();
-
+    void selectionRoyalCard_qt(){selectionRoyalCard();}
     void applicationCapacite(const JewelryCard& carte, Strategy_player& adversaire);
+    void applicationCapacite_qt(const JewelryCard& carte, Strategy_player& adversaire){applicationCapacite(carte,adversaire);}
     void applicationCapaciteRoyale(const RoyalCard& carte, Strategy_player& adversaire);
-
+    void applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_player& adversaire){applicationCapaciteRoyale(carte, adversaire);}
     void verifJetons();
+    void verifJetons_qt(){verifJetons();}
 
 };
 
