@@ -691,8 +691,8 @@ void MainWindow::jetonClicked(Qt_jeton* j){
 void MainWindow::carteClicked(Qt_carte* c){
     if (c != nullptr) qDebug() << "Carte cliquée : " << c->getIndice() << c->getReservee();
     else qDebug() << "nullptr carte";
-    if (c->getCard() != nullptr) setDerniereCarteClick(c);
-
+    if (c->getCard() != nullptr || c->getIndice() < 0) setDerniereCarteClick(c);
+    else qDebug() << "carte click problem";
     MainWindow::getMainWindow().carteActionDone();
 }
 
