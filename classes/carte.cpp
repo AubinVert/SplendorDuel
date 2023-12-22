@@ -234,7 +234,7 @@ vector<const JewelryCard*> initCartesJoaillerie(){
 json JewelryCard::toJson() const {
     json j;
     if(getCapacite() != nullopt){
-        j["capacite"] = toString(getCapacite());
+        j["capacite"] = toStringJson(getCapacite());
     }else{
         j["capacite"] = NULL;
     }

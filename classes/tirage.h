@@ -27,6 +27,12 @@ public:
         j["nb_cartes"] = nb_cartes;
         j["max_cartes"] = max_cartes;
         j["cartes_joailleries"] = {};
+
+
+        for (int i = 0; i < cartes.size(); ++i) {
+            j["cartes_joailleries"].push_back(cartes[i]->toJson());
+        }
+
         return j;
     }
 

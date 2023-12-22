@@ -61,8 +61,7 @@ public:
         j["nb"] = nb;
         j["current_nb"] = current_nb;
         for (int i = 0; i < jetons.size(); ++i) {
-
-            if(j["jetons"] != nullptr){
+            if(jetons[i] != nullptr){
                 j["jetons"].push_back(jetons[i]->toJson());
             }
 
