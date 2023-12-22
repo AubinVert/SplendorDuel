@@ -6,6 +6,31 @@
 MainWindow::Handler MainWindow::handler;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false), current_dialog(nullptr) {
+    QLabel* label = new QLabel(this);
+    QPixmap pixmap("/path/to/your/image.png");
+    label->setPixmap(pixmap);
+    label->show();
+
+    topRoyal1 = new QLabel(this);
+    topRoyal1->setStyleSheet("background: transparent;");
+    topRoyal1->setFixedSize(75, 105);
+    topRoyal1->setPixmap(QPixmap());
+    topRoyal2 = new QLabel(this);
+    topRoyal2->setStyleSheet("background: transparent;");
+    topRoyal2->setFixedSize(75, 105);
+    topRoyal2->setPixmap(QPixmap());
+
+    bottomRoyal1 = new QLabel(this);
+    bottomRoyal1->setStyleSheet("background: transparent;");
+    bottomRoyal1->setFixedSize(75, 105);
+    bottomRoyal1->setPixmap(QPixmap());
+    bottomRoyal2 = new QLabel(this);
+    bottomRoyal2->setStyleSheet("background: transparent;");
+    bottomRoyal2->setFixedSize(75, 105);
+    bottomRoyal2->setPixmap(QPixmap());
+
+    topPrivileges = new QLabel(this);
+    bottomPrivileges = new QLabel(this);
 
     jeu = &Jeu::getJeu();
 
@@ -50,8 +75,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     bottomScoreDisplay->display(0);
 
     // Les rajouter sur le layout principal
-    mainLayout->addWidget(topPlayerNameLabel, 0, Qt::AlignCenter);
-    mainLayout->addWidget(topScoreDisplay, 0, Qt::AlignCenter); // Alligner au centre
+    QGridLayout* topPlayer = new QGridLayout;
+    topPlayer->addWidget(topPlayerNameLabel, 0, 1, Qt::AlignCenter);
+    topPlayer->addWidget(topScoreDisplay, 1, 1, Qt::AlignCenter);
+
+    // Create a layout for the royal cards and privileges
+    QHBoxLayout *topRoyalLayout = new QHBoxLayout();
+    topRoyalLayout->addWidget(topRoyal1);
+    topRoyalLayout->addWidget(topRoyal2);
+    topRoyalLayout->addWidget(topPrivileges);
+
+    // Create a widget to hold the royal layout
+    QWidget *royalWidget = new QWidget();
+    royalWidget->setLayout(topRoyalLayout);
+
+    // Add the royal cards widget to the right column
+    topPlayer->addWidget(royalWidget, 0, 2, 2, 1, Qt::AlignRight);
+
+    // Ensure the grid layout distributes space evenly
+    topPlayer->setColumnStretch(0, 1);
+    topPlayer->setColumnStretch(1, 1);
+    topPlayer->setColumnStretch(2, 1);
+
+    mainLayout->addLayout(topPlayer);
 
     // Boutons du haut (cartes et jetons)
     viewCardsButtonTop = new QPushButton("Voir cartes achetées", this);
@@ -125,11 +171,30 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     // ######## SCORE EN BAS ET BOUTONS ########
 
+    // Les rajouter sur le layout principal
+    QGridLayout* bottomPlayer = new QGridLayout;
+    bottomPlayer->addWidget(bottomPlayerNameLabel, 0, 1, Qt::AlignCenter);
+    bottomPlayer->addWidget(bottomScoreDisplay, 1, 1, Qt::AlignCenter);
 
-    // Ajouter le score en bas
-    mainLayout->addWidget(bottomPlayerNameLabel, 0, Qt::AlignCenter);
-    mainLayout->addWidget(bottomScoreDisplay, 0, Qt::AlignCenter); // Align center at the bottom
+    // Create a layout for the royal cards and privileges
+    QHBoxLayout *bottomRoyalLayout = new QHBoxLayout();
+    bottomRoyalLayout->addWidget(bottomRoyal1);
+    bottomRoyalLayout->addWidget(bottomRoyal2);
+    bottomRoyalLayout->addWidget(bottomPrivileges);
 
+    // Create a widget to hold the royal layout
+    QWidget *royalWidgetBottom = new QWidget();
+    royalWidgetBottom->setLayout(bottomRoyalLayout);
+
+    // Add the royal cards widget to the right column
+    bottomPlayer->addWidget(royalWidgetBottom, 0, 2, 2, 1, Qt::AlignRight);
+
+    // Ensure the grid layout distributes space evenly
+    bottomPlayer->setColumnStretch(0, 1);
+    bottomPlayer->setColumnStretch(1, 1);
+    bottomPlayer->setColumnStretch(2, 1);
+
+    mainLayout->addLayout(bottomPlayer);
 
     // Boutons du bas
     viewCardsButtonBottom = new QPushButton("Voir cartes achetées", this);
@@ -467,6 +532,45 @@ void MainWindow::updateTirages(){
             tirages->getDeck3()->setIconSize(this->size());
             tirages->getDeck3()->setDisabled(true);
         }
+    }
+
+    // Cartes royales et privileges des joueurs
+
+    // Top
+    int top_privileges = Jeu::getJeu().getOpponent().getNbPrivileges();
+    topPrivileges->setText("Nombre privilèges: " + QString::fromStdString(std::to_string(top_privileges)));
+    switch(Jeu::getJeu().getOpponent().getNbCartesRoyales()){
+        case 0:
+            break;
+        case 1:
+            topRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[0]->getVisuel()))
+                                         .scaled(topRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            break;
+        case 2:
+            topRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[0]->getVisuel()))
+                                         .scaled(topRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            topRoyal2->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[1]->getVisuel()))
+                                         .scaled(topRoyal2->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            break;
+    }
+
+
+    // Bottom
+    int bottom_privileges = Jeu::getJeu().getCurrentPlayer().getNbPrivileges();
+    bottomPrivileges->setText("Nombre privilèges: " + QString::fromStdString(std::to_string(bottom_privileges)));
+    switch(Jeu::getJeu().getCurrentPlayer().getNbCartesRoyales()){
+        case 0:
+            break;
+        case 1:
+            bottomRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[0]->getVisuel()))
+                                         .scaled(bottomRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            break;
+        case 2:
+            bottomRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[0]->getVisuel()))
+                                         .scaled(bottomRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            bottomRoyal2->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[1]->getVisuel()))
+                                         .scaled(bottomRoyal2->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            break;
     }
 
 }
