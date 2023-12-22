@@ -185,6 +185,21 @@ void gameFromJson(int argc, char* argv[]){
         Jeu::getJeu(data);
 
 
+        cout<<"cartes des joueurs : "<<endl;
+        cout<<Jeu::getJeu().getCurrentPlayer().getNbCartesAchetees()<<endl;
+        cout<<Jeu::getJeu().getOpponent().getNbCartesAchetees()<<endl;
+
+        cout<<"cartes des tirages : "<<endl;
+
+        cout<<Jeu::getJeu().get_tirage_1()->getNbCartes()<<endl<<endl;
+        cout<<Jeu::getJeu().get_tirage_2()->getNbCartes()<<endl<<endl;
+        cout<<Jeu::getJeu().get_tirage_3()->getNbCartes()<<endl<<endl;
+
+        cout<<"cartes royales : "<<endl;
+
+        cout << Jeu::getJeu().getCartesRoyales().size() << endl;
+
+
     }catch (SplendorException &e){
         cout<< e.getInfos()<<endl;
     }
