@@ -19,7 +19,7 @@ public:
         QVBoxLayout *layout = new QVBoxLayout(this);
 
         if (info != ""){
-            QLabel *infolabel = new QLabel(QString::fromStdString(info));
+            QLabel *infolabel = new QLabel(QString::fromStdString(info), this);
             layout->addWidget(infolabel);
         }
 

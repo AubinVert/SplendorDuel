@@ -8,14 +8,14 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     // Create a horizontal layout to hold the tier layouts and the spacer
-    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    QVBoxLayout *verticalLayout = new QVBoxLayout(this);
 
     // Setting up the images with resizing to fit the label
     const QSize imageSize(75, 105); // Set your desired size here
 
-    deck1 = new Qt_carte();
-    deck2 = new Qt_carte();
-    deck3 = new Qt_carte();
+    deck1 = new Qt_carte(this);
+    deck2 = new Qt_carte(this);
+    deck3 = new Qt_carte(this);
 
     royalCardsImage = nullptr;
 
@@ -39,13 +39,13 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
 }
 
 void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &cards, int cardCount, Qt_carte *deck) {
-    layout = new QHBoxLayout();
+    layout = new QHBoxLayout(this);
 
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
     for (int i = 0; i < cardCount; ++i) {
-        Qt_carte *card = new Qt_carte();
+        Qt_carte *card = new Qt_carte(this);
         card->setReservee(false);
         card->setIndice(i);
         card->setStyleSheet("background: transparent;");

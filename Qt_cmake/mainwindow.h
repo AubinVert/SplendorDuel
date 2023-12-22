@@ -3,8 +3,6 @@
 
 #include "qt_tirages.h"
 #include "qt_plateau.h"
-#include "qt_jetons_bas.h"
-#include "qt_jetons_main.h"
 #include "../classes/jetons.h"
 #include "qt_choicepopup.h"
 #include <QApplication>
@@ -33,8 +31,15 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private:
-    QLabel *topScoreLabel;
-    QLabel *bottomScoreLabel;
+    QLabel* topRoyal1;
+    QLabel* topRoyal2;
+
+    QLabel* bottomRoyal1;
+    QLabel* bottomRoyal2;
+
+    QLabel* topPrivileges;
+    QLabel* bottomPrivileges;
+
     QLCDNumber *topScoreDisplay;  // Top score display
     QLCDNumber *bottomScoreDisplay;  // Bottom score display
 
