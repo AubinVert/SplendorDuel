@@ -135,8 +135,6 @@ void gameFromScratch(int argc, char *argv[]){
 
 void gameFromJson(int argc, char* argv[]){
 
-
-
     try{
         std::ifstream file("../src/backup.json");
 
@@ -164,9 +162,6 @@ void gameFromJson(int argc, char* argv[]){
         cout<< e.getInfos()<<endl;
     }
 
-
-    QApplication app(argc, argv);
-
     srand(static_cast<unsigned>(std::time(nullptr)));
 
     MainWindow::getMainWindow().show();
@@ -175,7 +170,6 @@ void gameFromJson(int argc, char* argv[]){
 
 
     // Setup des noms
-    MainWindow::getMainWindow().demanderNoms();
     MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
     MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
 
@@ -274,8 +268,6 @@ void gameFromJson(int argc, char* argv[]){
     Jeu::getJeu().getCurrentPlayer().print_player();
 
     Jeu::libereJeu();
-
-    app.exec();
 
 }
 
