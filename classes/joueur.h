@@ -51,6 +51,8 @@ protected:
     Strategy_player(const Strategy_player&) = delete;
 public:
 
+    const vector<const RoyalCard*>& getRoyalCards() const {return cartes_royale;}
+
     void game_ended(const unsigned int won) {
         if(won != 0){
             games_won++;

@@ -15,20 +15,20 @@ vector<const JewelryCard*> fromJsonJewelryCard(json data){
 
 
         if((carte_joaillerie_data["capacite"] == 0) && (carte_joaillerie_data["bonus_couleur"] == 0) ){
-            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, nullopt);
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, nullopt,carte_joaillerie_data["visuel"]);
             cartes_joailleries_instances.push_back(instance);
         }else if ((carte_joaillerie_data["capacite"] != 0) && (carte_joaillerie_data["bonus_couleur"]== 0)){
 
-            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, getCapaciteFromString(carte_joaillerie_data["capacite"]));
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], nullopt, getCapaciteFromString(carte_joaillerie_data["capacite"]),carte_joaillerie_data["visuel"]);
             cartes_joailleries_instances.push_back(instance);
 
         }else if((carte_joaillerie_data["capacite"]== 0) && (carte_joaillerie_data["bonus_couleur"] != 0)){
 
-            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]), nullopt);
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]), nullopt,carte_joaillerie_data["visuel"]);
             cartes_joailleries_instances.push_back(instance);
         }else{
 
-            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]), getCapaciteFromString(carte_joaillerie_data["capacite"]));
+            JewelryCard* instance = new JewelryCard(carte_joaillerie_data["points_prestige"], carte_joaillerie_data["cout_blanc"], carte_joaillerie_data["cout_bleu"], carte_joaillerie_data["cout_rouge"], carte_joaillerie_data["cout_vert"], carte_joaillerie_data["cout_noir"], carte_joaillerie_data["cout_perle"], carte_joaillerie_data["niveau"], carte_joaillerie_data["nb_couronne"], carte_joaillerie_data["bonus_nombre"], getBonusFromString(carte_joaillerie_data["bonus_couleur"]), getCapaciteFromString(carte_joaillerie_data["capacite"]),carte_joaillerie_data["visuel"]);
             cartes_joailleries_instances.push_back(instance);
         }
 
@@ -45,10 +45,10 @@ vector<const RoyalCard*> fromJsonRoyalCard(json data){
 
 
         if(carte_royale_data["capacite"] != NULL){
-            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], getCapaciteFromString(carte_royale_data["capacite"]));
+            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], getCapaciteFromString(carte_royale_data["capacite"]), carte_royale_data["visuel"]);
             cartes_royales_instances.push_back(instance);
         }else{
-            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], nullopt);
+            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], nullopt, carte_royale_data["visuel"]);
             cartes_royales_instances.push_back(instance);
         }
 

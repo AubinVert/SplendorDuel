@@ -12,7 +12,7 @@ qt_standard_project_setup()
 
 add_executable(lo21-splendor-duel
 
-        Qt_cmake/main.cpp
+        Qt_cmake/main.h
         Qt_cmake/main.cpp
         Qt_cmake/mainwindow.cpp
         Qt_cmake/mainwindow.h
@@ -20,7 +20,6 @@ add_executable(lo21-splendor-duel
         Qt_cmake/qt_plateau.h
         Qt_cmake/qt_tirages.cpp
         Qt_cmake/qt_tirages.h
-        Qt_cmake/vuepartie.h
 
         classes/carte.cpp
         classes/carte.h
@@ -46,16 +45,10 @@ add_executable(lo21-splendor-duel
         classes/history.cpp
         classes/history.h
 
-        Qt_cmake/qt_jetons_main.h
-        Qt_cmake/qt_jetons_main.cpp
-        Qt_cmake/qt_labelclick.h
-        Qt_cmake/qt_labelclick.cpp
         Qt_cmake/qt_vue_jeton.h
         Qt_cmake/qt_vue_carte.h
         Qt_cmake/qt_vue_carte.cpp
         Qt_cmake/qt_vue_jeton.cpp
-        Qt_cmake/qt_cards_main.h
-        Qt_cmake/qt_cards_main.cpp
         Qt_cmake/popup_text.h
         Qt_cmake/popup_text.cpp
         Qt_cmake/main.h
@@ -66,6 +59,7 @@ add_executable(lo21-splendor-duel
         Qt_cmake/qt_popup_joker.cpp
         Qt_cmake/playerinputdialog.cpp
         Qt_cmake/qt_popup_couleur.cpp
+        main.h
 )
 
 include(GNUInstallDirs)

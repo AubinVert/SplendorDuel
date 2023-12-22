@@ -1,5 +1,4 @@
 #include "qt_plateau.h"
-#include "qt_labelclick.h"
 #include "qt_vue_jeton.h"
 #include "mainwindow.h"
 
@@ -22,7 +21,7 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
 
     // Setup the card grid
     for (int i = 0; i < NJETONS; ++i) {
-        Qt_jeton *jeton = new Qt_jeton();
+        Qt_jeton *jeton = new Qt_jeton(this);
         jeton->setIndice(i);
         jeton->setStyleSheet("background: transparent;");
         jeton->setFixedSize(jetonWidth, jetonHeight); // Set fixed size to ensure they fit the grid
@@ -31,12 +30,12 @@ Qt_Plateau::Qt_Plateau(QWidget *parent) : QWidget(parent) {
     }
 
     // Setup for privileges
-    privilegesLayout = new QGridLayout();
+    privilegesLayout = new QGridLayout(this);
     privilegesLayout->setHorizontalSpacing(4);  // Set the spacing between the privileges
 
-    privilege1 = new Qt_jeton();
-    privilege2 = new Qt_jeton();
-    privilege3 = new Qt_jeton();
+    privilege1 = new Qt_jeton(this);
+    privilege2 = new Qt_jeton(this);
+    privilege3 = new Qt_jeton(this);
 
     // Set fixed size and style for privileges
     const int privilegeSize = 60 * 0.75;
