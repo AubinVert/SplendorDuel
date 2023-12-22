@@ -12,8 +12,8 @@ qt_standard_project_setup()
 
 add_executable(lo21-splendor-duel
 
-        main.h
-        main.cpp
+        Qt_cmake/main.h
+        Qt_cmake/main.cpp
         Qt_cmake/mainwindow.cpp
         Qt_cmake/mainwindow.h
         Qt_cmake/qt_plateau.cpp
