@@ -62,9 +62,7 @@ protected:
     void mousePressEvent(QMouseEvent* event) override {
         emit clicked();
     }
-
     void paintEvent(QPaintEvent *event) override;
-
 };
 
 

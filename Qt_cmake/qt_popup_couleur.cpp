@@ -35,14 +35,11 @@ popupCouleur::popupCouleur(QWidget *parent) : QDialog(parent) {
 }
 
 void popupCouleur::onSubmitClicked() {
-    // Convert QStrings to std::string and store them in lvalue strings
     std::string nb_string = comboBoxNb->currentText().toStdString();
     std::string coul = comboBox->currentText().toStdString();
 
     setColor(stringToColor(coul));
     setNb(std::stoi(nb_string));
 
-
-    // Close the dialog
     accept();
 }

@@ -12,7 +12,7 @@ class ChoiceDialog : public QDialog {
     Q_OBJECT
 
 private:
-    int userChoice = -1;  // To store the user's choice
+    int userChoice = -1;
 
 public:
     ChoiceDialog(int nb_choice, QWidget *parent = nullptr) : QDialog(parent) {
@@ -37,7 +37,7 @@ public:
             i++;
         }
 
-        // Mandatory actions
+        // Actions optionnelles
         QPushButton *takeTokensBtn = new QPushButton("Prendre des jetons", this);
         connect(takeTokensBtn, &QPushButton::clicked, this, [this, i]() { onChoiceMade(i); });
         layout->addWidget(takeTokensBtn);
@@ -53,7 +53,7 @@ public:
 private slots:
     void onChoiceMade(int choice) {
         userChoice = choice;
-        accept();  // Close the dialog
+        accept();
     }
 
 };

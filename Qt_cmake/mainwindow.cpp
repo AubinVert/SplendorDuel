@@ -52,18 +52,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     quijoue->setStyleSheet("QLabel { color: white; background-color: white; border: 1px solid white; }");
     mainLayout->addWidget(quijoue, 0, Qt::AlignLeft);
 
-    // Cartes royales et privilèges
-    /*
-    topRoyal1->setText("qsd");
-    topRoyal2 = new QLabel;
-
-    QLabel* bottomRoyal1;
-    QLabel* bottomRoyal2;
-
-    QLabel* topPrivileges;
-    QLabel* bottomPrivileges;
-     */
-
     // ######## SCORE EN HAUT ET BOUTONS ########
 
     // Scores sur QLCD Display
@@ -79,20 +67,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     topPlayer->addWidget(topPlayerNameLabel, 0, 1, Qt::AlignCenter);
     topPlayer->addWidget(topScoreDisplay, 1, 1, Qt::AlignCenter);
 
-    // Create a layout for the royal cards and privileges
     QHBoxLayout *topRoyalLayout = new QHBoxLayout();
     topRoyalLayout->addWidget(topRoyal1);
     topRoyalLayout->addWidget(topRoyal2);
     topRoyalLayout->addWidget(topPrivileges);
 
-    // Create a widget to hold the royal layout
     QWidget *royalWidget = new QWidget();
     royalWidget->setLayout(topRoyalLayout);
 
-    // Add the royal cards widget to the right column
     topPlayer->addWidget(royalWidget, 0, 2, 2, 1, Qt::AlignRight);
 
-    // Ensure the grid layout distributes space evenly
     topPlayer->setColumnStretch(0, 1);
     topPlayer->setColumnStretch(1, 1);
     topPlayer->setColumnStretch(2, 1);
@@ -124,7 +108,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     // ######## PLATEAU ET TIRAGES ########
 
-
     // Plateau et tirages
     QWidget *middleContainer = new QWidget(this);
     QHBoxLayout *middleLayout = new QHBoxLayout(middleContainer);
@@ -143,7 +126,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     mainLayout->addWidget(middleContainer);
 
     // ######## CONDITION DE VICTOIRE ET REGLES ########
-
 
     QVBoxLayout *regles = new QVBoxLayout;
 
@@ -167,29 +149,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     middleLayout->addLayout(regles, Qt::AlignCenter);
 
-
-
     // ######## SCORE EN BAS ET BOUTONS ########
 
-    // Les rajouter sur le layout principal
     QGridLayout* bottomPlayer = new QGridLayout;
     bottomPlayer->addWidget(bottomPlayerNameLabel, 0, 1, Qt::AlignCenter);
     bottomPlayer->addWidget(bottomScoreDisplay, 1, 1, Qt::AlignCenter);
 
-    // Create a layout for the royal cards and privileges
     QHBoxLayout *bottomRoyalLayout = new QHBoxLayout();
     bottomRoyalLayout->addWidget(bottomRoyal1);
     bottomRoyalLayout->addWidget(bottomRoyal2);
     bottomRoyalLayout->addWidget(bottomPrivileges);
 
-    // Create a widget to hold the royal layout
     QWidget *royalWidgetBottom = new QWidget();
     royalWidgetBottom->setLayout(bottomRoyalLayout);
 
-    // Add the royal cards widget to the right column
     bottomPlayer->addWidget(royalWidgetBottom, 0, 2, 2, 1, Qt::AlignRight);
 
-    // Ensure the grid layout distributes space evenly
     bottomPlayer->setColumnStretch(0, 1);
     bottomPlayer->setColumnStretch(1, 1);
     bottomPlayer->setColumnStretch(2, 1);
@@ -287,14 +262,13 @@ void MainWindow::showReservedCardsBottom() {
         qDebug() << "CARTES RESERVEES";
         Qt_carte* c = new Qt_carte(cardsDialog);
         c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesReserved()[i]);
-        c->setFixedSize(75, 105);  // Width: 100px, Height:x 140px based on 1:1.4 aspect ratio
+        c->setFixedSize(75, 105);
         if (getBuyingCard() == true) c->setDisabled(false);
         else c->setDisabled(true);
         c->setIndice(i);
         c->setReservee(true);
         connect(c, &Qt_carte::carteClicked, &MainWindow::getMainWindow(), &MainWindow::carteClicked);
         connect(c, &Qt_carte::carteClicked, cardsDialog, &QDialog::accept);
-        // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
         c->updateAppearance();
         qDebug() << c->getCard()->getVisuel();
@@ -315,9 +289,8 @@ void MainWindow::showBoughtCardsBottom() {
         qDebug() << "CARTES ACHETEES";
         Qt_carte* c = new Qt_carte(cardsDialog);
         c->setCard(Jeu::getJeu().getCurrentPlayer().getCartesBought()[i]);
-        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setFixedSize(75, 105);
         c->setDisabled(true);
-        // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
         c->updateAppearance();
         qDebug() << c->getCard()->getVisuel();
@@ -338,9 +311,8 @@ void MainWindow::showBoughtCardsTop() {
         qDebug() << "CARTES ACHETEES";
         Qt_carte* c = new Qt_carte(cardsDialog);
         c->setCard(Jeu::getJeu().getOpponent().getCartesBought()[i]);
-        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setFixedSize(75, 105);
         c->setDisabled(true);
-        // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
         c->updateAppearance();
         qDebug() << c->getCard()->getVisuel();
@@ -376,13 +348,12 @@ void MainWindow::showJetonsTop() {
         Qt_jeton* j = new Qt_jeton(jetonsDialog);
         j->setIndice(i);
         if (i < nb) j->setJeton(Jeu::getJeu().getOpponent().getJeton()[i]);
-        j->setFixedSize(60, 60);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        j->setFixedSize(60, 60);
         j->setStyleSheet("border: 1px solid black;");
         layout->addWidget(j, i / 4, i % 4);
         j->setDisabled(true);
         if (i < nb && MainWindow::getMainWindow().getStealingJeton() == true && Jeu::getJeu().getOpponent().getJeton()[i]->getColor() != Color::gold) {
             j->setDisabled(false);
-            // connect(j, &Qt_jeton::jetonClicked, jetonsDialog, &QDialog::accept);
             connect(j, &Qt_jeton::jetonClicked, &MainWindow::getMainWindow(), &MainWindow::jetonClicked);
         }
         j->updateAppearance();
@@ -410,10 +381,9 @@ void MainWindow::showReservedCardsTop() {
         qDebug() << "CARTES RESERVEES";
         Qt_carte* c = new Qt_carte(cardsDialog);
         c->setCard(Jeu::getJeu().getOpponent().getCartesReserved()[i]);
-        c->setFixedSize(75, 105);  // Width: 100px, Height: 140px based on 1:1.4 aspect ratio
+        c->setFixedSize(75, 105);
         c->setDisabled(true);
         c->setIndice(i);
-        // label->setStyleSheet("border: 1px solid black;");
         layout->addWidget(c, i / 4, i % 4);
         c->updateAppearance();
         qDebug() << c->getCard()->getVisuel();
@@ -580,17 +550,12 @@ void MainWindow::updatePlateau(){
     Plateau::get_plateau().printTab();
 
     // Update des pointeurs jeton
-
     for (int i = 0; i < NJETONS; i++){
         plateau->getJetons()[i]->setJeton(Plateau::get_plateau().get_plateau_i(i));
     }
 
     // Update des visuels
-
     for (int i = 0; i < NJETONS; i++){
-        // Mise à jour jetons
-
-        // if (plateau->getJetons()[i]->getJeton() != nullptr) qDebug() << toString(plateau->getJetons()[i]->getJeton()->getColor());
         plateau->getJetons()[i]->updateAppearance();
     }
 

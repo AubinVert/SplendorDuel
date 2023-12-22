@@ -33,9 +33,9 @@ public:
 
     explicit Qt_carte(QWidget *parent = nullptr);
 
-    void toggleClicked(); // Method to change the clicked state
+    void toggleClicked();
     void updateAppearance();
-    void updateAppearance(const std::string& string); // pour les pioches (qui ne changent pas)
+    void updateAppearance(const std::string& string);
 
     const Card* getCard() const {return card;}
     void setCard(const Card* j) {card = j;}
