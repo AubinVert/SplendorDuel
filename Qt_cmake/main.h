@@ -123,11 +123,23 @@ void gameFromScratch(int argc, char *argv[]){
 
     }
 
+    MainWindow::getMainWindow().updateScores();
+    MainWindow::getMainWindow().updatePlateau();
+    MainWindow::getMainWindow().updateTirages();
+    MainWindow::getMainWindow().updatePrivileges();
+    MainWindow::getMainWindow().update();
+
 
     cout<<"=================== Partie terminée ==================="<<endl;
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+
+    cout<<"cartes des pioches : "<<endl;
+
+    cout<<Jeu::getJeu().get_tirage_1()->getPioche().getPioche().size() << endl;
+    cout<<Jeu::getJeu().get_tirage_2()->getPioche().getPioche().size() << endl;
+    cout<<Jeu::getJeu().get_tirage_3()->getPioche().getPioche().size() << endl;
 
     Jeu::libereJeu();
 
@@ -208,6 +220,16 @@ void gameFromJson(int argc, char* argv[]){
     MainWindow::getMainWindow().updatePlateau();
     MainWindow::getMainWindow().updateTirages();
     MainWindow::getMainWindow().updatePrivileges();
+
+    cout<<"cartes des joueurs& : "<<endl;
+    cout<<Jeu::getJeu().getCurrentPlayer().getNbCartesAchetees()<<endl;
+    cout<<Jeu::getJeu().getOpponent().getNbCartesAchetees()<<endl;
+
+    cout<<"cartes des tirages : "<<endl;
+
+    cout<<Jeu::getJeu().get_tirage_1()->getNbCartes()<<endl<<endl;
+    cout<<Jeu::getJeu().get_tirage_2()->getNbCartes()<<endl<<endl;
+    cout<<Jeu::getJeu().get_tirage_3()->getNbCartes()<<endl<<endl;
 
     unsigned int from_error =0;
 

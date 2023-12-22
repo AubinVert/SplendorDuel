@@ -1732,6 +1732,7 @@ void Joueur::buyCard_qt(Tirage *t, const int indice){
     // Dans le main tester si eligible pour carte royale et appeler get carte royale
 
     Jeu::getJeu().getCurrentPlayer().applicationCapacite_qt(carte, Jeu::getJeu().getOpponent());
+    MainWindow::getMainWindow().updateTirages();
 
 }
 
