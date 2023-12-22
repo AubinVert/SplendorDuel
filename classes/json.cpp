@@ -45,10 +45,10 @@ vector<const RoyalCard*> fromJsonRoyalCard(json data){
 
 
         if(carte_royale_data["capacite"] != NULL){
-            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], getCapaciteFromString(carte_royale_data["capacite"]));
+            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], getCapaciteFromString(carte_royale_data["capacite"]), carte_royale_data["visuel"]);
             cartes_royales_instances.push_back(instance);
         }else{
-            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], nullopt);
+            RoyalCard* instance = new RoyalCard(carte_royale_data["points_prestige"], nullopt, carte_royale_data["visuel"]);
             cartes_royales_instances.push_back(instance);
         }
 
