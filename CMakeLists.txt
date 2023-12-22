@@ -63,6 +63,9 @@ add_executable(lo21-splendor-duel
         Qt_cmake/qt_popup_yesno.h
         Qt_cmake/qt_popup_info.h
         Qt_cmake/qt_popup_tirageoupioche.h
+        Qt_cmake/qt_popup_joker.cpp
+        Qt_cmake/playerinputdialog.cpp
+        Qt_cmake/qt_popup_couleur.cpp
 )
 
 include(GNUInstallDirs)

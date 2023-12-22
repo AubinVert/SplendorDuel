@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+
 #include "qt_popup_couleur.h"
 #include "qt_popup_joker.h"
 
