@@ -234,7 +234,7 @@ vector<const JewelryCard*> initCartesJoaillerie(){
 json JewelryCard::toJson() const {
     json j;
     if(getCapacite() != nullopt){
-        j["capacite"] = toString(getCapacite());
+        j["capacite"] = toStringJson(getCapacite());
     }else{
         j["capacite"] = NULL;
     }
@@ -253,6 +253,7 @@ json JewelryCard::toJson() const {
     j["cout_rouge"] = getCostRed();
     j["cout_noir"] = getCostBlack();
     j["cout_perle"] = getCostPerl();
+    j["visuel"] = getVisuel();
 
     return j;
 }
@@ -264,6 +265,7 @@ json RoyalCard::toJson() const {
         j["capacite"] = NULL;
     }
     j["points_prestige"] = getPrestige();
+    j["visuel"] = getVisuel();
 
     return j;
 }

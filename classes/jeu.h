@@ -2,7 +2,6 @@
 #define LO21_SPLENDOR_DUEL_JEU_H
 #include <iostream>
 #include "json.h"
-
 class Strategy_player;
 
 class Jeu {
@@ -130,6 +129,11 @@ public:
     vector<const Privilege*>& get_privileges(){return privileges;}
     unsigned int getManche(){return manche;}
 };
+
+
+
+
+
 
 #endif //LO21_SPLENDOR_DUEL_JEU_H
 

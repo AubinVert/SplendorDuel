@@ -24,6 +24,8 @@
 #include "qt_popup_tirageoupioche.h"
 #include "qt_vue_jeton.h"
 
+
+
 #define RIEN "../src/rien.png"
 
 

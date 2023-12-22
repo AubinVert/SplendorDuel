@@ -19,7 +19,9 @@ int positiveOrNull(int x) {
 /******************** Strategy_player ********************/
 
 // constructeur destructeur
-Strategy_player::Strategy_player(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0){}
+Strategy_player::Strategy_player(const string &nom) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0), nb_privileges(0),nom(nom), nb_jetons(0), nb_cartes_j_reservees(0), games(0), games_won(0){}
+
+
 
 Strategy_player::~Strategy_player(){
     // Déstruction cartes royales
@@ -332,6 +334,8 @@ void Strategy_player::retirerJetonPerle() {
 
 //constructeur et destructeur
 Joueur::Joueur(const string & nom) : Strategy_player(nom){}
+Joueur::Joueur(const json data) : Strategy_player(data){}
+
 
 Joueur::~Joueur(){
     // Déstruction cartes royales
@@ -1728,6 +1732,7 @@ void Joueur::buyCard_qt(Tirage *t, const int indice){
     // Dans le main tester si eligible pour carte royale et appeler get carte royale
 
     Jeu::getJeu().getCurrentPlayer().applicationCapacite_qt(carte, Jeu::getJeu().getOpponent());
+    MainWindow::getMainWindow().updateTirages();
 
 }
 
@@ -2094,6 +2099,9 @@ void Joueur::verifJetons_qt(){
 /******************** IA ********************/
 
 IA::IA(const string & nom) : Strategy_player(nom){}
+
+IA::IA(const json data) : Strategy_player(data){}
+
 
 IA::~IA(){
     // Déstruction cartes royales

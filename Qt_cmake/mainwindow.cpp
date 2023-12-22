@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+
 #include "qt_popup_couleur.h"
 #include "qt_popup_joker.h"
 
@@ -432,9 +433,30 @@ void MainWindow::updateTirages(){
         }
     }
 
-    if (tirages->getDeck1() != nullptr) tirages->getDeck1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
-    if (tirages->getDeck2() != nullptr) tirages->getDeck2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
-    if (tirages->getDeck3() != nullptr) tirages->getDeck3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
+    if (tirages->getDeck1() != nullptr) {
+        if (Jeu::getJeu().get_tirage_1()->getNbCartes() > 0) tirages->getDeck1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
+        else {
+            tirages->getDeck1()->setIcon(QIcon());
+            tirages->getDeck1()->setIconSize(this->size());
+            tirages->getDeck1()->setDisabled(true);
+        }
+    }
+    if (tirages->getDeck2() != nullptr) {
+        if (Jeu::getJeu().get_tirage_2()->getNbCartes() > 0) tirages->getDeck2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
+        else {
+            tirages->getDeck2()->setIcon(QIcon());
+            tirages->getDeck2()->setIconSize(this->size());
+            tirages->getDeck2()->setDisabled(true);
+        }
+    }
+    if (tirages->getDeck3() != nullptr) {
+        if (Jeu::getJeu().get_tirage_3()->getNbCartes() > 0) tirages->getDeck3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
+        else {
+            tirages->getDeck3()->setIcon(QIcon());
+            tirages->getDeck3()->setIconSize(this->size());
+            tirages->getDeck3()->setDisabled(true);
+        }
+    }
 
 }
 

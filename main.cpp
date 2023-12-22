@@ -1,6 +1,7 @@
 #include "main.h"
 
 int main(){
+
     char tmp;
     cout<<"Bienvenue dans le jeu splendor duel ! "<<endl;
     cout<<"voulez vous commencer une nouvelle partie ou finir la dernière partie en cours ? [N/R]"<<endl;

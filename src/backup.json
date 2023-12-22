@@ -1,604 +1,19 @@
 {
   "adversaire": {
-    "cartes_joaiellerie_reservees": null,
-    "cartes_joaillerie_achetees": null,
-    "cartes_royale": null,
-    "is_ia": 0,
-    "jetons": [
-      {
-        "color": 0,
-        "id": 3,
-        "visuel": "../src/Reste_detoure/Jeton_bleu.png"
-      },
-      {
-        "color": 1,
-        "id": 6,
-        "visuel": "../src/Reste_detoure/Jeton_rouge.png"
-      }
-    ],
-    "nb_cartes_j": 0,
-    "nb_cartes_j_reservees": 0,
-    "nb_cartes_r": 0,
-    "nb_courones": 0,
-    "nb_jetons": 2,
-    "nb_points": 0,
-    "nb_privileges": 0,
-    "nom": "",
-    "privileges": null
-  },
-  "cartes_royales": [
-    {
-      "capacite": "rejouer",
-      "points_prestige": 2
-    },
-    {
-      "capacite": 0,
-      "points_prestige": 3
-    },
-    {
-      "capacite": "prendre_privilege",
-      "points_prestige": 2
-    },
-    {
-      "capacite": "voler_pion_adverse",
-      "points_prestige": 2
-    }
-  ],
-  "est_termine": false,
-  "manche": 1,
-  "nb_privileges": 2,
-  "pioche1": {
-    "cartes_joailleries": [
-      {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 3,
-        "cout_perle": 0,
-        "cout_rouge": 2,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "noir",
-        "bonus_nombre": 1,
-        "capacite": "Prendre un pion de la même couleur que le bonus de la carte sur le plateau",
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 2,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "joker",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 4,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 3,
-        "nb_couronne": 1,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "noir",
-        "bonus_nombre": 1,
-        "capacite": "Rejouer",
-        "cout_blanc": 2,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 1,
-        "cout_noir": 1,
-        "cout_perle": 0,
-        "cout_rouge": 1,
-        "cout_vert": 1,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": "Prendre un pion de la même couleur que le bonus de la carte sur le plateau",
-        "cout_blanc": 2,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 2,
-        "cout_bleu": 3,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "joker",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 2,
-        "cout_noir": 1,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 1,
-        "capacite": "Prendre un pion de la même couleur que le bonus de la carte sur le plateau",
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 0,
-        "cout_rouge": 2,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 1,
-        "capacite": "Rejouer",
-        "cout_blanc": 2,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "joker",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 2,
-        "cout_bleu": 0,
-        "cout_noir": 1,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 1,
-        "capacite": "Prendre un pion de la même couleur que le bonus de la carte sur le plateau",
-        "cout_blanc": 2,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 1,
-        "capacite": "Prendre un pion de la même couleur que le bonus de la carte sur le plateau",
-        "cout_blanc": 0,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 3,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "noir",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 3,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 1,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "noir",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 1,
-        "cout_bleu": 1,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 1,
-        "cout_vert": 1,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 1,
-        "capacite": "Rejouer",
-        "cout_blanc": 0,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 1,
-        "capacite": "Rejouer",
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 1,
-        "cout_bleu": 0,
-        "cout_noir": 1,
-        "cout_perle": 0,
-        "cout_rouge": 1,
-        "cout_vert": 1,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 1,
-        "cout_bleu": 1,
-        "cout_noir": 1,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 1,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 3,
-        "cout_vert": 0,
-        "nb_couronne": 1,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": "Rejouer",
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 3,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 0,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 4,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 1,
-        "points_prestige": 3
-      }
-    ],
-    "niveau": 1
-  },
-  "pioche2": {
-    "cartes_joailleries": [
+    "cartes_joaiellerie_reservees": [
       {
         "bonus_couleur": "bleu",
         "bonus_nombre": 1,
         "capacite": 0,
         "cout_blanc": 2,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 0,
-        "nb_couronne": 1,
-        "niveau": 2,
-        "points_prestige": 2
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 1,
-        "capacite": "Voler un pion adverse",
-        "cout_blanc": 0,
-        "cout_bleu": 4,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 3,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 2,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 5,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "joker",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 6,
-        "nb_couronne": 2,
-        "niveau": 2,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "noir",
-        "bonus_nombre": 1,
-        "capacite": "Prendre un privilege",
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 4,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 2
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 2,
-        "capacite": 0,
-        "cout_blanc": 2,
-        "cout_bleu": 0,
-        "cout_noir": 5,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 2,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 2,
-        "cout_vert": 5,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 1,
-        "capacite": "Voler un pion adverse",
-        "cout_blanc": 3,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 4,
-        "cout_vert": 0,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 1
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 2,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 2,
-        "nb_couronne": 1,
-        "niveau": 2,
-        "points_prestige": 2
-      },
-      {
-        "bonus_couleur": "blanc",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 2,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 2,
-        "nb_couronne": 1,
-        "niveau": 2,
-        "points_prestige": 2
-      },
-      {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 1,
-        "capacite": "Prendre un privilege",
-        "cout_blanc": 0,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 4,
-        "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 2
-      },
-      {
-        "bonus_couleur": "noir",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 2,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 2,
-        "cout_vert": 2,
-        "nb_couronne": 1,
-        "niveau": 2,
-        "points_prestige": 2
-      },
-      {
-        "bonus_couleur": "joker",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
         "cout_bleu": 6,
         "cout_noir": 0,
-        "cout_perle": 1,
+        "cout_perle": 0,
         "cout_rouge": 0,
-        "cout_vert": 0,
-        "nb_couronne": 2,
-        "niveau": 2,
-        "points_prestige": 0
-      },
-      {
-        "bonus_couleur": "joker",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 6,
+        "cout_vert": 2,
         "nb_couronne": 0,
-        "niveau": 2,
-        "points_prestige": 2
+        "niveau": 3,
+        "points_prestige": 4
       },
       {
         "bonus_couleur": 0,
@@ -615,12 +30,182 @@
         "points_prestige": 5
       },
       {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": "prendre_privilege",
+        "cout_blanc": 2,
+        "cout_bleu": 4,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 2
+      }
+    ],
+    "cartes_joaillerie_achetees": [
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": "rejouer",
+        "cout_blanc": 0,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 1,
+        "cout_bleu": 1,
+        "cout_noir": 1,
+        "cout_perle": 0,
+        "cout_rouge": 1,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 1,
+        "cout_noir": 1,
+        "cout_perle": 0,
+        "cout_rouge": 1,
+        "cout_vert": 1,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": "rejouer",
+        "cout_blanc": 2,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 2,
+        "cout_bleu": 0,
+        "cout_noir": 1,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": "prendre_sur_plateau",
+        "cout_blanc": 2,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 5,
+        "cout_bleu": 3,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 3,
+        "cout_vert": 0,
+        "nb_couronne": 2,
+        "niveau": 3,
+        "points_prestige": 3
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 3,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      },
+      {
         "bonus_couleur": 0,
         "bonus_nombre": 1,
-        "capacite": "Voler un pion adverse",
+        "capacite": "prendre_sur_plateau",
         "cout_blanc": 0,
-        "cout_bleu": 3,
-        "cout_noir": 4,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 3,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 2,
+        "cout_noir": 1,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 2,
+        "capacite": 0,
+        "cout_blanc": 2,
+        "cout_bleu": 0,
+        "cout_noir": 5,
         "cout_perle": 0,
         "cout_rouge": 0,
         "cout_vert": 0,
@@ -629,18 +214,259 @@
         "points_prestige": 1
       },
       {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": "prendre_sur_plateau",
+        "cout_blanc": 2,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": "prendre_sur_plateau",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 0,
+        "cout_rouge": 2,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      }
+    ],
+    "cartes_royale": null,
+    "games": 0,
+    "games_won": 0,
+    "is_ia": 1,
+    "jetons": [
+      {
+        "color": 4,
+        "id": 17,
+        "visuel": "../src/Reste_detoure/Jeton_noir.png"
+      },
+      {
+        "color": 6,
+        "id": 24,
+        "visuel": "../src/Reste_detoure/Jeton_or.png"
+      },
+      {
+        "color": 2,
+        "id": 9,
+        "visuel": "../src/Reste_detoure/Jeton_vert.png"
+      },
+      {
+        "color": 4,
+        "id": 19,
+        "visuel": "../src/Reste_detoure/Jeton_noir.png"
+      },
+      {
+        "color": 0,
+        "id": 2,
+        "visuel": "../src/Reste_detoure/Jeton_bleu.png"
+      },
+      {
+        "color": 3,
+        "id": 14,
+        "visuel": "../src/Reste_detoure/Jeton_blanc.png"
+      },
+      {
+        "color": 4,
+        "id": 20,
+        "visuel": "../src/Reste_detoure/Jeton_noir.png"
+      },
+      {
+        "color": 2,
+        "id": 12,
+        "visuel": "../src/Reste_detoure/Jeton_vert.png"
+      },
+      {
+        "color": 3,
+        "id": 13,
+        "visuel": "../src/Reste_detoure/Jeton_blanc.png"
+      },
+      {
+        "color": 0,
+        "id": 1,
+        "visuel": "../src/Reste_detoure/Jeton_bleu.png"
+      }
+    ],
+    "nb_cartes_j": 14,
+    "nb_cartes_j_reservees": 3,
+    "nb_cartes_r": 0,
+    "nb_courones": 2,
+    "nb_jetons": 10,
+    "nb_points": 8,
+    "nb_privileges": 3,
+    "nom": "ljbqd",
+    "privileges": [
+      {
+        "id": 3
+      },
+      {
+        "id": 1
+      },
+      {
+        "id": 2
+      }
+    ]
+  },
+  "cartes_royales": [
+    {
+      "capacite": 0,
+      "points_prestige": 3
+    },
+    {
+      "capacite": "prendre_privilege",
+      "points_prestige": 2
+    },
+    {
+      "capacite": "voler_pion_adverse",
+      "points_prestige": 2
+    }
+  ],
+  "est_termine": false,
+  "manche": 2150,
+  "nb_privileges": 0,
+  "pioche1": {
+    "cartes_joailleries": [
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 1,
+        "cout_bleu": 1,
+        "cout_noir": 1,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 1,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
         "bonus_couleur": "noir",
         "bonus_nombre": 1,
-        "capacite": "Voler un pion adverse",
-        "cout_blanc": 4,
+        "capacite": 0,
+        "cout_blanc": 1,
+        "cout_bleu": 1,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 1,
+        "cout_vert": 1,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 0,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 4,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 3
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
         "cout_bleu": 0,
         "cout_noir": 0,
         "cout_perle": 0,
         "cout_rouge": 0,
         "cout_vert": 3,
+        "nb_couronne": 1,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 3,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      }
+    ],
+    "niveau": 1
+  },
+  "pioche2": {
+    "cartes_joailleries": [
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 2,
+        "nb_couronne": 1,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": "voler_pion_adverse",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 3,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 4,
         "nb_couronne": 0,
         "niveau": 2,
         "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": "prendre_privilege",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 4,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": "prendre_privilege",
+        "cout_blanc": 4,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 2
       },
       {
         "bonus_couleur": "vert",
@@ -657,32 +483,144 @@
         "points_prestige": 2
       },
       {
-        "bonus_couleur": "vert",
-        "bonus_nombre": 2,
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 2,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 0,
+        "nb_couronne": 1,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
         "capacite": 0,
         "cout_blanc": 0,
         "cout_bleu": 0,
         "cout_noir": 2,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 2,
+        "nb_couronne": 1,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "joker",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 6,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 2,
+        "niveau": 2,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": "prendre_privilege",
+        "cout_blanc": 0,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 4,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "joker",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 6,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": "voler_pion_adverse",
+        "cout_blanc": 0,
+        "cout_bleu": 4,
+        "cout_noir": 0,
         "cout_perle": 0,
-        "cout_rouge": 5,
+        "cout_rouge": 3,
         "cout_vert": 0,
         "nb_couronne": 0,
         "niveau": 2,
         "points_prestige": 1
       },
       {
-        "bonus_couleur": "bleu",
+        "bonus_couleur": "vert",
         "bonus_nombre": 1,
-        "capacite": "Voler un pion adverse",
-        "cout_blanc": 0,
+        "capacite": "voler_pion_adverse",
+        "cout_blanc": 3,
         "cout_bleu": 0,
-        "cout_noir": 3,
+        "cout_noir": 0,
         "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 4,
+        "cout_rouge": 4,
+        "cout_vert": 0,
         "nb_couronne": 0,
         "niveau": 2,
         "points_prestige": 1
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 2,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 2,
+        "nb_couronne": 1,
+        "niveau": 2,
+        "points_prestige": 2
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 2,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 2,
+        "cout_vert": 5,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "joker",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 6,
+        "nb_couronne": 2,
+        "niveau": 2,
+        "points_prestige": 0
       }
     ],
     "niveau": 2
@@ -704,20 +642,6 @@
         "points_prestige": 4
       },
       {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 2,
-        "cout_bleu": 6,
-        "cout_noir": 0,
-        "cout_perle": 0,
-        "cout_rouge": 0,
-        "cout_vert": 2,
-        "nb_couronne": 0,
-        "niveau": 3,
-        "points_prestige": 4
-      },
-      {
         "bonus_couleur": 0,
         "bonus_nombre": 1,
         "capacite": 0,
@@ -732,15 +656,15 @@
         "points_prestige": 3
       },
       {
-        "bonus_couleur": "blanc",
+        "bonus_couleur": "noir",
         "bonus_nombre": 1,
         "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 3,
-        "cout_noir": 3,
+        "cout_blanc": 3,
+        "cout_bleu": 0,
+        "cout_noir": 0,
         "cout_perle": 1,
-        "cout_rouge": 5,
-        "cout_vert": 0,
+        "cout_rouge": 3,
+        "cout_vert": 5,
         "nb_couronne": 2,
         "niveau": 3,
         "points_prestige": 3
@@ -760,23 +684,9 @@
         "points_prestige": 0
       },
       {
-        "bonus_couleur": "bleu",
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 3,
-        "cout_bleu": 0,
-        "cout_noir": 5,
-        "cout_perle": 1,
-        "cout_rouge": 0,
-        "cout_vert": 3,
-        "nb_couronne": 2,
-        "niveau": 3,
-        "points_prestige": 3
-      },
-      {
         "bonus_couleur": "joker",
         "bonus_nombre": 1,
-        "capacite": "Rejouer",
+        "capacite": "rejouer",
         "cout_blanc": 0,
         "cout_bleu": 0,
         "cout_noir": 0,
@@ -791,26 +701,12 @@
         "bonus_couleur": "noir",
         "bonus_nombre": 1,
         "capacite": 0,
-        "cout_blanc": 3,
+        "cout_blanc": 2,
         "cout_bleu": 0,
-        "cout_noir": 0,
-        "cout_perle": 1,
-        "cout_rouge": 3,
-        "cout_vert": 5,
-        "nb_couronne": 2,
-        "niveau": 3,
-        "points_prestige": 3
-      },
-      {
-        "bonus_couleur": 0,
-        "bonus_nombre": 1,
-        "capacite": 0,
-        "cout_blanc": 0,
-        "cout_bleu": 0,
-        "cout_noir": 2,
+        "cout_noir": 6,
         "cout_perle": 0,
-        "cout_rouge": 6,
-        "cout_vert": 2,
+        "cout_rouge": 2,
+        "cout_vert": 0,
         "nb_couronne": 0,
         "niveau": 3,
         "points_prestige": 4
@@ -833,56 +729,457 @@
     "niveau": 3
   },
   "plateau": {
-    "current_nb": 23,
-    "jetons": null,
+    "current_nb": 3,
+    "jetons": [
+      {
+        "color": 1,
+        "id": 7,
+        "visuel": "../src/Reste_detoure/Jeton_rouge.png"
+      },
+      {
+        "color": 6,
+        "id": 23,
+        "visuel": "../src/Reste_detoure/Jeton_or.png"
+      },
+      {
+        "color": 6,
+        "id": 25,
+        "visuel": "../src/Reste_detoure/Jeton_or.png"
+      }
+    ],
     "nb": 25
   },
-  "privileges": [
-    {
-      "id": 2
-    },
-    {
-      "id": 3
-    }
-  ],
+  "privileges": null,
   "qui_joue": {
-    "cartes_joaiellerie_reservees": null,
-    "cartes_joaillerie_achetees": null,
-    "cartes_royale": null,
-    "is_ia": 0,
-    "jetons": null,
-    "nb_cartes_j": 0,
-    "nb_cartes_j_reservees": 0,
-    "nb_cartes_r": 0,
-    "nb_courones": 0,
-    "nb_jetons": 0,
-    "nb_points": 0,
-    "nb_privileges": 1,
-    "nom": "",
-    "privileges": [
+    "cartes_joaiellerie_reservees": [
       {
-        "id": 1
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 2,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 5,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 3,
+        "cout_bleu": 0,
+        "cout_noir": 5,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 3,
+        "nb_couronne": 2,
+        "niveau": 3,
+        "points_prestige": 3
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": "voler_pion_adverse",
+        "cout_blanc": 0,
+        "cout_bleu": 3,
+        "cout_noir": 4,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 1
       }
-    ]
+    ],
+    "cartes_joaillerie_achetees": [
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 3,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 1,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": "prendre_sur_plateau",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 2,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": "rejouer",
+        "cout_blanc": 2,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 1,
+        "cout_bleu": 0,
+        "cout_noir": 1,
+        "cout_perle": 0,
+        "cout_rouge": 1,
+        "cout_vert": 1,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 3,
+        "cout_vert": 0,
+        "nb_couronne": 1,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 2,
+        "cout_bleu": 3,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 3,
+        "cout_perle": 0,
+        "cout_rouge": 2,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 3,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 1,
+        "niveau": 1,
+        "points_prestige": 0
+      }
+    ],
+    "cartes_royale": [
+      {
+        "capacite": "rejouer",
+        "points_prestige": 2
+      }
+    ],
+    "games": 0,
+    "games_won": 0,
+    "is_ia": 1,
+    "jetons": [
+      {
+        "color": 1,
+        "id": 6,
+        "visuel": "../src/Reste_detoure/Jeton_rouge.png"
+      },
+      {
+        "color": 0,
+        "id": 3,
+        "visuel": "../src/Reste_detoure/Jeton_bleu.png"
+      },
+      {
+        "color": 1,
+        "id": 5,
+        "visuel": "../src/Reste_detoure/Jeton_rouge.png"
+      },
+      {
+        "color": 5,
+        "id": 22,
+        "visuel": "../src/Reste_detoure/Jeton_perle.png"
+      },
+      {
+        "color": 0,
+        "id": 4,
+        "visuel": "../src/Reste_detoure/Jeton_bleu.png"
+      },
+      {
+        "color": 3,
+        "id": 16,
+        "visuel": "../src/Reste_detoure/Jeton_blanc.png"
+      },
+      {
+        "color": 2,
+        "id": 11,
+        "visuel": "../src/Reste_detoure/Jeton_vert.png"
+      },
+      {
+        "color": 5,
+        "id": 21,
+        "visuel": "../src/Reste_detoure/Jeton_perle.png"
+      },
+      {
+        "color": 2,
+        "id": 10,
+        "visuel": "../src/Reste_detoure/Jeton_vert.png"
+      },
+      {
+        "color": 4,
+        "id": 18,
+        "visuel": "../src/Reste_detoure/Jeton_noir.png"
+      }
+    ],
+    "nb_cartes_j": 8,
+    "nb_cartes_j_reservees": 3,
+    "nb_cartes_r": 1,
+    "nb_courones": 3,
+    "nb_jetons": 10,
+    "nb_points": 4,
+    "nb_privileges": 0,
+    "nom": "kjbd",
+    "privileges": null
   },
   "sac": {
-    "jetons": null,
-    "nb": 0
+    "jetons": [
+      {
+        "color": 1,
+        "id": 8,
+        "visuel": "../src/Reste_detoure/Jeton_rouge.png"
+      },
+      {
+        "color": 3,
+        "id": 15,
+        "visuel": "../src/Reste_detoure/Jeton_blanc.png"
+      }
+    ],
+    "nb": 2
   },
   "tirage1": {
-    "cartes_joailleries": null,
+    "cartes_joailleries": [
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 3,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 1,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "bleu",
+        "bonus_nombre": 1,
+        "capacite": "rejouer",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": "rejouer",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 1,
+        "cout_rouge": 2,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "joker",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 4,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 1,
+        "niveau": 1,
+        "points_prestige": 0
+      },
+      {
+        "bonus_couleur": "joker",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 4,
+        "cout_perle": 1,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 1,
+        "points_prestige": 1
+      }
+    ],
     "max_cartes": 5,
     "nb_cartes": 5,
     "niveau": 1
   },
   "tirage2": {
-    "cartes_joailleries": null,
+    "cartes_joailleries": [
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 1,
+        "capacite": "voler_pion_adverse",
+        "cout_blanc": 4,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 3,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 2,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 0,
+        "cout_rouge": 5,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": "noir",
+        "bonus_nombre": 2,
+        "capacite": 0,
+        "cout_blanc": 5,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 0,
+        "cout_vert": 0,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 1
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": "prendre_privilege",
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 0,
+        "cout_perle": 1,
+        "cout_rouge": 4,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 2,
+        "points_prestige": 2
+      }
+    ],
     "max_cartes": 4,
     "nb_cartes": 4,
     "niveau": 2
   },
   "tirage3": {
-    "cartes_joailleries": null,
+    "cartes_joailleries": [
+      {
+        "bonus_couleur": "blanc",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 3,
+        "cout_noir": 3,
+        "cout_perle": 1,
+        "cout_rouge": 5,
+        "cout_vert": 0,
+        "nb_couronne": 2,
+        "niveau": 3,
+        "points_prestige": 3
+      },
+      {
+        "bonus_couleur": 0,
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 0,
+        "cout_noir": 2,
+        "cout_perle": 0,
+        "cout_rouge": 6,
+        "cout_vert": 2,
+        "nb_couronne": 0,
+        "niveau": 3,
+        "points_prestige": 4
+      },
+      {
+        "bonus_couleur": "vert",
+        "bonus_nombre": 1,
+        "capacite": 0,
+        "cout_blanc": 0,
+        "cout_bleu": 2,
+        "cout_noir": 0,
+        "cout_perle": 0,
+        "cout_rouge": 2,
+        "cout_vert": 6,
+        "nb_couronne": 0,
+        "niveau": 3,
+        "points_prestige": 4
+      }
+    ],
     "max_cartes": 3,
     "nb_cartes": 3,
     "niveau": 3

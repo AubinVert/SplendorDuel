@@ -30,6 +30,10 @@ protected:
     int nb_cartes_r;
     int nb_privileges;
     int nb_jetons;
+
+    unsigned int games_won;
+    unsigned int games;
+
     static int const max_nb_jetons = 10;
     static int const max_nb_cartes_r = 2;
     static int const max_nb_privileges = 3;
@@ -47,6 +51,12 @@ protected:
     Strategy_player(const Strategy_player&) = delete;
 public:
 
+    void game_ended(const unsigned int won) {
+        if(won != 0){
+            games_won++;
+        }
+        games++;
+    }
 
     json toJson() const {
         json j;
@@ -59,6 +69,8 @@ public:
         j["nb_cartes_r"] = nb_cartes_r;
         j["nb_privileges"] = nb_privileges;
         j["nb_jetons"] = nb_jetons;
+        j["games"] = games;
+        j["games_won"] = games_won;
         j["cartes_joaillerie_achetees"] = {};
         j["cartes_joaiellerie_reservees"] = {};
         j["cartes_royale"] = {};
@@ -84,8 +96,26 @@ public:
         return j;
     }
 
+
+    json toHistory() const {
+        json j;
+        j["nom"] = nom;
+        j["is_ia"] = is_ia;
+        j["games"] = games;
+        j["games_won"] = games_won;
+        return j;
+    }
+
+
+
+
     //constructeur destructeur
-    Strategy_player(const string &nom);
+     Strategy_player(const string &nom);
+     Strategy_player(const json data) : nb_points(0), nb_cartes_j(0), nb_cartes_r(0), nb_courones(0),
+     nb_privileges(0),nom(data["nom"]), nb_jetons(0), nb_cartes_j_reservees(0), games_won(data["games_won"]),games(data["games"])
+    {
+     }
+
     virtual ~Strategy_player();
 
     //méthodes virtuelles pures
@@ -144,6 +174,13 @@ public:
         }
     }
 
+    unsigned int getIa()  const{
+        return is_ia;
+    }
+
+    void setWins(unsigned int nb) {games_won = nb;}
+    void setPlayed(unsigned int nb){games = nb;}
+
 
     // setters rajoutés pour les besoins du JSON
     void setJewellryCardReserved(vector<const JewelryCard*> j){
@@ -187,7 +224,6 @@ public:
     }
 
     void setNbJCardsReserved(unsigned int nb){
-
         if(nb>max_nb_cartes_reservees){
             throw SplendorException("Fichier de chargement corrompu 8");
         }
@@ -245,6 +281,7 @@ public:
 
     // Constructeur et destructeur
     Joueur(const string &nom);
+    Joueur(const json data);
     ~Joueur();
 
     // Méthodes polymorphiques adaptées pour un joueur
@@ -277,6 +314,7 @@ public:
 class IA: public Strategy_player {
 public:
     IA(const string & nom = "IA");
+    IA(const json data);
     ~IA();
 
     // Méthodes polymorphiques adaptées pour une IA
@@ -334,6 +372,11 @@ inline std::ostream& operator<<(std::ostream& os, const Strategy_player& j){
 int positiveOrNull(int x);
 
 void testJoueurs();
+
+
+
+
+
 
 #endif //LO21_SPLENDOR_DUEL_JOUEUR_H
 
