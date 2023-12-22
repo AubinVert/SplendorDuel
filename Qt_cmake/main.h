@@ -130,7 +130,7 @@ void gameFromScratch(int argc, char *argv[]){
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
 
-    // Jeu::libereJeu();
+    Jeu::libereJeu();
 
     app.exec();
 }
