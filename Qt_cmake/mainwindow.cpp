@@ -438,6 +438,7 @@ void MainWindow::updateTirages(){
         else {
             tirages->getDeck1()->setIcon(QIcon());
             tirages->getDeck1()->setIconSize(this->size());
+            tirages->getDeck1()->setDisabled(true);
         }
     }
     if (tirages->getDeck2() != nullptr) {
@@ -445,6 +446,7 @@ void MainWindow::updateTirages(){
         else {
             tirages->getDeck2()->setIcon(QIcon());
             tirages->getDeck2()->setIconSize(this->size());
+            tirages->getDeck2()->setDisabled(true);
         }
     }
     if (tirages->getDeck3() != nullptr) {
@@ -452,6 +454,7 @@ void MainWindow::updateTirages(){
         else {
             tirages->getDeck3()->setIcon(QIcon());
             tirages->getDeck3()->setIconSize(this->size());
+            tirages->getDeck3()->setDisabled(true);
         }
     }
 
