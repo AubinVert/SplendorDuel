@@ -188,18 +188,7 @@ void gameFromJson(int argc, char* argv[]){
         // si maximum de cartes atteint alors cartes générées en trop.
         // mauvaise gestion des cartes !
 
-        if(data["est_termine"]){
-
-            // afficher une popup ?
-
-            cout<<"vous ne pouvez pas reprendre une partie terminée !"<<endl;
-
-            // recommencer un jeu à 0 ?
-
-
-
-            return;
-        }
+        if(data["est_termine"]) throw SplendorException("Ce jeu est terminé!");
 
         Jeu::getJeu(data);
 
@@ -225,6 +214,9 @@ void gameFromJson(int argc, char* argv[]){
 
     }catch (SplendorException &e){
         cout<< e.getInfos()<<endl;
+        MainWindow::getMainWindow().triggerInfo(e.getInfos() + "\nVous allez recommencer une partie de 0:");
+        gameFromScratch(argc, argv);
+
     }
 
     srand(static_cast<unsigned>(std::time(nullptr)));
