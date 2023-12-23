@@ -16,12 +16,11 @@
 // tester toutes les méthodes ?
 // vérifier UML si toutes les méthodes sont implémentées.
 
-
 using namespace std;
 
 class Strategy_player{ // Utilisation Design Pattern Strategy
 protected:
-    std::string nom;
+    std::string nom = "John Doe";
     int is_ia = 0;
     int nb_points;
     int nb_courones;

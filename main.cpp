@@ -28,6 +28,8 @@ int main(int argc, char *argv[]) {
         gameFromJson(argc, argv);
     }
 
+    Jeu::libereJeu();
+
     char tmp2 = 'Y';
     while(tmp2 == 'Y'){
 

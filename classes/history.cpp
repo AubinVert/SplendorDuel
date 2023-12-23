@@ -228,12 +228,16 @@ void Hist(){
 
 void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
 
+    if(name1 == name2){
+        throw SplendorException("Les joueurs doivent être différents !");
+    }
 
     if (choix1 == "IA") choix1 = "I";
     else choix1 = "J";
 
     if (choix2 == "IA") choix2 = "I";
     else choix2 = "J";
+
 
 
     srand(static_cast<unsigned>(std::time(nullptr)));
@@ -311,3 +315,6 @@ void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
+
+
+

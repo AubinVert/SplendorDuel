@@ -122,9 +122,12 @@ public:
     }
 
     void demanderNoms() {
-        InputPopup *popup = new InputPopup(this);
-        popup->setModal(true);
-        popup->exec();
+
+            InputPopup *popup = new InputPopup(this);
+            popup->setModal(true);
+            popup->exec();
+
+
     }
 
     void setTopPlayerName(const QString &name);

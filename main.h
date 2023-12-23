@@ -47,7 +47,23 @@ void gameFromScratch(int argc, char *argv[]){
 
 
     // Setup des noms
+
     MainWindow::getMainWindow().demanderNoms();
+
+    /*
+    bool check_names = true;
+    while(check_names){
+        try{
+            MainWindow::getMainWindow().demanderNoms();
+            check_names = false;
+        }catch (SplendorException &e){
+            cout<<e.getInfos()<<endl;
+            MainWindow::getMainWindow().triggerInfo(e.getInfos());
+        }
+    }
+
+     */
+
     MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
     MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
 
@@ -152,7 +168,6 @@ void gameFromScratch(int argc, char *argv[]){
         cout<<e.getInfos()<<endl;
     }
 
-    Jeu::libereJeu();
 
 }
 
@@ -343,8 +358,6 @@ void gameFromJson(int argc, char* argv[]){
     }catch (SplendorException &e){
         cout<<e.getInfos()<<endl;
     }
-
-    Jeu::libereJeu();
 
 }
 

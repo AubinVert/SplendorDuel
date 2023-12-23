@@ -136,10 +136,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     // Ajouter le bouton de règles
     QPushButton *viewRegles = new QPushButton("Voir règles", this);
-    QPushButton *viewStats = new QPushButton("Historique des matchs", this);
-    QPushButton *viewStatsPlayers = new QPushButton("Statistiques des joueurs", this);
+    QPushButton *viewStats = new QPushButton("Historique", this);
+    QPushButton *viewStatsPlayers = new QPushButton("Statistiques", this);
     viewRegles->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewRegles->setFixedWidth(397 / 3);
+    viewStats->setStyleSheet("color: rgba(255, 255, 255, 255);");
+    viewStats->setFixedWidth(397 / 3);
+    viewStatsPlayers->setStyleSheet("color: rgba(255, 255, 255, 255);");
+    viewStatsPlayers->setFixedWidth(397 / 3);
     connect(viewRegles, &QPushButton::clicked, this, &MainWindow::openWebLink);
     connect(viewStats, &QPushButton::clicked, this, &MainWindow::showStats);
     connect(viewStatsPlayers, &QPushButton::clicked, this, &MainWindow::showStatsPlayers);
