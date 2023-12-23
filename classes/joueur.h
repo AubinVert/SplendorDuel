@@ -183,6 +183,12 @@ public:
     void setWins(unsigned int nb) {games_won = nb;}
     void setPlayed(unsigned int nb){games = nb;}
 
+    const unsigned int getWins() const{
+        return games_won;
+    }
+    const unsigned int getPlayed() const{
+        return games;
+    }
 
     // setters rajoutés pour les besoins du JSON
     void setJewellryCardReserved(vector<const JewelryCard*> j){

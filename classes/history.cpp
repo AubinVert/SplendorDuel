@@ -141,6 +141,8 @@ Match::Match(json data){
             gagnant->setWins(data["gagnant"]["games_won"]);
             gagnant->setPlayed(data["gagnant"]["games"]);
             gagnant->setIa(1);
+            History::getHistory().addPlayer();
+
         }else{
             gagnant = History::getHistory().pullPlayer(tmp,1);
         }
@@ -151,7 +153,11 @@ Match::Match(json data){
             gagnant = new Joueur(tmp);
             gagnant->setWins(data["gagnant"]["games_won"]);
             gagnant->setPlayed(data["gagnant"]["games"]);
-            gagnant->setIa(0);}
+            gagnant->setIa(0);
+            History::getHistory().addPlayer();
+
+        }
+
         else{
             gagnant = History::getHistory().pullPlayer(tmp,0);
         }
@@ -164,6 +170,7 @@ Match::Match(json data){
             adversaire->setWins(data["adversaire"]["games_won"]);
             adversaire->setPlayed(data["adversaire"]["games"]);
             adversaire->setIa(1);
+            History::getHistory().addPlayer();
         }
         else{
             adversaire = History::getHistory().pullPlayer(tmp,1);
@@ -176,7 +183,9 @@ Match::Match(json data){
             adversaire = new Joueur(tmp);
             adversaire->setWins(data["adversaire"]["games_won"]);
             adversaire->setPlayed(data["adversaire"]["games"]);
-            adversaire->setIa(0);}
+            adversaire->setIa(0);
+            History::getHistory().addPlayer();
+        }
         else{
             adversaire = History::getHistory().pullPlayer(tmp,0);
         }

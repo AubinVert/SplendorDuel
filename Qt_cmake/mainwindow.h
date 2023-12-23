@@ -180,6 +180,7 @@ private slots:
     void colorChoice(Color *c, int *nb);
     void colorJoker(colorBonus *b);
     void showStats();
+    void showStatsPlayers();
 
 public slots:
     void jetonClicked(Qt_jeton*);

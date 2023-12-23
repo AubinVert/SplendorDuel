@@ -15,6 +15,7 @@ private:
     unsigned int score_gagnant;
     unsigned int score_adversaire;
 
+
 public:
 
     json toHistory(){
@@ -65,6 +66,7 @@ private:
     //attributs
     vector<Match *> matches;
     unsigned int nb_match = 0;
+    unsigned int nb_joueurs = 0;
 
     //méthodes
 
@@ -78,6 +80,14 @@ private:
     History &operator=(const History &) = delete;
 
 public:
+
+    void addPlayer() {
+        nb_joueurs++;
+    }
+
+    const unsigned int getNbPlayers() const{
+        return nb_joueurs;
+    }
 
     vector<Match *> getMatches() const {
         return matches;

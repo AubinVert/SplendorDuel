@@ -218,6 +218,10 @@ void gameFromJson(int argc, char* argv[]){
 
             cout<<"vous ne pouvez pas reprendre une partie terminée !"<<endl;
 
+            // recommencer un jeu à 0 ?
+
+
+
             return;
         }
 
