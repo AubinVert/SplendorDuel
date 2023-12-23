@@ -49,9 +49,14 @@ void InputPopup::onSubmitClicked() {
     std::string stdType1 = comboBox1->currentText().toStdString();
     std::string stdType2 = comboBox2->currentText().toStdString();
 
+    try{
+        jeu->setPlayers(stdName1, stdName2, stdType1, stdType2);
+        accept();
+    }
+    catch(SplendorException &e){
+        accept();
+        throw e;
+    }
 
-    jeu->setPlayers(stdName1, stdName2, stdType1, stdType2);
 
-
-    accept();
 }

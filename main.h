@@ -48,9 +48,8 @@ void gameFromScratch(int argc, char *argv[]){
 
     // Setup des noms
 
-    MainWindow::getMainWindow().demanderNoms();
 
-    /*
+
     bool check_names = true;
     while(check_names){
         try{
@@ -62,7 +61,7 @@ void gameFromScratch(int argc, char *argv[]){
         }
     }
 
-     */
+
 
     MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
     MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
