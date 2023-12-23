@@ -1,21 +1,19 @@
 #include "popup_text.h"
 #include "../classes/jeu.h"
+#include "mainwindow.h"
 #include <QLabel>
 
 InputPopup::InputPopup(QWidget *parent) : QDialog(parent) {
-    jeu = &Jeu::getJeu();
 
+    jeu = &Jeu::getJeu();
     QLabel *nameLabel1 = new QLabel("Player 1 Name:", this);
     lineEdit1 = new QLineEdit(this);
-
     QLabel *nameLabel2 = new QLabel("Player 2 Name:", this);
     lineEdit2 = new QLineEdit(this);
-
     QLabel *typeLabel1 = new QLabel("Player 1 Type:", this);
     comboBox1 = new QComboBox(this);
     comboBox1->addItem("Joueur");
     comboBox1->addItem("IA");
-
 
     QLabel *typeLabel2 = new QLabel("Player 2 Type:", this);
     comboBox2 = new QComboBox(this);
@@ -37,8 +35,8 @@ InputPopup::InputPopup(QWidget *parent) : QDialog(parent) {
     layout->addWidget(submitButton);
 
     setWindowTitle("Player Settings");
-
     connect(submitButton, &QPushButton::clicked, this, &InputPopup::onSubmitClicked);
+
 }
 
 void InputPopup::onSubmitClicked() {
@@ -52,10 +50,8 @@ void InputPopup::onSubmitClicked() {
     try{
         jeu->setPlayers(stdName1, stdName2, stdType1, stdType2);
         accept();
-    }
-    catch(SplendorException &e){
-        accept();
-        throw e;
+    }catch(SplendorException &except){
+        MainWindow::getMainWindow().triggerInfo("veuillez remplir les deux champs correctement");
     }
 
 

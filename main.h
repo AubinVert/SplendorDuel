@@ -56,8 +56,8 @@ void gameFromScratch(int argc, char *argv[]){
             MainWindow::getMainWindow().demanderNoms();
             check_names = false;
         }catch (SplendorException &e){
-            cout<<e.getInfos()<<endl;
             MainWindow::getMainWindow().triggerInfo(e.getInfos());
+
         }
     }
 
