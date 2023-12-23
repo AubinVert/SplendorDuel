@@ -848,11 +848,18 @@ void MainWindow::showStats() {
 
 
     QLabel* text = new QLabel(QString::fromStdString(txt));
+    text->setWordWrap(true);
+
+    // Create a QScrollArea
+    QScrollArea *scrollArea = new QScrollArea(this);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setWidget(text);
+
     QVBoxLayout* layout = new QVBoxLayout(); // Use QVBoxLayout or another specific layout class
-    layout->addWidget(text);
+    layout->addWidget(scrollArea);
 
     dialog->setLayout(layout); // Set layout to the dialog
-    qDebug() << txt;
+
     dialog->exec();
 }
 
