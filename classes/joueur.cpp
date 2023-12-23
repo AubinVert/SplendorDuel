@@ -530,7 +530,7 @@ void Joueur::choice_qt(){
         try {
             MainWindow::getMainWindow().deactivateButtons();
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
-            MainWindow::getMainWindow().triggerNextAction(&tmp, this);p
+            MainWindow::getMainWindow().triggerNextAction(&tmp, this);
 
             if (info == 'N') {
                 cout << "Vous n'avez pas validé , vous devez recommencer voter choix!";
