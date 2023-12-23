@@ -109,8 +109,6 @@ Jeu::Jeu() {
 
 }
 
-
-
 json Jeu::toJson() const{
     json j;
 
@@ -281,27 +279,9 @@ void Jeu::setPlayers(){
 }
 
 */
-
+/*
 void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
 
-    /*
-    string choix1;
-    cout<<"Le premier joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
-    cin>>choix1;
-
-    string name1;
-    cout << "Veuillez entrer son nom : ";
-    cin >> name1;
-
-
-    string choix2;
-    cout<<"Le second joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
-    cin>>choix2;
-
-    string name2;
-    cout << "Veuillez entrer son nom : ";
-    cin >> name2;
-    */
 
     if (choix1 == "IA") choix1 = "I";
     else choix1 = "J";
@@ -314,32 +294,40 @@ void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix
     if(rand()%2==0) { // joueur qui débute la partie est tiré aléatoirement
         if (choix1 == "J") {
             qui_joue = new Joueur(name1);
+            qui_joue->setIa(0);
         } else {
             qui_joue = new IA(name1);
+            qui_joue->setIa(1);
         }
 
         if (choix2 == "J") {
             adversaire = new Joueur(name2);
+            qui_joue->setIa(0);
 
         } else {
             adversaire = new IA(name2);
+            qui_joue->setIa(1);
         }
     }else{
         if (choix1 == "J") {
             adversaire = new Joueur(name1);
+            qui_joue->setIa(0);
         } else {
             adversaire = new IA(name1);
+            qui_joue->setIa(1);
         }
 
         if (choix2 == "J") {
             qui_joue = new Joueur(name2);
+            qui_joue->setIa(0);
         } else {
             qui_joue = new IA(name2);
+            qui_joue->setIa(1);
         }
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
 }
-
+*/
 
 
 void Jeu::printCarteRoyale(){

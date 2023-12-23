@@ -59,8 +59,13 @@ vector<const RoyalCard*> fromJsonRoyalCard(json data){
 vector<const Jeton*> fromJsonJetons(json data){
     std::vector<const Jeton*> tab_jetons;
     for (const auto& jeton : data) {
-        Jeton* tmp = new Jeton(jeton["id"],jeton["color"], jeton["visuel"]);
-        tab_jetons.push_back(tmp);
+        if(jeton != nullptr){
+            Jeton* tmp = new Jeton(jeton["id"],jeton["color"], jeton["visuel"]);
+            tab_jetons.push_back(tmp);
+        }else{
+            tab_jetons.push_back(nullptr);
+        }
+
     }
     return tab_jetons;
 }

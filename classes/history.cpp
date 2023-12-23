@@ -218,25 +218,15 @@ void Hist(){
 }
 
 
-void Jeu::setPlayers(){
 
-    string choix1;
-    cout<<"Le premier joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
-    cin>>choix1;
-
-    string name1;
-    cout << "Veuillez entrer son nom : ";
-    cin >> name1;
+void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
 
 
-    string choix2;
-    cout<<"Le second joueur est un joueur ou une IA [J/I]? \nChoix: "<<endl;
-    cin>>choix2;
+    if (choix1 == "IA") choix1 = "I";
+    else choix1 = "J";
 
-    string name2;
-    cout << "Veuillez entrer son nom : ";
-    cin >> name2;
-
+    if (choix2 == "IA") choix2 = "I";
+    else choix2 = "J";
 
 
     srand(static_cast<unsigned>(std::time(nullptr)));
@@ -313,6 +303,4 @@ void Jeu::setPlayers(){
         }
     }
     adversaire->obtainPrivilege(); // Le joueur qui ne commence pas démarre avec un privilège
-
-
 }

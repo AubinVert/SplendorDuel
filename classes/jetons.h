@@ -176,11 +176,12 @@ public:
     const int get_id()const{return id;}
     static int getNbMaxJetons(){return max_bleu + max_blanc + max_or + max_noir + max_perle + max_rouge + max_vert;}
 
-    json toJson() const {
+    json toJson(const int place=-1) const {
         json j;
         j["id"] = get_id();
         j["color"] = getColor();
         j["visuel"] = getVisuel();
+        j["place"] = place;
         return j;
     }
 
