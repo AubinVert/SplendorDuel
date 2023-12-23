@@ -1,7 +1,10 @@
 #include "mainwindow.h"
+#include "../classes/history.h"
 
 #include "qt_popup_couleur.h"
 #include "qt_popup_joker.h"
+
+#include <QDialog>
 
 MainWindow::Handler MainWindow::handler;
 
@@ -133,9 +136,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     // Ajouter le bouton de règles
     QPushButton *viewRegles = new QPushButton("Voir règles", this);
+    QPushButton *viewStats = new QPushButton("Voir statistiques", this);
     viewRegles->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewRegles->setFixedWidth(397 / 3);
     connect(viewRegles, &QPushButton::clicked, this, &MainWindow::openWebLink);
+    connect(viewStats, &QPushButton::clicked, this, &MainWindow::showStats);
 
     // Conditions de victoire et son image
     QLabel *conditionsVictoire = new QLabel(this);
@@ -147,6 +152,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     // Les rajouter au layout
     regles->addWidget(conditionsVictoire, Qt::AlignCenter);
     regles->addWidget(viewRegles, Qt::AlignCenter);
+    regles->addWidget(viewStats, Qt::AlignCenter);
     regles->addStretch(1);
 
     middleLayout->addLayout(regles, Qt::AlignCenter);
@@ -789,4 +795,31 @@ void MainWindow::colorJoker(colorBonus *b){
     if (dialog.exec() == QDialog::Accepted) {
         *b = dialog.getColor();
     }
+}
+
+void MainWindow::showStats() {
+    QDialog* dialog = new QDialog(this); // Create a new QDialog instance
+
+    vector<Match *> matches = History::getHistory().getMatches();
+    std::string txt = "";
+    for (int i = 0; i < matches.size(); i++) {
+        // Gagnant
+        txt += "Gagnant: ";
+        txt += matches[i]->getWinner()->getName();
+        txt += " ";
+        txt += std::to_string(matches[i]->getScoreWinner()); // Convert score to string
+        txt += " - Perdant: ";
+        txt += matches[i]->getOpponent()->getName();
+        txt += " ";
+        txt += std::to_string(matches[i]->getScoreOpponent()); // Convert score to string
+        txt += "\n";
+    }
+
+    QLabel* text = new QLabel(QString::fromStdString(txt));
+    QVBoxLayout* layout = new QVBoxLayout(); // Use QVBoxLayout or another specific layout class
+    layout->addWidget(text);
+
+    dialog->setLayout(layout); // Set layout to the dialog
+    qDebug() << txt;
+    dialog->exec();
 }

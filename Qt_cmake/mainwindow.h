@@ -179,6 +179,7 @@ private slots:
     void showInfo(const string& string);
     void colorChoice(Color *c, int *nb);
     void colorJoker(colorBonus *b);
+    void showStats();
 
 public slots:
     void jetonClicked(Qt_jeton*);
