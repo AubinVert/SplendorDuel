@@ -515,6 +515,7 @@ void Joueur::choice_qt(){
     int nb_choice = 0;
     char info;
     while (!fin_choix){
+        QCoreApplication::processEvents();
         try{
             MainWindow::getMainWindow().deactivateButtons();
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode

@@ -111,7 +111,8 @@ void gameFromScratch(int argc, char *argv[]){
             MainWindow::getMainWindow().updateTirages();
             MainWindow::getMainWindow().updatePrivileges();
             MainWindow::getMainWindow().update();
-            // QThread::msleep(3000);
+
+            QCoreApplication::processEvents();
 
             from_error = 0;
 
@@ -137,9 +138,18 @@ void gameFromScratch(int argc, char *argv[]){
 
     cout<<"cartes des pioches : "<<endl;
 
-    cout<<Jeu::getJeu().getPioche(1)->getNbPioches()<< endl;
-    cout<<Jeu::getJeu().getPioche(2)->getNbPioches() << endl;
-    cout<<Jeu::getJeu().getPioche(3)->getNbPioches() << endl;
+    cout<<"Pioche 1: "<<endl;
+    for (auto card : Jeu::getJeu().getPioche(1)->getPioche()){
+        cout<<*card<<endl;
+    }
+    cout<<"Pioche 2: "<<endl;
+    for (auto card : Jeu::getJeu().getPioche(2)->getPioche()){
+        cout<<*card<<endl;
+    }
+    cout<<"Pioche 3: "<<endl;
+    for (auto card : Jeu::getJeu().getPioche(3)->getPioche()){
+        cout<<*card<<endl;
+    }
 
     Jeu::libereJeu();
 
@@ -305,7 +315,8 @@ void gameFromJson(int argc, char* argv[]){
             MainWindow::getMainWindow().updateTirages();
             MainWindow::getMainWindow().updatePrivileges();
             MainWindow::getMainWindow().update();
-            // QThread::msleep(3000);
+
+            QCoreApplication::processEvents();
 
             from_error = 0;
 
