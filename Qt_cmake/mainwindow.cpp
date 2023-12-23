@@ -17,20 +17,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     topRoyal1 = new QLabel(this);
     topRoyal1->setStyleSheet("background: transparent;");
-    topRoyal1->setFixedSize(75, 105);
+    topRoyal1->setFixedSize(50, 80);
     topRoyal1->setPixmap(QPixmap());
     topRoyal2 = new QLabel(this);
     topRoyal2->setStyleSheet("background: transparent;");
-    topRoyal2->setFixedSize(75, 105);
+    topRoyal2->setFixedSize(50, 80);
     topRoyal2->setPixmap(QPixmap());
 
     bottomRoyal1 = new QLabel(this);
     bottomRoyal1->setStyleSheet("background: transparent;");
-    bottomRoyal1->setFixedSize(75, 105);
+    bottomRoyal1->setFixedSize(50, 80);
     bottomRoyal1->setPixmap(QPixmap());
     bottomRoyal2 = new QLabel(this);
     bottomRoyal2->setStyleSheet("background: transparent;");
-    bottomRoyal2->setFixedSize(75, 105);
+    bottomRoyal2->setFixedSize(50, 80);
     bottomRoyal2->setPixmap(QPixmap());
 
     topPrivileges = new QLabel(this);
