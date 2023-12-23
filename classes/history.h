@@ -29,7 +29,10 @@ public:
 
     Match(json data);
 
-    ~Match() = default;
+    ~Match(){
+        delete gagnant;
+        delete adversaire;
+    }
 
     Strategy_player* getWinner() const{
         return gagnant;
@@ -73,7 +76,11 @@ private:
 
     History() = default;
 
-    ~History() = default;
+    ~History(){
+        for (int i = 0; i < nb_match; ++i) {
+            delete matches[i];
+        }
+    }
 
     History(const History &) = delete;
 
