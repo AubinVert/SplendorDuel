@@ -34,11 +34,11 @@ optional<colorBonus> getBonusFromString(const std::string& str);
 
 std::string toString(Color c);
 std::string toString(Capacity c);
-std ::string toString(optional<enum colorBonus> bonus);
+std ::string toString(optional<colorBonus> bonus);
 
 std::string toStringJson(Color c);
 std::string toStringJson(Capacity c);
-std ::string toStringJson(optional<enum colorBonus> bonus);
+std ::string toStringJson(optional<colorBonus> bonus);
 
 std::ostream& operator<<(std::ostream& f, Color c);
 std::ostream& operator<<(std::ostream& f, optional<Capacity> c);

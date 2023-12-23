@@ -11,22 +11,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     label->setPixmap(pixmap);
     label->show();
 
+    int facteur = 0.7;
     topRoyal1 = new QLabel(this);
     topRoyal1->setStyleSheet("background: transparent;");
-    topRoyal1->setFixedSize(75, 105);
+    topRoyal1->setFixedSize(75*facteur, 105*facteur);
     topRoyal1->setPixmap(QPixmap());
     topRoyal2 = new QLabel(this);
     topRoyal2->setStyleSheet("background: transparent;");
-    topRoyal2->setFixedSize(75, 105);
+    topRoyal2->setFixedSize(75*facteur, 105*facteur);
     topRoyal2->setPixmap(QPixmap());
 
     bottomRoyal1 = new QLabel(this);
     bottomRoyal1->setStyleSheet("background: transparent;");
-    bottomRoyal1->setFixedSize(75, 105);
+    bottomRoyal1->setFixedSize(75*facteur, 105*facteur);
     bottomRoyal1->setPixmap(QPixmap());
     bottomRoyal2 = new QLabel(this);
     bottomRoyal2->setStyleSheet("background: transparent;");
-    bottomRoyal2->setFixedSize(75, 105);
+    bottomRoyal2->setFixedSize(75*facteur, 105*facteur);
     bottomRoyal2->setPixmap(QPixmap());
 
     topPrivileges = new QLabel(this);
@@ -658,7 +659,7 @@ void MainWindow::jetonClicked(Qt_jeton* j){
 void MainWindow::carteClicked(Qt_carte* c){
     if (c != nullptr) qDebug() << "Carte cliquée : " << c->getIndice() << c->getReservee();
     else qDebug() << "nullptr carte";
-    if (c->getCard() != nullptr || c->getIndice() < 0) setDerniereCarteClick(c);
+    if (c != nullptr and (c->getCard() != nullptr || c->getIndice() < 0)) setDerniereCarteClick(c);
     else qDebug() << "carte click problem";
     MainWindow::getMainWindow().carteActionDone();
 }

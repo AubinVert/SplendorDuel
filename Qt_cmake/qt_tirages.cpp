@@ -12,6 +12,10 @@ Qt_Tirages::Qt_Tirages(QWidget *parent) : QWidget(parent) {
     deck2 = new Qt_carte(this);
     deck3 = new Qt_carte(this);
 
+//    deck1->setIndice(-1);
+//    deck2->setIndice(-2);
+//    deck3->setIndice(-3);
+
     royalCardsImage = nullptr;
 
     // Setup each tier
@@ -48,19 +52,25 @@ void Qt_Tirages::setupTierLayout(QHBoxLayout *&layout, std::vector<Qt_carte*> &c
         layout->addWidget(card);
     }
 
-   if (deck != nullptr) {
+    if (deck != nullptr) {
         switch(cardCount){
-        case 5:
-            deck->setIndice(-1);
-        case 4:
-            deck->setIndice(-2);
-        case 3:
-            deck->setIndice(-3);
+            case 5: {
+                deck->setIndice(-1);
+                break;
+            }
+            case 4: {
+                deck->setIndice(-2);
+                break;
+            }
+            case 3: {
+                deck->setIndice(-3);
+                break;
+            }
        }
 
-        deck->setFixedSize(75, 105);
-        deck->setStyleSheet("background: transparent;");
-        layout->addWidget(deck);
+    deck->setFixedSize(75, 105);
+    deck->setStyleSheet("background: transparent;");
+    layout->addWidget(deck);
     }
 }
 

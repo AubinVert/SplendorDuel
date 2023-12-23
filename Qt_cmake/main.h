@@ -137,9 +137,9 @@ void gameFromScratch(int argc, char *argv[]){
 
     cout<<"cartes des pioches : "<<endl;
 
-    cout<<Jeu::getJeu().get_tirage_1()->getPioche().getPioche().size() << endl;
-    cout<<Jeu::getJeu().get_tirage_2()->getPioche().getPioche().size() << endl;
-    cout<<Jeu::getJeu().get_tirage_3()->getPioche().getPioche().size() << endl;
+    cout<<Jeu::getJeu().getPioche(1)->getNbPioches()<< endl;
+    cout<<Jeu::getJeu().getPioche(2)->getNbPioches() << endl;
+    cout<<Jeu::getJeu().getPioche(3)->getNbPioches() << endl;
 
     Jeu::libereJeu();
 
