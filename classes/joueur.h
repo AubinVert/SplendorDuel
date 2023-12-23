@@ -321,7 +321,7 @@ public:
 
     // Méthodes polymorphiques adaptées pour une IA
     void choice();
-    void choice_qt() {choice();}
+    void choice_qt();
     void utilisationPrivilege();
     void utilisationPrivilege_qt() {utilisationPrivilege();}
     void selection_jetons();

@@ -515,7 +515,6 @@ void Joueur::choice_qt(){
     int nb_choice = 0;
     char info;
     while (!fin_choix){
-        QCoreApplication::processEvents();
         try{
             MainWindow::getMainWindow().deactivateButtons();
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
@@ -2124,6 +2123,156 @@ void IA::choice() {
     bool fin_choix = 0;
     int nb_choice = 0;
     while (!fin_choix) {
+        try {
+            int i = 0;
+            nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
+            i += nb_choice+2;
+            int tmp = rand()%i +1 ;
+
+            if (tmp < 1 or tmp > i+1) {
+                throw SplendorException(
+                        "Il n'y a que" + to_string(i) + " choix! Vous ne pouvez pas choisir autre chose!\n");
+            }
+            switch (nb_choice) { // l'affichage et donc le choix dépend de la valeur de retour des choix optionnels
+                case (0): { // aucun choix optionnel possible
+                    switch (tmp) {
+                        case 1: {
+                            cout<<"L'IA sélectionne des jetons!"<<endl;
+                            selection_jetons();
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 2: {
+                            cout<<"L'IA achète des cartes!"<<endl;
+                            achat_carte();
+                            fin_choix = 1;
+
+                            break;
+                        }
+//                        case 3: {
+//                            // affichage des jetons du jouer !
+//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
+//                            // afficher pour chaque type
+//                            break;
+//                        }
+                        default: // on continue jusqu'à ce que l'utilisateur choisisse une entrée valide!
+                            break;
+                    }
+                    break;
+                }
+                case (1): { // seulement possible d'utiliser un privilège
+                    switch (tmp) {
+                        case 1: {
+                            cout<<"L'IA utilise un privilège!"<<endl;
+                            utilisationPrivilege();
+                            break;
+                        }
+                        case 2: {
+                            cout<<"L'IA sélectionne des jetons!"<<endl;
+                            selection_jetons();
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 3: {
+                            cout<<"L'IA achète des cartes!"<<endl;
+                            achat_carte();
+                            fin_choix = 1;
+                            break;
+                        }
+//                        case 4: {
+//                            // affichage des jetons du jouer !
+//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
+//                            // afficher pour chaque type
+//                            break;
+//                        }
+                        default:
+                            break;
+                    }
+                    break;
+                }
+                case (2): { // seulement possible de remplir le plateau
+                    switch (tmp) {
+                        case 1: { // remplissage plateau
+                            cout<<"L'IA remplie le plateau!"<<endl;
+                            remplissagePlateau();
+                            break;
+                        }
+                        case 2: {
+                            cout<<"L'IA sélectionne des jetons!"<<endl;
+                            selection_jetons();
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 3: {
+                            cout<<"L'IA achète des cartes!"<<endl;
+                            achat_carte();
+                            fin_choix = 1;
+                            break;
+                        }
+//                        case 4: {
+//                            // affichage des jetons du jouer !
+//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
+//                            // afficher pour chaque type
+//                            break;
+//                        }
+                        default:
+                            break;
+                    }
+                    break;
+                }
+                case (3): { // deux choix optionnels possibles
+                    switch (tmp) {
+                        case 1: {
+                            cout<<"L'IA utilise un privilège!"<<endl;
+                            utilisationPrivilege();
+                            break;
+                        }
+                        case 2: { // remplissage plateau
+                            cout<<"L'IA remplie le plateau!"<<endl;
+                            remplissagePlateau();
+                            break;
+                        }
+                        case 3: {
+                            cout<<"L'IA sélectionne des jetons!"<<endl;
+                            selection_jetons();
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 4: {
+                            cout<<"L'IA achète des cartes!"<<endl;
+                            achat_carte();
+                            fin_choix = 1;
+                            break;
+                        }
+//                        case 5: {
+//                            // affichage des jetons du jouer !
+//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
+//                            // afficher pour chaque type
+//                            break;
+//                        }
+                        default:
+                            break;
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+
+        } catch (SplendorException &e) {
+            cout << e.getInfos() << "\n";
+        }
+    }
+}
+
+// surcharge Qt
+
+void IA::choice_qt() {
+    cout<<"choix IA:"<<endl;
+    bool fin_choix = 0;
+    int nb_choice = 0;
+    while (!fin_choix) {
+        QCoreApplication::processEvents();
         try {
             int i = 0;
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode

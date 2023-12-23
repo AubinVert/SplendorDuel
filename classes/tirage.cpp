@@ -8,20 +8,11 @@ void Tirage::remplirTirage() {
 
     vector<const JewelryCard*> p = this->pioche.getPioche();
 
-        int max_p = p.size();
-        while(this->nb_cartes < this->max_cartes && !this->pioche.est_vide() && this->nb_cartes < max_p){
+        while(this->nb_cartes < this->max_cartes && !this->pioche.est_vide() ){
 
             const JewelryCard& c = this->pioche.getCarte();
             this->cartes.push_back(&c);
             this->nb_cartes++;
-        }
-
-    if(this->pioche.est_vide()) {
-            throw SplendorException("La pioche est vide !");
-        }
-
-        else if(this->nb_cartes < this->max_cartes) {
-            throw SplendorException("La pioche fournie ne remplit pas complètement la capacité maximum du tirage !");
         }
 }
 
