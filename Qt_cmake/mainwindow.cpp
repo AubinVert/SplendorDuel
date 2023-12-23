@@ -1,7 +1,10 @@
 #include "mainwindow.h"
-
+#include "../classes/history.h"
+#include <math.h>
 #include "qt_popup_couleur.h"
 #include "qt_popup_joker.h"
+#include <sstream>
+#include <QDialog>
 
 MainWindow::Handler MainWindow::handler;
 
@@ -133,9 +136,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
 
     // Ajouter le bouton de règles
     QPushButton *viewRegles = new QPushButton("Voir règles", this);
+    QPushButton *viewStats = new QPushButton("Historique des matchs", this);
+    QPushButton *viewStatsPlayers = new QPushButton("Statistiques des joueurs", this);
     viewRegles->setStyleSheet("color: rgba(255, 255, 255, 255);");
     viewRegles->setFixedWidth(397 / 3);
     connect(viewRegles, &QPushButton::clicked, this, &MainWindow::openWebLink);
+    connect(viewStats, &QPushButton::clicked, this, &MainWindow::showStats);
+    connect(viewStatsPlayers, &QPushButton::clicked, this, &MainWindow::showStatsPlayers);
+
 
     // Conditions de victoire et son image
     QLabel *conditionsVictoire = new QLabel(this);
@@ -147,6 +155,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     // Les rajouter au layout
     regles->addWidget(conditionsVictoire, Qt::AlignCenter);
     regles->addWidget(viewRegles, Qt::AlignCenter);
+    regles->addWidget(viewStats, Qt::AlignCenter);
+    regles->addWidget(viewStatsPlayers, Qt::AlignCenter);
     regles->addStretch(1);
 
     middleLayout->addLayout(regles, Qt::AlignCenter);
@@ -397,7 +407,6 @@ void MainWindow::showReservedCardsTop() {
     cardsDialog->setLayout(layout);
     cardsDialog->exec(); // L'afficher
 }
-
 
 void MainWindow::updateTopScore(int score) {
     topScoreDisplay->display(score);
@@ -684,7 +693,6 @@ void MainWindow::carteClicked(Qt_carte* c){
     MainWindow::getMainWindow().carteActionDone();
 }
 
-
 void MainWindow::deactivateButtons(){
     // Jetons
     int nbmax = Jeton::getNbMaxJetons();
@@ -810,4 +818,113 @@ void MainWindow::colorJoker(colorBonus *b){
     if (dialog.exec() == QDialog::Accepted) {
         *b = dialog.getColor();
     }
+}
+
+void MainWindow::showStats() {
+    QDialog* dialog = new QDialog(this); // Create a new QDialog instance
+
+    vector<Match *> matches = History::getHistory().getMatches();
+    std::string txt = "";
+    if(matches.size() != 0){
+        txt += "Historique des matchs : ";txt+="\n\n";
+
+        for (int i = 0; i < matches.size(); i++) {
+            txt+="\n";
+            txt += "   Match ";txt+=std::to_string(i+1);txt+="    ||    Score : ";txt += std::to_string(matches[i]->getScoreWinner()); txt+= " - ";        txt += std::to_string(matches[i]->getScoreOpponent()); txt+="\n";
+            txt += "      Joueur gagnant :    ";txt += matches[i]->getWinner()->getName();txt+="\n";
+            txt += "      Joueur perdant :    ";txt += matches[i]->getOpponent()->getName();txt+="\n";
+
+
+        }
+    }else{
+        txt+="Pas de match dans l'historique !";
+    }
+
+
+
+    QLabel* text = new QLabel(QString::fromStdString(txt));
+    QVBoxLayout* layout = new QVBoxLayout(); // Use QVBoxLayout or another specific layout class
+    layout->addWidget(text);
+
+    dialog->setLayout(layout); // Set layout to the dialog
+    qDebug() << txt;
+    dialog->exec();
+}
+
+
+const bool inside(const std::string s, vector<std::string> vect){
+    for (int i = 0; i < vect.size(); ++i) {
+        if(vect[i] == s){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+template <typename T>
+std::string to_string_with_precision(const T a_value, const int n = 6)
+{
+    std::ostringstream out;
+    out.precision(n);
+    out << std::fixed << a_value;
+    return out.str();
+}
+
+
+void MainWindow::showStatsPlayers() {
+
+    QDialog* dialog = new QDialog(this); // Create a new QDialog instance
+
+    vector<Match *> matches = History::getHistory().getMatches();
+    vector<std::string> names;
+
+
+    std::string txt = "";
+    if(matches.size() != 0){
+        txt += "Statistique des joueurs  ";txt+="\n\n\n";
+        txt += "Nombre total de joueurs : ";txt+=std::to_string(History::getHistory().getNbPlayers());
+        txt+="\n";
+        for (int i = 0; i < matches.size(); i++) {
+            // ici pour les statistiques si on a pas déjà ajouté la personne donc si son nom n'est pas encore dans le tableau
+
+            if(!inside(matches[i]->getWinner()->getName(), names)){
+                // alors on affiche les stats du joueur
+                txt+="\n";
+                txt += "  Joueur : ";txt+=matches[i]->getWinner()->getName();txt+="\n";
+                txt += "    Nombre de matchs joués : ";txt+=std::to_string(matches[i]->getWinner()->getPlayed());txt+="\n";
+                txt += "    Nombre de matches gagnés : ";txt+=std::to_string(matches[i]->getWinner()->getWins());
+                float moy = (float)(matches[i]->getWinner()->getWins())/(float)(matches[i]->getWinner()->getPlayed());
+                txt += " -    Pourcentage de victoire : ";txt+=to_string_with_precision(moy*100,2);txt+="%";
+                txt += "\n";
+                names.push_back(matches[i]->getWinner()->getName());
+            }
+
+            if(!inside(matches[i]->getOpponent()->getName(), names)){
+                // alors on affiche les stats du joueur
+                txt+="\n";
+                txt += "  Joueur : ";txt+=matches[i]->getOpponent()->getName();txt+="\n";
+                txt += "    Nombre de matchs joués : ";txt+=std::to_string(matches[i]->getOpponent()->getPlayed());txt+="\n";
+                txt += "    Nombre de matches gagnés : ";txt+=std::to_string(matches[i]->getOpponent()->getWins());
+                float moy = (float)(matches[i]->getOpponent()->getWins())/(float)(matches[i]->getOpponent()->getPlayed());
+                txt += " -    Pourcentage de victoire : ";txt+=to_string_with_precision(moy*100,2);txt+="%";
+                txt += "\n";
+                names.push_back(matches[i]->getOpponent()->getName());
+            }
+
+        }
+    }else{
+        txt+="Pas de statistiques des joueurs";
+    }
+
+
+
+    QLabel* text = new QLabel(QString::fromStdString(txt));
+    QVBoxLayout* layout = new QVBoxLayout(); // Use QVBoxLayout or another specific layout class
+    layout->addWidget(text);
+
+    dialog->setLayout(layout); // Set layout to the dialog
+    qDebug() << txt;
+    dialog->exec();
 }
