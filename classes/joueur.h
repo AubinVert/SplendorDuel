@@ -254,6 +254,7 @@ public:
     void reserver_carte(Pioche *p);
     void piocher_jeton( int i);
     void obtainRoyaleCard(unsigned int i);
+    void obtainRoyaleCard_qt(unsigned int i);
     bool royaleCardEligibility();
     bool jokerCardEligibility();
     void obtainPrivilege();

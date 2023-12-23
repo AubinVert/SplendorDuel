@@ -69,36 +69,6 @@ void gameFromScratch(int argc, char *argv[]){
             // qDebug() << Jeu::getJeu().getCurrentPlayer().getName();
             MainWindow::getMainWindow().updateQuiJoue();
 
-            /*
-            cout<<"Etat des joueurs : "<<endl;
-            Jeu::getJeu().getCurrentPlayer().print_player();
-            cout<<"Bonus blanc"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::blanc)<<endl;
-            cout<<"Bonus vert"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::vert)<<endl;
-            cout<<"Bonus bleu"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::bleu)<<endl;
-            cout<<"Bonus rouge"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::red)<<endl;
-            cout<<"Bonus noir"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::noir)<<endl;
-            cout<<"Bonus joker"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::joker)<<endl;
-            cout<<endl;
-            */
-
-            // cout<<"Il y a "<<Sac::get_sac().get_nb_sac()<<" jetons dans le sac."<<endl;
-
-            /*
-            cout<<"\n\nPlateau :"<<endl;
-            Plateau::get_plateau().printTab();
-
-            cout<<"\n\nTirage1 :"<<endl;
-            cout<<*Jeu::getJeu().get_tirage_1()<<endl;
-            cout<<"\nTirage2 :"<<endl;
-            cout<<*Jeu::getJeu().get_tirage_2()<<endl;
-            cout<<"\nTirage3 :"<<endl;
-            cout<<*Jeu::getJeu().get_tirage_3()<<endl;
-            */
-
-
-            // cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
-            // Faire un popup avec c'est à de jouer
-
             try{
                 toJson();
             }catch (SplendorException &e){
@@ -114,6 +84,8 @@ void gameFromScratch(int argc, char *argv[]){
             // update affichage
 
             Jeu::getJeu().getCurrentPlayer().verifJetons_qt();
+
+
 
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
                 Jeu::getJeu().getCurrentPlayer().selectionRoyalCard_qt();
@@ -154,20 +126,24 @@ void gameFromScratch(int argc, char *argv[]){
     Jeu::getJeu().getCurrentPlayer().game_ended(1);
     Jeu::getJeu().getOpponent().game_ended(0);
 
-    cout<<"cartes des pioches : "<<endl;
+    cout<<"Stats du perdant : "<<endl;
+    Jeu::getJeu().getOpponent().print_player();
 
-    cout<<"Pioche 1: "<<endl;
-    for (auto card : Jeu::getJeu().getPioche(1)->getPioche()){
-        cout<<*card<<endl;
-    }
-    cout<<"Pioche 2: "<<endl;
-    for (auto card : Jeu::getJeu().getPioche(2)->getPioche()){
-        cout<<*card<<endl;
-    }
-    cout<<"Pioche 3: "<<endl;
-    for (auto card : Jeu::getJeu().getPioche(3)->getPioche()){
-        cout<<*card<<endl;
-    }
+
+//    cout<<"cartes des pioches : "<<endl;
+//
+//    cout<<"Pioche 1: "<<endl;
+//    for (auto card : Jeu::getJeu().getPioche(1)->getPioche()){
+//        cout<<*card<<endl;
+//    }
+//    cout<<"Pioche 2: "<<endl;
+//    for (auto card : Jeu::getJeu().getPioche(2)->getPioche()){
+//        cout<<*card<<endl;
+//    }
+//    cout<<"Pioche 3: "<<endl;
+//    for (auto card : Jeu::getJeu().getPioche(3)->getPioche()){
+//        cout<<*card<<endl;
+//    }
 
     try{
         Hist();

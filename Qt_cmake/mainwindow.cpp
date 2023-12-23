@@ -11,23 +11,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     label->setPixmap(pixmap);
     label->show();
 
-    int facteur = 0.7;
     topRoyal1 = new QLabel(this);
     topRoyal1->setStyleSheet("background: transparent;");
-    topRoyal1->setFixedSize(75*facteur, 105*facteur);
+    topRoyal1->setFixedSize(75, 105);
     topRoyal1->setPixmap(QPixmap());
     topRoyal2 = new QLabel(this);
     topRoyal2->setStyleSheet("background: transparent;");
-    topRoyal2->setFixedSize(75*facteur, 105*facteur);
+    topRoyal2->setFixedSize(75, 105);
     topRoyal2->setPixmap(QPixmap());
 
     bottomRoyal1 = new QLabel(this);
     bottomRoyal1->setStyleSheet("background: transparent;");
-    bottomRoyal1->setFixedSize(75*facteur, 105*facteur);
+    bottomRoyal1->setFixedSize(75, 105);
     bottomRoyal1->setPixmap(QPixmap());
     bottomRoyal2 = new QLabel(this);
     bottomRoyal2->setStyleSheet("background: transparent;");
-    bottomRoyal2->setFixedSize(75*facteur, 105*facteur);
+    bottomRoyal2->setFixedSize(75, 105);
     bottomRoyal2->setPixmap(QPixmap());
 
     topPrivileges = new QLabel(this);
@@ -329,6 +328,7 @@ void MainWindow::showBoughtCardsTop() {
 void MainWindow::showJetonsTop() {
     QDialog *jetonsDialog = new QDialog(this);
     jetonsDialog->setStyleSheet("background-image: url('../src/background.jpg'); background-position: center;");
+    setCurrentDialog(jetonsDialog);
 
 
     QVBoxLayout* verticallayout = new QVBoxLayout(jetonsDialog);
@@ -358,6 +358,7 @@ void MainWindow::showJetonsTop() {
         if (i < nb && MainWindow::getMainWindow().getStealingJeton() == true && Jeu::getJeu().getOpponent().getJeton()[i]->getColor() != Color::gold) {
             j->setDisabled(false);
             connect(j, &Qt_jeton::jetonClicked, &MainWindow::getMainWindow(), &MainWindow::jetonClicked);
+            connect(j, &Qt_jeton::jetonClicked, jetonsDialog, &QDialog::accept);
         }
         j->updateAppearance();
     }
@@ -513,18 +514,27 @@ void MainWindow::updateTirages(){
     int top_privileges = Jeu::getJeu().getOpponent().getNbPrivileges();
     topPrivileges->setText("Nombre privilèges: " + QString::fromStdString(std::to_string(top_privileges)));
     switch(Jeu::getJeu().getOpponent().getNbCartesRoyales()){
-        case 0:
+        case 0: {
+            topRoyal1->setPixmap(QPixmap());
+            topRoyal2->setPixmap(QPixmap());
             break;
-        case 1:
-            topRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[0]->getVisuel()))
-                                         .scaled(topRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
+        case 1: {
+            topRoyal1->setPixmap(
+                    QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[0]->getVisuel()))
+                            .scaled(topRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            topRoyal2->setPixmap(QPixmap());
             break;
-        case 2:
-            topRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[0]->getVisuel()))
-                                         .scaled(topRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            topRoyal2->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[1]->getVisuel()))
-                                         .scaled(topRoyal2->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
+        case 2: {
+            topRoyal1->setPixmap(
+                    QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[0]->getVisuel()))
+                            .scaled(topRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            topRoyal2->setPixmap(
+                    QPixmap(QString::fromStdString(Jeu::getJeu().getOpponent().getRoyalCards()[1]->getVisuel()))
+                            .scaled(topRoyal2->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
             break;
+        }
     }
 
 
@@ -532,18 +542,28 @@ void MainWindow::updateTirages(){
     int bottom_privileges = Jeu::getJeu().getCurrentPlayer().getNbPrivileges();
     bottomPrivileges->setText("Nombre privilèges: " + QString::fromStdString(std::to_string(bottom_privileges)));
     switch(Jeu::getJeu().getCurrentPlayer().getNbCartesRoyales()){
-        case 0:
+        case 0: {
+            bottomRoyal1->setPixmap(QPixmap());
+            bottomRoyal2->setPixmap(QPixmap());
             break;
-        case 1:
-            bottomRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[0]->getVisuel()))
-                                         .scaled(bottomRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
+        case 1: {
+            bottomRoyal1->setPixmap(
+                    QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[0]->getVisuel()))
+                            .scaled(bottomRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            bottomRoyal2->setPixmap(QPixmap());
+
             break;
-        case 2:
-            bottomRoyal1->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[0]->getVisuel()))
-                                         .scaled(bottomRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            bottomRoyal2->setPixmap(QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[1]->getVisuel()))
-                                         .scaled(bottomRoyal2->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
+        case 2: {
+            bottomRoyal1->setPixmap(
+                    QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[0]->getVisuel()))
+                            .scaled(bottomRoyal1->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            bottomRoyal2->setPixmap(
+                    QPixmap(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getRoyalCards()[1]->getVisuel()))
+                            .scaled(bottomRoyal2->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
             break;
+        }
     }
 
 }

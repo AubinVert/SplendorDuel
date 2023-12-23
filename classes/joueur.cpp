@@ -159,6 +159,21 @@ void Strategy_player::obtainRoyaleCard(unsigned int i) {
 
     Jeu::getJeu().getCurrentPlayer().applicationCapaciteRoyale(tmp, Jeu::getJeu().getOpponent());
 }
+// Surcharge Qt
+void Strategy_player::obtainRoyaleCard_qt(unsigned int i) {
+    // on prend une carte dans le jeu
+    if(i>Jeu::getJeu().getCartesRoyales().size()){
+        throw SplendorException("Carte non disponible");
+    }
+    //if (royaleCardEligibility() == false) throw SplendorException("Pas eligible.");
+    const RoyalCard& tmp = Jeu::getJeu().pullCarteRoyale(i);
+    cartes_royale.push_back(&tmp);
+    // ENLEVER DU jeu
+    nb_cartes_r++;
+    nb_points += tmp.getPrestige();
+
+    Jeu::getJeu().getCurrentPlayer().applicationCapaciteRoyale_qt(tmp, Jeu::getJeu().getOpponent());
+}
 
 bool Strategy_player::royaleCardEligibility() {
     if (nb_courones >= 3 and nb_courones < 6 and nb_cartes_r == 0){
@@ -1246,22 +1261,26 @@ void Joueur::applicationCapacite_qt(const JewelryCard& carte, Strategy_player& a
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            MainWindow::getMainWindow().setStealingJeton(true);
+            if(Jeu::getJeu().getOpponent().getNbJetons() != 0){
+                MainWindow::getMainWindow().deactivateButtons();
+                MainWindow::getMainWindow().setStealingJeton(true);
 
-            MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire");
-            MainWindow::getMainWindow().getJetonWaitLoop()->exec();
+                MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous devez prendre un jeton gemme ou perle à votre adversaire");
+                MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
-            int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
+                int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
 
-            qDebug() <<indice;
+                qDebug() <<indice;
 
-            // Ajout chez le joueur et suppression chez l'adversaire
-            vector<const Jeton*>& jetons_adversaire = adversaire.getJeton();
-            jetons.push_back(jetons_adversaire[indice]);
-            nb_jetons++;
-            jetons_adversaire.erase(jetons_adversaire.begin()+indice);
-            adversaire.setNbJetons(adversaire.getNbJetons()-1);
-            MainWindow::getMainWindow().setStealingJeton(false);
+                // Ajout chez le joueur et suppression chez l'adversaire
+                vector<const Jeton*>& jetons_adversaire = adversaire.getJeton();
+                jetons.push_back(jetons_adversaire[indice]);
+                nb_jetons++;
+                jetons_adversaire.erase(jetons_adversaire.begin()+indice);
+                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+                MainWindow::getMainWindow().setStealingJeton(false);
+            }
+
 
         }
         else if (capa == Capacity::prendre_privilege){
@@ -1344,23 +1363,25 @@ void Joueur::applicationCapaciteRoyale_qt(const RoyalCard& carte, Strategy_playe
     if (carte.getCapacite().has_value()){
         std::optional<Capacity> capa = carte.getCapacite();
         if (capa == Capacity::voler_pion_adverse){
-            MainWindow::getMainWindow().setStealingJeton(true);
+            if(Jeu::getJeu().getOpponent().getNbJetons() != 0){
+                MainWindow::getMainWindow().deactivateButtons();
+                MainWindow::getMainWindow().setStealingJeton(true);
 
-            MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous pouvez prendre un jeton gemme ou perle à votre adversaire");
-            MainWindow::getMainWindow().getJetonWaitLoop()->exec();
+                MainWindow::getMainWindow().triggerInfo("Utilisation de capacité : vous devez prendre un jeton gemme ou perle à votre adversaire");
+                MainWindow::getMainWindow().getJetonWaitLoop()->exec();
 
-            int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
+                int indice = MainWindow::getMainWindow().getIndiceJetonClick(); // indice à récupérer grace au qt
 
-            qDebug() <<indice;
+                qDebug() <<indice;
 
-            // Ajout chez le joueur et suppression chez l'adversaire
-            vector<const Jeton*>& jetons_adversaire = adversaire.getJeton();
-            jetons.push_back(jetons_adversaire[indice]);
-            nb_jetons++;
-            jetons_adversaire.erase(jetons_adversaire.begin()+indice);
-            adversaire.setNbJetons(adversaire.getNbJetons()-1);
-            MainWindow::getMainWindow().setStealingJeton(false);
-
+                // Ajout chez le joueur et suppression chez l'adversaire
+                vector<const Jeton*>& jetons_adversaire = adversaire.getJeton();
+                jetons.push_back(jetons_adversaire[indice]);
+                nb_jetons++;
+                jetons_adversaire.erase(jetons_adversaire.begin()+indice);
+                adversaire.setNbJetons(adversaire.getNbJetons()-1);
+                MainWindow::getMainWindow().setStealingJeton(false);
+            }
         }
         else if (capa == Capacity::prendre_privilege){
             // Rien à changer dans la Qt
@@ -1970,51 +1991,22 @@ void Joueur::selectionRoyalCard(){
 
     }
     obtainRoyaleCard(tmp);
+
 }
 
 // Surcharge Qt
 
 void Joueur::selectionRoyalCard_qt(){
-    /*
-    cout<<"Votre nombre de couronne vous donne le droit de piocher une carte royale!"<<endl;
-    Jeu::getJeu().printCarteRoyale();
-    int tmp;
-    bool choix_ok = 0;
-    while(!choix_ok) {
-        cout << "Veuillez entrer l'indice de la carte royale que vous souhaitez prendre:" << endl;
-        cout << "choix: ";
-        cin >> tmp;
-        if (tmp >= 0 and tmp < Jeu::getJeu().getCartesRoyales().size()) {
-            string validate;
-            cout<<"Valider ? [Y/N] :"<<endl;
-            cout<<"choix : ";
-            cin>>validate;
-            if(validate=="Y"){
-                choix_ok = 1; // on peut sortir de la boucle
-            }
-        }
-        else{
-            cout<<"Indice de carte invalide!"<<endl;
-        }
 
-    }*/
-    // Popup avec titre "Votre nombre de couronne vous donne le droit de piocher une carte royale!"
-    // Activation des boutons des cartes royales
-    // Attention à ce qu'on ne puisse pas cliquer aux emplacement vides
-
-    // qDebug() << "Carte qt";
     MainWindow::getMainWindow().activateForRoyalCard();
     MainWindow::getMainWindow().getCarteWaitLoop()->exec();
 
-    // Click carte et récup la ref de la carte et indice dans tirage ou dans les cartes reservées
-    // Pour bon fonctionnement, vérifier que la fenetre d'affichage des cartes reservées soit bien refermée
-    // @Alex stp sauve moi j'y arrive pas
 
     Qt_carte* carte_click = MainWindow::getMainWindow().getDerniereCarteClick();
 
     int tmp = carte_click->getIndice(); // Récupération de l'indice à l'aide d'un signal ici
 
-    obtainRoyaleCard(tmp);
+    obtainRoyaleCard_qt(tmp);
 }
 
 void Joueur::verifJetons(){
