@@ -181,7 +181,6 @@ public:
         j["id"] = get_id();
         j["color"] = getColor();
         j["visuel"] = getVisuel();
-        j["place"] = place;
         return j;
     }
 

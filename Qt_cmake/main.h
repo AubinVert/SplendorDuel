@@ -22,6 +22,22 @@ void gameFromScratch(int argc, char *argv[]){
 
     srand(static_cast<unsigned>(std::time(nullptr)));
 
+    try{
+        std::ifstream file("../src/history.json");
+
+        if (!file.is_open()) {
+            std::cerr << "Failed to open the JSON file." << std::endl;
+            throw SplendorException("Fichier non ouvert");
+        }
+        json hist;
+        file >> hist;
+        file.close();
+        History::getHistory().initHistory(hist);
+    }catch (SplendorException &e){
+        cout<< " Historique non ouvert "<<endl;
+    }
+
+
     // Init le jeu
     Jeu::getJeu();
 
@@ -135,6 +151,8 @@ void gameFromScratch(int argc, char *argv[]){
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+    Jeu::getJeu().getCurrentPlayer().game_ended(1);
+    Jeu::getJeu().getOpponent().game_ended(0);
 
     cout<<"cartes des pioches : "<<endl;
 
@@ -149,6 +167,13 @@ void gameFromScratch(int argc, char *argv[]){
     cout<<"Pioche 3: "<<endl;
     for (auto card : Jeu::getJeu().getPioche(3)->getPioche()){
         cout<<*card<<endl;
+    }
+
+    try{
+        Hist();
+        toJson();
+    }catch (SplendorException &e){
+        cout<<e.getInfos()<<endl;
     }
 
     Jeu::libereJeu();
@@ -333,6 +358,15 @@ void gameFromJson(int argc, char* argv[]){
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+    Jeu::getJeu().getCurrentPlayer().game_ended(1);
+    Jeu::getJeu().getOpponent().game_ended(0);
+
+    try{
+        Hist();
+        toJson();
+    }catch (SplendorException &e){
+        cout<<e.getInfos()<<endl;
+    }
 
     Jeu::libereJeu();
 
