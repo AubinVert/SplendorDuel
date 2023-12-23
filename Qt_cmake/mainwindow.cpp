@@ -895,7 +895,25 @@ void MainWindow::showStatsPlayers() {
 
     std::string txt = "";
     if(matches.size() != 0){
-        txt += "Statistique des joueurs  ";txt+="\n\n\n";
+        txt += "Nombre de parties jouées :  ";
+        txt += to_string(matches.size());txt+="\n";
+
+        txt +=  "Nombre de points pour gagner en moyenne : ";
+        float winner_points = 0, loser_points = 0;
+        for (int i = 0; i < matches.size(); ++i) {
+            winner_points += (float)matches[i]->getScoreWinner();
+            loser_points += (float)matches[i]->getScoreOpponent();
+        }
+        winner_points = winner_points/matches.size();
+        loser_points = loser_points/matches.size();
+        txt+= to_string_with_precision(winner_points,2);txt+="\n";
+        txt +=  "Nombre de points des perdants en moyenne : ";
+        txt+= to_string_with_precision(loser_points,2);txt+="\n";
+
+        txt+="\n\n";
+
+
+        txt += "Statistique des joueurs  ";txt+="\n\n";
         txt += "Nombre total de joueurs : ";txt+=std::to_string(History::getHistory().getNbPlayers());
         txt+="\n";
         for (int i = 0; i < matches.size(); i++) {
