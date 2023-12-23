@@ -30,7 +30,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), buyingCard(false)
     bottomRoyal2->setPixmap(QPixmap());
 
     topPrivileges = new QLabel(this);
+    topPrivileges->setStyleSheet("QLabel { color: white;}");
     bottomPrivileges = new QLabel(this);
+    bottomPrivileges->setStyleSheet("QLabel { color: white;}");
 
     jeu = &Jeu::getJeu();
 
