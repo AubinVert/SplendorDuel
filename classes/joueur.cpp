@@ -2141,12 +2141,6 @@ void IA::choice() {
 
                             break;
                         }
-//                        case 3: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default: // on continue jusqu'à ce que l'utilisateur choisisse une entrée valide!
                             break;
                     }
@@ -2171,12 +2165,6 @@ void IA::choice() {
                             fin_choix = 1;
                             break;
                         }
-//                        case 4: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default:
                             break;
                     }
@@ -2201,12 +2189,6 @@ void IA::choice() {
                             fin_choix = 1;
                             break;
                         }
-//                        case 4: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default:
                             break;
                     }
@@ -2236,12 +2218,6 @@ void IA::choice() {
                             fin_choix = 1;
                             break;
                         }
-//                        case 5: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default:
                             break;
                     }
@@ -2288,15 +2264,8 @@ void IA::choice_qt() {
                             cout<<"L'IA achète des cartes!"<<endl;
                             achat_carte();
                             fin_choix = 1;
-
                             break;
                         }
-//                        case 3: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default: // on continue jusqu'à ce que l'utilisateur choisisse une entrée valide!
                             break;
                     }
@@ -2321,12 +2290,6 @@ void IA::choice_qt() {
                             fin_choix = 1;
                             break;
                         }
-//                        case 4: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default:
                             break;
                     }
@@ -2351,12 +2314,6 @@ void IA::choice_qt() {
                             fin_choix = 1;
                             break;
                         }
-//                        case 4: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default:
                             break;
                     }
@@ -2386,12 +2343,6 @@ void IA::choice_qt() {
                             fin_choix = 1;
                             break;
                         }
-//                        case 5: {
-//                            // affichage des jetons du jouer !
-//                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-//                            // afficher pour chaque type
-//                            break;
-//                        }
                         default:
                             break;
                     }

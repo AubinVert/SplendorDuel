@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     char tmp2 = 'Y';
     while(tmp2 == 'Y'){
 
-        popupYesNo relaunch(nullptr, "Voulez vous recommencer (Oui/Non) ?");
+        popupYesNo relaunch(nullptr, "Voulez vous rejouer (Oui) ou fermer (non) ?");
         relaunch.exec();
         try{
             tmp2 = relaunch.getUserChoice();
@@ -46,8 +46,6 @@ int main(int argc, char *argv[]) {
         }
 
     }
-
-    // libérer History et Match
 
     return app.exec();
 }

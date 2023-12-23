@@ -76,17 +76,17 @@ private:
 
     History() = default;
 
-    ~History(){
-        for (int i = 0; i < nb_match; ++i) {
-            delete matches[i];
-        }
-    }
-
     History(const History &) = delete;
 
     History &operator=(const History &) = delete;
 
 public:
+
+    ~History(){
+        for (int i = 0; i < nb_match; ++i) {
+            delete matches[i];
+        }
+    }
 
     void addPlayer() {
         nb_joueurs++;
