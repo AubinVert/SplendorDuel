@@ -12,14 +12,8 @@ qt_standard_project_setup()
 
 add_executable(lo21-splendor-duel
 
-        Qt_cmake/main.h
-        Qt_cmake/main.cpp
-        Qt_cmake/mainwindow.cpp
-        Qt_cmake/mainwindow.h
-        Qt_cmake/qt_plateau.cpp
-        Qt_cmake/qt_plateau.h
-        Qt_cmake/qt_tirages.cpp
-        Qt_cmake/qt_tirages.h
+        main.h
+        main.cpp
 
         classes/carte.cpp
         classes/carte.h
@@ -51,7 +45,6 @@ add_executable(lo21-splendor-duel
         Qt_cmake/qt_vue_jeton.cpp
         Qt_cmake/popup_text.h
         Qt_cmake/popup_text.cpp
-        Qt_cmake/main.h
         Qt_cmake/qt_choicepopup.h
         Qt_cmake/qt_popup_yesno.h
         Qt_cmake/qt_popup_info.h
@@ -59,27 +52,13 @@ add_executable(lo21-splendor-duel
         Qt_cmake/qt_popup_joker.cpp
         Qt_cmake/playerinputdialog.cpp
         Qt_cmake/qt_popup_couleur.cpp
-        main.h
-)
-
-include(GNUInstallDirs)
-
-
-# Specify the C++ source files
-set(SOURCES
-        classes/*.cpp
-        main.cpp
-        Qt_cmake/main_old.cpp
         Qt_cmake/mainwindow.cpp
-        Qt_cmake/plateau.cpp
-        Qt_cmake/tirages.cpp
+        Qt_cmake/mainwindow.h
+        Qt_cmake/qt_plateau.cpp
+        Qt_cmake/qt_plateau.h
+        Qt_cmake/qt_tirages.cpp
+        Qt_cmake/qt_tirages.h
 )
-
-# Specify the header files
-set(HEADERS
-        classes/*.h
-)
-
 
 include(FetchContent)
 

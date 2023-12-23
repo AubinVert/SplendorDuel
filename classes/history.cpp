@@ -217,8 +217,6 @@ void Hist(){
 
 }
 
-
-
 void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix2){
 
 

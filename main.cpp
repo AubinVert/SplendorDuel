@@ -1,21 +1,31 @@
+#include <QApplication>
+#include <QMainWindow>
+#include <QVBoxLayout>
+#include <QString>
+#include "Qt_cmake/mainwindow.h"
+#include "classes/jeu.h"
+#include "classes/joueur.h"
+#include "Qt_cmake/qt_popup_info.h"
+#include "Qt_cmake/qt_popup_yesno.h"
 #include "main.h"
 
-int main(){
 
-    char tmp;
-    cout<<"Bienvenue dans le jeu splendor duel ! "<<endl;
-    cout<<"voulez vous commencer une nouvelle partie ou finir la dernière partie en cours ? [N/R]"<<endl;
-    cin>>tmp;
-    while(tmp!='R' && tmp!='N'){
-        cout<<"voulez vous commencer une nouvelle partie ou finir la dernière partie en cours ? [N/R]"<<endl;
-        cin>>tmp;
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
+    InfoDialog info_dialog("Bienvenu dans le jeu Splendor Duel !");
+    info_dialog.exec();
+
+    popupYesNo yesno(nullptr, "Voulez vous commencer une nouvelle partie ou finir la dernière partie en cours (Oui/Non) ?");
+    yesno.exec();
+    char tmp = yesno.getUserChoice();
+
+    if(tmp == 'Y'){
+        gameFromScratch(argc, argv);
     }
-    if(tmp == 'N'){
-        gameFromScratch();
-    }
-    else{
-        gameFromJson();
+    else {
+        gameFromJson(argc, argv);
     }
 
-    return 0;
+    return app.exec();
 }
