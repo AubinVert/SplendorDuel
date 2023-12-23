@@ -21,6 +21,7 @@
 #include "qt_popup_info.h"
 #include "qt_popup_tirageoupioche.h"
 #include "qt_vue_jeton.h"
+#include "../classes/history.h"
 
 
 
@@ -88,6 +89,12 @@ private:
     bool discarding;
 
     QDialog* current_dialog;
+
+    void closeEvent(QCloseEvent *event) override {
+        Jeu::libereJeu();
+        History::freeHistory();
+        exit(0);
+    }
 
 public:
 
@@ -165,6 +172,8 @@ public:
     }
 
     void setCurrentDialog(QDialog* d) {current_dialog = d;}
+
+
 
 private slots:
     void showBoughtCardsTop();

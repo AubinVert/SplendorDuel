@@ -13,7 +13,7 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    InfoDialog info_dialog("Bienvenu dans le jeu Splendor Duel !");
+    InfoDialog info_dialog("Bienvenue dans le jeu Splendor Duel !");
     info_dialog.exec();
 
     popupYesNo yesno(nullptr, "Voulez vous commencer une nouvelle partie ou finir la dernière partie en cours (Oui/Non) ?");
