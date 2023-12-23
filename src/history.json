@@ -8,7 +8,7 @@
         "nom": "ia2"
       },
       "gagnant": {
-        "games": 2,
+        "games": 3,
         "games_won": 2,
         "is_ia": 1,
         "nom": "ia1"
@@ -24,14 +24,30 @@
         "nom": "ia2"
       },
       "gagnant": {
-        "games": 2,
+        "games": 3,
         "games_won": 2,
         "is_ia": 1,
         "nom": "ia1"
       },
       "score_adversaire": 19,
       "score_gagnant": 20
+    },
+    {
+      "adversaire": {
+        "games": 3,
+        "games_won": 2,
+        "is_ia": 1,
+        "nom": "ia1"
+      },
+      "gagnant": {
+        "games": 1,
+        "games_won": 1,
+        "is_ia": 1,
+        "nom": "ia3"
+      },
+      "score_adversaire": 5,
+      "score_gagnant": 20
     }
   ],
-  "nb_matches": 2
+  "nb_matches": 3
 }

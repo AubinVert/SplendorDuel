@@ -1,14 +1,8 @@
-#ifndef MAIN_H
-#define MAIN_H
-
 #ifndef LO21_SPLENDOR_DUEL_MAIN_H
 #define LO21_SPLENDOR_DUEL_MAIN_H
 
 #include <iostream>
-#include "../classes/history.h"
-#include "mainwindow.h"
-#include <QThread>
-#include <QApplication>
+#include "classes/history.h"
 
 void toJson(){
     json j = Jeu::getJeu().toJson();
@@ -18,8 +12,7 @@ void toJson(){
 }
 
 
-void gameFromScratch(int argc, char *argv[]){
-
+void gameFromScratch(){
     srand(static_cast<unsigned>(std::time(nullptr)));
 
     try{
@@ -38,24 +31,14 @@ void gameFromScratch(int argc, char *argv[]){
     }
 
 
-    // Init le jeu
+
+
     Jeu::getJeu();
+    cout<<"Privilèges dans le jeu:"<<endl;
 
-    MainWindow::getMainWindow().show();
-    Qt_Plateau::getPlateau().connectJetons();
-    MainWindow::getMainWindow().getTirages()->connectCartes();
+    Jeu::getJeu().setPlayers();
 
-
-    // Setup des noms
-    MainWindow::getMainWindow().demanderNoms();
-    MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
-    MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
-
-    // Setup du plateau
-    Jeu::getJeu().get_tour();
-    MainWindow::getMainWindow().updatePlateau();
-    MainWindow::getMainWindow().updateTirages();
-    MainWindow::getMainWindow().updatePrivileges();
+    cout<<"Le jeu est sur le point de commencer !\nC'est au joueur1 d'engager la partie !"<<endl;
 
     unsigned int from_error =0;
 
@@ -64,12 +47,7 @@ void gameFromScratch(int argc, char *argv[]){
 
         if(from_error == 0){
             Jeu::getJeu().get_tour();
-            MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
-            MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
-            // qDebug() << Jeu::getJeu().getCurrentPlayer().getName();
-            MainWindow::getMainWindow().updateQuiJoue();
 
-            /*
             cout<<"Etat des joueurs : "<<endl;
             Jeu::getJeu().getCurrentPlayer().print_player();
             cout<<"Bonus blanc"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::blanc)<<endl;
@@ -79,11 +57,9 @@ void gameFromScratch(int argc, char *argv[]){
             cout<<"Bonus noir"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::noir)<<endl;
             cout<<"Bonus joker"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::joker)<<endl;
             cout<<endl;
-            */
 
-            // cout<<"Il y a "<<Sac::get_sac().get_nb_sac()<<" jetons dans le sac."<<endl;
+            cout<<"Il y a "<<Sac::get_sac().get_nb_sac()<<" jetons dans le sac."<<endl;
 
-            /*
             cout<<"\n\nPlateau :"<<endl;
             Plateau::get_plateau().printTab();
 
@@ -93,43 +69,28 @@ void gameFromScratch(int argc, char *argv[]){
             cout<<*Jeu::getJeu().get_tirage_2()<<endl;
             cout<<"\nTirage3 :"<<endl;
             cout<<*Jeu::getJeu().get_tirage_3()<<endl;
-            */
 
 
-            // cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
-            // Faire un popup avec c'est à de jouer
+
+            cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
+
 
             try{
                 toJson();
             }catch (SplendorException &e){
                 cout<<e.getInfos()<<endl;
-                MainWindow::getMainWindow().triggerInfo(e.getInfos());
             }
 
 
         }
         try{
-            // qDebug() << "DEBUT TRY";
-            Jeu::getJeu().getCurrentPlayer().choice_qt();
-            // update affichage
 
-            Jeu::getJeu().getCurrentPlayer().verifJetons_qt();
-
+            Jeu::getJeu().getCurrentPlayer().choice();
+            Jeu::getJeu().getCurrentPlayer().verifJetons();
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
-                Jeu::getJeu().getCurrentPlayer().selectionRoyalCard_qt();
+                Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
             }
-
-
             Jeu::getJeu().tour_suivant();
-
-            MainWindow::getMainWindow().updateScores();
-            MainWindow::getMainWindow().updatePlateau();
-            MainWindow::getMainWindow().updateTirages();
-            MainWindow::getMainWindow().updatePrivileges();
-            MainWindow::getMainWindow().update();
-
-            QCoreApplication::processEvents();
-
             from_error = 0;
 
         }catch(SplendorException& e){
@@ -140,34 +101,14 @@ void gameFromScratch(int argc, char *argv[]){
 
     }
 
-    MainWindow::getMainWindow().updateScores();
-    MainWindow::getMainWindow().updatePlateau();
-    MainWindow::getMainWindow().updateTirages();
-    MainWindow::getMainWindow().updatePrivileges();
-    MainWindow::getMainWindow().update();
-
-
     cout<<"=================== Partie terminée ==================="<<endl;
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
     cout<<"Stats du gagnant:"<<endl;
     Jeu::getJeu().getCurrentPlayer().print_player();
+    // attention si won != 0 alors il a gagné sinon non
     Jeu::getJeu().getCurrentPlayer().game_ended(1);
     Jeu::getJeu().getOpponent().game_ended(0);
 
-    cout<<"cartes des pioches : "<<endl;
-
-    cout<<"Pioche 1: "<<endl;
-    for (auto card : Jeu::getJeu().getPioche(1)->getPioche()){
-        cout<<*card<<endl;
-    }
-    cout<<"Pioche 2: "<<endl;
-    for (auto card : Jeu::getJeu().getPioche(2)->getPioche()){
-        cout<<*card<<endl;
-    }
-    cout<<"Pioche 3: "<<endl;
-    for (auto card : Jeu::getJeu().getPioche(3)->getPioche()){
-        cout<<*card<<endl;
-    }
 
     try{
         Hist();
@@ -177,10 +118,9 @@ void gameFromScratch(int argc, char *argv[]){
     }
 
     Jeu::libereJeu();
-
 }
 
-void gameFromJson(int argc, char* argv[]){
+void gameFromJson(){
 
     try{
         std::ifstream file("../src/history.json");
@@ -220,55 +160,10 @@ void gameFromJson(int argc, char* argv[]){
         Jeu::getJeu(data);
 
 
-        cout<<"cartes des joueurs : "<<endl;
-        cout<<Jeu::getJeu().getCurrentPlayer().getNbCartesAchetees()<<endl;
-        cout<<Jeu::getJeu().getOpponent().getNbCartesAchetees()<<endl;
-
-        cout<<"cartes des tirages : "<<endl;
-
-        cout<<Jeu::getJeu().get_tirage_1()->getNbCartes()<<endl<<endl;
-        cout<<Jeu::getJeu().get_tirage_2()->getNbCartes()<<endl<<endl;
-        cout<<Jeu::getJeu().get_tirage_3()->getNbCartes()<<endl<<endl;
-
-        cout<<"cartes royales : "<<endl;
-        cout << Jeu::getJeu().getCartesRoyales().size() << endl;
-
-        cout<<"Type des joueurs : "<<endl;
-        cout<< Jeu::getJeu().getOpponent().getIa()<<endl;
-        cout<< Jeu::getJeu().getCurrentPlayer().getIa()<<endl;
-
-
-
     }catch (SplendorException &e){
         cout<< e.getInfos()<<endl;
     }
 
-    srand(static_cast<unsigned>(std::time(nullptr)));
-
-    MainWindow::getMainWindow().show();
-    Qt_Plateau::getPlateau().connectJetons();
-    MainWindow::getMainWindow().getTirages()->connectCartes();
-
-
-    // Setup des noms
-    MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
-    MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
-
-    // Setup du plateau
-    Jeu::getJeu().get_tour();
-    MainWindow::getMainWindow().updatePlateau();
-    MainWindow::getMainWindow().updateTirages();
-    MainWindow::getMainWindow().updatePrivileges();
-
-    cout<<"cartes des joueurs& : "<<endl;
-    cout<<Jeu::getJeu().getCurrentPlayer().getNbCartesAchetees()<<endl;
-    cout<<Jeu::getJeu().getOpponent().getNbCartesAchetees()<<endl;
-
-    cout<<"cartes des tirages : "<<endl;
-
-    cout<<Jeu::getJeu().get_tirage_1()->getNbCartes()<<endl<<endl;
-    cout<<Jeu::getJeu().get_tirage_2()->getNbCartes()<<endl<<endl;
-    cout<<Jeu::getJeu().get_tirage_3()->getNbCartes()<<endl<<endl;
 
     unsigned int from_error =0;
 
@@ -277,12 +172,7 @@ void gameFromJson(int argc, char* argv[]){
 
         if(from_error == 0){
             Jeu::getJeu().get_tour();
-            MainWindow::getMainWindow().setTopPlayerName(QString::fromStdString(Jeu::getJeu().getOpponent().getName()));
-            MainWindow::getMainWindow().setBottomPlayerName(QString::fromStdString(Jeu::getJeu().getCurrentPlayer().getName()));
-            // qDebug() << Jeu::getJeu().getCurrentPlayer().getName();
-            MainWindow::getMainWindow().updateQuiJoue();
 
-            /*
             cout<<"Etat des joueurs : "<<endl;
             Jeu::getJeu().getCurrentPlayer().print_player();
             cout<<"Bonus blanc"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::blanc)<<endl;
@@ -292,11 +182,9 @@ void gameFromJson(int argc, char* argv[]){
             cout<<"Bonus noir"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::noir)<<endl;
             cout<<"Bonus joker"<<Jeu::getJeu().getCurrentPlayer().calculateBonus(colorBonus::joker)<<endl;
             cout<<endl;
-            */
 
-            // cout<<"Il y a "<<Sac::get_sac().get_nb_sac()<<" jetons dans le sac."<<endl;
+            cout<<"Il y a "<<Sac::get_sac().get_nb_sac()<<" jetons dans le sac."<<endl;
 
-            /*
             cout<<"\n\nPlateau :"<<endl;
             Plateau::get_plateau().printTab();
 
@@ -306,43 +194,29 @@ void gameFromJson(int argc, char* argv[]){
             cout<<*Jeu::getJeu().get_tirage_2()<<endl;
             cout<<"\nTirage3 :"<<endl;
             cout<<*Jeu::getJeu().get_tirage_3()<<endl;
-            */
 
 
-            // cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
-            // Faire un popup avec c'est à de jouer
+
+            cout<<"c'est à "<<Jeu::getJeu().get_tour().getName()<<" de jouer ! "<<endl;
+
 
             try{
                 toJson();
             }catch (SplendorException &e){
                 cout<<e.getInfos()<<endl;
-                MainWindow::getMainWindow().triggerInfo(e.getInfos());
             }
+
 
 
         }
         try{
-            // qDebug() << "DEBUT TRY";
-            Jeu::getJeu().getCurrentPlayer().choice_qt();
-            // update affichage
 
-            Jeu::getJeu().getCurrentPlayer().verifJetons_qt();
-
+            Jeu::getJeu().getCurrentPlayer().choice();
+            Jeu::getJeu().getCurrentPlayer().verifJetons();
             if(Jeu::getJeu().getCurrentPlayer().royaleCardEligibility()==1){
-                Jeu::getJeu().getCurrentPlayer().selectionRoyalCard_qt();
+                Jeu::getJeu().getCurrentPlayer().selectionRoyalCard();
             }
-
-
             Jeu::getJeu().tour_suivant();
-
-            MainWindow::getMainWindow().updateScores();
-            MainWindow::getMainWindow().updatePlateau();
-            MainWindow::getMainWindow().updateTirages();
-            MainWindow::getMainWindow().updatePrivileges();
-            MainWindow::getMainWindow().update();
-
-            QCoreApplication::processEvents();
-
             from_error = 0;
 
         }catch(SplendorException& e){
@@ -352,7 +226,6 @@ void gameFromJson(int argc, char* argv[]){
         }
 
     }
-
 
     cout<<"=================== Partie terminée ==================="<<endl;
     cout<<"Nombre de manches : "<<Jeu::getJeu().getManche()<<endl;
@@ -374,6 +247,3 @@ void gameFromJson(int argc, char* argv[]){
 
 
 #endif //LO21_SPLENDOR_DUEL_MAIN_H
-
-
-#endif // MAIN_H
