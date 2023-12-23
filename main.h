@@ -144,22 +144,6 @@ void gameFromScratch(int argc, char *argv[]){
     cout<<"Stats du perdant : "<<endl;
     Jeu::getJeu().getOpponent().print_player();
 
-
-//    cout<<"cartes des pioches : "<<endl;
-//
-//    cout<<"Pioche 1: "<<endl;
-//    for (auto card : Jeu::getJeu().getPioche(1)->getPioche()){
-//        cout<<*card<<endl;
-//    }
-//    cout<<"Pioche 2: "<<endl;
-//    for (auto card : Jeu::getJeu().getPioche(2)->getPioche()){
-//        cout<<*card<<endl;
-//    }
-//    cout<<"Pioche 3: "<<endl;
-//    for (auto card : Jeu::getJeu().getPioche(3)->getPioche()){
-//        cout<<*card<<endl;
-//    }
-
     try{
         Hist();
         toJson();
@@ -167,6 +151,7 @@ void gameFromScratch(int argc, char *argv[]){
         cout<<e.getInfos()<<endl;
     }
 
+    MainWindow::getMainWindow().triggerInfo("Bravo, "+Jeu::getJeu().getCurrentPlayer().getName()+" a gagné!");
 
 }
 
@@ -357,6 +342,7 @@ void gameFromJson(int argc, char* argv[]){
     }catch (SplendorException &e){
         cout<<e.getInfos()<<endl;
     }
+    MainWindow::getMainWindow().triggerInfo("Bravo, "+Jeu::getJeu().getCurrentPlayer().getName()+" a gagné!");
 
 }
 

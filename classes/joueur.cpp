@@ -521,161 +521,143 @@ void Joueur::choice(){
 
 // Surcharge Qt
 void Joueur::choice_qt(){
-    // Désactiver tous les boutons
-
-
 
     int tmp = 0;
     bool fin_choix = 0;
     int nb_choice = 0;
     char info;
     while (!fin_choix){
-        try{
+        try {
             MainWindow::getMainWindow().deactivateButtons();
             nb_choice = getOptionalChoices(); // bien vérifier la convention sur le retour dans la définition de la méthode
+            MainWindow::getMainWindow().triggerNextAction(&tmp, this);p
 
-            MainWindow::getMainWindow().triggerNextAction(&tmp, this);
-
-
-            // MainWindow::getMainWindow().triggerYesNo(&info);
-            // qDebug() << info;
-
-            if(info=='N'){
-                cout<<"Vous n'avez pas validé , vous devez recommencer voter choix!";
+            if (info == 'N') {
+                cout << "Vous n'avez pas validé , vous devez recommencer voter choix!";
                 throw SplendorException("");
             }
 
             switch (nb_choice) { // l'affichage et donc le choix dépend de la valeur de retour des choix optionnels
-            case (0): { // aucun choix optionnel possible
-                switch (tmp) {
-                case 1: {
-                    selection_jetons_qt();
+                case (0): { // aucun choix optionnel possible
+                    switch (tmp) {
+                        case 1: {
+                            selection_jetons_qt();
 
-                    fin_choix = 1;
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 2: {
+                            achat_carte_qt();
+
+                            fin_choix = 1;
+
+                            break;
+                        }
+                        default: { // on continue jusqu'à ce que l'utilisateur choisisse une entrée valide!
+                            break;
+                        }
+                            break;
+                    }
                     break;
                 }
-                case 2: {
-                    achat_carte_qt();
+                case (1): { // seulement possible d'utiliser un privilège
+                    switch (tmp) {
+                        case 1: {
+                            utilisationPrivilege_qt();
 
-                    fin_choix = 1;
+                            break;
+                        }
+                        case 2: {
+                            selection_jetons_qt();
 
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 3: {
+                            achat_carte_qt();
+
+                            fin_choix = 1;
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
+                    }
                     break;
                 }
-                default: // on continue jusqu'à ce que l'utilisateur choisisse une entrée valide!
+                case (2): { // seulement possible de remplir le plateau
+                    switch (tmp) {
+                        case 1: { // remplissage plateau
+                            remplissagePlateau();
+
+                            break;
+                        }
+                        case 2: {
+                            selection_jetons_qt();
+
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 3: {
+                            achat_carte_qt();
+
+                            fin_choix = 1;
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
+                    }
                     break;
                 }
-                break;
+                case (3): { // deux choix optionnels possibles
+                    switch (tmp) {
+                        case 1: {
+                            utilisationPrivilege_qt();
+
+                            break;
+                        }
+                        case 2: { // remplissage plateau
+                            remplissagePlateau();
+
+                            break;
+                        }
+                        case 3: {
+                            selection_jetons_qt();
+
+                            fin_choix = 1;
+                            break;
+                        }
+                        case 4: {
+                            achat_carte_qt();
+
+                            fin_choix = 1;
+                            break;
+                        }
+
+                        default: {
+                            break;
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    break;
+                }
             }
-            case (1): { // seulement possible d'utiliser un privilège
-                switch (tmp) {
-                case 1: {
-                    utilisationPrivilege_qt();
-
-                    break;
-                }
-                case 2: {
-                    selection_jetons_qt();
-
-                    fin_choix = 1;
-                    break;
-                }
-                case 3: {
-                    achat_carte_qt();
-
-                    fin_choix = 1;
-                    break;
-                }
-                    //                        case 4: {
-                    //                            // affichage des jetons du jouer !
-                    //                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-                    //                            // afficher pour chaque type
-                    //                            break;
-                    //                        }
-                default:
-                    break;
-                }
-                break;
-            }
-            case (2): { // seulement possible de remplir le plateau
-                switch (tmp) {
-                case 1: { // remplissage plateau
-                    remplissagePlateau();
-
-                    break;
-                }
-                case 2: {
-                    selection_jetons_qt();
-
-                    fin_choix = 1;
-                    break;
-                }
-                case 3: {
-                    achat_carte_qt();
-
-                    fin_choix = 1;
-                    break;
-                }
-                    //                        case 4: {
-                    //                            // affichage des jetons du jouer !
-                    //                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-                    //                            // afficher pour chaque type
-                    //                            break;
-                    //                        }
-                default:
-                    break;
-                }
-                break;
-            }
-            case (3): { // deux choix optionnels possibles
-                switch (tmp) {
-                case 1: {
-                    utilisationPrivilege_qt();
-
-                    break;
-                }
-                case 2: { // remplissage plateau
-                    remplissagePlateau();
-
-                    break;
-                }
-                case 3: {
-                    selection_jetons_qt();
-
-                    fin_choix = 1;
-                    break;
-                }
-                case 4: {
-                    achat_carte_qt();
-
-                    fin_choix = 1;
-                    break;
-                }
-                    //                        case 5: {
-                    //                            // affichage des jetons du jouer !
-                    //                            //cout<<"Inventaire du joueur : "<<Jeu::getJeu().getCurrentPlayer().getName()<<endl;
-                    //                            // afficher pour chaque type
-                    //                            break;
-                    //                        }
-                default:
-                    break;
-                }
-                break;
-            }default: break;
-            }
-            qDebug() << "Sorti";
             MainWindow::getMainWindow().updatePlateau();
             MainWindow::getMainWindow().updateTirages();
             MainWindow::getMainWindow().updateScores();
             MainWindow::getMainWindow().updatePrivileges();
             MainWindow::getMainWindow().update();
-        }catch(SplendorException& e){
+        }catch(SplendorException & e){
             MainWindow::getMainWindow().triggerInfo(e.getInfos());
-            cout<<e.getInfos()<<"\n";
+            cout << e.getInfos() << "\n";
         }
+
     }
-
-
 }
+
 
 void Joueur::utilisationPrivilege(){
     if (nb_privileges<=0)
@@ -2251,6 +2233,7 @@ void IA::choice_qt() {
                 throw SplendorException(
                         "Il n'y a que" + to_string(i) + " choix! Vous ne pouvez pas choisir autre chose!\n");
             }
+            QCoreApplication::processEvents();
             switch (nb_choice) { // l'affichage et donc le choix dépend de la valeur de retour des choix optionnels
                 case (0): { // aucun choix optionnel possible
                     switch (tmp) {
@@ -2348,9 +2331,16 @@ void IA::choice_qt() {
                     }
                     break;
                 }
-                default:
+                default:{
                     break;
+                }
+
             }
+            MainWindow::getMainWindow().updatePlateau();
+            MainWindow::getMainWindow().updateTirages();
+            MainWindow::getMainWindow().updateScores();
+            MainWindow::getMainWindow().updatePrivileges();
+            MainWindow::getMainWindow().update();
 
         } catch (SplendorException &e) {
             cout << e.getInfos() << "\n";

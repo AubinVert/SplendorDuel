@@ -54,5 +54,4 @@ void InputPopup::onSubmitClicked() {
         MainWindow::getMainWindow().triggerInfo("veuillez remplir les deux champs correctement");
     }
 
-
 }

@@ -47,7 +47,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    // libérer History et Match
 
     History::freeHistory();
     return app.exec();
