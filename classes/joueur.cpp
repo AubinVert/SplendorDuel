@@ -1686,7 +1686,7 @@ void Joueur::buyCard_qt(Tirage *t, const int indice){
                 if ((couleur == Color::vert) && (nb>cout_vert)) throw SplendorException("Le cout vert est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::noir) && (nb>cout_noir)) throw SplendorException("Le cout noir est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::perle) && (nb>cout_blanc)) throw SplendorException("Le cout perle est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
-                if ((couleur != Color::blanc ) && (couleur != Color::bleu) && (couleur != Color::rouge) && (couleur !=Color::vert) && (couleur !=Color::noir) && (couleur !=Color::perle)) throw SplendorException("Couleur de jeton!");
+                if ((couleur != Color::blanc ) && (couleur != Color::bleu) && (couleur != Color::rouge) && (couleur !=Color::vert) && (couleur !=Color::noir) && (couleur !=Color::perle)) throw SplendorException("Couleur de jeton!");
 
                 // Si on a passé tous ces tests, on peut utiliser les jetons or
                 nb_gold+=nb;
@@ -1910,7 +1910,7 @@ void Joueur::buyCardFromReserve_qt( const int indice){
                 if ((couleur == Color::vert) && (nb>cout_vert)) throw SplendorException("Le cout vert est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::noir) && (nb>cout_noir)) throw SplendorException("Le cout noir est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
                 if ((couleur == Color::perle) && (nb>cout_blanc)) throw SplendorException("Le cout perle est inférieur au nombre de jetons or que vous souhaitez utiliser en tant que joker!");
-                if ((couleur != Color::blanc ) && (couleur != Color::bleu) && (couleur != Color::rouge) && (couleur !=Color::vert) && (couleur !=Color::noir) && (couleur !=Color::perle)) throw SplendorException("Couleur de jeton!");
+                if ((couleur != Color::blanc ) && (couleur != Color::bleu) && (couleur != Color::rouge) && (couleur !=Color::vert) && (couleur !=Color::noir) && (couleur !=Color::perle)) throw SplendorException("Couleur de jeton!");
 
                 // Si on a passé tous ces tests, on peut utiliser les jetons or
                 nb_gold+=nb;
