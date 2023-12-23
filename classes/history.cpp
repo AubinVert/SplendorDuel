@@ -231,6 +231,9 @@ void Jeu::setPlayers(string& name1, string& name2, string& choix1, string& choix
     if(name1 == name2){
         throw SplendorException("Les joueurs doivent être différents !");
     }
+    if(name1 == "" or name2 == ""){
+        throw SplendorException("Les deux joueurs doivent avoir un nom!");
+    }
 
     if (choix1 == "IA") choix1 = "I";
     else choix1 = "J";
