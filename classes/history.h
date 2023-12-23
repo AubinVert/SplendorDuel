@@ -76,17 +76,25 @@ private:
 
     History() = default;
 
-    ~History(){
-        for (int i = 0; i < nb_match; ++i) {
-            delete matches[i];
+    ~History() {
+        for (Match* match : matches) {
+            delete match;
         }
+        matches.clear();
+        delete &handler;
     }
+
 
     History(const History &) = delete;
 
     History &operator=(const History &) = delete;
 
 public:
+
+    static void freeHistory(){
+        delete &History::getHistory();
+    }
+
 
     void addPlayer() {
         nb_joueurs++;
@@ -114,7 +122,6 @@ public:
     unsigned int getSize() const {
         return nb_match;
     }
-
 
     void initHistory(json data) {
         for (int i = 0; i < data["nb_matches"]; ++i){
