@@ -483,7 +483,7 @@ void MainWindow::updateTirages(){
     }
 
     if (tirages->getDeck1() != nullptr) {
-        if (Jeu::getJeu().get_tirage_1()->getNbCartes() > 0) tirages->getDeck1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
+        if (!Jeu::getJeu().getPioche(1)->est_vide()) tirages->getDeck1()->updateAppearance("../src/Reste_detoure/Pioche_niveau_1.png");
         else {
             tirages->getDeck1()->setIcon(QIcon());
             tirages->getDeck1()->setIconSize(this->size());
@@ -491,7 +491,7 @@ void MainWindow::updateTirages(){
         }
     }
     if (tirages->getDeck2() != nullptr) {
-        if (Jeu::getJeu().get_tirage_2()->getNbCartes() > 0) tirages->getDeck2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
+        if (!Jeu::getJeu().getPioche(2)->est_vide()) tirages->getDeck2()->updateAppearance("../src/Reste_detoure/Pioche_niveau_2.png");
         else {
             tirages->getDeck2()->setIcon(QIcon());
             tirages->getDeck2()->setIconSize(this->size());
@@ -499,7 +499,7 @@ void MainWindow::updateTirages(){
         }
     }
     if (tirages->getDeck3() != nullptr) {
-        if (Jeu::getJeu().get_tirage_3()->getNbCartes() > 0) tirages->getDeck3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
+        if (!Jeu::getJeu().getPioche(3)->est_vide()) tirages->getDeck3()->updateAppearance("../src/Reste_detoure/Pioche_niveau_3.png");
         else {
             tirages->getDeck3()->setIcon(QIcon());
             tirages->getDeck3()->setIconSize(this->size());
