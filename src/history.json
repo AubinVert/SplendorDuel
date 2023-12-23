@@ -2,68 +2,20 @@
   "matches": [
     {
       "adversaire": {
-        "games": 3,
+        "games": 1,
         "games_won": 0,
         "is_ia": 1,
         "nom": "ia2"
-      },
-      "gagnant": {
-        "games": 4,
-        "games_won": 3,
-        "is_ia": 1,
-        "nom": "ia1"
-      },
-      "score_adversaire": 16,
-      "score_gagnant": 16
-    },
-    {
-      "adversaire": {
-        "games": 3,
-        "games_won": 0,
-        "is_ia": 1,
-        "nom": "ia2"
-      },
-      "gagnant": {
-        "games": 4,
-        "games_won": 3,
-        "is_ia": 1,
-        "nom": "ia1"
-      },
-      "score_adversaire": 19,
-      "score_gagnant": 20
-    },
-    {
-      "adversaire": {
-        "games": 4,
-        "games_won": 3,
-        "is_ia": 1,
-        "nom": "ia1"
       },
       "gagnant": {
         "games": 1,
         "games_won": 1,
         "is_ia": 1,
-        "nom": "ia3"
-      },
-      "score_adversaire": 5,
-      "score_gagnant": 20
-    },
-    {
-      "adversaire": {
-        "games": 3,
-        "games_won": 0,
-        "is_ia": 1,
-        "nom": "ia2"
-      },
-      "gagnant": {
-        "games": 4,
-        "games_won": 3,
-        "is_ia": 1,
         "nom": "ia1"
       },
-      "score_adversaire": 2,
-      "score_gagnant": 22
+      "score_adversaire": 3,
+      "score_gagnant": 21
     }
   ],
-  "nb_matches": 4
+  "nb_matches": 1
 }

@@ -20,11 +20,22 @@ int main(int argc, char *argv[]) {
     yesno.exec();
     char tmp = yesno.getUserChoice();
 
+
     if(tmp == 'Y'){
         gameFromScratch(argc, argv);
     }
     else {
         gameFromJson(argc, argv);
+    }
+
+    char tmp2 = 'Y';
+    while(tmp2 == 'Y'){
+        popupYesNo relaunch(nullptr, "Voulez vous recommencer (Oui/Non) ?");
+        relaunch.show();
+        tmp2 = relaunch.getUserChoice();
+        if(tmp2 == 'Y'){
+            gameFromScratch(argc, argv);
+        }
     }
 
     return app.exec();
