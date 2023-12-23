@@ -17,7 +17,6 @@ private:
     Privilege(): id(instanceCount) {}
     Privilege(int id): id(id) {}
 
-
 public:
 
     json toJson() const{
@@ -47,6 +46,13 @@ public:
         }
         throw SplendorException("Nombres d'instances de privileges depassé");
     }
+
+
+    ~Privilege(){
+        instanceCount = 0;
+    }
+
+
     static int get_max_instance(){return maxInstances;}
 };
 

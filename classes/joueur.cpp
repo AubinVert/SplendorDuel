@@ -25,13 +25,13 @@ Strategy_player::Strategy_player(const string &nom) : nb_points(0), nb_cartes_j(
 
 Strategy_player::~Strategy_player(){
     // Déstruction cartes royales
-    for (auto & cartes_royale : cartes_royale){
+    for (auto  cartes_royale : cartes_royale){
         delete cartes_royale;
     }
     cartes_royale.clear();
 
     // Déstruction privilèges
-    for (auto & privilege : privileges){
+    for (auto  privilege : privileges){
         delete privilege;
     }
     privileges.clear();

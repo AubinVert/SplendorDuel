@@ -30,13 +30,22 @@ int main(int argc, char *argv[]) {
 
     char tmp2 = 'Y';
     while(tmp2 == 'Y'){
+
         popupYesNo relaunch(nullptr, "Voulez vous recommencer (Oui/Non) ?");
-        relaunch.show();
-        tmp2 = relaunch.getUserChoice();
-        if(tmp2 == 'Y'){
-            gameFromScratch(argc, argv);
+        relaunch.exec();
+        try{
+            tmp2 = relaunch.getUserChoice();
+            if(tmp2 == 'Y'){
+                gameFromScratch(argc, argv);
+            }
+        }catch (SplendorException &e){
+            cout<<e.getInfos()<<endl;
+            MainWindow::getMainWindow().triggerInfo(e.getInfos());
         }
+
     }
+
+    // libérer History et Match
 
     return app.exec();
 }
